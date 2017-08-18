@@ -1,0 +1,10 @@
+config.yaml
+!config.sample.yaml
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+.idea/*
+.tags1
+upload/*
+images/*

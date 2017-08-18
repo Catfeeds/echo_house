@@ -1,0 +1,17 @@
+---
+file:
+  accessKey:
+  secretKey:
+  bucket:
+  enableCloudStorage: true
+  host:
+db:
+  host:
+  dbname:
+  username:
+  password:
+cache:
+  host:
+  port: 11211
+params:
+  urmHost: 

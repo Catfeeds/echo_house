@@ -1,0 +1,20 @@
+.select2-container-multi .select2-choices .select2-search-choice{
+
+padding: 5px 5px 5px 18px !important;
+margin: 5px 0 3px 5px;
+border: none !important;
+color: #fff !important;
+background-image: none;
+border-radius: 5px !important;
+background-color: #3292EA !important;
+filter: none;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+}
+
+.select2-search-choice-close{
+   background-image:url('../img/select2_custom.png') !important;
+}
+.select2-container-multi .select2-search-choice-close{
+   top:5px;
+}
