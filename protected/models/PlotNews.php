@@ -5,7 +5,9 @@
  *
  * The followings are the available columns in table 'plot_news':
  * @property integer $id
- * @property integer $pid
+ * @property integer $hid
+ * @property integer $uid
+ * @property string $author
  * @property string $title
  * @property string $description
  * @property string $content
@@ -38,13 +40,13 @@ class PlotNews extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('pid, time, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('hid, uid, time, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('author, source', 'length', 'max'=>100),
 			array('title, description, image, url', 'length', 'max'=>255),
-			array('source', 'length', 'max'=>100),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pid, title, description, content, image, source, url, time, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, uid, author, title, description, content, image, source, url, time, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,7 +68,9 @@ class PlotNews extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pid' => 'Pid',
+			'hid' => 'Hid',
+			'uid' => 'Uid',
+			'author' => 'Author',
 			'title' => 'Title',
 			'description' => 'Description',
 			'content' => 'Content',
@@ -101,7 +105,9 @@ class PlotNews extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('pid',$this->pid);
+		$criteria->compare('hid',$this->hid);
+		$criteria->compare('uid',$this->uid);
+		$criteria->compare('author',$this->author,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('content',$this->content,true);

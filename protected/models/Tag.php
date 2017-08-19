@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $cate
  * @property integer $sort
+ * @property string $pinyin
  * @property integer $status
  * @property integer $created
  * @property integer $updated
@@ -33,9 +34,10 @@ class Tag extends CActiveRecord
 			array('name, cate, created', 'required'),
 			array('sort, status, created, updated', 'numerical', 'integerOnly'=>true),
 			array('name, cate', 'length', 'max'=>20),
+			array('pinyin', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, cate, sort, status, created, updated', 'safe', 'on'=>'search'),
+			array('id, name, cate, sort, pinyin, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +62,7 @@ class Tag extends CActiveRecord
 			'name' => '标签名称',
 			'cate' => '分类标识',
 			'sort' => '排序',
+			'pinyin' => 'Pinyin',
 			'status' => '状态',
 			'created' => '添加时间',
 			'updated' => '修改时间',
@@ -88,6 +91,7 @@ class Tag extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('cate',$this->cate,true);
 		$criteria->compare('sort',$this->sort);
+		$criteria->compare('pinyin',$this->pinyin,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);

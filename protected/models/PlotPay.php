@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $name
  * @property string $content
+ * @property integer $hid
  * @property integer $sort
  * @property integer $status
  * @property integer $deleted
@@ -32,12 +33,12 @@ class PlotPay extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('hid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, content, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, name, content, hid, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +62,7 @@ class PlotPay extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'content' => 'Content',
+			'hid' => 'Hid',
 			'sort' => 'Sort',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
@@ -90,6 +92,7 @@ class PlotPay extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('content',$this->content,true);
+		$criteria->compare('hid',$this->hid);
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('deleted',$this->deleted);

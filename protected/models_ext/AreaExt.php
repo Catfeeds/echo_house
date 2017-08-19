@@ -77,6 +77,9 @@ class AreaExt extends Area{
                 'condition' => "{$alias}.deleted=0",
                 // 'order'=>"{$alias}.sort desc,{$alias}.updated desc",
             ),
+            'parent' =>array(
+              'condition'=>  "{$alias}.parent = 0"
+            ),
         );
     }
 
@@ -92,6 +95,20 @@ class AreaExt extends Area{
             ),
             'BaseBehavior'=>'application.behaviors.BaseBehavior',
         );
+    }
+
+    /**
+     * 根据父级id获取下级区域
+     * @param  integer $parent 父级区域id
+     * @return AreaExt
+     */
+    public function getByParent($parent)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'parent=:parent',
+            'params' => array(':parent'=>$parent)
+        ));
+        return $this;
     }
 
 }

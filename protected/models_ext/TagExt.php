@@ -14,9 +14,9 @@ class TagExt extends Tag
         //直接式标签
         'direct' => [
             'wzlm' => '项目列表顶部标签',
-            // 'xcfl' => '相册分类',
-            // 'hjlx' => '产品类型',
-            // 'ptpz' => '葡萄品种',
+            'wylx' => '物业类型',
+            'zxzt' => '装修状态',
+            'xszt' => '销售状态',
             // 'hjxl' => '红酒系列',
             // 'jzdq' => '酒庄地区',
             // 'jzdj' => '酒庄等级',
@@ -112,7 +112,7 @@ class TagExt extends Tag
     public function beforeValidate()
     {
         $this->name && $this->pinyin = Pinyin::get($this->name);
-        $this->cate = 'wzlm';
+        // $this->cate = 'wzlm';
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
         else
@@ -132,7 +132,6 @@ class TagExt extends Tag
      */
     public function deleteAllByTagId()
     {
-        ArticleTagExt::model()->deleteAllByAttributes(['tid'=>$this->id]);
     }
 
     /**
@@ -297,15 +296,5 @@ class TagExt extends Tag
     public function afterSave()
     {
         parent::afterSave();
-        $name = $this->name;
-        $id = $this->id;
-        if($rels = $this->arel) {
-        	foreach ($rels as $key => $value) {
-        		if(!Yii::app()->db->createCommand("select id from article where deleted=0 and old_id=0 and id=".$value->aid)->queryScalar()) {
-        			Yii::app()->db->createCommand("delete from article_tag where id=".$value->id)->execute();
-        		}
-        	}
-        }
-        Yii::app()->db->createCommand("update article_tag set name='$name' where tid=$id")->execute();
     }
 }
