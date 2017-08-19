@@ -25,6 +25,9 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
         <li>
             <a href="#tab_3" data-toggle="tab"> 销售配套</a>
         </li>
+        <li>
+            <a href="#tab_4" data-toggle="tab"> 结佣规则</a>
+        </li>
     </ul>
     <div class="tab-content col-md-12" style="padding-top:20px;">
     <!-- 基本信息 -->
@@ -105,6 +108,27 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                     <div id="singlePicyw1"></div>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'image'); ?></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">总代公司</label>
+                <div class="col-md-10">
+                    <?php echo $form->textField($plot,'zd_company',array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'zd_company'); ?></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">对接人</label>
+                <div class="col-md-10">
+                    <?php echo $form->textField($plot,'market_users',array('class'=>'form-control','placeholder'=>'多个用空格隔开')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
+            </div>
+             <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">指定对接</label>
+                <div class="col-md-10">
+                    <?php echo $form->textField($plot,'market_user',array('class'=>'form-control')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
 
         </div>
@@ -351,27 +375,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                     <span class="help-block"><?php echo $form->error($plot, 'sale_status'); ?></span>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">总代公司</label>
-                <div class="col-md-10">
-                    <?php echo $form->textField($plot,'zd_company',array('class'=>'form-control')); ?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'zd_company'); ?></div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">对接人</label>
-                <div class="col-md-10">
-                    <?php echo $form->textField($plot,'market_users',array('class'=>'form-control','placeholder'=>'多个用空格隔开')); ?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
-            </div>
-             <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">指定对接</label>
-                <div class="col-md-10">
-                    <?php echo $form->textField($plot,'market_user',array('class'=>'form-control')); ?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
-            </div>
+            
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">楼盘电话</label>
                 <div class="col-md-10">
@@ -426,7 +430,24 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
             </div>
         </div>
     </div>
-    
+    <div class="tab-pane col-md-12" id="tab_4">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-nowrap">结佣规则</label>
+            <div class="col-md-10">
+                <?php echo $form->textField($plot,'jy_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+            </div>
+            <div class="col-md-12"><?php echo $form->error($plot, 'jy_rule'); ?></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label text-nowrap">开发商规则</label>
+            <div class="col-md-10">
+                <?php echo $form->textField($plot,'kfs_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+            </div>
+            <div class="col-md-12"><?php echo $form->error($plot, 'kfs_rule'); ?></div>
+        </div>
+    </div>
+
     <div class="col-md-12 center-block text-center">
         <div class="btn-group text-center">
             <button class="btn green-meadow col-md-offset-4">提交</button>

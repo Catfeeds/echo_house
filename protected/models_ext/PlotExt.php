@@ -66,6 +66,8 @@ class PlotExt extends Plot{
         'build_year'=>'',
         'investor'=>'',
         'brand'=>'',
+        'jy_rule'=>'',
+        'kfs_rule'=>'',
         // ''
     ];
 
