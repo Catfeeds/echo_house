@@ -182,7 +182,11 @@ class PlotExt extends Plot{
         return array(
             'undeleted' => array(
                 'condition' => $alias.'.'.'deleted=0',
-            )
+            ),
+           'normal' => array(
+                'condition' => "{$alias}.status=1 and {$alias}.deleted=0",
+                'order'=>"{$alias}.sort desc,{$alias}.updated desc",
+            ),
         );
     }
     /**

@@ -26,6 +26,9 @@ class UserExt extends User{
         '2'=>'分销公司',
         '3'=>'独立中介',
     ];
+    public static $sex = [
+    '未知','男','女'
+    ];
 	/**
      * 定义关系
      */

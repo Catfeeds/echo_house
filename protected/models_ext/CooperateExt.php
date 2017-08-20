@@ -10,9 +10,9 @@ class CooperateExt extends Cooperate{
      */
     public function relations()
     {
-        return array(
-            'team'=>array(self::BELONGS_TO, 'TeamExt', 'tid'),
-            // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
+         return array(
+            'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
+            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
         );
     }
 

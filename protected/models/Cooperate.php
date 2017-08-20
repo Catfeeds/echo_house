@@ -32,8 +32,8 @@ class Cooperate extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, created', 'required'),
-			array('id, hid, uid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('created', 'required'),
+			array('hid, uid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
 			array('com_phone', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

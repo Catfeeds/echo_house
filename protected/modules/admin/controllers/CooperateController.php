@@ -1,8 +1,8 @@
 <?php
 /**
- * 快速报备控制器
+ * 申请分销控制器
  */
-class SubController extends AdminController{
+class CooperateController extends AdminController{
 	
 	public $cates = [];
 
@@ -10,12 +10,12 @@ class SubController extends AdminController{
 
 	public $controllerName = '';
 
-	public $modelName = 'SubExt';
+	public $modelName = 'CooperateExt';
 
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '快速报备';
+		$this->controllerName = '申请分销';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
@@ -53,7 +53,7 @@ class SubController extends AdminController{
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
-			$info->time =  is_numeric($info->time)?$info->time : strtotime($info->time);
+			// $info->time =  is_numeric($info->time)?$info->time : strtotime($info->time);
 			if($info->save()) {
 				$this->setMessage('操作成功','success',['list']);
 			} else {

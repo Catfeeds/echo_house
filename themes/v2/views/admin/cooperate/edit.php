@@ -29,62 +29,16 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">客户姓名</label>
+    <label class="col-md-2 control-label">对接人联系</label>
     <div class="col-md-4">
-        <?php echo $form->textField($article, 'name', array('class' => 'form-control')); ?>
+        <?php echo $form->textField($article, 'com_phone', array('class' => 'form-control')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'name') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">客户性别</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'sex', UserExt::$sex, array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'sex') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">客户联系方式</label>
-    <div class="col-md-4">
-        <?php echo $form->textField($article, 'phone', array('class' => 'form-control')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">带看时间<span class="required" aria-required="true">*</span></label>
-    <div class="col-md-4">
-        <div class="input-group date form_datetime">
-                  <?php echo $form->textField($article,'time',array('class'=>'form-control','value'=>($article->time?date('Y-m-d',$article->time):''))); ?>
-                  <span class="input-group-btn">
-                    <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-                 </span>
-              </div>
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">备注</label>
-    <div class="col-md-4">
-        <?php echo $form->textarea($article, 'note', array('class' => 'form-control')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'note') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">是否只报备</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'is_only_sub', ['否','是'], array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'is_only_sub') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">市场对接人</label>
-    <div class="col-md-4">
-        <?php echo $form->textField($article, 'market_staff', array('class' => 'form-control')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'market_staff') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'com_phone') ?></div>
 </div>
 <div class="form-group">
     <label class="col-md-2 control-label">状态</label>
     <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'status', SubExt::$status, array('separator' => '')); ?>
+        <?php echo $form->radioButtonList($article, 'status', UserExt::$status, array('separator' => '')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'status') ?></div>
 </div>
