@@ -24,3 +24,6 @@ img{
 	visibility: hidden;
 	height: 0;
 }
+input{
+	outline: medium;
+}

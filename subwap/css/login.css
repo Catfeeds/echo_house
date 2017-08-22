@@ -1,6 +1,5 @@
 body{
 	width: 20rem;
-	height: 100%;
 	background-color: #fff;
 }
 
@@ -32,7 +31,8 @@ body{
 	font-size: 0.8rem;
 	width: 12.0rem;
 	border:none;
-	color: #eeeeee;
+	color: #c3c3c3;
+	border:none;
 }
 
 .login-password{
@@ -56,7 +56,8 @@ body{
 	font-size: 0.8rem;
 	width: 12.0rem;
 	border:none;
-	color: #eeeeee;
+	color: #c3c3c3;
+	border:none;
 }
 
 .line{
@@ -74,11 +75,22 @@ body{
 	top: 0.773rem;
 }
 
-.login-remberpassword-img{
+.login-remberpassword-no{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	left: 0.64rem;
+	border: solid 0.027rem #c3c3c3;
+	border-radius: 0.4rem;
+	display: block;
+}
+
+.login-remberpassword-img-yes{
 	position: absolute;
 	height: 0.853rem;
 	width: 0.853rem;
 	left: 0.64rem;
+	display: none;
 }
 
 .login-remberpassword-text{
@@ -94,6 +106,7 @@ body{
 	left: 15.973rem;
 	margin-top: -0.164rem;
 	height: 1rem; 
+	width: 4rem;
 	color: #333333;
 	font-size: 0.747rem;
 	cursor: pointer;
@@ -115,6 +128,7 @@ body{
 	color: #fff;
 	font-size: 0.747rem;
 	line-height: 2.347rem;
+	border:none;
 }
 
 .login-register{
@@ -131,5 +145,5 @@ body{
 	line-height: 2.347rem;
 	border: 0.027rem;
 	border-style:solid;
-	border-color: #333333;
+	border-color: #c3c3c3;
 }
