@@ -1,0 +1,167 @@
+body{
+	width: 20rem;
+	height: 100%;
+	background-color: #efeff4;
+}
+
+
+.register-head-bg{
+	position: relative;
+	width: 20.0rem;
+	height: 0.533rem;
+	background-color: #efeff4;
+}
+
+.register-textarea{
+	position: relative;
+	width: 20rem;
+	height: 2.64rem;
+	background-color: #fff;
+}
+
+.register-logo{
+	position: absolute;
+	top: 0.8rem;
+	left: 0.88rem;
+	width: 0.96rem;
+	height: 1.067rem;
+}
+
+.register-text{
+	position: absolute;	
+	top: 0.88rem;
+	left: 2.587rem;
+	font-size: 0.8rem;
+	width: 12.0rem;
+	border:none;
+	color: #eeeeee;
+}
+
+.line{
+	position: relative;
+	left: 0.64rem;
+	height: 0.027rem;
+	width: 18.747rem;
+	background-color: #eeeeee;
+}
+
+.register-getmessage{
+	position: absolute;
+	width: 4.8rem;
+	height: 1.76rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	color: #fff;
+	text-align: center;
+	line-height: 1.76rem;
+	top: 0.453rem;
+	left: 14.56rem;
+	font-size: 0.8rem;
+}
+
+.regisiter-usertype-text{
+	position: relative;	
+	top: 0.88rem;
+	left: 0.88rem;
+	font-size: 0.8rem;
+	width: 6.4rem;
+	height: 2.64rem;
+	color: #eeeeee;
+}
+
+.regisiter-usertype{
+	position: relative;
+	background-color: #fff;
+}
+
+.regisiter-usertype-choose{
+	position: absolute;
+	width: 14.987rem;
+	height: 2.64rem;
+	top: 0.1rem;
+	left: 6.8rem;
+}
+
+.regisiter-usertype-choice1{
+	position: relative;
+	width: 4.107rem;
+	font-size: 0.693rem;
+	color: #333333;
+	text-align: center;
+	line-height: 2.64rem;
+	float: left;
+	border-style: solid;
+	border:0.027rem;
+	color: #414141;
+	border-color: #414141;
+}
+
+.regisiter-usertype-choice2{
+	position: relative;
+	width: 4.107rem;
+	font-size: 0.693rem;
+	color: #333333;
+	text-align: center;
+	line-height: 2.64rem;
+	float: left;
+	border-style: solid;
+	border:0.027rem;
+	color: #414141;
+	border-color: #414141;
+}
+
+.regisiter-usertype-choice3{
+	position: relative;
+	width: 4.107rem;
+	font-size: 0.693rem;
+	color: #333333;
+	text-align: center;
+	line-height: 2.64rem;
+	float: left;
+	background-color: #00b7ee;
+	border-style: solid;
+	border:0.027rem;
+	color: #414141;
+	border-color: #414141;
+}
+
+.register-cardupload{
+	position: relative;
+	top: 1.04rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+}
+
+.register-register{
+	position: relative;
+	top: 1.04rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #fff;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #00b7ee;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+}
+
+.register-attention{
+	font-size: 0.64rem;
+	color: #999999;
+}
+
+.register-attention-img{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	top: 0.533rem;
+	left: 0.64rem;
+}

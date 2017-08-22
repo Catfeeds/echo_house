@@ -1,0 +1,135 @@
+body{
+	width: 20rem;
+	height: 100%;
+	background-color: #fff;
+}
+
+.echo-house-img{
+	position: relative;
+	height:  7.2rem;
+	width:  20rem;
+}
+
+.login-phonenumber{
+	position: relative;
+	margin-top: 1.387rem;
+	width: 20.0rem;
+	height: 2.64rem;
+}
+
+.login-phonenumber-img{
+	position: absolute;
+	top: 0.747rem;
+	left: 1.013rem;
+	width: 0.693rem;
+	height: 1.173rem;
+}
+
+.login-phonenumber-text{
+	position: absolute;
+	top: 0.88rem;
+	left: 2.587rem;
+	font-size: 0.8rem;
+	width: 12.0rem;
+	border:none;
+	color: #eeeeee;
+}
+
+.login-password{
+	position: relative;
+	width: 20rem;
+	height: 2.64rem;	
+}
+
+.login-password-img{
+	position: absolute;
+	top: 0.8rem;
+	left: 0.88rem;
+	width: 0.96rem;
+	height: 1.067rem;
+}
+
+.login-password-text{
+	position: absolute;	
+	top: 0.88rem;
+	left: 2.587rem;
+	font-size: 0.8rem;
+	width: 12.0rem;
+	border:none;
+	color: #eeeeee;
+}
+
+.line{
+	position: relative;
+	left: 0.64rem;
+	height: 0.027rem;
+	width: 18.747rem;
+	background-color: #eeeeee;
+}
+
+.login-remberpassword{
+	position: relative;
+	height: 0.853rem;
+	width: 6.333rem;
+	top: 0.773rem;
+}
+
+.login-remberpassword-img{
+	position: absolute;
+	height: 0.853rem;
+	width: 0.853rem;
+	left: 0.64rem;
+}
+
+.login-remberpassword-text{
+	position: absolute;
+	top: -0.12rem;
+	color: #333333;
+	font-size: 0.747rem;
+	left: 1.84rem;
+}
+
+.login-forgetpassword{
+	position: relative;
+	left: 15.973rem;
+	margin-top: -0.164rem;
+	height: 1rem; 
+	color: #333333;
+	font-size: 0.747rem;
+	cursor: pointer;
+}
+
+.login-forgetpassword:hover{
+	color: red;
+}
+
+.login-login{
+	position: relative;
+	top: 1.04rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+}
+
+.login-register{
+	position: relative;
+	top: 1.627rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #fff;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #333333;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+	border: 0.027rem;
+	border-style:solid;
+	border-color: #333333;
+}
