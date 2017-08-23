@@ -1,17 +1,18 @@
 <?php 
 /**
- * 相册类
+ * 短信验证码类
  * @author steven.allen <[<email address>]>
- * @date(2017.2.5)
+ * @date(2017.2.12)
  */
-class CompanyExt extends Company{
+class SmsExt extends Sms{
 	/**
      * 定义关系
      */
     public function relations()
     {
         return array(
-            // 'news'=>array(self::BELONGS_TO, 'ArticleExt', 'related_id','condition'=>'t.type=1'),
+            // 'houseInfo'=>array(self::BELONGS_TO, 'HouseExt', 'house'),
+            // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
 
@@ -36,6 +37,9 @@ class CompanyExt extends Company{
 
     public function afterFind() {
         parent::afterFind();
+        // if(!$this->image){
+        //     $this->image = SiteExt::getAttr('qjpz','productNoPic');
+        // }
     }
 
     public function beforeValidate() {
@@ -82,16 +86,47 @@ class CompanyExt extends Company{
         );
     }
 
-    public function getMangerArr()
+    public static function addOne($phone='')
     {
-        $id = $this->id;
-        return Yii::app()->db->createCommand("select id,name from user where cid=$id and is_manage=1")->queryRow();
+        // 一分钟有效期外或者新的可以保存
+        if($phone) {
+            if($info = SmsExt::model()->find("phone='$phone'")) {
+                if(time()-$info->created<60) {
+                    return false;
+                }
+            }
+            $code = rand(1000,9999);
+            $model = new SmsExt;
+            $model->phone = $phone;
+            $model->code = $code;
+            if($model->save()) {
+                Yii::app()->mns->run((string)$phone,(string)$code);
+                // Yii::app()->mns->run($phone,$code);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
-    public static function actionGetCompanyByCode($code='')
+    public static function checkPhone($phone='',$code='')
     {
-        if($code) {
-            return CompanyExt::model()->normal()->find("code='$code'");
+        if((int)$phone && $code) {
+            $criteria = new CDbCriteria;
+            $criteria->addCondition("phone='$phone'");
+            $criteria->order = 'created desc';
+            $info = SmsExt::model()->find($criteria);
+            // var_dump(15*60);exit;
+            if(!$info) {
+                return false;
+                // 15分钟有效
+            } elseif($info->code == $code && time()-$info->created<=15*60) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
