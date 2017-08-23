@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="js/rem.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/messages_zh.js"></script>
 	<title></title>
 </head>
 <body>
@@ -14,14 +16,14 @@
 
 	<div class="login-phonenumber">
 		<img class="login-phonenumber-img" src="./img/phonenumber-img.png">
-		<input class="login-phonenumber-text" type="text" value="请输入手机号" onblur="if(this.value==''){this.value='请输入手机号';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请输入手机号'){this.value='';this.style.color='#414141'}">
+		<input class="login-phonenumber-text" type="text" placeholder="请输入手机号" required>
 	</div>
 
 	<div class="line"></div>
 
 	<div class="login-password">
 		<img class="login-password-img" src="./img/password-img.png">
-		<input class="login-password-text" type="text" value="请输入密码" onblur="if(this.value==''){this.value='请输入密码';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请输入密码'){this.value='';this.style.color='#414141'}">
+		<input class="login-password-text" type="text" placeholder="请输入密码" required>
 	</div>
 
 	<div class="line"></div>
@@ -36,7 +38,9 @@
 
 	<button class="login-login" type="button">登 陆</button>
 
-	<button class="login-register" type="button">注 册</button>
+	<a href="register.html">
+		<button class="login-register" type="button">注 册</button>
+	</a>
 
 
 

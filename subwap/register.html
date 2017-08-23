@@ -5,24 +5,36 @@
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/messages_zh.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/register.css">
+
+
+
+	<link href="../../views/images/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../../views/styles/main.css">
+    <link rel="stylesheet" href="../../views/styles/highlight.css">
+
+
+
 	<title></title>
 </head>
 <body>
+<form id="form" method="post" action="/api/user/regis">
 	<div class="register-head-bg"></div>
 
 	<div class="register-area">
 		<div class="register-textarea">
 			<img class="register-logo" src="./img/user.png">
-			<input class="register-text" type="text" value="请填写真实姓名" onblur="if(this.value==''){this.value='请填写真实姓名';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请填写真实姓名'){this.value='';this.style.color='#414141'}">
+			<input name="UserExt[name]" id="username" class="register-text" type="text" placeholder="请填写真实姓名" required minlength="2">
 		</div>
 
 		<div class="line"></div>
 
 		<div class="register-textarea">
 			<img class="register-logo" src="./img/phonenumber-img.png">
-			<input class="register-text" type="text" value="请输入手机号码" onblur="if(this.value==''){this.value='请输入手机号码';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请输入手机号码'){this.value='';this.style.color='#414141'}">
+			<input name="UserExt[phone]"  id="writephonenumber" class="register-text" type="text" placeholder="请输入手机号码" required>
 			<button class="register-getmessage" type="button">获取验证码</button>
 		</div>
 
@@ -30,14 +42,14 @@
 
 		<div class="register-textarea">
 			<img class="register-logo" src="./img/identify.png">
-			<input class="register-text" type="text" value="请输入验证码" onblur="if(this.value==''){this.value='请输入验证码';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请输入验证码'){this.value='';this.style.color='#414141'}">
+			<input id="code" class="register-text" type="text" placeholder="请输入验证码" required maxlength="4" minlength="4">
 		</div>
 
 		<div class="line"></div>
 
 		<div class="register-textarea">
 			<img class="register-logo" src="./img/password-img.png">
-			<input class="register-text" type="text" value="请输入8-16位密码" onblur="if(this.value==''){this.value='请输入8-16位密码';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请输入8-16位密码'){this.value='';this.style.color='#414141'}">
+			<input name="UserExt[pwd]"  id="password" class="register-text" type="password" placeholder="请输入8-16位密码" required minlength="8" maxlength="16">
 		</div>
 	</div>
 
@@ -45,32 +57,93 @@
 
 	<div class="regisiter-usertype">
 		<div class="regisiter-usertype-container">
-			<div class="regisiter-usertype-text">请选择用户类型</div>
+			<div class="regisiter-usertype-text">用户类型</div>
 			<div class="regisiter-usertype-choose clearfloat">
-				<div class="regisiter-usertype-choice regisiter-usertype-choice1">总代公司</div>
-				<div class="regisiter-usertype-choice regisiter-usertype-choice2">分销公司</div>
-				<div class="regisiter-usertype-choice regisiter-usertype-choice3">独立经纪人</div>
+				<div class="regisiter-usertype-choice regisiter-usertype-choice1" data-type="1">总代公司</div>
+				<div class="regisiter-usertype-choice regisiter-usertype-choice2" data-type="2">分销公司</div>
+				<div class="regisiter-usertype-choice regisiter-usertype-choice3" data-type="3">独立经纪人</div>
 			</div>
 		</div>
+		<input type="hidden" name="UserExt[type]" id="form-type">
 
 		<div class="line"></div>
 
-		<div class="register-textarea">
+		<div class="register-textarea-invitor">
 			<img class="register-logo" src="./img/inviter.png">
-			<input class="register-text" type="text" value="请填写邀请人手机号" onblur="if(this.value==''){this.value='请填写邀请人手机号';this.style.color='#c3c3c3'}" onfocus="if(this.value=='请填写邀请人手机号'){this.value='';this.style.color='#414141'}">
+			<input name="UserExt[CompanyCode]" id="companycode" class="register-text" type="text" placeholder="请填写门店码" required>
 		</div>
 	</div>
 
-	<button class="register-cardupload" type="button">证件上传</button>
+
+
+
+
+
+
+
+
+
+<div class="container container-big">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">   
+                <div class="row">  
+                    <input type="hidden" id="domain" value="http://okwfe8mj2.bkt.clouddn.com/">
+                    <input type="hidden" id="uptoken_url" value="">
+
+                    <div class="col-md-12">
+
+                        <div id="container">
+                        
+                            <a class="btn-default" id="pickfiles" href="#" >
+                                <i class="glyphicon glyphicon-plus"></i>
+                                证件上传
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 ">
+                        <table class="table table-striped table-hover text-left"   style="margin-top:40px;display:none">
+                            <thead>
+                              <tr>        
+                              </tr>
+                            </thead>
+                            <tbody id="fsUploadProgress">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- <button class="register-cardupload" type="button">证件上传</button> -->
 	<div class="register-attention">
 		<img class="register-attention-img" src="./img/i.png">
 		<div class="register-attention-text">请上传正确营业执照或身份证照片</div>
 	</div>
-	<button class="register-register" type="button">注 册</button>
+	<button class="register-register" type="submit">注 册</button>
+
 
 
 	<script type="text/javascript">
 		$('.regisiter-usertype-choice1').click(function(){
+			$('#form-type').val($('.regisiter-usertype-choice1').data('type'));
+			$('.register-textarea-invitor').css({"display":"block"});
 			$('.regisiter-usertype-choice1').css({"background-color":"#00b7ee"});
 			$('.regisiter-usertype-choice1').css({"color":"#fff"});
 			$('.regisiter-usertype-choice2').css({"background-color":"#fff"});
@@ -79,6 +152,8 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice2').click(function(){
+			$('#form-type').val($('.regisiter-usertype-choice2').data('type'));
+			$('.register-textarea-invitor').css({"display":"block"});
 			$('.regisiter-usertype-choice2').css({"background-color":"#00b7ee"});
 			$('.regisiter-usertype-choice2').css({"color":"#fff"});
 			$('.regisiter-usertype-choice1').css({"background-color":"#fff"});
@@ -87,6 +162,8 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice3').click(function(){
+			$('#form-type').val($('.regisiter-usertype-choice3').data('type'));
+			$('.register-textarea-invitor').css({"display":"none"});
 			$('.regisiter-usertype-choice3').css({"background-color":"#00b7ee"});
 			$('.regisiter-usertype-choice3').css({"color":"#fff"});
 			$('.regisiter-usertype-choice1').css({"background-color":"#fff"});
@@ -95,5 +172,28 @@
 			$('.regisiter-usertype-choice2').css({"color":"#414141"});
 		});
 	</script>
+	<script type="text/javascript" src="js/register.js"></script>
+	</form>
+
+
+
+
+
+	<script type="text/javascript" src="../../views/bower_components/plupload/js/moxie.js"></script>
+	<script type="text/javascript" src="../../views/bower_components/plupload/js/plupload.dev.js"></script>
+	<script type="text/javascript" src="../../views/bower_components/plupload/js/i18n/zh_CN.js"></script>
+	<script type="text/javascript" src="../../views/scripts/ui.js"></script>
+	<script type="text/javascript" src="../../views/src/qiniu.js"></script>
+	<script type="text/javascript" src="../../views/scripts/highlight.js"></script>
+	<script type="text/javascript" src="../../views/scripts/main.js"></script>
+	<script type="text/javascript">
+	hljs.initHighlightingOnLoad();
+	</script>
+
+
+
+
+
+
 </body>
 </html>
