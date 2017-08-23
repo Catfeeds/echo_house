@@ -41,9 +41,10 @@ class UserController extends ApiController{
 				$code = isset($obj['companyCode']) ? $obj['companyCode'] : '';
 				unset($obj['companyCode']);
 				if($code && $obj['type']<3) {
-				$company = CompanyExt::getCompanyByCode($code);
-				if($company) {
-					$user->cid = $company->id;
+					$company = CompanyExt::getCompanyByCode($code);
+					if($company) {
+						$user->cid = $company->id;
+					}
 				}
 				$user->attributes = $obj;
 				if(!$user->save()) {
