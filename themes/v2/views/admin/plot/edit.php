@@ -69,13 +69,22 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                           <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
                        </span>
                     </div>
+                    <span class="help-inline">留空即为已开盘</span>
                 </div>
                 <div class="col-md-2">
                     <span class="help-inline"> </span>
                 </div>
                 <div class="col-md-12"></div>
             </div>
-
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">是否加推</label>
+                <div class="col-md-10">
+                    <div class="radio-list">
+                        <?php echo $form->radioButtonList($plot,'is_jt', PlotExt::$isNew,array('class'=>'radio-inline', 'separator'=>'&nbsp;&nbsp;','template'=>'<label>{input} {label}</label>')) ?>
+                    </div>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'is_jt'); ?></div>
+            </div>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">是否新盘</label>
                 <div class="col-md-10">
@@ -445,6 +454,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <?php echo $form->textField($plot,'kfs_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
             </div>
             <div class="col-md-12"><?php echo $form->error($plot, 'kfs_rule'); ?></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label text-nowrap">带看规则</label>
+            <div class="col-md-10">
+                <?php echo $form->textField($plot,'dk_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+            </div>
+            <div class="col-md-12"><?php echo $form->error($plot, 'dk_rule'); ?></div>
         </div>
     </div>
 

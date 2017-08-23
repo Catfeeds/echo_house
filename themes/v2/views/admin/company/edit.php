@@ -15,60 +15,31 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">名字<span class="required" aria-required="true">*</span></label>
+    <label class="col-md-2 control-label">门店名</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'name', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'name') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">手机号<span class="required" aria-required="true">*</span></label>
+    <label class="col-md-2 control-label">门店地址</label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'address', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'address') ?></div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">门店联系方式</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'phone', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">微信号<span class="required" aria-required="true">*</span></label>
-    <div class="col-md-4">
-        <?php echo $form->textField($article, 'wx', array('class' => 'form-control')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'wx') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">公司<span class="required" aria-required="true">*</span></label>
-    <div class="col-md-4">
-        <?php echo $form->textField($article, 'company', array('class' => 'form-control')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'company') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">选择门店</label>
-    <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'cid', CHtml::listData(CompanyExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'cid') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label text-nowrap">头像</label>
+    <label class="col-md-2 control-label text-nowrap">门店认证材料</label>
     <div class="col-md-8">
         <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'image','inputName'=>'img','width'=>400,'height'=>300)); ?>
-        <span class="help-block">建议尺寸：430*230</span> 
     </div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label text-nowrap">认证材料</label>
-    <div class="col-md-8">
-        <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'id_pic','inputName'=>'img','width'=>400,'height'=>300)); ?>
-        <span class="help-block">建议尺寸：430*230</span> 
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">身份</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'type', UserExt::$ids, array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'type') ?></div>
 </div>
 <div class="form-group">
     <label class="col-md-2 control-label">状态</label>
@@ -76,13 +47,6 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         <?php echo $form->radioButtonList($article, 'status', UserExt::$status, array('separator' => '')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'status') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">是否店长</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'is_manage', ['否','是'], array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'is_manage') ?></div>
 </div>
 <div class="form-actions">
     <div class="row">
@@ -144,20 +108,20 @@ $js = "
               allowClear: true
            });
 
-				var houses_edit = $('#plot');
-				var data = {};
-				if( houses_edit.length && houses_edit.data('houses') ){
-					data = eval(houses_edit.data('houses'));
-				}
+        var houses_edit = $('#plot');
+        var data = {};
+        if( houses_edit.length && houses_edit.data('houses') ){
+          data = eval(houses_edit.data('houses'));
+        }
 
-				$('#plot').select2({
-					multiple:true,
-					ajax: getHousesAjax,
-					language: 'zh-CN',
-					initSelection: function(element, callback){
-						callback(data);
-					}
-				});
+        $('#plot').select2({
+          multiple:true,
+          ajax: getHousesAjax,
+          language: 'zh-CN',
+          initSelection: function(element, callback){
+            callback(data);
+          }
+        });
 
              $('.form_datetime').datetimepicker({
                  autoclose: true,

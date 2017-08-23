@@ -174,4 +174,65 @@ class PlotController extends ApiController
         }
         echo json_encode($data);
     }
+
+    public function actionTest()
+    {
+        $data = [];
+        $arrName = '更多';
+        $lists[] = [
+            'name'=>'排序',
+            'params'=>'sort',
+            'fields'=>[
+                ['id'=>1,'name'=>'总价从高到低'],
+                ['id'=>2,'name'=>'单价从高到低'],
+            ],
+        ];
+        $lists[] = [
+            'name'=>'装修情况',
+            'params'=>'zx',
+            'fields'=>[
+                ['id'=>1,'name'=>'精装'],
+                ['id'=>2,'name'=>'毛坯'],
+            ],
+        ];
+        $data_end = [
+            'name'=>$arrName,
+            'lists'=>$lists
+        ];
+        $areaArr = [
+            'name'=>'区域',
+            'params'=>'area',
+            'fields'=>[
+                [
+                    'id'=>'1',
+                    'name'=>'新北区',
+                    'children'=>[
+                        ['id'=>10,'name'=>'三井街道'],
+                        ['id'=>19,'name'=>'河海街道'],
+                    ],
+                ],
+                [
+                    'id'=>'2',
+                    'name'=>'钟楼区',
+                    'children'=>[
+                        ['id'=>11,'name'=>'北港街道'],
+                        ['id'=>12,'name'=>'南大街'],
+                    ],
+                ],
+            ],
+        ];
+        $hxArr = [
+            'name'=>'户型',
+            'params'=>'hx',
+            'fields'=>[
+                ['id'=>1,'name'=>'一室'],
+                ['id'=>2,'name'=>'二室'],
+            ],
+        ];
+        $data[] = $areaArr;
+        $data[] = $hxArr;
+        $data[] = $data_end;
+
+        echo json_encode($data);
+    }
 }

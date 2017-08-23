@@ -1,34 +1,31 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "company".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'company':
  * @property integer $id
- * @property string $pwd
- * @property string $wx
- * @property string $phone
  * @property string $name
- * @property integer $is_manage
- * @property string $id_pic
- * @property integer $cid
- * @property string $company
- * @property integer $type
+ * @property string $address
+ * @property string $manager
+ * @property string $phone
+ * @property string $code
  * @property string $image
+ * @property integer $type
  * @property integer $status
- * @property integer $deleted
  * @property integer $sort
+ * @property integer $deleted
  * @property integer $created
  * @property integer $updated
  */
-class User extends CActiveRecord
+class Company extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'company';
 	}
 
 	/**
@@ -39,14 +36,15 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pwd, name, created', 'required'),
-			array('is_manage, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
-			array('pwd, id_pic, company, image', 'length', 'max'=>255),
-			array('wx, name', 'length', 'max'=>100),
-			array('phone', 'length', 'max'=>15),
+			array('created', 'required'),
+			array('type, status, sort, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('name, address, image', 'length', 'max'=>255),
+			array('manager', 'length', 'max'=>100),
+			array('phone', 'length', 'max'=>30),
+			array('code', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, is_manage, id_pic, cid, company, type, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, name, address, manager, phone, code, image, type, status, sort, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,19 +66,16 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pwd' => 'Pwd',
-			'wx' => 'Wx',
-			'phone' => 'Phone',
 			'name' => 'Name',
-			'is_manage' => 'Is Manage',
-			'id_pic' => 'Id Pic',
-			'cid' => 'Cid',
-			'company' => 'Company',
-			'type' => 'Type',
+			'address' => 'Address',
+			'manager' => 'Manager',
+			'phone' => 'Phone',
+			'code' => 'Code',
 			'image' => 'Image',
+			'type' => 'Type',
 			'status' => 'Status',
-			'deleted' => 'Deleted',
 			'sort' => 'Sort',
+			'deleted' => 'Deleted',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -105,19 +100,16 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('pwd',$this->pwd,true);
-		$criteria->compare('wx',$this->wx,true);
-		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('is_manage',$this->is_manage);
-		$criteria->compare('id_pic',$this->id_pic,true);
-		$criteria->compare('cid',$this->cid);
-		$criteria->compare('company',$this->company,true);
-		$criteria->compare('type',$this->type);
+		$criteria->compare('address',$this->address,true);
+		$criteria->compare('manager',$this->manager,true);
+		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('code',$this->code,true);
 		$criteria->compare('image',$this->image,true);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('sort',$this->sort);
+		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -130,7 +122,7 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return Company the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

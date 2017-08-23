@@ -77,4 +77,13 @@ class ExtraCommand extends CConsoleCommand
         }
         echo 'finished';
     }
+
+    /**
+     * 十二天没有更新的项目通知对接人，十五天没有更新的项目下架
+     */
+    public function actionClearPlot()
+    {
+        // 12-15天没更新的项目
+        // $
+    }
 }

@@ -68,6 +68,8 @@ class PlotExt extends Plot{
         'brand'=>'',
         'jy_rule'=>'',
         'kfs_rule'=>'',
+        'is_jt'=>'',
+        'dk_rule'=>'',
         // ''
     ];
 
