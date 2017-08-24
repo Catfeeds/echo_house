@@ -7,6 +7,9 @@
 defined('EARTH_RADIUS') or define('EARTH_RADIUS', 6378.137);//地球半径
 defined('PI') or define('PI', 3.1415926);
 class PlotExt extends Plot{
+    public static $tagArr = [
+        'zxzt','wylx','wzlm','sale_status','sfprice'
+    ];
     /**
      * 楼盘状态
      * @var array
@@ -70,7 +73,9 @@ class PlotExt extends Plot{
         'kfs_rule'=>'',
         'is_jt'=>'',
         'dk_rule'=>'',
-        'zd_company'=>''
+        'zd_company'=>'',
+        'wzlm'=>'',
+        'sfprice'=>'',
         // ''
     ];
 

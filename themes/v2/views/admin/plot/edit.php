@@ -227,6 +227,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot,'build_year')?></div>
             </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">顶部标签</label>
+                <div class="col-md-10">
+                    <?php echo $form->dropDownList($plot, 'wzlm',  CHtml::listData(TagExt::model()->getTagByCate('wzlm')->normal()->findAll(),'id','name'), array('class'=>'form-control select2','multiple'=>'multiple')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'wzlm'); ?></div>
+            </div>
         </div>
     </div>
 
@@ -384,7 +391,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                     <span class="help-block"><?php echo $form->error($plot, 'sale_status'); ?></span>
                 </div>
             </div>
-            
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">首付比例</label>
+                <div class="col-md-10">
+                    <?php echo $form->dropDownList($plot, 'sfprice',  CHtml::listData(TagExt::model()->getTagByCate('sfprice')->normal()->findAll(),'id','name'), array('class'=>'form-control select2','multiple'=>'multiple')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'sfprice'); ?></div>
+            </div>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">楼盘电话</label>
                 <div class="col-md-10">
@@ -437,6 +450,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'surround_peripheral'); ?></div>
             </div>
+
         </div>
     </div>
     <div class="tab-pane col-md-12" id="tab_4">

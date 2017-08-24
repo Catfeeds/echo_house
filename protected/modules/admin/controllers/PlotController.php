@@ -179,6 +179,10 @@ class PlotController extends AdminController{
 				$house->delivery_time = strtotime($house->delivery_time);
 			}
 			$zd_company = $house->zd_company;
+			$tagArray = [];
+			foreach (PlotExt::$tagArr as $tagKey) {
+				$house->$tagKey && $tagArray = array_merge($tagArray,$house->$tagKey);
+			}
 			// var_dump($house->zxzt);exit;
 			if($house->save()) {
 				if($zd_company) {
@@ -190,6 +194,14 @@ class PlotController extends AdminController{
 						$obj->save();
 					}
 				}
+				PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+				if($tagArray)
+					foreach ($tagArray as $tid) {
+						$obj = new PlotTagExt;
+						$obj->hid = $house->id;
+						$obj->tid = $tid;
+						$obj->save();
+					}
 				$this->setMessage('保存成功','success');
 				$this->redirect('/admin/plot/list');
 			} else {
