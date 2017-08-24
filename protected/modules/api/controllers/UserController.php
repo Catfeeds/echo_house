@@ -61,9 +61,11 @@ class UserController extends ApiController{
 		if(Yii::app()->request->getIsPostRequest()) {
 			$phone = $this->cleanXss(Yii::app()->request->getPost('name'));
 			$pwd = $this->cleanXss(Yii::app()->request->getPost('pwd'));
+			$rememberMe = $this->cleanXss(Yii::app()->request->getPost('rememberMe',''));
 			$model = new ApiLoginForm();
 			$model->username = $phone;
 			$model->password = $pwd;
+			$model->rememberMe = $rememberMe;
 			if($model->login()) {
 				$this->returnSuccess('登陆成功');
 			}

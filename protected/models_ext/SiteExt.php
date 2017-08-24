@@ -15,6 +15,8 @@ class SiteExt extends Site{
         'map_lat'=>'',
         'map_zoom'=>'',
         'sen'=>'',
+        'regis_words'=>'',
+        'login_img'=>''
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -25,8 +27,8 @@ class SiteExt extends Site{
     public static $cateTag = [
         'qjpz'=> [
             // 'pcIndexImages'=>['type'=>'multiImage','max'=>5,'name'=>'pc首页轮播图'],
-            // 'pcLogo'=>['type'=>'image','max'=>1,'name'=>'pc版logo'],
-            // 'sitePhone'=>['type'=>'text','name'=>'站点客服'],
+            'login_img'=>['type'=>'image','max'=>1,'name'=>'登陆页图片'],
+            'regis_words'=>['type'=>'text','name'=>'注册页备注'],
             'bussiness_tel'=>['type'=>'text','name'=>'业务部联系方式'],
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
             'map_lat'=>['type'=>'text','name'=>'默认纬度'],
