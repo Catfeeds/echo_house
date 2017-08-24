@@ -47,6 +47,7 @@ class UserController extends ApiController{
 					}
 				}
 				$user->attributes = $obj;
+				$user->pwd = md5($user->pwd);
 				if(!$user->save()) {
 					$this->returnError('操作失败');
 				}
