@@ -6,5 +6,6 @@ class ConfigController extends ApiController{
 			'login_img'=>ImageTools::fixImage(SiteExt::getAttr('qjpz','login_img')),
 			'regis_words'=>SiteExt::getAttr('qjpz','regis_words'),
 		];
+		$this->frame['data'] = $data;
 	}
 }
