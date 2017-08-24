@@ -13,16 +13,17 @@ $('.register-getmessage').click(function() {
             if (data.status == "error") {
                 alert(data.msg);
             } else {
-                send_msg(phonenumber);
                 onemin_clock();
+                send_msg(phonenumber);
                 $('.register-getmessage').css({"display":"none"});
                 $('#clock').css({"display":"block"});
             }
         });
     }
 });
+//获取验证码倒计时
 function onemin_clock() {
-     var n=60;
+     var n=59;
      var clock=setInterval(function(){
         $("#clock").html(n+"s");
         n-=1;

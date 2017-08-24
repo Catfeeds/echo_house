@@ -1,0 +1,112 @@
+body{
+	width: 20rem;
+	background-color: #efeff4;
+}
+
+.modify-head-bg{
+	position: relative;
+	width: 20.0rem;
+	height: 0.533rem;
+	background-color: #efeff4;
+}
+
+.modify-textarea{
+	position: relative;
+	width: 20rem;
+	height: 2.64rem;
+	background-color: #fff;
+}
+
+.modify-logo{
+	position: absolute;
+	top: 0.8rem;
+	left: 0.88rem;
+	width: 0.96rem;
+	height: 1.067rem;
+}
+
+.modify-text{
+	position: absolute;	
+	top: 0.88rem;
+	left: 2.587rem;
+	font-size: 0.8rem;
+	width: 11.0rem;
+	border:none;
+	color: #414141;
+}
+
+.line{
+	position: relative;
+	left: 0.64rem;
+	height: 0.027rem;
+	width: 18.747rem;
+	background-color: #eeeeee;
+}
+
+.modify-getmessage{
+	position: absolute;
+	width: 4.8rem;
+	height: 1.76rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	color: #fff;
+	text-align: center;
+	line-height: 1.76rem;
+	top: 0.453rem;
+	left: 14.56rem;
+	font-size: 0.8rem;
+	border:none;
+	display: block;
+}
+
+.modify-modify{
+	position: relative;
+	top: 1.04rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+	border:none;
+}
+
+.modify-clock{
+	position: absolute;
+	width: 4.8rem;
+	height: 1.76rem;
+	background-color: #c3c3c3;
+	border-radius: 0.267rem;
+	color: #fff;
+	text-align: center;
+	line-height: 1.76rem;
+	top: 0.453rem;
+	left: 14.56rem;
+	font-size: 0.8rem;
+	border:none;
+	display: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+color:#c3c3c3;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color:#c3c3c3;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color:#c3c3c3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color:#c3c3c3;
+}
+
+form label.error { 
+	position: absolute;
+	top: 0.7rem;
+	left: 9.5rem;
+	color: red;
+	font-size: 0.8rem;
+}
