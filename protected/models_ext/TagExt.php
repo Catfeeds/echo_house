@@ -17,6 +17,8 @@ class TagExt extends Tag
             'wylx' => '物业类型',
             'zxzt' => '装修状态',
             'xszt' => '销售状态',
+            
+            'sfprice' => '首付比例',
             // 'hjxl' => '红酒系列',
             // 'jzdq' => '酒庄地区',
             // 'jzdj' => '酒庄等级',
@@ -24,6 +26,10 @@ class TagExt extends Tag
             // 'hjjg' => '红酒价格',
             // 'zdpz' => '站点配置'
         ],
+        //区间式标签，区间式标签可以增删
+        'range' => [
+            'price' => '均价筛选',
+        ]
     ];
 
     /**
@@ -111,7 +117,7 @@ class TagExt extends Tag
      */
     public function beforeValidate()
     {
-        $this->name && $this->pinyin = Pinyin::get($this->name);
+        // $this->name && $this->pinyin = Pinyin::get($this->name);
         // $this->cate = 'wzlm';
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
@@ -233,9 +239,6 @@ class TagExt extends Tag
     {
         if(isset(self::$xinfangCate['direct'][$this->cate]))
             return isset(self::$xinfangCate['direct'][$this->cate]);
-
-        if(isset(self::$resoldCate['direct'][$this->cate]))
-            return isset(self::$resoldCate['direct'][$this->cate]);
     }
 
     /**

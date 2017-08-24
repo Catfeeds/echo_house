@@ -1,28 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "tag".
+ * This is the model class for table "plot_tag".
  *
- * The followings are the available columns in table 'tag':
+ * The followings are the available columns in table 'plot_tag':
  * @property integer $id
- * @property string $name
- * @property string $cate
- * @property integer $sort
- * @property string $max
- * @property string $min
- * @property string $pinyin
+ * @property integer $hid
+ * @property integer $tid
+ * @property integer $deleted
  * @property integer $status
  * @property integer $created
  * @property integer $updated
  */
-class Tag extends CActiveRecord
+class PlotTag extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tag';
+		return 'plot_tag';
 	}
 
 	/**
@@ -33,13 +30,11 @@ class Tag extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, cate, created', 'required'),
-			array('sort, status, created, updated', 'numerical', 'integerOnly'=>true),
-			array('name, cate', 'length', 'max'=>20),
-			array('max, min, pinyin', 'length', 'max'=>100),
+			array('created', 'required'),
+			array('hid, tid, deleted, status, created, updated', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, cate, sort, max, min, pinyin, status, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, tid, deleted, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,16 +55,13 @@ class Tag extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => '主键',
-			'name' => '标签名称',
-			'cate' => '分类标识',
-			'sort' => '排序',
-			'max' => 'Max',
-			'min' => 'Min',
-			'pinyin' => 'Pinyin',
-			'status' => '状态',
-			'created' => '添加时间',
-			'updated' => '修改时间',
+			'id' => 'ID',
+			'hid' => 'Hid',
+			'tid' => 'Tid',
+			'deleted' => 'Deleted',
+			'status' => 'Status',
+			'created' => 'Created',
+			'updated' => 'Updated',
 		);
 	}
 
@@ -92,12 +84,9 @@ class Tag extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('cate',$this->cate,true);
-		$criteria->compare('sort',$this->sort);
-		$criteria->compare('max',$this->max,true);
-		$criteria->compare('min',$this->min,true);
-		$criteria->compare('pinyin',$this->pinyin,true);
+		$criteria->compare('hid',$this->hid);
+		$criteria->compare('tid',$this->tid);
+		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
@@ -111,7 +100,7 @@ class Tag extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Tag the static model class
+	 * @return PlotTag the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
