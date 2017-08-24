@@ -26,7 +26,6 @@
  * @property integer $unit
  * @property string $market_user
  * @property string $market_users
- * @property string $zd_company
  * @property integer $price_mark
  * @property string $data_conf
  * @property integer $status
@@ -63,10 +62,10 @@ class Plot extends CActiveRecord
 			array('address, sale_addr, image', 'length', 'max'=>150),
 			array('map_lng, map_lat', 'length', 'max'=>60),
 			array('market_user', 'length', 'max'=>12),
-			array('market_users, zd_company', 'length', 'max'=>255),
+			array('market_users', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, zd_company, price_mark, data_conf, status, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
+			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, data_conf, status, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -109,7 +108,6 @@ class Plot extends CActiveRecord
 			'unit' => '单位',
 			'market_user' => 'Market User',
 			'market_users' => 'Market Users',
-			'zd_company' => 'Zd Company',
 			'price_mark' => '价格标识',
 			'data_conf' => '项目信息存储',
 			'status' => '状态',
@@ -162,7 +160,6 @@ class Plot extends CActiveRecord
 		$criteria->compare('unit',$this->unit);
 		$criteria->compare('market_user',$this->market_user,true);
 		$criteria->compare('market_users',$this->market_users,true);
-		$criteria->compare('zd_company',$this->zd_company,true);
 		$criteria->compare('price_mark',$this->price_mark);
 		$criteria->compare('data_conf',$this->data_conf,true);
 		$criteria->compare('status',$this->status);

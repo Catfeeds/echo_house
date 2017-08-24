@@ -1,13 +1,12 @@
 <?php 
 /**
- * 相册类
+ * 球员类
  * @author steven.allen <[<email address>]>
- * @date(2017.2.5)
+ * @date(2017.2.12)
  */
-class CompanyExt extends Company{
-    public static $type = [
-        1=>'总代公司',
-        2=>'分销公司'
+class PlotMarketUserExt extends PlotMakertUser{
+    public static $status = [
+        '审核中','通过'
     ];
 	/**
      * 定义关系
@@ -15,7 +14,8 @@ class CompanyExt extends Company{
     public function relations()
     {
         return array(
-            // 'news'=>array(self::BELONGS_TO, 'ArticleExt', 'related_id','condition'=>'t.type=1'),
+            'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
+            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
         );
     }
 
@@ -40,6 +40,9 @@ class CompanyExt extends Company{
 
     public function afterFind() {
         parent::afterFind();
+        // if(!$this->image){
+        //     $this->image = SiteExt::getAttr('qjpz','productNoPic');
+        // }
     }
 
     public function beforeValidate() {
@@ -86,16 +89,29 @@ class CompanyExt extends Company{
         );
     }
 
-    public function getMangerArr()
+    public function afterSave()
     {
-        $id = $this->id;
-        return Yii::app()->db->createCommand("select id,name from user where cid=$id and is_manage=1")->queryRow();
-    }
+        parent::afterSave();
+        if($phone = $this->user->phone) {
+            $market_users = $this->plot->market_users;
+            $pharr = array_filter(explode(' ', $market_users));
+            if($this->status==1) {
+                if(!in_array($phone, $pharr)) {
+                    $pharr[] = $phone;
+                    $this->plot->market_users = implode(' ', $pharr);
+                    $this->plot->save();
+                }
+            } else {
+                if(in_array($phone, $pharr)) {
+                    $market_users = str_replace($phone, '', $market_users);
+                    $newarr = array_filter(explode(' ', $market_users));
+                    $this->plot->market_users = implode(' ', $newarr);
+                    $this->plot->save();
+                }
+            }
+            // var_dump($pharr,$phone);exit;
+                
 
-    public static function actionGetCompanyByCode($code='')
-    {
-        if($code) {
-            return CompanyExt::model()->normal()->find("code='$code'");
         }
     }
 

@@ -11,7 +11,7 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$cate1='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$cate1='',$company='')
 	{
 		$modelName = 'PlotExt';
 		$criteria = new CDbCriteria;
@@ -31,8 +31,17 @@ class PlotController extends AdminController{
             $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
 
         }
+        if($company) {
+        	$ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
+        	$idArr = [];
+        	if($ids) {
+        		foreach ($ids as $id) {
+        			$idArr[] = $id['hid'];
+        		}
+        	}
+        	$criteria->addInCondition('id',$idArr);
+        }
 		$this->controllerName = '楼盘';
-		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
 		$this->render('list',['cate'=>$cate,'cate1'=>$cate1,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
@@ -169,7 +178,18 @@ class PlotController extends AdminController{
 			if(strpos($house->delivery_time,'-')) {
 				$house->delivery_time = strtotime($house->delivery_time);
 			}
+			$zd_company = $house->zd_company;
+			// var_dump($house->zxzt);exit;
 			if($house->save()) {
+				if($zd_company) {
+					PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+					foreach ($zd_company as $cid) {
+						$obj = new PlotCompanyExt;
+						$obj->hid = $house->id;
+						$obj->cid = $cid;
+						$obj->save();
+					}
+				}
 				$this->setMessage('保存成功','success');
 				$this->redirect('/admin/plot/list');
 			} else {

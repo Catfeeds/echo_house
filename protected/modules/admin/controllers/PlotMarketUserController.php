@@ -1,16 +1,21 @@
 <?php
 /**
- * 门店控制器
+ * 申请对接控制器
  */
-class CompanyController extends AdminController{
+class PlotMarketUserController extends AdminController{
+	
+	public $cates = [];
+
+	public $cates1 = [];
+
 	public $controllerName = '';
 
-	public $modelName = 'CompanyExt';
+	public $modelName = 'PlotMarketUserExt';
 
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '门店';
+		$this->controllerName = '申请对接';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
@@ -35,11 +40,11 @@ class CompanyController extends AdminController{
 
         }
 		if($cate) {
-			$criteria->addCondition('type=:cid');
+			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
 	}
 
 	public function actionEdit($id='')
@@ -55,26 +60,23 @@ class CompanyController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('edit',['article'=>$info,]);
+		$this->render('edit',['cates'=>$this->cates,'article'=>$info,'cates1'=>$this->cates1,]);
 	}
 
-	public function actionSetCode($id='')
+	public function actionAjaxStatus($kw='',$ids='')
 	{
-		if($id) {
-			$info = CompanyExt::model()->findByPk($id);
-			if($info->code) {
-				$this->setMessage('门店码已存在','error');
-				return ;
+		if(!is_array($ids))
+			if(strstr($ids,',')) {
+				$ids = explode(',', $ids);
+			} else {
+				$ids = [$ids];
 			}
-
-			$code = $info->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
-			// var_dump($code);exit;
-			while (CompanyExt::model()->find('code='.$code)) {
-				$code = $info->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
-			}
-			$info->code = $code;
-			$info->save();
-			$this->setMessage('操作成功','success');
+		foreach ($ids as $key => $id) {
+			$model = SubExt::model()->findByPk($id);
+			$model->status = $kw;
+			if(!$model->save())
+				$this->setMessage(current(current($model->getErrors())),'error');
 		}
+		$this->setMessage('操作成功','success');	
 	}
 }

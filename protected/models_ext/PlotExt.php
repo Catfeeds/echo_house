@@ -70,6 +70,7 @@ class PlotExt extends Plot{
         'kfs_rule'=>'',
         'is_jt'=>'',
         'dk_rule'=>'',
+        'zd_company'=>''
         // ''
     ];
 
@@ -93,6 +94,7 @@ class PlotExt extends Plot{
                 $data_conf = CJSON::decode($this->data_conf);
             self::$tags[$name] = $value;
             $data_conf[$name] = $value;
+            // var_dump(1);exit;
             $this->data_conf = json_encode($data_conf);
         }
         else

@@ -1,33 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "company".
+ * This is the model class for table "plot_company".
  *
- * The followings are the available columns in table 'company':
+ * The followings are the available columns in table 'plot_company':
  * @property integer $id
- * @property string $name
- * @property string $address
- * @property string $manager
- * @property integer $street
- * @property integer $area
- * @property string $phone
- * @property string $code
- * @property string $image
- * @property integer $type
- * @property integer $status
- * @property integer $sort
- * @property integer $deleted
+ * @property integer $hid
+ * @property integer $cid
  * @property integer $created
  * @property integer $updated
  */
-class Company extends CActiveRecord
+class PlotCompany extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'company';
+		return 'plot_company';
 	}
 
 	/**
@@ -39,14 +29,10 @@ class Company extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('street, area, type, status, sort, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('name, address, image', 'length', 'max'=>255),
-			array('manager', 'length', 'max'=>100),
-			array('phone', 'length', 'max'=>30),
-			array('code', 'length', 'max'=>10),
+			array('hid, cid, created, updated', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, address, manager, street, area, phone, code, image, type, status, sort, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, cid, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,18 +54,8 @@ class Company extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'address' => 'Address',
-			'manager' => 'Manager',
-			'street' => 'Street',
-			'area' => 'Area',
-			'phone' => 'Phone',
-			'code' => 'Code',
-			'image' => 'Image',
-			'type' => 'Type',
-			'status' => 'Status',
-			'sort' => 'Sort',
-			'deleted' => 'Deleted',
+			'hid' => 'Hid',
+			'cid' => 'Cid',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -104,18 +80,8 @@ class Company extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('manager',$this->manager,true);
-		$criteria->compare('street',$this->street);
-		$criteria->compare('area',$this->area);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('code',$this->code,true);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('sort',$this->sort);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('hid',$this->hid);
+		$criteria->compare('cid',$this->cid);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -128,7 +94,7 @@ class Company extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Company the static model class
+	 * @return PlotCompany the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -1,21 +1,18 @@
 <?php 
 /**
- * 相册类
+ * 球员类
  * @author steven.allen <[<email address>]>
- * @date(2017.2.5)
+ * @date(2017.2.12)
  */
-class CompanyExt extends Company{
-    public static $type = [
-        1=>'总代公司',
-        2=>'分销公司'
-    ];
+class PlotCompanyExt extends PlotCompany{
 	/**
      * 定义关系
      */
     public function relations()
     {
         return array(
-            // 'news'=>array(self::BELONGS_TO, 'ArticleExt', 'related_id','condition'=>'t.type=1'),
+            'team'=>array(self::BELONGS_TO, 'TeamExt', 'tid'),
+            // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
 
@@ -40,6 +37,9 @@ class CompanyExt extends Company{
 
     public function afterFind() {
         parent::afterFind();
+        // if(!$this->image){
+        //     $this->image = SiteExt::getAttr('qjpz','productNoPic');
+        // }
     }
 
     public function beforeValidate() {
@@ -84,19 +84,6 @@ class CompanyExt extends Company{
             ),
             'BaseBehavior'=>'application.behaviors.BaseBehavior',
         );
-    }
-
-    public function getMangerArr()
-    {
-        $id = $this->id;
-        return Yii::app()->db->createCommand("select id,name from user where cid=$id and is_manage=1")->queryRow();
-    }
-
-    public static function actionGetCompanyByCode($code='')
-    {
-        if($code) {
-            return CompanyExt::model()->normal()->find("code='$code'");
-        }
     }
 
 }

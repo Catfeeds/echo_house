@@ -15,6 +15,9 @@ $this->breadcrumbs = array($this->pageTitle);
                 <?php echo CHtml::dropDownList('time_type',$time_type,array('created'=>'添加时间','updated'=>'修改时间'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('cate',$cate,CompanyExt::$type,array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择门店类型--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
@@ -31,11 +34,12 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">排序</th>
         <th class="text-center">ID</th>
         <th class="text-center">门店名</th>
-        <th class="text-center">门店地址</th>
+        <th class="text-center">类型</th>
+        <th class="text-center">地址</th>
         <th class="text-center">门店联系</th>
         <th class="text-center">门店码</th>
         <th class="text-center">添加时间</th>
-        <th class="text-center">修改时间</th>
+        <!-- <th class="text-center">修改时间</th> -->
         <th class="text-center">状态</th>
         <th class="text-center">操作</th>
     </tr>
@@ -47,11 +51,12 @@ $this->breadcrumbs = array($this->pageTitle);
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
+            <td class="text-center"><?=CompanyExt::$type[$v->type].' '.($v->type==1?'<a href="'.$this->createUrl('/admin/plot/list',['company'=>$v->id]).'">代理项目</a>':'')?></td>
             <td class="text-center"><?=$v->address?></td> 
             <td class="text-center"><?=($v->getMangerArr()?$v->getMangerArr()['name']:'-').'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
+            <!-- <td class="text-center"><?=date('Y-m-d',$v->updated)?></td> -->
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
             <td style="text-align:center;vertical-align: middle">

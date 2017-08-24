@@ -69,6 +69,7 @@ class AdminController extends Controller
             ]],
             ['label'=>'门店管理','icon'=>'icon-speedometer','url'=>['/admin/company/list'],'active'=>$this->route=='admin/company/edit'],
             ['label'=>'报备管理','icon'=>'icon-speedometer','url'=>['/admin/sub/list'],'active'=>$this->route=='admin/sub/edit'],
+            ['label'=>'接入申请管理','icon'=>'icon-speedometer','url'=>['/admin/plotMarketUser/list'],'active'=>$this->route=='admin/plotMarketUser/edit'],
             ['label'=>'分销申请管理','icon'=>'icon-speedometer','url'=>['/admin/cooperate/list'],'active'=>$this->route=='admin/cooperate/edit'],
             ['label'=>'区域管理','icon'=>'icon-speedometer','url'=>['/admin/area/arealist'],'active'=>$this->route=='admin/area/areaedit'],
             ['label'=>'推荐管理','icon'=>'icon-speedometer','url'=>['/admin/recom/list'],'active'=>$this->route=='admin/recom/edit'],

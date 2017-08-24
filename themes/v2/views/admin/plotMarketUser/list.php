@@ -14,7 +14,6 @@ $this->breadcrumbs = array($this->pageTitle);
             <div class="form-group">
                 <?php echo CHtml::dropDownList('time_type',$time_type,array('created'=>'添加时间','updated'=>'修改时间'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
-             
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
@@ -26,38 +25,36 @@ $this->breadcrumbs = array($this->pageTitle);
         </a>
     </div>
 </div>
-<table class="table table-bordered table-striped table-condensed flip-content">
+   <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
-        <tr>
-            <th class="text-center">排序</th>
-            <th class="text-center">id</th>
-            <th class="text-center">标题</th>
-            <th class="text-center">区域</th>
-            <th class="text-center">对接人</th>
-            <th class="text-center">创建时间</th>
-            <th class="text-center">操作</th>
-        </tr>
+    <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">项目信息</th>
+        <th class="text-center">用户信息</th>
+        <th class="text-center">添加时间</th>
+        <th class="text-center">修改时间</th>
+        <th class="text-center">状态</th>
+        <th class="text-center">操作</th>
+    </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $v): ?>
+    <?php foreach($infos as $k=>$v): ?>
         <tr>
-            <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
-                data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
-            <td  class="text-center"><?php echo $v->id ?></td>
-            <td  class="text-center"><?php echo $v->title ?></td>
-            <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
-            <td  class="text-center"><?php echo $v->market_user ?></td>
-            <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
-            <td  class="text-center">
-                <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>
-                <a href="<?=$this->createUrl('hxlist',['hid'=>$v->id])?>" class="btn btn-xs yellow">户型</a>
-                <a href="<?=$this->createUrl('newslist',['hid'=>$v->id])?>" class="btn btn-xs blue">动态</a>
-                <a href="<?=$this->createUrl('pricelist',['hid'=>$v->id])?>" class="btn btn-xs green">佣金方案</a>
-                <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
-                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('ajaxDel'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id))));?>
+            <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
+            <td class="text-center"><?=$v->plot->title?></td>
+            <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
+            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
+            <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
+            <td class="text-center"><?php echo CHtml::ajaxLink(PlotMarketUserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
+
+            <td style="text-align:center;vertical-align: middle">
+                <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id)); ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 修改 </a>
+                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
+
+
             </td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach;?>
     </tbody>
 </table>
 <?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>
