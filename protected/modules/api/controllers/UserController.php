@@ -54,4 +54,40 @@ class UserController extends ApiController{
 			}
 		}
 	}
+
+	public function actionLogin()
+	{
+		$phone = $pwd = '';
+		if(Yii::app()->request->getIsPostRequest()) {
+			$phone = $this->cleanXss(Yii::app()->request->getPost('name'));
+			$pwd = $this->cleanXss(Yii::app()->request->getPost('pwd'));
+			$model = new ApiLoginForm();
+			$model->username = $phone;
+			$model->password = $pwd;
+			if($model->login()) {
+				$this->returnSuccess('登陆成功');
+			}
+			else {
+				$this->returnError('用户名或密码错误');
+			}
+		}
+	}
+
+	public function actionEditPwd()
+	{
+		if(Yii::app()->request->getIsPostRequest()) {
+			$phone = $this->cleanXss(Yii::app()->request->getPost('phone',''));
+			$pwd = Yii::app()->request->getPost('pwd','');
+			if($phone && $pwd) {
+				$user = UserExt::model()->find('phone=:phone',[':phone'=>$phone]);
+				$user->pwd = md5($pwd);
+				if($user->save()){
+					$this->returnSuccess('操作成功');
+				}
+				else {
+					$this->returnError('操作失败');
+				}
+			}	
+		}
+	}
 }
