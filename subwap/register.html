@@ -21,7 +21,7 @@
 	<title></title>
 </head>
 <body>
-<form id="form" method="post" action="/api/user/regis">
+<form id="form" onsubmit="return false;">
 	<div class="register-head-bg"></div>
 
 	<div class="register-area">
@@ -36,6 +36,7 @@
 			<img class="register-logo" src="./img/phonenumber-img.png">
 			<input name="UserExt[phone]"  id="writephonenumber" class="register-text" type="text" placeholder="请输入手机号码" required>
 			<button class="register-getmessage" type="button">获取验证码</button>
+			<div class="register-clock" id="clock"></div>
 		</div>
 
 		<div class="line"></div>
@@ -65,12 +66,13 @@
 			</div>
 		</div>
 		<input type="hidden" name="UserExt[type]" id="form-type">
+		<input type="hidden" name="UserExt[image]" id="img-url">
 
 		<div class="line"></div>
 
 		<div class="register-textarea-invitor">
 			<img class="register-logo" src="./img/inviter.png">
-			<input name="UserExt[CompanyCode]" id="companycode" class="register-text" type="text" placeholder="请填写门店码" required>
+			<input name="UserExt[companyCode]" id="companycode" class="register-text" type="text" placeholder="请填写门店码" required>
 		</div>
 	</div>
 
@@ -90,7 +92,7 @@
                     <input type="hidden" id="domain" value="http://okwfe8mj2.bkt.clouddn.com/">
                     <input type="hidden" id="uptoken_url" value="">
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 upload-btn">
 
                         <div id="container">
                         
@@ -101,17 +103,14 @@
                         </div>
                     </div>
 
-
-                    <div class="col-md-12 ">
-                        <table class="table table-striped table-hover text-left"   style="margin-top:40px;display:none">
-                            <thead>
-                              <tr>        
-                              </tr>
-                            </thead>
+                    <div class="col-md-12 upload-detail">
+                        <table class="table table-striped table-hover text-left" style="display:none">
                             <tbody id="fsUploadProgress">
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -137,11 +136,13 @@
 		<div class="register-attention-text">请上传正确营业执照或身份证照片</div>
 	</div>
 	<button class="register-register" type="submit">注 册</button>
+	<button class="www" style="width: 80px;height: 80px;position: absolute;top: 1000px"></button>
 
-
+</form>
 
 	<script type="text/javascript">
 		$('.regisiter-usertype-choice1').click(function(){
+			$('#companycode').attr('required');
 			$('#form-type').val($('.regisiter-usertype-choice1').data('type'));
 			$('.register-textarea-invitor').css({"display":"block"});
 			$('.regisiter-usertype-choice1').css({"background-color":"#00b7ee"});
@@ -152,6 +153,7 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice2').click(function(){
+			$('#companycode').attr('required');
 			$('#form-type').val($('.regisiter-usertype-choice2').data('type'));
 			$('.register-textarea-invitor').css({"display":"block"});
 			$('.regisiter-usertype-choice2').css({"background-color":"#00b7ee"});
@@ -162,6 +164,7 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice3').click(function(){
+			$('#companycode').removeAttr('required');
 			$('#form-type').val($('.regisiter-usertype-choice3').data('type'));
 			$('.register-textarea-invitor').css({"display":"none"});
 			$('.regisiter-usertype-choice3').css({"background-color":"#00b7ee"});
@@ -173,7 +176,6 @@
 		});
 	</script>
 	<script type="text/javascript" src="js/register.js"></script>
-	</form>
 
 
 

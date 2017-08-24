@@ -26,7 +26,7 @@ class ApiIdentity extends CUserIdentity
 		} else {
 			$info = UserExt::model()->normal()->find("name='{$this->username}'");
 		} 
-
+		// var_dump($info);exit;
 		if($info) {
 
 			if($info->pwd!=md5($this->password)) {

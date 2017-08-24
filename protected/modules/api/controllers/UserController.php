@@ -45,6 +45,7 @@ class UserController extends ApiController{
 					if($company) {
 						$user->cid = $company->id;
 					}
+					$user->status = 1;
 				}
 				$user->attributes = $obj;
 				$user->pwd = md5($user->pwd);
