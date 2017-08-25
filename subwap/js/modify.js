@@ -48,14 +48,15 @@ function send_msg(phonenumber) {
 //提交
 $('.modify-modify').click(function() {
 	var phonenumber = $('#writephonenumber').val();
+    var code=$('#code').val();
     $.get('/api/user/checkCode?phone=' + phonenumber + '&code=' + code, function(data) {
         if (data.status == "error") {
             alert("请输入正确的验证码");
             return false;
         } else {
-            $.post("/api/user/regis", {
-                    'UserExt[phone]': $('#writephonenumber').val(),
-                    'UserExt[pwd]': $('#password').val()
+            $.post("/api/user/editPwd", {
+                    'phone': $('#writephonenumber').val(),
+                    'pwd': $('#password').val()
                 },
                 function(data, status) {
                     if (data.status == "success") {
