@@ -181,7 +181,13 @@ class PlotController extends AdminController{
 			$zd_company = $house->zd_company;
 			$tagArray = [];
 			foreach (PlotExt::$tagArr as $tagKey) {
-				$house->$tagKey && $tagArray = array_merge($tagArray,$house->$tagKey);
+				if($house->$tagKey) {
+					if(!is_array($house->$tagKey))
+						$tmp = [$house->$tagKey];
+					else
+						$tmp = $house->$tagKey;
+					$tagArray = array_merge($tagArray,$tmp);
+				}
 			}
 			// var_dump($house->zxzt);exit;
 			if($house->save()) {

@@ -20,6 +20,7 @@ class AreaExt extends Area{
     {
         return array(
             'team'=>array(self::BELONGS_TO, 'TeamExt', 'tid'),
+            'childArea' => array(self::HAS_MANY, 'AreaExt', 'parent','condition'=>'childArea.status=1 and childArea.deleted=0','order'=>'childArea.sort asc'),//子级区域
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
