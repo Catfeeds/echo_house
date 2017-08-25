@@ -132,9 +132,9 @@ class PlotExt extends Plot{
         return array(
             'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid'),
             'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid'),
-            'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'pid','condition'=>'news.deleted=0'),
+            'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0'),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
-            'prices'=>array(self::HAS_MANY, 'PlotPriceExt', 'pid','condition'=>'prices.deleted=0'),
+            'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1'),
             'areaInfo' => array(self::BELONGS_TO, 'AreaExt', 'area'),//区
             'streetInfo' => array(self::BELONGS_TO, 'AreaExt', 'street'),//街道
         );
@@ -194,7 +194,6 @@ class PlotExt extends Plot{
             ),
            'normal' => array(
                 'condition' => "{$alias}.status=1 and {$alias}.deleted=0",
-                'order'=>"{$alias}.sort desc,{$alias}.updated desc",
             ),
         );
     }
@@ -210,5 +209,21 @@ class PlotExt extends Plot{
             ),
             'BaseBehavior'=>'application.behaviors.BaseBehavior',
         );
+    }
+
+    public function getItsCompany()
+    {
+        $arr = [];
+        if($zd_company = $this->zd_company) {
+            if(!is_array($zd_company)) {
+                $zd_company = [$zd_company];
+            }
+            // $zd_company = array_filter($zd_company);
+            foreach ($zd_company as $key => $value) {
+                $obj = CompanyExt::model()->findByPk($value);
+                $arr[] = ['id'=>$obj->id,'name'=>$obj->name];
+            }
+        }
+        return $arr;
     }
 }

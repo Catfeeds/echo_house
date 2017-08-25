@@ -18,7 +18,7 @@ class TagExt extends Tag
             'zxzt' => '装修状态',
             'xszt' => '销售状态',
             
-            'sfprice' => '首付比例',
+            'sfprice' => '首付金额',
             // 'hjxl' => '红酒系列',
             // 'jzdq' => '酒庄地区',
             // 'jzdj' => '酒庄等级',
