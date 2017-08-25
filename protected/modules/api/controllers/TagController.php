@@ -24,7 +24,7 @@ class TagController extends ApiController{
 
 				$sfprice = [];
 				$sfprice['name'] = '首付';
-				$aveprice['filed'] = 'sfprice';
+				$sfprice['filed'] = 'sfprice';
 				$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice'")->queryAll();
 
 				$sort = [];
