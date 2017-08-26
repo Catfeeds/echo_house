@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+</head>
+<body>
+	<div class="list-head">
+		<img class="list-head-img" src="./img/search.png">
+		<div class="list-head-window">
+			<div class="list-head-list" id="app-head">
+				<ul class="clearfloat">
+					<li v-for="item in itemList" :id="item.id" class="list-head-item" style="list-style-type: none;">
+						<div class="list-head-text">全部全部全部全部全部</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="line"></div>
+
+	<div class="list-filter clearfloat" id="app-list-filter">
+            <div class="list-filter-area1">
+                <div class="list-filter-text">区域</div>
+                <img id="slat1" class="list-filter-slat" src="./img/slatdown.png" />
+            </div>
+            <div class="list-filter-area2">
+                <div class="list-filter-text">总价</div>
+                <img id="slat2" class="list-filter-slat" src="./img/slatdown.png" />
+            </div>
+            <div class="list-filter-area3">
+                <div class="list-filter-text">户型</div>
+                <img id="slat3" class="list-filter-slat" src="./img/slatdown.png" />
+            </div>
+            <div class="list-filter-area4">
+                <div class="list-filter-text">更多</div>
+                <img id="slat4" class="list-filter-slat" src="./img/slatdown.png" />
+            </div>
+    </div>
+
+<!-- 筛选列表1 -->
+	<div class="filter-filter-bg" id="filter1">
+		<div class="line"></div>
+		<div class="filter-filter1">
+			<div class="filter-filter1-left"> 
+				<ul>
+					<li>不限</li>
+					
+					<li>新北区</li>
+					
+					<li>钟楼区</li>
+					
+					<li>天宁区</li>
+				</ul>
+			</div>
+			<div class="filter-filter1-right"> 
+				<ul>
+					<li>不限</li>
+					<div class="line"></div>
+					<li>新北区</li>
+					<div class="line"></div>
+					<li>钟楼区</li>
+					<div class="line"></div>
+					<li>天宁区</li>
+					<li>新北区</li>
+					<div class="line"></div>
+					<li>钟楼区</li>
+					<div class="line"></div>
+					<li>天宁区</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- 筛选列表2 -->
+	<div class="filter-filter-bg" id="filter2">
+		<div class="line"></div>
+		<div class="filter-filter2">
+			<ul>
+				<li>不限</li>
+				<div class="line"></div>
+				<li>50万以下</li>
+				<div class="line"></div>
+				<li>50-80万</li>
+			</ul>
+		</div>
+	</div>
+<!-- 筛选列表3 -->
+	<div class="filter-filter-bg" id="filter3">
+		<div class="line"></div>
+		<div class="filter-filter3">
+			<ul>
+				<li>不限</li>
+				<div class="line"></div>
+				<li>一室</li>
+				<div class="line"></div>
+				<li>二室</li>
+			</ul>
+		</div>
+	</div>
+<!-- 筛选列表4 -->
+	<div class="filter-filter-bg" id="filter4">
+		<div class="line"></div>
+		<div class="filter-filter4">
+			<ul>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+<!-- 房子列表 -->
+	<div class="houselist" id="app-house">
+        <ul>
+            <li v-for="item in itemList" :id="item.id" style="list-style-type: none;">
+            	<div class="line"></div>
+                <a class="list-house">
+                	<img class="house-img" v-bind:src="item.image"/>
+					<div class="house-text-head">{{item.title}}</div>
+					<div class="house-text-type">{{item.type}}</div>
+					<div class="house-text-size">{{item.size}}</div>
+					<div class="house-text-plot_name">{{item.plot_name}}  {{item.area}}  {{item.street}}</div>
+					<div class="house-text-price">{{item.price}}</div>
+					<img class="distance-img" src="./img/icon-distance.png">
+				</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+</body>
+</html>

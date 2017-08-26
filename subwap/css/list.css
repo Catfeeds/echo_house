@@ -1,0 +1,280 @@
+body{
+	overflow-x: hidden;
+}
+
+.list-head{
+	position: relative;
+	height: 2.56rem;
+	width: 100%;
+	background-color: #fff;
+}
+
+.list-head-img{
+	position: absolute;
+	height: 0.853rem;
+	width: 0.88rem;
+	top: 0.853rem;
+	left: 18.32rem;
+}
+
+.list-head-window{
+	position: relative;
+	top: 0.747rem;
+	left: 0.64rem;
+	width: 17.067rem;
+	height: 1.067rem;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+::-webkit-scrollbar{
+	display: none;
+}
+
+.list-head-list{
+	position: relative;
+	height: 1.067rem;
+	width: 1000000rem;
+}
+
+.list-head-item{
+	position: relative;
+	height: 1.067rem;
+	font-size: 0.747rem;
+	color: #414141;
+	background-color: #fff;
+	border-radius: 0.48rem;
+	margin:0.0rem 0.027rem;
+	text-align: center;
+	float: left;
+
+}
+
+.list-head-item-active{
+	position: relative;
+	height: 1.067rem;
+	font-size: 0.747rem;
+	color: #fff;
+	background-color: #00b7ee;
+	border-radius: 0.48rem;
+	margin:0.0rem 0.027rem;
+	text-align: center;
+	float: left;
+}
+
+.list-head-text{
+	position: relative;
+	padding:0.0rem 0.42rem;
+}
+
+.list-filter{
+	height: 2.347rem;
+	width: 20.0rem;
+	position: relative;
+	background-color: #fff;
+}
+.list-filter-area1{
+	position: relative;
+	top: 0.613rem;
+	width: 25%;
+	float: left;
+	color: #000000;
+}
+.list-filter-area2{
+	position: relative;
+	top: 0.613rem;
+	width: 25%;
+	float: left;
+	color: #000000;
+}
+.list-filter-area3{
+	position: relative;
+	top: 0.613rem;
+	width: 25%;
+	float: left;
+	color: #000000;
+}
+.list-filter-area4{
+	position: relative;
+	top: 0.613rem;
+	width: 25%;
+	float: left;
+	color: #000000;
+}
+.list-filter-text{
+	position: relative;
+	left: 1.6rem;
+	float: left;
+	font-size: 0.8rem;
+	text-align: center;
+}
+.list-filter-slat{
+	position: relative;
+	top: 0.4rem;
+	left: 1.92rem;
+	float: left;
+	height:0.24rem; 
+	width:0.4rem;
+	text-align: center;
+}
+.filter-filter-bg{
+	position: relative;
+	width: 20.0rem;
+	height: auto;
+	background-color: rgba(127,127,127,0.5);
+	z-index: 99;
+}
+#filter1{
+	display: none;
+}
+.filter1-left-active{
+	color: #00b7ee;
+	background-color: #fff;
+}
+.filter-filter1-left{
+	position: absolute;
+	width: 8.0rem;
+	height: auto;
+	background-color: #f5f5f5;
+	overflow: hidden;
+}
+.filter-filter1-left li{
+	position: relative;
+	font-size: 0.747rem;
+	text-align: center;
+	height: 2.347rem;
+	line-height: 2.347rem;
+}
+.filter-filter1-right{
+	position: absolute;
+	left: 8.0rem;
+	width: 12.0rem;
+	height: auto;
+	background-color: #fff;
+	overflow: hidden;
+	display: none;
+}
+.filter-filter1-right li{
+	position: relative;
+	font-size: 0.747rem;
+	text-align: center;
+	height: 2.347rem;
+	line-height: 2.347rem;
+}
+.filter1-right-active{
+	color: #00b7ee;
+}
+#filter2{
+	display: none;
+	z-index: 99;
+}
+#filter3{
+	display: none;
+	z-index: 99;
+}
+#filter4{
+	display: none;
+	z-index: 99;
+}
+.filter2-active{
+	color: #00b7ee;
+}
+.filter3-active{
+	color: #00b7ee;
+}
+.filter-filter2{
+	position: relative;
+	background-color: #fff;
+	height: auto;
+	width: 20.0rem;
+	line-height: 2.347rem;
+	font-size: 0.8rem;
+}
+.filter-filter3{
+	position: relative;
+	background-color: #fff;
+	height: auto;
+	width: 20.0rem;
+	line-height: 2.347rem;
+	font-size: 0.8rem;
+}
+.filter-filter2 li{
+	padding-left: 1.333rem;
+}
+.filter-filter3 li{
+	padding-left: 1.333rem;
+}
+
+
+
+
+.houselist{
+	position: absolute;
+	top: 4.96rem;
+}
+.list-house{
+	height: 5.333rem;
+	width: 20.0rem;
+	position: relative;
+}
+.list-house:hover{
+	background-color: #E8E8E9;
+}
+.house-img{
+	position: relative;
+	top: 0.667rem;
+	left: 0.667rem;
+	height: 4.0rem;
+	width: 5.333rem;
+}
+.house-text-head{
+	font-size: 0.747rem;
+	position: relative;
+	top: -3.52rem;
+	left:6.8rem;
+	width: 12.8rem;
+}
+.house-text-type{
+	font-size: 0.64rem;
+	position: relative;
+	top: -3.28rem;
+	left:6.8rem;
+	width: 3.2rem;
+	color:#999999;
+}
+.house-text-size{
+	font-size: 0.64rem;
+	position: relative;
+	top: -4.053rem;
+	left:10.933rem;
+	width: 2.667rem;
+	color:#999999;
+}
+.house-text-plot_name{
+	font-size: 0.64rem;
+	position: relative;
+	top: -3.973rem;
+	left:6.8rem;
+	width: 12.0rem;
+	color:#999999;
+}
+.house-text-price{
+	font-size: 0.907rem;
+	position: absolute;
+	top: 2.293rem;
+	left:16.987rem;
+	width: 12.0rem;
+	color: #d61939;
+}
+.distance-img{
+	position: absolute;
+	height: 0.693rem;
+	width: 0.533rem;
+	top: 3rem;
+	left: 17rem;
+}
+.line{
+	width: 20.0rem;
+	height: 0.053rem;
+	position: relative;
+	background-color: #E8E8E9;
+}
