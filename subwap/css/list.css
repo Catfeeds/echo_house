@@ -1,5 +1,6 @@
 body{
 	overflow-x: hidden;
+	height: auto;
 }
 
 .list-head{
@@ -31,8 +32,6 @@ body{
 }
 
 .list-head-list{
-	position: relative;
-	height: 1.067rem;
 	width: 1000000rem;
 }
 
@@ -41,24 +40,18 @@ body{
 	height: 1.067rem;
 	font-size: 0.747rem;
 	color: #414141;
-	background-color: #fff;
 	border-radius: 0.48rem;
 	margin:0.0rem 0.027rem;
 	text-align: center;
 	float: left;
-
 }
-
+#app-head ul{
+	background-color: #fff;
+	color: #414141;
+}
 .list-head-item-active{
-	position: relative;
-	height: 1.067rem;
-	font-size: 0.747rem;
 	color: #fff;
 	background-color: #00b7ee;
-	border-radius: 0.48rem;
-	margin:0.0rem 0.027rem;
-	text-align: center;
-	float: left;
 }
 
 .list-head-text{
@@ -71,34 +64,13 @@ body{
 	width: 20.0rem;
 	position: relative;
 	background-color: #fff;
-}
-.list-filter-area1{
 	position: relative;
 	top: 0.613rem;
-	width: 25%;
-	float: left;
 	color: #000000;
 }
-.list-filter-area2{
-	position: relative;
-	top: 0.613rem;
-	width: 25%;
+.list-filter-area{
 	float: left;
-	color: #000000;
-}
-.list-filter-area3{
-	position: relative;
-	top: 0.613rem;
 	width: 25%;
-	float: left;
-	color: #000000;
-}
-.list-filter-area4{
-	position: relative;
-	top: 0.613rem;
-	width: 25%;
-	float: left;
-	color: #000000;
 }
 .list-filter-text{
 	position: relative;
@@ -106,6 +78,9 @@ body{
 	float: left;
 	font-size: 0.8rem;
 	text-align: center;
+}
+.list-filter-area-active{
+	color: #00b7ee;
 }
 .list-filter-slat{
 	position: relative;
@@ -125,6 +100,19 @@ body{
 }
 #filter1{
 	display: none;
+	z-index: 99;
+}
+#filter2{
+	display: none;
+	z-index: 99;
+}
+#filter3{
+	display: none;
+	z-index: 99;
+}
+#filter4{
+	display: none;
+	z-index: 99;
 }
 .filter1-left-active{
 	color: #00b7ee;
@@ -162,18 +150,6 @@ body{
 }
 .filter1-right-active{
 	color: #00b7ee;
-}
-#filter2{
-	display: none;
-	z-index: 99;
-}
-#filter3{
-	display: none;
-	z-index: 99;
-}
-#filter4{
-	display: none;
-	z-index: 99;
 }
 .filter2-active{
 	color: #00b7ee;

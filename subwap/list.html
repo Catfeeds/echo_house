@@ -12,35 +12,40 @@
 		<img class="list-head-img" src="./img/search.png">
 		<div class="list-head-window">
 			<div class="list-head-list" id="app-head">
-				<ul class="clearfloat">
-					<li v-for="item in itemList" :id="item.id" class="list-head-item" style="list-style-type: none;">
-						<div class="list-head-text">全部全部全部全部全部</div>
-					</li>
+				<ul>
+					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部</li>
+					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
+					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
+					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
+					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
 				</ul>
 			</div>
+
+
+
 		</div>
 	</div>
 
 	<div class="line"></div>
 
-	<div class="list-filter clearfloat" id="app-list-filter">
-            <div class="list-filter-area1">
+	<ul class="list-filter clearfloat" id="app-list-filter">
+            <li class="list-filter-area">
                 <div class="list-filter-text">区域</div>
-                <img id="slat1" class="list-filter-slat" src="./img/slatdown.png" />
-            </div>
-            <div class="list-filter-area2">
+                <img class="list-filter-slat" src="./img/slatdown.png" />
+            </li>
+            <li class="list-filter-area">
                 <div class="list-filter-text">总价</div>
-                <img id="slat2" class="list-filter-slat" src="./img/slatdown.png" />
-            </div>
-            <div class="list-filter-area3">
+                <img class="list-filter-slat" src="./img/slatdown.png" />
+            </li>
+            <li class="list-filter-area">
                 <div class="list-filter-text">户型</div>
-                <img id="slat3" class="list-filter-slat" src="./img/slatdown.png" />
-            </div>
-            <div class="list-filter-area4">
+                <img class="list-filter-slat" src="./img/slatdown.png" />
+            </li>
+            <li class="list-filter-area">
                 <div class="list-filter-text">更多</div>
-                <img id="slat4" class="list-filter-slat" src="./img/slatdown.png" />
-            </div>
-    </div>
+                <img class="list-filter-slat" src="./img/slatdown.png" />
+            </li>
+    </ul>
 
 <!-- 筛选列表1 -->
 	<div class="filter-filter-bg" id="filter1">
