@@ -11,11 +11,15 @@ class ApiController extends Controller{
     * @var array
     */
     public $frame = [];
+    public $staff = [];
 	public $layout = 'api.views.layouts.main';
 	public function init()
     {
        parent::init();
        $this->frame = $this->rapFrame();
+       if(!Yii::app()->user->getIsGuest()) {
+            $this->staff = UserExt::model()->findByPk(Yii::app()->user->id);
+       }
     }
     public function afterAction($action)
     {

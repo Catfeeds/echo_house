@@ -127,6 +127,7 @@ class PlotController extends ApiController{
 					'id'=>$value->id,
 					'title'=>$value->title,
 					'price'=>$value->price,
+					'unit'=>PlotExt::$unit[$value->unit],
 					'area'=>$areaName,
 					'street'=>$streetName,
 					'image'=>ImageTools::fixImage($value->image),
@@ -163,5 +164,129 @@ class PlotController extends ApiController{
         $b=$radLng1-$radLng2;//两经度之差纬度<180
         $s=2*asin(sqrt(pow(sin($a/2),2)+cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)))*6378.137;
         return $s;
+	}
+
+	public function actionInfo($id='')
+	{
+		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
+			return $this->returnError('参数错误');
+		}
+		$images = Yii::app()->db->createCommand("select id,type,url from plot_image where hid=$id")->queryAll();
+		if($images) {
+			foreach ($images as $key => $value) {
+				$images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
+				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
+			}
+		}
+
+		if($area = $info->areaInfo)
+			$areaName = $area->name;
+		else
+			$areaName = '';
+		if($street = $info->streetInfo)
+			$streetName = $street->name;
+		else
+			$streetName = '';
+		if($companydes = $info->getItsCompany()) {
+			// var_dump($companydes);exit;
+			$companyArr = [];
+			foreach ($companydes as $key => $value) {
+				$value && $companyArr[] = $value['name'];
+			}
+		} else {
+			$companyArr = [];
+		}
+		if(Yii::app()->user->getIsGuest()) {
+			$pay = [];
+		} elseif($pays = $info->pays) {
+			$pay[] = ['title'=>$pays[0]['name'],'content'=>$pays[0]['content'],'num'=>count($pays)];
+		} else {
+			$pay = [];
+		}
+		if($news = $info->news) {
+			$news = $news[0]['content'];
+		}
+
+		$data = [
+			'id'=>$id,
+			'title'=>$info->title,
+			'area'=>$areaName,
+			'street'=>$streetName,
+			'address'=>$info->address,
+			'price'=>$info->price,
+			'unit'=>PlotExt::$unit[$info->unit],
+			'map_lat'=>$info->map_lat?$info->map_lat:SiteExt::getAttr('qjpz','map_lat'),
+			'map_lng'=>$info->map_lng?$info->map_lng:SiteExt::getAttr('qjpz','map_lng'),
+			'map_zoom'=>$info->map_zoom?$info->map_zoom:SiteExt::getAttr('qjpz','map_zoom'),
+			'pay'=>$pay,
+			'news'=>$news,
+			'sell_point'=>$info->peripheral+$info->surround_peripheral,
+			'hx'=>$info->hxs,
+			'phones'=>explode(' ', $info->market_users),
+			'phone'=>$info->market_user,
+			'images'=>$images,
+		];
+		
+		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
+		$this->frame['data'] = $data;
+	}
+
+	public function actionMoreInfo($id='')
+	{
+		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
+			return $this->returnError('参数错误');
+		}
+		$fields = [
+			'open_time','is_new','delivery_time','developer','brand','manage_company','sale_tel','size','capacity','green','household_num','carport','price','manage_fee','property_years','dk_rule'
+		];
+		$data = [];
+		foreach ($fields as $key => $value) {
+			$data[$value] = $info->$value;
+		}
+		$jzlb = [];
+		if($jzlbs = $info->jzlb) {
+			if(!is_array($jzlbs))
+				$jzlbs = [$jzlbs];
+			foreach ($jzlbs as $key => $value) {
+				$tmp = TagExt::model()->findByPk($value);
+				$tmp && $jzlb[] = $tmp->name;
+			}
+		}
+		$zxzt = [];
+		if($zxzts = $info->zxzt) {
+			if(!is_array($zxzts))
+				$zxzts = [$zxzts];
+			foreach ($zxzts as $key => $value) {
+				$tmp = TagExt::model()->findByPk($value);
+				$tmp && $zxzt[] = $tmp->name;
+			}
+		}
+		$data['open_time'] && $data['open_time'] = date('Y-m-d',$data['open_time']);
+		$data['delivery_time'] && $data['delivery_time'] = date('Y-m-d',$data['delivery_time']);
+		$data['zxzt'] = $zxzt;
+		$data['jzlb'] = $jzlb;
+		$this->frame['data'] = $data;
+	}
+
+	public function actionPlotNews($id='')
+	{
+		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
+			return $this->returnError('参数错误');
+		}
+		if($news = $info->news) {
+			foreach ($news as $key => $value) {
+				$news[$key]['updated'] = date('Y-m-d',$value['updated']);
+			}
+		}
+		$this->frame['data'] = $news;
+	}
+
+	public function actionPlotPays($id='')
+	{
+		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
+			return $this->returnError('参数错误');
+		}
+
+		$this->frame['data'] = ['list'=>$info->pays,'jy_rule'=>$info->jy_rule,'kfs_rule'=>$info->kfs_rule];
 	}
 }
