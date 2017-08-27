@@ -3,11 +3,100 @@ body{
 	height: auto;
 }
 
+.list-search{
+	position:absolute;
+	width: 20.0rem;
+	height: 100%;
+	background-color: #f5f5f5;
+	display: none;
+	z-index: 10000;
+}
+.list-search-frame{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;	
+}
+.list-search-cancle{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #414141;
+	top: 0.7rem;
+	left: 17.947rem;
+}
+.list-search-frame-text{
+	position: absolute;
+	width: 16.213rem;
+	height: 1.547rem;
+	top: 0.4rem;
+	left: 0.64rem;
+	background-color: #fff;
+	border: none;
+	font-size: 0.693rem;
+	padding-left: 0.533rem;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+color:#c3c3c3;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color:#c3c3c3;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color:#c3c3c3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color:#c3c3c3;
+}
+.search-history{
+	position: relative;
+	width: 20.0rem;
+	margin-top: 0.4rem;
+	background-color: #fff;
+}
+.search-history-head{
+	position: relative;
+	width: 20.0rem;
+	height: 1.707rem;
+}
+.hist-text{
+	position: absolute;
+	font-size: 0.64rem;
+	left: 0rem;
+}
+.hist-img{
+	position: absolute;
+	height: 0.693rem;
+	width: 0.693rem;
+	left: 0rem;
+}
+.delete-img{
+	position: absolute;
+	height: 0.64rem;
+	width: 0.613rem;
+	left: 0rem;
+}
+.delete-text{
+	position: absolute;
+	font-size: 0.64rem;
+	left: 0rem;
+}
+
 .list-head{
 	position: relative;
 	height: 2.56rem;
 	width: 100%;
 	background-color: #fff;
+}
+
+.gradientcolor{
+	position: absolute;
+	height: 1.067rem;
+	width: 2.667rem;
+	top: 0.75rem;
+	left: 15.1rem;
+	/*透明渐变*/
+	background-image: linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,1));
+	z-index: 9999;
 }
 
 .list-head-img{
@@ -179,7 +268,66 @@ body{
 .filter-filter3 li{
 	padding-left: 1.333rem;
 }
-
+.filter4-item{
+	position: relative;
+	width: 20.0rem;
+	height: auto;
+	background-color: #fff;
+}
+.filter4-item-head{
+	position: relative;
+	font-size: 0.8rem;
+	height: 1.547rem;
+	width: 19.36rem;
+	padding-top: 1.04rem;
+	padding-left: 0.64rem;
+}
+.filter4-item-item{
+	position: relative;
+	height: auto;
+	width: 20rem;
+}
+.filter4-item-item ul li{
+	position: relative;
+	float: left;
+	height: 1.813rem;
+	width: 5.867rem;
+	border-radius: 0.267rem;
+	border:solid #c3c3c3 0.027rem;
+	margin-left: 0.533rem;
+	margin-top: 0.533rem;
+	font-size: 0.8rem;
+	line-height: 1.813rem;
+	text-align: center;
+}
+.list-blank{
+	position: relative;
+	background-color: #fff;
+	height: 1.333rem;
+	width: 20.0rem;
+}
+.filter-filter4-buttom{
+	position: relative;
+	height: 3.68rem;
+	width: 20.0rem;
+	color: #414141;
+}
+.filter-filter4-buttom-button{
+	position: relative;
+	height: 2.08rem;
+	width: 9.067rem;
+	margin-left: 0.56rem;
+	margin-top: 0.8rem;
+	border:solid #00b7ee 0.027rem;
+	border-radius: 0.267rem;
+	float: left;
+	text-align: center;
+	line-height: 2.08rem;
+}
+.filter-filter4-button-active{
+	background-color: #00b7ee;
+	color: #fff;
+}
 
 
 
@@ -209,10 +357,10 @@ body{
 	left:6.8rem;
 	width: 12.8rem;
 }
-.house-text-type{
+.house-text-company{
 	font-size: 0.64rem;
 	position: relative;
-	top: -3.28rem;
+	top: -1.9rem;
 	left:6.8rem;
 	width: 3.2rem;
 	color:#999999;
@@ -228,7 +376,7 @@ body{
 .house-text-plot_name{
 	font-size: 0.64rem;
 	position: relative;
-	top: -3.973rem;
+	top: -2.8rem;
 	left:6.8rem;
 	width: 12.0rem;
 	color:#999999;
@@ -236,17 +384,26 @@ body{
 .house-text-price{
 	font-size: 0.907rem;
 	position: absolute;
-	top: 2.293rem;
-	left:16.987rem;
+	top: 0.3rem;
+	left:7.2rem;
 	width: 12.0rem;
-	color: #d61939;
+	color: #ee674c;
+	text-align: right;
 }
 .distance-img{
 	position: absolute;
 	height: 0.693rem;
 	width: 0.533rem;
-	top: 3rem;
-	left: 17rem;
+	top: 1.7rem;
+	left: 16rem;
+}
+.list-distance{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 1.55rem;
+	left: 16.7rem;
+	width: 12.0rem;
+	color:#999999;
 }
 .line{
 	width: 20.0rem;

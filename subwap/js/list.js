@@ -6,30 +6,29 @@
 
 
 //商品列表
-// var app = new Vue({
-//     el: "#app-house",
-//     data: {
-//         itemList: [],
-//     },
-//     mounted: function() {
-//         this.getData();
-//     },
-//     methods: {
-//         getData: function() {
-//             var self = this;
-//             this.$http.get("http://127.0.0.1/test.json").then(function(res) {
-//                 var datalist = res.body.data.list;
-//                 for (var i = 0, len = datalist.length; i < len; i++) {
-//                     var selData = datalist[i];
-//                     var part = datalist[i].name;
-//                     self.itemList.push(selData);
+var app = new Vue({
+    el: "#app-house",
+    data: {
+        itemList: [],
+    },
+    mounted: function() {
+        this.getData();
+    },
+    methods: {
+        getData: function() {
+            var self = this;
+            this.$http.get("http://house.com/api/plot/list").then(function(res) {
+                var datalist = res.body.data.list;
+                for (var i = 0, len = datalist.length; i < len; i++) {
+                    var selData = datalist[i];
+                    var part = datalist[i].name;
+                    self.itemList.push(selData);
 
-//                 }
-//             })
-//         }
-//     }
-// });
-
+                }
+            })
+        }
+    }
+});
 //背景颜色高度
 $(document).ready(function() 
     { 
@@ -97,4 +96,21 @@ $('.filter-filter2 ul li').click(function(){
 $('.filter-filter3 ul li').click(function(){
     $('.filter-filter3 ul li').removeClass('filter3-active');
     $(this).addClass('filter3-active');
+});
+//filter4的子目录点击
+$('.filter-filter4 ul li div ul li').click(function(){
+    $(this).parent().children().removeClass('filter-filter4-button-active');
+    $(this).addClass('filter-filter4-button-active');
+});
+//确定和重置按钮
+$('.filter-filter4-buttom-button').click(function(){
+    $('.filter-filter4-buttom-button').removeClass('filter-filter4-button-active');
+    $(this).addClass('filter-filter4-button-active');
+});
+//search页面
+$('.list-head-img').click(function(){
+    $('.list-search').css({"display":"block"});
+});
+$('.list-search-cancle').click(function(){
+    $('.list-search').css({"display":"none"});
 });

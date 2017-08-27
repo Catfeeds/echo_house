@@ -8,7 +8,28 @@
 	<link rel="stylesheet" type="text/css" href="css/list.css">
 </head>
 <body>
+	<div class="list-search">
+		<div class="list-search-frame">
+			<div class="list-search-cancle">取消</div>
+			<input type="text" class="list-search-frame-text" placeholder="请输入小区名称或关键字">
+		</div>
+		<div class="search-history">
+			<div class="search-history-head">
+				<img class="hist-img" src="./img/hist.png">
+				<div class="hist-text">搜索历史</div>
+				<img class="delete-img" src="./img/delet.png">
+				<div class="delete-text">清空</div>
+			</div>
+			<ul>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+	</div>
+
 	<div class="list-head">
+		<div class="gradientcolor"></div>
 		<img class="list-head-img" src="./img/search.png">
 		<div class="list-head-window">
 			<div class="list-head-list" id="app-head">
@@ -20,9 +41,6 @@
 					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
 				</ul>
 			</div>
-
-
-
 		</div>
 	</div>
 
@@ -111,8 +129,78 @@
 		<div class="line"></div>
 		<div class="filter-filter4">
 			<ul>
-				<li></li>
+				<li class="filter4-item">
+					<div class="filter4-item-head"><strong>排序</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+						</ul>
+					</div>
+				</li>
+				<li class="filter4-item">
+					<div class="filter4-item-head"><strong>排序</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+						</ul>
+					</div>
+				</li>
+				<li class="filter4-item">
+					<div class="filter4-item-head"><strong>排序</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+						</ul>
+					</div>
+				</li>
+				<li class="filter4-item">
+					<div class="filter4-item-head"><strong>排序</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+							<li>不限</li>
+						</ul>
+					</div>
+				</li>
 			</ul>
+			<div class="list-blank"></div>
+			<div class="line"></div>
+			<div class="filter-filter4-buttom">
+				<div class="filter-filter4-buttom-button">重置</div>
+				<div class="filter-filter4-buttom-button">确定</div>
+			</div>
+			
 		</div>
 	</div>
 
@@ -126,11 +214,12 @@
                 <a class="list-house">
                 	<img class="house-img" v-bind:src="item.image"/>
 					<div class="house-text-head">{{item.title}}</div>
-					<div class="house-text-type">{{item.type}}</div>
 					<div class="house-text-size">{{item.size}}</div>
-					<div class="house-text-plot_name">{{item.plot_name}}  {{item.area}}  {{item.street}}</div>
-					<div class="house-text-price">{{item.price}}</div>
+					<div class="house-text-plot_name"> {{item.area}}{{item.street}}</div>
+					<div class="house-text-price">{{item.price}}{{item.unit}}</div>
 					<img class="distance-img" src="./img/icon-distance.png">
+					<div class="list-distance">{{item.distance}}</div>
+					<div class="house-text-company">{{item.company}}1122</div>
 				</a>
             </li>
         </ul>
@@ -142,7 +231,7 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/rem.js"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
 <script type="text/javascript" src="js/list.js"></script>
 </body>
 </html>

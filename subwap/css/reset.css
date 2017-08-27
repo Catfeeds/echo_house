@@ -14,7 +14,7 @@ img{
 	border: none;
 	display: block;
 }
-.clerafloat{
+.clearfloat{
 	zoom:1;
 }
 .clearfloat:after{
