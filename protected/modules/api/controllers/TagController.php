@@ -13,9 +13,14 @@ class TagController extends ApiController{
 				$area = [];
 				$area['name'] = '区域';
 				$area['filed'] = 'area';
-				$areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
-            	$areas[0]['childArea'] = $areas[0]->childArea;
-            	$area['list'] = $this->addChild($areas);
+				$areas = CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
+		            $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
+		            $areas[0]['childArea'] = $areas[0]->childArea;
+		            return $this->addChild($areas);
+		        });
+				// $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
+            	// $areas[0]['childArea'] = $areas[0]->childArea;
+            	$area['list'] = $areas;
 
             	$aveprice = [];
 				$aveprice['name'] = '均价';
