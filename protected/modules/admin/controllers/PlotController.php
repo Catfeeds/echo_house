@@ -284,6 +284,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotImageExt';
 		$this->controllerName = '楼盘相册';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->status=$info->getIsNewRecord()?1:0;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			if($info->save()) {
@@ -302,6 +303,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotHxExt';
 		$this->controllerName = '楼盘户型';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->status=$info->getIsNewRecord()?1:0;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 
@@ -321,9 +323,10 @@ class PlotController extends AdminController{
 		$modelName = 'PlotNewsExt';
 		$this->controllerName = '楼盘动态';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->status=$info->getIsNewRecord()?1:0;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
-
+			// var_dump($info->attributes);exit;
 			if($info->save()) {
 				$this->setMessage('操作成功','success',['newslist?hid='.$hid]);
 			} else {
@@ -340,6 +343,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotPayExt';
 		$this->controllerName = '楼盘佣金';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->status=$info->getIsNewRecord()?1:0;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 

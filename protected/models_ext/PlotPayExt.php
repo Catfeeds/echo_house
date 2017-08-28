@@ -43,8 +43,10 @@ class PlotPayExt extends PlotPay{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()) {
+            $this->status = 1;
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

@@ -289,4 +289,25 @@ class PlotController extends ApiController{
 
 		$this->frame['data'] = ['list'=>$info->pays,'jy_rule'=>$info->jy_rule,'kfs_rule'=>$info->kfs_rule];
 	}
+
+	public function actionAjaxSearch($kw='')
+	{
+		$data = [];
+		if($kw) {
+			$criteria = new CDbCriteria;
+			if(preg_match ("/^[a-z]/i", $kw) ) {
+				// var_dump(1);exit;
+				$criteria->addSearchCondition('pinyin',$kw);
+			}
+			else
+				$criteria->addSearchCondition('title',$kw);
+			$res = PlotExt::model()->normal()->findAll($criteria);
+			if($res) {
+				foreach ($res as $key => $value) {
+					$data[] = ['id'=>$value->id,'title'=>$value->title,'area'=>$value->areaInfo->name,'street'=>$value->streetInfo->name];
+				}
+			}
+			$this->frame['data'] = $data;
+		}
+	}
 }
