@@ -13,7 +13,7 @@ $('.login-login').click(function() {
             function(data, status) {
                 if (data.status == "success") {
                     alert("登陆成功！");
-                    location.href = "http://www.baidu.com";
+                    location.href = "list.html";
                 } else {
                     alert(data.msg);
                 }
