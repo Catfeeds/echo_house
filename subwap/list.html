@@ -20,80 +20,47 @@
 				<img class="delete-img" src="./img/delet.png">
 				<div class="delete-text">清空</div>
 			</div>
-			<ul>
-				<li></li>
-				<li></li>
+			<ul id="search-history-ul">
+				<!-- 历史记录 -->
 			</ul>
 		</div>
 		
 	</div>
 
-	<div class="list-head">
-		<div class="gradientcolor"></div>
-		<img class="list-head-img" src="./img/search.png">
-		<div class="list-head-window">
-			<div class="list-head-list" id="app-head">
-				<ul>
-					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部</li>
-					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
-					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
-					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
-					<li v-for="item in itemList" :id="item.id" class="list-head-item list-head-text" style="list-style-type: none;">全部全部全部全部全部</li>
-				</ul>
+	<div class="list-head-bg"></div>
+	<div class="list-head-container">
+		<div class="list-head">
+			<!-- <div class="gradientcolor"></div> -->
+			<img class="list-head-img" src="./img/search.png">
+			<div class="list-head-window">
+				<div class="list-head-list">
+					<ul>
+						<li id="alltop" data-id="0" class="list-head-item list-head-text"><a onclick="getTopId(this)">全部</a></li>
+
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="line"></div>
+		<div class="line"></div>
 
-	<ul class="list-filter clearfloat" id="app-list-filter">
-            <li class="list-filter-area">
-                <div class="list-filter-text">区域</div>
-                <img class="list-filter-slat" src="./img/slatdown.png" />
-            </li>
-            <li class="list-filter-area">
-                <div class="list-filter-text">总价</div>
-                <img class="list-filter-slat" src="./img/slatdown.png" />
-            </li>
-            <li class="list-filter-area">
-                <div class="list-filter-text">户型</div>
-                <img class="list-filter-slat" src="./img/slatdown.png" />
-            </li>
-            <li class="list-filter-area">
-                <div class="list-filter-text">更多</div>
-                <img class="list-filter-slat" src="./img/slatdown.png" />
-            </li>
-    </ul>
+		<ul class="list-filter clearfloat">
+	            <div id="filter-lead"></div>
+	    </ul>
+    </div>
 
 <!-- 筛选列表1 -->
 	<div class="filter-filter-bg" id="filter1">
 		<div class="line"></div>
 		<div class="filter-filter1">
 			<div class="filter-filter1-left"> 
-				<ul>
-					<li>不限</li>
-					
-					<li>新北区</li>
-					
-					<li>钟楼区</li>
-					
-					<li>天宁区</li>
+				<ul id="areaul">
+					<!-- 地区 -->
 				</ul>
 			</div>
 			<div class="filter-filter1-right"> 
-				<ul>
-					<li>不限</li>
-					<div class="line"></div>
-					<li>新北区</li>
-					<div class="line"></div>
-					<li>钟楼区</li>
-					<div class="line"></div>
-					<li>天宁区</li>
-					<li>新北区</li>
-					<div class="line"></div>
-					<li>钟楼区</li>
-					<div class="line"></div>
-					<li>天宁区</li>
+				<ul id="streetul">
+					<!-- 街道 -->
 				</ul>
 			</div>
 		</div>
@@ -102,12 +69,8 @@
 	<div class="filter-filter-bg" id="filter2">
 		<div class="line"></div>
 		<div class="filter-filter2">
-			<ul>
-				<li>不限</li>
-				<div class="line"></div>
-				<li>50万以下</li>
-				<div class="line"></div>
-				<li>50-80万</li>
+			<ul id="priceul">
+				<!-- 价格列表 -->
 			</ul>
 		</div>
 	</div>
@@ -115,12 +78,8 @@
 	<div class="filter-filter-bg" id="filter3">
 		<div class="line"></div>
 		<div class="filter-filter3">
-			<ul>
-				<li>不限</li>
-				<div class="line"></div>
-				<li>一室</li>
-				<div class="line"></div>
-				<li>二室</li>
+			<ul id="FirstPayul">
+				<!-- 首付列表 -->
 			</ul>
 		</div>
 	</div>
@@ -128,104 +87,25 @@
 	<div class="filter-filter-bg" id="filter4">
 		<div class="line"></div>
 		<div class="filter-filter4">
-			<ul>
-				<li class="filter4-item">
-					<div class="filter4-item-head"><strong>排序</strong></div>
-					<div class="filter4-item-item">
-						<ul class="clearfloat">
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-						</ul>
-					</div>
-				</li>
-				<li class="filter4-item">
-					<div class="filter4-item-head"><strong>排序</strong></div>
-					<div class="filter4-item-item">
-						<ul class="clearfloat">
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-						</ul>
-					</div>
-				</li>
-				<li class="filter4-item">
-					<div class="filter4-item-head"><strong>排序</strong></div>
-					<div class="filter4-item-item">
-						<ul class="clearfloat">
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-						</ul>
-					</div>
-				</li>
-				<li class="filter4-item">
-					<div class="filter4-item-head"><strong>排序</strong></div>
-					<div class="filter4-item-item">
-						<ul class="clearfloat">
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-							<li>不限</li>
-						</ul>
-					</div>
-				</li>
+			<ul id="filter4-list">	
 			</ul>
 			<div class="list-blank"></div>
 			<div class="line"></div>
 			<div class="filter-filter4-buttom">
-				<div class="filter-filter4-buttom-button">重置</div>
-				<div class="filter-filter4-buttom-button">确定</div>
+				<div class="filter-filter4-buttom-button" id="reset">重置</div>
+				<div class="filter-filter4-buttom-button" id="ensure">确定</div>
 			</div>
-			
 		</div>
 	</div>
 
 
 
 <!-- 房子列表 -->
-	<div class="houselist" id="app-house">
-        <ul>
-            <li v-for="item in itemList" :id="item.id" style="list-style-type: none;">
-            	<div class="line"></div>
-                <a class="list-house">
-                	<img class="house-img" v-bind:src="item.image"/>
-					<div class="house-text-head">{{item.title}}</div>
-					<div class="house-text-size">{{item.size}}</div>
-					<div class="house-text-plot_name"> {{item.area}}{{item.street}}</div>
-					<div class="house-text-price">{{item.price}}{{item.unit}}</div>
-					<img class="distance-img" src="./img/icon-distance.png">
-					<div class="list-distance">{{item.distance}}</div>
-					<div class="house-text-company">{{item.company}}1122</div>
-				</a>
-            </li>
+	<div class="houselist">
+        <ul id="ul1">
+            
         </ul>
     </div>
-
-
 
 
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
