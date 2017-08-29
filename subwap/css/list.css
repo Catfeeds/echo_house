@@ -8,7 +8,6 @@ body{
 	width: 20.0rem;
 	height: 100%;
 	background-color: #f5f5f5;
-	display: none;
 	z-index: 10000;
 }
 .list-search-frame{
@@ -50,13 +49,14 @@ color:#c3c3c3;
 .search-history{
 	position: relative;
 	width: 20.0rem;
-	margin-top: 0.4rem;
+	border-bottom: solid 0.027rem #c3c3c3;
 	background-color: #fff;
 }
 .search-history-head{
 	position: relative;
 	width: 20.0rem;
 	height: 1.707rem;
+	margin-bottom: 
 }
 #search-history-ul li{
 	position: relative;
@@ -66,7 +66,7 @@ color:#c3c3c3;
 	font-size: 0.693rem;
 	padding-left: 0.64rem;
 	padding-top: 0.4rem;
-	border-top: solid 0.027rem #c3c3c3;
+	border-bottom: solid 0.027rem #c3c3c3;
 }
 .hist-img{
 	position: absolute;

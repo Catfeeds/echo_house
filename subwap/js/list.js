@@ -1,74 +1,96 @@
 var o = new Object();
-o.toptag = '';
-o.area = '';
-o.street = '';
+
+function init(){
+    o.toptag = '';
+    o.area = '';
+    o.street = '';
+    o.aveprice='';
+    o.sfprice='';
+    o.sort='';
+    o.wylx='';
+    o.kw = '';
+    o.company='';
+}
 var filter = new Object();
 
+var Api = function(){
+        //百度地图API
+        // 创建 Geolocation 对象实例
+        var geolocation = new BMap.Geolocation();
+        // getCurrentPosition 方法用于返回用户当前位置
+        geolocation.getCurrentPosition(function(r) {
+            if(this.getStatus() === 0) {
+                console.log(r.point);  // {lat: 34.2777999, lng: 108.95309828}
+            }
+            else {
+                alert('定位失败，原因：' + this.getStatus());
+            }        
+        },{enableHighAccuracy: true})
+    }
+
+    //cookie
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+        if (c_start!=-1){ 
+            c_start=c_start + c_name.length+1 
+            c_end=document.cookie.indexOf(";",c_start)
+        if (c_end==-1) c_end=document.cookie.length
+            return unescape(document.cookie.substring(c_start,c_end))
+        } 
+      }
+    return ""
+    }
+
+    function setCookie(c_name,value,expiredays){
+        var exdate=new Date()
+        exdate.setDate(exdate.getDate()+expiredays)
+        document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+    }
+        
+    function checkCookie()
+        {
+        house_lng=getCookie('house_lng')
+        house_lat=getCookie('house_lat')
+        if (house_lng!=null && house_lng!="")
+          {
+            ajaxGetList(o);
+          }
+        else
+          {
+          Api();
+          if (house_lng!=null && house_lng!="")
+            {
+            setCookie('house_lng',r.point[0],1)
+            setCookie('house_lat',r.point[1],1)
+            }
+          }
+    }
+
 $(document).ready(function(){
+    init();
     var toptag = '';
+    $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
+    $('#priceul').append('<li id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
+    $('#FirstPayul').append('<li id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
+    $('#filter4-list').append('<li id="filter4-title0"></li>');
+    if(GetQueryString('kw')!=null)
+    o.kw = GetQueryString('kw');
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);
-
     var winHeight=($(window).height()-93)/18.75;
     $('.filter-filter-bg').css({"height":winHeight+"rem"});
     $.get('/api/tag/list?cate=plotFilter', function(data) {
         filter = data.data;
-    });   
+    });
 });
 
 function GetQueryString(name)
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
      var r = window.location.search.substr(1).match(reg);
-     if(r!=null)return  unescape(r[2]); return null;
-}
-//search页面
-$('.list-head-img').click(function(){
-    $('.list-search').css({"display":"block"});
-});
-$('.list-search-cancle').click(function(){
-    $('.list-search').css({"display":"none"});
-    // $('.list-search-frame-text').val()="";
-});
-$('.delete-img').click(function(){
-    $('#search-history-ul').empty();
-});
-$('.delete-text').click(function(){
-    $('#search-history-ul').empty();
-});
-//search请求
-document.onkeydown=function(){
-    if (event.keyCode == 13){
-        alert('回车键.');   
-        $('.list-search').css({"display":"none"});
-        $('#ul1').empty();
-        var obj_search= $('.list-search-frame-text').val();
-        if(obj_search != '') {
-            var params = '?kw='+obj_search;
-        }
-        $.get('/api/plot/ajaxSearch'+params, function(data) {
-                var html = '';
-                if(data.data.length == undefined) {
-                    var list = data.data.list;
-                    for (var i = 0; i < list.length; i++) {
-                        item = list[i];
-                        company = '';
-                        if(item.zd_company.name != undefined) {
-                            company = item.zd_company.name;
-                        }
-                        if(item.pay!=''){
-                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company">'+company+'</div></a></li>';
-                        }else{
-                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company">'+company+'</div></a></li>';
-                        }
-                        
-                    }
-                }
-                $('#ul1').append(html);
-            });
-    }
-
+     if(r!=null)return  unescape(decodeURI(r[2])); return null;
 }
 //请求商品列表
 function ajaxGetList(obj) {
@@ -95,6 +117,18 @@ function ajaxGetList(obj) {
     if(obj.wylx != '' && obj.wylx != undefined) {
         params += '&wylx='+obj.wylx;
     }
+    if(obj.kw != '' && obj.kw != undefined) {
+        params += '&kw='+obj.kw;
+    }
+    if(obj.company != '' && obj.company != undefined) {
+        params += '&company='+obj.company;
+    }
+    if(house_lng != '' && house_lng != undefined) {
+        params += '&house_lng='+house_lng;
+    }
+    if(house_lat != '' && house_lat != undefined) {
+        params += '&house_lat='+house_lat;
+    }
     $.get('/api/plot/list'+params, function(data) {
             var html = '';
             if(data.data.length == undefined) {
@@ -102,19 +136,35 @@ function ajaxGetList(obj) {
                 for (var i = 0; i < list.length; i++) {
                     item = list[i];
                     company = '';
+                    companyid='';
                     if(item.zd_company.name != undefined) {
                         company = item.zd_company.name;
+                        companyid = item.zd_company.id;
                     }
                     if(item.pay!=''){
-                        html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company">'+company+'</div></a></li>';
+                        if(item.distance!=''){
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }else{
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }                      
                     }else{
-                        html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company">'+company+'</div></a></li>';
+                        if(item.distance!=''){
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }else{
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }
                     }
                     
                 }
             }
             $('#ul1').append(html);
         });
+}
+//公司列表
+function setCompany(obj){
+    init();
+    o.company = $(obj).data('id');
+    ajaxGetList(o);
 }
 //头部文字
 function getTopId(obj) {
@@ -196,12 +246,7 @@ function getFilterId(obj) {
         $('#filter4').css({"display":"none"});
     }
 }
-$(document).ready(function(){
-    $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
-    $('#priceul').append('<li id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
-    $('#FirstPayul').append('<li id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
-    $('#filter4-list').append('<li id="filter4-title0"></li>');
-});
+
 //显示列表1
 function getAreas(obj) {
     if ($('#areaul').find('li').length==1) {
@@ -263,7 +308,26 @@ function setArea(obj) {
     $('#filter1').css('display','none');
     $('.list-filter-area').attr('class','list-filter-area list-filter-text');
     $('.list-filter-slat').attr('src','./img/slatdown.png');
-    if($(obj).data('type')=='area') {
+    // if($(obj).data('type')=='area') {
+    //     if ($(obj).attr('id')=='area0') {
+    //     o.area = '';
+    //     } else {
+    //     o.area = $(obj).data('id');
+    //     }
+    // } else {
+    //     if ($(obj).attr('id')=='street0') {
+    //         o.street='';
+    //     } else {
+    //         o.street = $(obj).data('id');
+    //     }
+        
+    // }
+
+    if ($(obj).attr('id')=='area0') {
+        o.area = '';
+        o.street = '';
+    } else if($(obj).attr('id')=='street0') {
+        o.street='';
         o.area = $(obj).data('id');
     } else {
         o.street = $(obj).data('id');
