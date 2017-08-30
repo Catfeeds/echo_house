@@ -34,6 +34,7 @@ class ApiIdentity extends CUserIdentity
 			} else {
 				$this->errorCode = self::ERROR_NONE;
 				$this->setState('id',$info->id);
+				$this->setState('phone',$info->phone);
 				$this->setState('username',$info->name);
 				return $this->errorCode;
 			}

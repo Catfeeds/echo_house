@@ -212,7 +212,7 @@ class PlotController extends ApiController{
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
-			'area'=>$areaName,
+			'area'=>$areaName,	
 			'street'=>$streetName,
 			'address'=>$info->address,
 			'price'=>$info->price,
@@ -224,8 +224,8 @@ class PlotController extends ApiController{
 			'news'=>$news,
 			'sell_point'=>$info->peripheral+$info->surround_peripheral,
 			'hx'=>$info->hxs,
-			'phones'=>explode(' ', $info->market_users),
-			'phone'=>$info->market_user,
+			'phones'=>$this->staff?explode(' ', $info->market_users):[],
+			'phone'=>$this->staff?$info->market_user:'',
 			'images'=>$images,
 		];
 		
@@ -330,6 +330,30 @@ class PlotController extends ApiController{
 			$this->returnError('无');
 		} else {
 			$this->returnSuccess('有');
+		}
+	}
+
+	public function actionSubmit()
+	{
+		if(Yii::app()->request->getIsPostRequest()){
+			$uid = $_POST['uid'];
+			$hid = $_POST['hid'];
+			$content = $_POST['content'];
+			$user = UserExt::model()->findByPk($uid);
+			$model = $_POST['model'];
+			if($model == 'PlotExt') {
+				$obj = PlotExt::model()->findByPk($hid);
+			} else
+				$obj = new $model;
+			if(isset($obj->author) && isset($user->name)) {
+				$obj->author = $user->name;
+			}
+			if($model == 'PlotExt') {
+				$obj->dk_rule = $content;
+			} else {
+				$obj->content = $content;
+			}
+			$obj->save();
 		}
 	}
 }
