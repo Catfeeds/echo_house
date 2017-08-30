@@ -9,6 +9,7 @@ ol,ul,li{
 a{
 	text-decoration: none;
 	display: block;
+	color: black;
 }
 img{
 	border: none;
