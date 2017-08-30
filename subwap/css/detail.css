@@ -386,3 +386,10 @@ body{
 	text-align: center;
 	color: #fff;
 }
+
+.telephone-sonsult{
+	position: relative;
+	height: 2.347rem;
+	width: 20.0rem;
+	background-color: #fff;
+}

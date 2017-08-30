@@ -1,0 +1,51 @@
+body{
+	background-color: #f5f5f5;
+}
+.publish-head{
+	position: relative;
+	height: 2.293rem;
+	width: 20.0rem;
+}
+.publish-head-title{
+	position: absolute;
+	font-size: 0.747rem;
+	color: #666666;
+	top: 0.5rem;
+	left: 0.64rem;
+}
+.publish-write{
+	position: relative;
+	height: 6.72rem;
+	width: 18.72rem;
+	background-color: #fff;
+	font-size: 0.747rem;
+	border: none;
+	line-height: 0.8rem;
+	padding:0.64rem;
+}
+.publish-submit{
+	position: relative;
+	top: 1.04rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b8ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+	border:none;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+color:#c3c3c3;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color:#c3c3c3;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color:#c3c3c3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color:#c3c3c3;
+}
