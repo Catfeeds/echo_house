@@ -63,4 +63,13 @@ class PlotController extends WapController{
 		}
 		$this->render('info',['info'=>$info]);
 	}
+
+	public function actionMap($hid='')
+	{
+		$info = PlotExt::model()->findByPk($hid);
+		if(!$info) {
+			$this->redirect('/subwap/list.html');
+		}
+		$this->render('map',['info'=>$info]);
+	}
 }
