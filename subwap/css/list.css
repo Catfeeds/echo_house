@@ -368,6 +368,26 @@ color:#c3c3c3;
 	position: absolute;
 	top: 4.96rem;
 }
+.hose-list-ammount-bg{
+	width: 19.36rem;
+	height: 1.067rem;
+	font-size:0.533rem;
+	line-height: 1.067rem;
+	color:gray;
+	padding-left: 0.64rem;
+	background-color: #f1f1f1;
+}
+.hose-list-ammount{
+	background-color: #00b7ee;
+	float: right;
+	color: white;
+	margin-top: 0.16rem;
+	margin-right: 0.133rem;
+	height: 0.8rem;
+	font-size:0.533rem;
+	line-height: 0.8rem;
+}
+
 .list-house{
 	height: 5.333rem;
 	width: 20.0rem;

@@ -1,0 +1,69 @@
+body{
+	background-color: #f5f5f5;
+}
+.parameter-time{
+	position: relative;
+	height: 4.8rem;
+	width: 20.0rem;
+	background-color: #fff;
+}
+.parameter-blank{
+	position: relative;
+	background-color: #f5f5f5;
+	width: 20.0rem;
+	height: 0.533rem;
+}
+.parameter-blank-2{
+	position: relative;
+	background-color: #f5f5f5;
+	width: 20.0rem;
+	height: 2.053rem;
+}
+.parameter-blank-text{
+	position:absolute;
+	top: 0.5rem;
+	left: 0.64rem;
+	font-size: 0.747rem;
+	color: #666666;
+}
+.parameter-tag{
+	position: relative;
+	width: 20.0rem;
+	height: 2.107rem;
+}
+.parameter-tag-name{
+	position: absolute;
+	top: 0.693rem;
+	left: 0.64rem;
+	color: #c3c3c3;
+	font-size: 0.747rem;
+}
+.parameter-tag-value{
+	position: absolute;
+	top: 0.693rem;
+	left: 4.8rem;
+	color: #333333;
+	font-size: 0.747rem;
+}
+.line{
+	width: 20.0rem;
+	height: 0.053rem;
+	position: relative;
+	background-color: #E8E8E9;
+}
+.parameter-developer{
+	position: relative;
+	background-color: #fff;
+}
+.parameter-area{
+	position: relative;
+	background-color: #fff;
+}
+.parameter-house-parameter{
+	position: relative;
+	background-color: #fff;
+}
+.parameter-house-houseparameter{
+	position: relative;
+	background-color: #fff;
+}

@@ -1,0 +1,37 @@
+body{
+	background-color: #f5f5f5;
+}
+.comment-item{
+	position: relative;
+	width: 20.0rem;
+	height: 7.04rem;
+	background-color: #fff;
+}
+.line{
+	width: 20.0rem;
+	height: 0.053rem;
+	position: relative;
+	background-color: #E8E8E9;
+}
+.user-pic{
+	position: absolute;
+	height: 1.813rem;
+	width: 1.813rem;
+	left: 0.64rem;
+	top: 0.8rem;
+}
+.user-name{
+	position: absolute;
+	top: 0.853rem;
+	left: 2.853rem;
+	font-size: 0.693rem;
+}
+.user-comment{
+
+}
+.date{
+
+}
+.time{
+
+}
