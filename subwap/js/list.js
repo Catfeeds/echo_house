@@ -111,11 +111,8 @@ $(document).ready(function(){
         filter = data.data;
     });
 });
-
 function getLocation(){
-    $.get('http://api.map.baidu.com/location/ip?ak=IEOQ5TmNBGPoIMQLqLyQDe193OjYYgNH',function(data) {
-        console.log(data);
-    });
+
     // if (navigator.geolocation){
     //     navigator.geolocation.getCurrentPosition(showPosition);
     // }else{
