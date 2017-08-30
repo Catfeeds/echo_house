@@ -282,7 +282,7 @@ $config1 = array(
         'session' => array(
             'autoStart' => false,
             'cookieMode' => 'allow',
-            'sessionName' => 'hj_house',
+            'sessionName' => 'house',
         ),
     ),
 );

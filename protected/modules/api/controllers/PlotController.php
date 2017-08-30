@@ -85,7 +85,7 @@ class PlotController extends ApiController{
 		} else {	
 			// var_dump(empty($_COOKIE['house_lng']));exit;
 			if(isset($_COOKIE['house_lng']) && isset($_COOKIE['house_lat'])) {
-				var_dump(1);exit;
+				// var_dump(1);exit;
 				$city_lat = $_COOKIE['house_lat'];
 				$city_lng = $_COOKIE['house_lng'];
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
@@ -135,7 +135,7 @@ class PlotController extends ApiController{
 					'image'=>ImageTools::fixImage($value->image),
 					'zd_company'=>$companydes,
 					'pay'=>$pay,
-					'distance'=>$this->getDistance($value),
+					'distance'=>round($this->getDistance($value),2),
 				];
 			}
 			$pager = $plots->pagination;
@@ -310,6 +310,18 @@ class PlotController extends ApiController{
 				}
 			}
 			$this->frame['data'] = $data;
+		}
+	}
+
+	public function actionSetCoo()
+	{
+		if(Yii::app()->request->getIsPostRequest()){
+			$house_lng = $_POST['lng'];
+			$house_lat = $_POST['lat'];
+			// var_dump($house_lat);exit;
+			setCookie('house_lng',$house_lng,2);
+			setCookie('house_lat',$house_lat,2);
+			var_dump($_COOKIE);
 		}
 	}
 }
