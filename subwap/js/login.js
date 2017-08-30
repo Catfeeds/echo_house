@@ -29,6 +29,8 @@ $(document).ready(function() {
         }
         if(loginimg!='') {
             $('.echo-house-img').attr('src',loginimg);
+        } else {
+            $('.echo-house-img').attr('src','./img/echo-house.png');
         }
     });
 });
