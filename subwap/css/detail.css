@@ -1,0 +1,388 @@
+body{
+	background-color: #f5f5f5;
+}
+
+.line{
+	width: 20.0rem;
+	height: 0.053rem;
+	position: relative;
+	background-color: #E8E8E9;
+}
+
+.detail-head{
+	position: relative;
+	width: 20.0rem;
+	height: 17.147rem;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.detail-head-img-container{
+	position: relative;
+	width: 20.0rem;
+	height: 13.067rem;
+	overflow: hidden;
+}
+
+.detail-head-img{
+	width: 20.0rem;
+}
+
+.detail-top-img-title{
+	position: absolute;
+	top: 0.0rem;
+	width: 20.0rem;
+	font-size: 0.8rem;
+	top: 0.8rem;
+	color: #fff;
+	text-align: center;
+}
+
+.detail-head-img-examplepic{
+	position: absolute;
+	left: 0.64rem;
+	top: 11.787rem;
+	font-size: 0.64rem;
+	color: #fff;
+}
+
+.detail-small-tag{
+	position: relative;
+	width: 20.0rem;
+	height: 2.027rem;
+}
+
+.detail-head-price{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #ef7158;
+	font-size: 0.96rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+
+.detail-head-status{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #ef7158;
+	font-size: 0.64rem;
+	top: 0rem;
+	left: 5.867rem;
+}
+
+.detail-head-location{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.693rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+
+.detail-lookup{
+	position: absolute;
+	top: 0rem;
+	left: 15.787rem;
+	height:2.027rem;
+	width: 3.573rem; 
+}
+
+.detail-lookup-text{
+	position: absolute;
+	top: 0rem;
+	left: -1rem;
+	height: 2.027rem;
+	width: 3.933rem;
+	line-height: 2.027rem;
+	font-size: 0.693rem;
+	color: #c3c3c3;
+	text-align: right;
+}
+
+.detail-lookup-img{
+	position: absolute;
+	top: 0.667rem;
+	left: 3.093rem;
+	width: 0.427rem;
+	height:0.693rem;
+}
+
+.detail-laststate{
+	position: relative;
+	width: 20.0rem;
+	height: 6.553rem;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.detail-smalltag-title{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.747rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+
+.detail-laststate-edit{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.64rem;
+	top: 0rem;
+	left: 3.867rem;
+}
+
+.detail-laststate-message{
+	position: relative;
+	top: 0.693rem;
+	width: 18.72rem;
+	height: 3.947rem;
+	margin: 0rem 0.64rem;
+	color: #c3c3c3;
+	font-size: 0.693rem;
+}
+
+.detail-pricerules{
+	position: relative;
+	width: 20.0rem;
+	height: 5.92rem;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.detail-blank{
+	position: relative;
+	width: 20.0rem;
+	height: 0.533rem;
+	background-color: #f5f5f5;
+}
+
+.detail-pricerules-message{
+	position: relative;
+	width: 20.0rem;
+	height: 3.307rem;
+}
+
+.detail-pricerules-message1{
+	position: absolute;
+	top: 0.853rem;
+	left: 0.64rem;
+	font-size: 0.747rem;
+	color: #333333;
+}
+
+.detail-pricerules-message2{
+	top: 1.947rem;
+	position: absolute;
+	left: 0.64rem;
+	font-size: 0.64rem;
+	color: #c3c3c3;
+}
+
+.detail-sailpoint{
+	position: relative;
+	width: 20.0rem;
+	height: 10.347rem;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.detail-sailpoint-message{
+	position: relative;
+	height: 7.733rem;
+	width: 18.72rem;
+	padding-top: 0.667rem;
+	padding-left: 0.64rem;
+	padding-right: 0.64rem;
+}
+
+.detail-sailpoint-message div{
+	font-size: 0.693rem;
+	color: #c3c3c3;
+	line-height: 1.013rem;
+}
+
+.detail-mainstyle{
+	position: relative;
+	height: 12.853rem;
+	width: 20.0rem;
+	background-color: #fff;
+	overflow:hidden;
+}
+
+.detail-mainstyle-housecontainer{
+	position: relative;
+	width: 19.36rem;
+	height: 8.907rem;
+	top: 0.667rem;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	margin-right: 0.64rem;
+}
+
+::-webkit-scrollbar{
+	display: none;
+}
+
+.detail-mainstyle-housecontainer li{
+	position: relative;
+	float: left;
+	width: 7.307rem;
+	height: 8.907rem;
+	margin-left: 0.64rem;
+}
+
+.detail-mainstyle-img{
+	position: absolute;
+	width: 7.307rem;
+	height: 5.547rem;
+	overflow: hidden;
+}
+
+.detail-mainstyle-style{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #333333;
+	top: 6.133rem;
+	left: 0rem;
+}
+
+.detail-mainstyle-type{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #333333;
+	top: 6.133rem;
+	left: 5.173rem;
+}
+
+.detail-mainstyle-area{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #c3c3c3;
+	top: 7.04rem;
+	left: 4rem;
+}
+
+.detail-mainstyle-shu{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #c3c3c3;
+	top: 7.04rem;
+	left: 3.6rem;
+}
+
+.detail-mainstyle-room{
+	position: absolute;
+	font-size: 0.693rem;
+	color: #c3c3c3;
+	top: 7.04rem;
+	left: 0rem;
+}
+
+.detail-mainstyle-peice{
+	position: absolute;
+	font-size: 0.747rem;
+	color: #ee674c;
+	top: 8rem;
+	left: 0rem;
+}
+
+.detail-mainstyle-status{
+	position: absolute;
+	font-size: 0.64rem;
+	color: #666666;
+	top: 8.08rem;
+	left: 6rem;
+}
+
+.detail-samearea{
+	position: relative;
+	height: 12.853rem;
+	width: 20.0rem;
+	background-color: #fff;
+	overflow:hidden;
+}
+
+.detail-sameprice{
+	position: relative;
+	height: 12.853rem;
+	width: 20.0rem;
+	background-color: #fff;
+	overflow:hidden;
+}
+
+.detail-buttom{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;
+	background-color: #fff;
+}
+
+.detail-button-phone{
+	position: relative;
+	width: 4.64rem;
+	background-color: #34475a;
+	float: left;
+	height: 2.347rem;
+}
+
+.detail-button-phone-img{
+	position: absolute;
+	top: 0.293rem;
+	left: 1.893rem;
+	width: 0.853rem;
+	height: 0.853rem;
+}
+
+.detail-button-phone-text{
+	width: 4.64rem;
+	position: absolute;
+	top: 1.44rem;
+	font-size: 0.64rem;
+	color: #fff;
+	text-align: center;
+}
+
+.detail-button-distribution{
+	position: relative;
+	left: 0.027rem;
+	width: 4.64rem;
+	background-color: #34475a;
+	float: left;
+	height: 2.347rem;
+}
+
+.detail-button-distribution-img{
+	position: absolute;
+	top: 0.293rem;
+	left: 1.893rem;
+	width: 0.907rem;
+	height: 0.853rem;
+}
+
+.detail-button-distribution-text{
+	width: 4.64rem;
+	position: absolute;
+	top: 1.44rem;
+	font-size: 0.64rem;
+	color: #fff;
+	text-align: center;
+}
+
+.detail-button-baobei{
+	position: relative;
+	left: 0.053rem;
+	width: 10.667rem;
+	background-color: #ee674c;
+	float: left;
+	height: 2.347rem;
+}
+
+.detail-button-baobei-text{
+	width: 10.667rem;
+	position: absolute;
+	top: 0.5rem;
+	text-align: center;
+	color: #fff;
+}
