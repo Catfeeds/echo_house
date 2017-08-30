@@ -47,25 +47,11 @@ function getCookie(c_name) {
     return ""
 }
 
-function setCookie(c_name, value, expiredays) {
-    var exdate = new Date()
-    exdate.setDate(exdate.getDate() + expiredays)
-    document.cookie = c_name + "=" + escape(value) +
-        ((expiredays == null) ? "" : "; expires=" + exdate.toGMTString())
-}
-
 function checkCookie() {
-    house_lng = getCookie('house_lng')
+    var house_lng = getCookie('house_lng');
     if (house_lng != null && house_lng != "") { console.log(house_lng) } else {
         getLocation();
     }
-}
-
-function setCookie(c_name, value, expiredays) {
-    var exdate = new Date()
-    exdate.setDate(exdate.getDate() + expiredays)
-    document.cookie = c_name + "=" + escape(value) +
-        ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
 }
 
 function getLocation() {
@@ -75,11 +61,10 @@ function getLocation() {
     var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function(r){
         if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            var mk = new BMap.Marker(r.point);
-            map.addOverlay(mk);
-            map.panTo(r.point);
-            setCookie('house_lng',r.point.lng,1);
-            setCookie('house_lat',r.point.lat,1);
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + 1);
+            document.cookie = 'house_lng' + "=" + escape(r.point.lng) + "; expires=" + exdate.toGMTString();
+            document.cookie = 'house_lat' + "=" + escape(r.point.lat) + "; expires=" + exdate.toGMTString();
         }
         else {
             alert('failed'+this.getStatus());

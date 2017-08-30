@@ -83,7 +83,9 @@ class PlotController extends ApiController{
 					break;
 			}
 		} else {	
+			// var_dump(empty($_COOKIE['house_lng']));exit;
 			if(isset($_COOKIE['house_lng']) && isset($_COOKIE['house_lat'])) {
+				var_dump(1);exit;
 				$city_lat = $_COOKIE['house_lat'];
 				$city_lng = $_COOKIE['house_lng'];
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
