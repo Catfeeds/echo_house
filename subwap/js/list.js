@@ -64,6 +64,7 @@ function getLocation() {
             var exdate = new Date();
             exdate.setDate(exdate.getDate() + 1);
             $.post('/api/plot/setCoo',{'lng':r.point.lng,'lat':r.point.lat},function() {});
+            ajaxGetList(o);
         }
         else {
             alert('failed'+this.getStatus());
