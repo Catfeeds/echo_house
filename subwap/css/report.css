@@ -137,7 +137,7 @@ color:#c3c3c3;
 }
 .report-report{
 	position: fixed;
-	top: 90%;
+	bottom:0rem;
 	background-color: #fff;
 	height: 3.733rem;
 	width: 20.0rem;
