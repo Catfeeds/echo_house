@@ -69,7 +69,7 @@ function getLocation() {
             alert('failed'+this.getStatus());
         }        
     },{enableHighAccuracy: true});
-    ajaxGetList(o);
+    location.href = '';
 }
 
 $(document).ready(function() {
