@@ -321,7 +321,15 @@ class PlotController extends ApiController{
 			// var_dump($house_lat);exit;
 			setCookie('house_lng',$house_lng);
 			setCookie('house_lat',$house_lat);
-			var_dump($_COOKIE);
+		}
+	}
+
+	public function actionGetHasCoo()
+	{
+		if(empty($_COOKIE['house_lng'])) {
+			$this->returnError('无');
+		} else {
+			$this->returnSuccess('有');
 		}
 	}
 }

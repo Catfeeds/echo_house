@@ -48,10 +48,11 @@ function getCookie(c_name) {
 }
 
 function checkCookie() {
-    var house_lng = getCookie('house_lng');
-    if (house_lng != null && house_lng != "") { console.log(house_lng) } else {
-        getLocation();
-    }
+    $.get('/api/plot/getHasCoo', function(data) {
+        if(data.status == 'error') {
+            getLocation();
+        }
+    });
 }
 
 function getLocation() {
@@ -63,13 +64,14 @@ function getLocation() {
         if(this.getStatus() == BMAP_STATUS_SUCCESS){
             var exdate = new Date();
             exdate.setDate(exdate.getDate() + 1);
-            $.post('/api/plot/setCoo',{'lng':r.point.lng,'lat':r.point.lat},function() {});
+            $.post('/api/plot/setCoo',{'lng':r.point.lng,'lat':r.point.lat},function() {
+                location.reload();
+            });
         }
         else {
             alert('failed'+this.getStatus());
         }        
     },{enableHighAccuracy: true});
-    location.href = '';
 }
 
 $(document).ready(function() {
@@ -79,7 +81,12 @@ $(document).ready(function() {
     $('#priceul').append('<li id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
-    getLocation();
+    $.get('/api/plot/getHasCoo', function(data) {
+        if(data.status == 'error') {
+            getLocation();
+        }
+    });
+        
     if (GetQueryString('kw') != null)
         o.kw = GetQueryString('kw');
     ajaxGetTop();
