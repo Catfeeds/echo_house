@@ -49,11 +49,28 @@ class CompanyController extends AdminController{
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			// $info->time =  is_numeric($info->time)?$info->time : strtotime($info->time);
-			if($info->save()) {
-				$this->setMessage('操作成功','success',['list']);
+			if($info->getIsNewRecord()) {
+				if(Yii::app()->db->createCommand("select id from company where name='".$info->name."'")->queryScalar()) {
+					$this->setMessage('公司名已存在','error');
+				} else {
+					if($info->save()) {
+						$this->setMessage('操作成功','success',['list']);
+					} else {
+						$this->setMessage(array_values($info->errors)[0][0],'error');
+					}
+				}
 			} else {
-				$this->setMessage(array_values($info->errors)[0][0],'error');
+				if(Yii::app()->db->createCommand("select id from company where id<>".$info->id." and name='".$info->name."'")->queryScalar()) {
+					$this->setMessage('公司名已存在','error');
+				} else {
+					if($info->save()) {
+						$this->setMessage('操作成功','success',['list']);
+					} else {
+						$this->setMessage(array_values($info->errors)[0][0],'error');
+					}
+				}
 			}
+					
 		} 
 		$this->render('edit',['article'=>$info,]);
 	}

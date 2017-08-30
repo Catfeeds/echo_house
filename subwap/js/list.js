@@ -10,62 +10,87 @@ function init(){
     o.wylx='';
     o.kw = '';
     o.company='';
+    o.page='';
+    o.page_count = '';
+    o.num = '';
 }
 var filter = new Object();
 
-var Api = function(){
-        //百度地图API
-        // 创建 Geolocation 对象实例
-        var geolocation = new BMap.Geolocation();
-        // getCurrentPosition 方法用于返回用户当前位置
-        geolocation.getCurrentPosition(function(r) {
-            if(this.getStatus() === 0) {
-                console.log(r.point);  // {lat: 34.2777999, lng: 108.95309828}
-            }
-            else {
-                alert('定位失败，原因：' + this.getStatus());
-            }        
-        },{enableHighAccuracy: true})
-    }
+//==============核心代码=============  
+var winH = $(window).height(); //页面可视区域高度   
 
-    //cookie
-    function getCookie(c_name){
-        if (document.cookie.length>0){
-            c_start=document.cookie.indexOf(c_name + "=")
-        if (c_start!=-1){ 
-            c_start=c_start + c_name.length+1 
-            c_end=document.cookie.indexOf(";",c_start)
-        if (c_end==-1) c_end=document.cookie.length
-            return unescape(document.cookie.substring(c_start,c_end))
-        } 
-      }
-    return ""
-    }
+var scrollHandler = function () {  
+    var pageH = $(document.body).height();  
+    var scrollT = $(window).scrollTop(); //滚动条top   
+    var aa = (pageH - winH - scrollT) / winH;  
+    if (aa < 0.01) {//0.02是个参数  
+        if(o.page<o.page_count) {
+            o.page++;
+            ajaxAddList(o);  
+        }
+    }  
+}  
+//定义鼠标滚动事件  
+$(window).scroll(scrollHandler);  
+//==============核心代码=============  
 
-    function setCookie(c_name,value,expiredays){
-        var exdate=new Date()
-        exdate.setDate(exdate.getDate()+expiredays)
-        document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
-    }
+function checkCookie() {
+    // body...
+}
+
+// var Api = function(){
+//         //百度地图API
+//         // 创建 Geolocation 对象实例
+//         var geolocation = new BMap.Geolocation();
+//         // getCurrentPosition 方法用于返回用户当前位置
+//         geolocation.getCurrentPosition(function(r) {
+//             if(this.getStatus() === 0) {
+//                 console.log(r.point);  // {lat: 34.2777999, lng: 108.95309828}
+//             }
+//             else {
+//                 alert('定位失败，原因：' + this.getStatus());
+//             }        
+//         },{enableHighAccuracy: true})
+//     }
+
+//     //cookie
+//     function getCookie(c_name){
+//         if (document.cookie.length>0){
+//             c_start=document.cookie.indexOf(c_name + "=")
+//         if (c_start!=-1){ 
+//             c_start=c_start + c_name.length+1 
+//             c_end=document.cookie.indexOf(";",c_start)
+//         if (c_end==-1) c_end=document.cookie.length
+//             return unescape(document.cookie.substring(c_start,c_end))
+//         } 
+//       }
+//     return ""
+//     }
+
+//     function setCookie(c_name,value,expiredays){
+//         var exdate=new Date()
+//         exdate.setDate(exdate.getDate()+expiredays)
+//         document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+//     }
         
-    function checkCookie()
-        {
-        house_lng=getCookie('house_lng')
-        house_lat=getCookie('house_lat')
-        if (house_lng!=null && house_lng!="")
-          {
-            ajaxGetList(o);
-          }
-        else
-          {
-          Api();
-          if (house_lng!=null && house_lng!="")
-            {
-            setCookie('house_lng',r.point[0],1)
-            setCookie('house_lat',r.point[1],1)
-            }
-          }
-    }
+//     function checkCookie()
+//         {
+//         house_lng=getCookie('house_lng')
+//         house_lat=getCookie('house_lat')
+//         if (house_lng!=null && house_lng!="")
+//           {
+//             ajaxGetList(o);
+//           }
+//         else
+//           {
+//           Api();
+//           if (house_lng!=null && house_lng!="")
+//             {
+//             setCookie('house_lng',r.point[0],1)
+//             setCookie('house_lat',r.point[1],1)
+//             }
+//           }
+//     }
 
 $(document).ready(function(){
     init();
@@ -74,8 +99,9 @@ $(document).ready(function(){
     $('#priceul').append('<li id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
+    getLocation();
     if(GetQueryString('kw')!=null)
-    o.kw = GetQueryString('kw');
+        o.kw = GetQueryString('kw');
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);
@@ -85,6 +111,20 @@ $(document).ready(function(){
         filter = data.data;
     });
 });
+
+function getLocation(){
+    $.get('http://api.map.baidu.com/location/ip?ak=IEOQ5TmNBGPoIMQLqLyQDe193OjYYgNH',function(data) {
+        console.log(data);
+    });
+    // if (navigator.geolocation){
+    //     navigator.geolocation.getCurrentPosition(showPosition);
+    // }else{
+    //     alert("Geolocation is not supported by this browser.");
+    // }
+}
+function showPosition(position){
+    console.log("Latitude: " + position.coords.latitude + "<br />Longitude: " + position.coords.longitude);
+}
 
 function GetQueryString(name)
 {
@@ -123,14 +163,15 @@ function ajaxGetList(obj) {
     if(obj.company != '' && obj.company != undefined) {
         params += '&company='+obj.company;
     }
-    if(house_lng != '' && house_lng != undefined) {
-        params += '&house_lng='+house_lng;
-    }
-    if(house_lat != '' && house_lat != undefined) {
-        params += '&house_lat='+house_lat;
-    }
+    // if(obj.page != '' && obj.page != undefined) {
+    //     params += '&page='+obj.page;
+    // }
+
     $.get('/api/plot/list'+params, function(data) {
             var html = '';
+            o.page = data.data.page;
+            o.page_count = data.data.page_count;
+            o.num = data.data.num;
             if(data.data.length == undefined) {
                 var list = data.data.list;
                 for (var i = 0; i < list.length; i++) {
@@ -158,12 +199,85 @@ function ajaxGetList(obj) {
                 }
             }
             $('#ul1').append(html);
+            $('#num').html(o.num);
         });
 }
+function ajaxAddList(obj) {
+    var params = '?t=1';
+    // $('#ul1').empty();
+    if(obj.toptag != '' && obj.toptag != 'undefined') {
+        params += '&toptag='+obj.toptag;
+    }
+    if(obj.area != '' && obj.area != 'undefined') {
+        params += '&area='+obj.area;
+    }
+    if(obj.street != '' && obj.street != 'undefined') {
+        params += '&street='+obj.street;
+    }
+    if(obj.aveprice != '' && obj.aveprice != undefined) {
+        params += '&aveprice='+obj.aveprice;
+    }
+    if(obj.sfprice != '' && obj.sfprice != undefined) {
+        params += '&sfprice='+obj.sfprice;
+    }
+    if(obj.sort != '' && obj.sort != undefined) {
+        params += '&sort='+obj.sort;
+    }
+    if(obj.wylx != '' && obj.wylx != undefined) {
+        params += '&wylx='+obj.wylx;
+    }
+    if(obj.kw != '' && obj.kw != undefined) {
+        params += '&kw='+obj.kw;
+    }
+    if(obj.company != '' && obj.company != undefined) {
+        params += '&company='+obj.company;
+    }
+    if(obj.page != '' && obj.page != undefined) {
+        params += '&page='+obj.page;
+    }
+
+    $.get('/api/plot/list'+params, function(data) {
+            var html = '';
+            o.page = data.data.page;
+            o.page_count = data.data.page_count;
+            o.num = data.data.num;
+            if(data.data.length == undefined) {
+                var list = data.data.list;
+                for (var i = 0; i < list.length; i++) {
+                    item = list[i];
+                    company = '';
+                    companyid='';
+                    if(item.zd_company.name != undefined) {
+                        company = item.zd_company.name;
+                        companyid = item.zd_company.id;
+                    }
+                    if(item.pay!=''){
+                        if(item.distance!=''){
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }else{
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name-2"> '+item.area+' '+item.street+'</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">'+item.pay+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }                      
+                    }else{
+                        if(item.distance!=''){
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">'+item.distance+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }else{
+                            html += '<li style="list-style-type: none;"><div class="line"></div><a class="list-house"><img class="house-img" src="'+item.image+'"/><div class="house-text-head">'+item.title+'</div><div class="house-text-plot_name"> '+item.area+' '+item.street+'</div><div class="house-text-price">'+item.price+''+item.unit+'</div><div class="house-text-company" onclick="setCompany(this)" data-id="'+companyid+'">'+company+'</div></a></li>';
+                        }
+                    }
+                    
+                }
+            }
+            $('#ul1').append(html);
+            $('#num').html(o.num);
+        });
+}
+
 //公司列表
 function setCompany(obj){
     init();
     o.company = $(obj).data('id');
+    html = ' &nbsp;'+$(obj).html()+' x&nbsp; ';
+    $('#companytag').html(html);
     ajaxGetList(o);
 }
 //头部文字
@@ -435,3 +549,8 @@ $('#ensure').click(function(){
     $('#filter4').css('display','none');
     ajaxGetList(o);
 });
+function delCom() {
+    $('#companytag').empty();
+    o.company = '';
+    ajaxGetList(o);
+}

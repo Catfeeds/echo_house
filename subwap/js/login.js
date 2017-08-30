@@ -21,3 +21,14 @@ $('.login-login').click(function() {
         );
     }
 });
+$(document).ready(function() {
+    var loginimg = '';
+    $.get('/api/config/index',function(data){
+        if(data.data.login_img != undefined) {
+            loginimg = data.data.login_img;
+        }
+        if(loginimg!='') {
+            $('.echo-house-img').attr('src',loginimg);
+        }
+    });
+});
