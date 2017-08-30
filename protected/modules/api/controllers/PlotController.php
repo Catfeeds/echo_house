@@ -319,8 +319,8 @@ class PlotController extends ApiController{
 			$house_lng = $_POST['lng'];
 			$house_lat = $_POST['lat'];
 			// var_dump($house_lat);exit;
-			setCookie('house_lng',$house_lng,2);
-			setCookie('house_lat',$house_lat,2);
+			setCookie('house_lng',$house_lng);
+			setCookie('house_lat',$house_lat);
 			var_dump($_COOKIE);
 		}
 	}
