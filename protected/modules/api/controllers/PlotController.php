@@ -375,7 +375,7 @@ class PlotController extends ApiController{
 			} else {
 				$kwarr = json_decode($_COOKIE['search_kw'],true);
 				array_unshift($kwarr, $kw);
-				$kwarr = array_slice($kwarr, 0,5);
+				$kwarr = array_slice(array_unique($kwarr), 0,5);
 			}
 			setcookie('search_kw',json_encode($kwarr));
 			$this->redirect('/subwap/list.html?kw='.$kw);
