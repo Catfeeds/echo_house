@@ -131,16 +131,18 @@ body{
 	font-size: 0.64rem;
 	top: 0rem;
 	left: 3.867rem;
+	display: block;
 }
 
 .detail-laststate-message{
 	position: relative;
 	top: 0.693rem;
 	width: 18.72rem;
-	height: 3.947rem;
+	height: 2.7rem;
 	margin: 0rem 0.64rem;
 	color: #c3c3c3;
 	font-size: 0.693rem;
+	overflow: hidden;
 }
 
 .detail-pricerules{
@@ -149,6 +151,7 @@ body{
 	height: 5.92rem;
 	background-color: #fff;
 	overflow: hidden;
+	display: block;
 }
 
 .detail-blank{
@@ -160,24 +163,12 @@ body{
 
 .detail-pricerules-message{
 	position: relative;
-	width: 20.0rem;
-	height: 3.307rem;
-}
-
-.detail-pricerules-message1{
-	position: absolute;
-	top: 0.853rem;
-	left: 0.64rem;
-	font-size: 0.747rem;
-	color: #333333;
-}
-
-.detail-pricerules-message2{
-	top: 1.947rem;
-	position: absolute;
-	left: 0.64rem;
+	width: 18.72rem;
+	height: 2rem;
+	padding: 0.64rem;
 	font-size: 0.64rem;
 	color: #c3c3c3;
+	overflow: hidden;
 }
 
 .detail-sailpoint{
@@ -186,6 +177,7 @@ body{
 	height: 10.347rem;
 	background-color: #fff;
 	overflow: hidden;
+	display:block;
 }
 
 .detail-sailpoint-message{
@@ -317,6 +309,7 @@ body{
 	width: 20.0rem;
 	height: 2.347rem;
 	background-color: #fff;
+	z-index: 99;
 }
 
 .detail-button-phone{
@@ -346,7 +339,7 @@ body{
 
 .detail-button-distribution{
 	position: relative;
-	left: 0.027rem;
+	left: 0.03rem;
 	width: 4.64rem;
 	background-color: #34475a;
 	float: left;
@@ -372,25 +365,76 @@ body{
 
 .detail-button-baobei{
 	position: relative;
-	left: 0.053rem;
-	width: 10.667rem;
+	left: 0.08rem;
+	width: 10.62rem;
 	background-color: #ee674c;
 	float: left;
 	height: 2.347rem;
 }
 
 .detail-button-baobei-text{
-	width: 10.667rem;
+	width: 10.62rem;
 	position: absolute;
 	top: 0.5rem;
 	text-align: center;
 	color: #fff;
 }
 
-.telephone-sonsult{
+.telephone-consult{
+	position: absolute;
+	height: auto;
+	width: 20.0rem;
+	bottom: -1rem;
+	background-color: #fff;
+	z-index: 99;
+}
+
+.telephone-consult li{
 	position: relative;
 	height: 2.347rem;
 	width: 20.0rem;
 	background-color: #fff;
 }
 
+.telephone-place{
+	position: relative;
+	width: 0.533rem;
+	height: 2.347rem;
+}
+
+.consult-user-img{
+	position: absolute;
+	width: 0.72rem;
+	height: 0.8rem;
+	left: 0.64rem;
+	top: 0.773rem;
+}
+
+.consult-tel-img{
+	position: absolute;
+	width:1.067rem;
+	height: 1.067rem;
+	left: 17.76rem;
+	top: 0.64rem;
+}
+
+.consult-text{
+	position: absolute;
+	font-size: 0.747rem;
+	color: #333333;
+	width: 5rem;
+	top: 0.6rem;
+	left: 2rem;
+}
+.tel-bg{
+	position: fixed;
+	top: 0rem;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 98;
+}
+
+.hide{
+	display: none;
+}

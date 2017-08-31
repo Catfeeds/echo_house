@@ -486,7 +486,7 @@ color:#c3c3c3;
 	font-size: 0.64rem;
 	top: 1.64rem;
 	left: 16.7rem;
-	width: 12.0rem;
+	width: 3rem;
 	color:#999999;
 }
 .line{
@@ -498,4 +498,8 @@ color:#c3c3c3;
 #areaul,#streetul,#priceul,#FirstPayul{
 	height: 24.0rem;
 	overflow-y: scroll;
+}
+
+#ul1 a{
+	color: #333333;
 }
