@@ -222,11 +222,12 @@ class PlotController extends ApiController{
 			'map_zoom'=>$info->map_zoom?$info->map_zoom:SiteExt::getAttr('qjpz','map_zoom'),
 			'pay'=>$pay,
 			'news'=>$news,
-			'sell_point'=>$info->peripheral+$info->surround_peripheral,
+			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$info->hxs,
 			'phones'=>$this->staff?explode(' ', $info->market_users):[],
 			'phone'=>$this->staff?$info->market_user:'',
 			'images'=>$images,
+			'dk_rule'=>$info->dk_rule,
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
