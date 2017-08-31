@@ -432,7 +432,7 @@ class PlotController extends ApiController{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if(($tmp['hid'] = $this->cleanXss($_POST['hid'])) && ($plot = PlotExt::model()->findByPk($_POST['hid'])) && ($tmp['phone'] = $this->cleanXss($_POST['phone']))) {
 				$tmp['name'] = $this->cleanXss($_POST['name']);
-				$tmp['time'] = $this->cleanXss($_POST['time']);
+				$tmp['time'] = strtotime($this->cleanXss($_POST['time']));
 				$tmp['sex'] = $this->cleanXss($_POST['sex']);
 				$tmp['note'] = $this->cleanXss($_POST['note']);
 				$tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
@@ -447,13 +447,19 @@ class PlotController extends ApiController{
 					if($obj->save()) {
 						if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
 							foreach ($stphones as $key => $value) {
-								Yii::app()->mns->run((string)$value,'【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$name.'('.$phone.'),楼盘为'.$plot->title);
+								$note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
+								// var_dump($note);exit;
+								Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
 							}
 						}
 						
+					} else {
+						$this->returnError(current(current($obj->getErrors())));
 					}
 				// }
 			}
+		} else {
+			$this->returnError('操作失败');
 		}
 	}
 
