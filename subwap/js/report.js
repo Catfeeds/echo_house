@@ -3,6 +3,7 @@ o.hid = '';
 o.name = '';
 o.time = '';
 o.sex = '';
+o.phone = '';
 o.note = '';
 o.is_only_sub = '';
 o.visit_way = '';
@@ -51,7 +52,7 @@ function setSexG() {
 function setSexC() {
 	$('.visit-icon').css('background-color','');
 	$('.visit-boy').css('background-color','#00b8ee');
-	o.sex = '1';
+	o.visit_way = '1';
 }
 function setSexD() {
 	$('.visit-icon').css('background-color','');
@@ -60,12 +61,15 @@ function setSexD() {
 }
 
 function sub() {
+	o.time = $('#appDateTime').val();
+	o.phone = $('#phone').val();
+	o.name = $('#name').val();
 	if(o.time.trim() == '' || o.name.trim()==''||o.phone.trim()=='') {
 		alert('请正确填写信息');
 	}else
 		$.post('/api/plot/addSub',o,function(data) {
-			alert('保存成功');
-			location.href = 'detail.html?id='+o.hid;
+			// alert('保存成功');
+			// location.href = 'detail.html?id='+o.hid;
 		});
 }
 

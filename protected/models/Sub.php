@@ -11,6 +11,7 @@
  * @property string $market_staff
  * @property string $name
  * @property string $phone
+ * @property integer $visit_way
  * @property integer $sex
  * @property integer $is_only_sub
  * @property string $note
@@ -38,14 +39,14 @@ class Sub extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uid, note, status, created, updated', 'required'),
-			array('uid, time, sex, is_only_sub, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('uid, status, created, updated', 'required'),
+			array('uid, time, visit_way, sex, is_only_sub, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('hid, market_staff, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>20),
 			array('note', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hid, uid, time, market_staff, name, phone, sex, is_only_sub, note, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, uid, time, market_staff, name, phone, visit_way, sex, is_only_sub, note, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +74,7 @@ class Sub extends CActiveRecord
 			'market_staff' => 'Market Staff',
 			'name' => 'Name',
 			'phone' => 'Phone',
+			'visit_way' => 'Visit Way',
 			'sex' => 'Sex',
 			'is_only_sub' => 'Is Only Sub',
 			'note' => 'Note',
@@ -109,6 +111,7 @@ class Sub extends CActiveRecord
 		$criteria->compare('market_staff',$this->market_staff,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('visit_way',$this->visit_way);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('is_only_sub',$this->is_only_sub);
 		$criteria->compare('note',$this->note,true);
