@@ -403,4 +403,66 @@ class PlotController extends ApiController{
 	{
 		setcookie('search_kw','');
 	}
+
+	public function actionAddMakert()
+	{
+		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if($hid = $this->cleanXss($_POST['hid'])) {
+				$uid = $this->staff->id;
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")) {
+					$obj = new PlotMakertUserExt;
+					$obj->status = 0;
+					$obj->uid = $uid;
+					$obj->hid = $hid;
+					$obj->save();
+				}
+			}
+		}
+	}
+
+	public function actionAddSub()
+	{
+		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if(($tmp['hid'] = $this->cleanXss($_POST['hid'])) && ($plot = PlotExt::model()->findByPk($_POST['hid'])) && ($tmp['phone'] = $this->cleanXss($_POST['phone']))) {
+				$tmp['name'] = $this->cleanXss($_POST['name']);
+				$tmp['time'] = $this->cleanXss($_POST['time']);
+				$tmp['sex'] = $this->cleanXss($_POST['sex']);
+				$tmp['note'] = $this->cleanXss($_POST['note']);
+				$tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
+
+				$tmp['uid'] = $this->staff->id;
+
+				// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")) {
+					$obj = new SubExt;
+					$obj->attributes = $tmp;
+					$obj->status = 0;
+					if($obj->save()) {
+						if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
+							foreach ($stphones as $key => $value) {
+								Yii::app()->mns->run((string)$value,'【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$name.'('.$phone.'),楼盘为'.$plot->title);
+							}
+						}
+						
+					}
+				// }
+			}
+		}
+	}
+
+	public function actionAddCo()
+	{
+		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if($tmp['hid'] = $this->cleanXss($_POST['hid']) ) {
+				$tmp['com_phone'] = $this->cleanXss($_POST['com_phone']);
+				$tmp['uid'] = $this->staff->id;
+
+				if(!Yii::app()->db->createCommand("select id from cooperate where uid=$uid and hid=$hid")) {
+					$obj = new CooperateExt;
+					$obj->attributes = $tmp;
+					$obj->status = 0;
+					$obj->save();
+				}
+			}
+		}
+	}
 }
