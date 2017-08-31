@@ -12,7 +12,7 @@ document.onkeydown=function(){
     //         location.href='list.html?kw='+obj_search;
     //     }   
     // }
-    if(event.keyCode == 0) {
+    if(event.keyCode == 32) {
         $('#search-history-ul').empty();
         var kw= $('.list-search-frame-text').val();
          $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
