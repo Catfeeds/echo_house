@@ -31,9 +31,12 @@ $(document).ready(function(){
 			$('.detail-sailpoint').css('display','none');
     	}
     	//插入主力户型
-    	$('.detail-head-img').attr('src',detail.images[0].url)
+    	
     	for(var i=0;i<detail.hx.length;i++){
-    		$('.detail-mainstyle-housecontainer ul').append('<li><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-type">('+detail.hx[i].status+')</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-shu"> | </div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-peice">56万起</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+    		if(detail.hx[i].size==''||detail.hx[i].size==undefined){
+    			detail.hx[i].size="--";
+    		}
+    		$('.detail-mainstyle-housecontainer ul').append('<li><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
     	}
     	//判断能否编辑
     	if(detail.can_edit==0){
@@ -41,6 +44,11 @@ $(document).ready(function(){
     	}else{
     		$('.detail-laststate-edit').css('display','block');
     	}
+    	//顶部图片
+    	var swiper = new Swiper('.detail-head-img-container');
+    	// for (var i = 0; i < detail.images.length; i++) {
+    	// 	$('.detail-head-img-container').append('<div class="swiper-slide"><img class="detail-head-img" src="'+detail.images[i].url+'"></div>');
+    	// }
     	//插入查询电话
     	// for (var i = 0; i < detail.phone.length; i++) {
     	// 	$('.telephone ul')append('<li onclick="callConsult(this)"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phone[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></li>');

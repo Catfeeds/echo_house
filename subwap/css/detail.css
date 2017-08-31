@@ -23,8 +23,35 @@ body{
 	height: 13.067rem;
 	overflow: hidden;
 }
+ .swiper-container {
+ 	position: relative;
+        width: 500px;
+        height: 300px;
+        margin: 20px auto;
+    }
+
+.swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
 
 .detail-head-img{
+	height: 13.067rem;
 	width: 20.0rem;
 }
 
@@ -241,28 +268,12 @@ body{
 	left: 0rem;
 }
 
-.detail-mainstyle-type{
-	position: absolute;
-	font-size: 0.693rem;
-	color: #333333;
-	top: 6.133rem;
-	left: 5.173rem;
-}
-
 .detail-mainstyle-area{
 	position: absolute;
 	font-size: 0.693rem;
 	color: #c3c3c3;
-	top: 7.04rem;
+	top: 6.133rem;
 	left: 4rem;
-}
-
-.detail-mainstyle-shu{
-	position: absolute;
-	font-size: 0.693rem;
-	color: #c3c3c3;
-	top: 7.04rem;
-	left: 3.6rem;
 }
 
 .detail-mainstyle-room{
@@ -270,14 +281,6 @@ body{
 	font-size: 0.693rem;
 	color: #c3c3c3;
 	top: 7.04rem;
-	left: 0rem;
-}
-
-.detail-mainstyle-peice{
-	position: absolute;
-	font-size: 0.747rem;
-	color: #ee674c;
-	top: 8rem;
 	left: 0rem;
 }
 
