@@ -64,6 +64,7 @@ function sub() {
 	o.time = $('#appDateTime').val();
 	o.phone = $('#phone').val();
 	o.name = $('#name').val();
+	o.note=$('.report-write').val();
 	if(o.time.trim() == '' || o.name.trim()==''||o.phone.trim()=='') {
 		alert('请正确填写信息');
 	}else
