@@ -69,8 +69,8 @@ function sub() {
 		alert('请正确填写信息');
 	}else
 		$.post('/api/plot/addSub',o,function(data) {
-			// alert('保存成功');
-			// location.href = 'detail.html?id='+o.hid;
+			alert('保存成功');
+			location.href = 'detail.html?id='+o.hid;
 		});
 }
 
