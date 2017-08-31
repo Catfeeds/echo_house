@@ -15,6 +15,7 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid, function(data) {
         detail = data.data;
+        $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
 	    $('.detail-head-price').append(detail.price,detail.unit);
 	    $('.detail-head-location').append(detail.address);
