@@ -238,6 +238,7 @@ class PlotController extends ApiController{
 			'phone'=>$this->staff?$info->market_user:'',
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
+			'is_login'=>$this->staff?'1':'0',
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
@@ -354,9 +355,10 @@ class PlotController extends ApiController{
 				$model = $_POST['model'];
 				if($model == 'PlotExt') {
 					$obj = PlotExt::model()->findByPk($hid);
-				} else
+				} else {
 					$obj = new $model;
 					$obj->hid = $hid;
+				}
 				if(isset($obj->author) && isset($user->name)) {
 					$obj->author = $user->name;
 				}

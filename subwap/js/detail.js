@@ -15,15 +15,25 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid, function(data) {
         detail = data.data;
-	    $('.detail-top-img-title').append(detail.title);
+	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
 	    $('.detail-head-price').append(detail.price,detail.unit);
-	    $('.detail-head-location').append(detail.area,detail.street,detail.address);
-    	$('.detail-laststate-message').append(detail.news);
-    	if(detail.pay!=0&&detail.pay!=undefined){
-    		$('.detail-pricerules-message').append(detail.pay);
-    	}else{
+	    $('.detail-head-location').append(detail.address);
+	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
+		$('.detail-laststate-message').append(detail.news?detail.news:'暂无');
+    	if(detail.is_login == '1') {
+    		if(detail.pay.length>0){
+	    		pay = detail.pay[0];
+	    		content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
+	    		$('.detail-pricerules-message').append(content);
+	    		$('#paynum').html(pay['num']);
+	    	}else{
+	    		$('.detail-pricerules-message').append('暂无');
+	    		$('#paynum').html('0');
+	    	}
+    	} else {
     		$('.detail-pricerules').css('display','none');
     	}
+	    	
     	//楼盘卖点
     	if (detail.sell_point!=''&&detail.sell_point!=undefined) {
     		$('.detail-sailpoint-message').append(detail.sell_point);
@@ -44,11 +54,13 @@ $(document).ready(function(){
     	}else{
     		$('.detail-laststate-edit').css('display','block');
     	}
-    	//顶部图片
-    	var swiper = new Swiper('.detail-head-img-container');
-    	// for (var i = 0; i < detail.images.length; i++) {
-    	// 	$('.detail-head-img-container').append('<div class="swiper-slide"><img class="detail-head-img" src="'+detail.images[i].url+'"></div>');
-    	// }
+    	//顶部图片    	
+    	for (var i = 0; i < detail.images.length; i++) {
+    		$('.swiper-wrapper').append('<div class="swiper-slide"><img class="detail-head-img" src="'+detail.images[i].url+'"></div>');
+    	}
+    	var swiper = new Swiper('.detail-head-img-container',{
+		    loop: true
+		  });
     	//插入查询电话
     	// for (var i = 0; i < detail.phone.length; i++) {
     	// 	$('.telephone ul')append('<li onclick="callConsult(this)"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phone[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></li>');
@@ -61,7 +73,7 @@ $(document).ready(function(){
 
 
 
-//打电话函数
+//打电话
 function callConsult(Obj){
 
 }

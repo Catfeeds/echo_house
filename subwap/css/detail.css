@@ -23,12 +23,6 @@ body{
 	height: 13.067rem;
 	overflow: hidden;
 }
- .swiper-container {
- 	position: relative;
-        width: 500px;
-        height: 300px;
-        margin: 20px auto;
-    }
 
 .swiper-slide {
         text-align: center;
@@ -53,6 +47,7 @@ body{
 .detail-head-img{
 	height: 13.067rem;
 	width: 20.0rem;
+	z-index: 0;
 }
 
 .detail-top-img-title{
@@ -63,6 +58,7 @@ body{
 	top: 0.8rem;
 	color: #fff;
 	text-align: center;
+	z-index: 1;
 }
 
 .detail-head-img-examplepic{
@@ -71,6 +67,7 @@ body{
 	top: 11.787rem;
 	font-size: 0.64rem;
 	color: #fff;
+	z-index: 1;
 }
 
 .detail-small-tag{
@@ -137,7 +134,7 @@ body{
 .detail-laststate{
 	position: relative;
 	width: 20.0rem;
-	height: 6.553rem;
+	height: auto;
 	background-color: #fff;
 	overflow: hidden;
 }
@@ -163,22 +160,40 @@ body{
 
 .detail-laststate-message{
 	position: relative;
-	top: 0.693rem;
 	width: 18.72rem;
-	height: 2.7rem;
-	margin: 0rem 0.64rem;
+	height: auto;
+	padding: 0.64rem;
+	font-size: 0.64rem;
 	color: #c3c3c3;
-	font-size: 0.693rem;
 	overflow: hidden;
 }
 
 .detail-pricerules{
 	position: relative;
 	width: 20.0rem;
-	height: 5.92rem;
+	height: auto;
 	background-color: #fff;
 	overflow: hidden;
 	display: block;
+}
+
+.detail-daikanrules{
+	position: relative;
+	width: 20.0rem;
+	height: auto;
+	background-color: #fff;
+	overflow: hidden;
+	display: block;
+}
+
+.detail-daikanrules-message{
+	position: relative;
+	width: 18.72rem;
+	height: auto;
+	padding: 0.64rem;
+	font-size: 0.64rem;
+	color: #c3c3c3;
+	overflow: hidden;
 }
 
 .detail-blank{
@@ -191,7 +206,7 @@ body{
 .detail-pricerules-message{
 	position: relative;
 	width: 18.72rem;
-	height: 2rem;
+	height: auto;
 	padding: 0.64rem;
 	font-size: 0.64rem;
 	color: #c3c3c3;
@@ -201,7 +216,7 @@ body{
 .detail-sailpoint{
 	position: relative;
 	width: 20.0rem;
-	height: 10.347rem;
+	height: auto;
 	background-color: #fff;
 	overflow: hidden;
 	display:block;
@@ -210,11 +225,11 @@ body{
 .detail-sailpoint-message{
 	font-size: 0.747rem;
 	position: relative;
-	height: 6rem;
+	height: auto;
 	width: 18.72rem;
-	padding-top: 0.667rem;
-	padding-left: 0.64rem;
-	padding-right: 0.64rem;
+	padding: 0.64rem;
+	overflow: hidden;
+	color: #c3c3c3;
 }
 
 .detail-sailpoint-message div{
@@ -273,7 +288,7 @@ body{
 	font-size: 0.693rem;
 	color: #c3c3c3;
 	top: 6.133rem;
-	left: 4rem;
+	right:0rem;
 }
 
 .detail-mainstyle-room{

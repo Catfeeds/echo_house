@@ -12,16 +12,6 @@
 	<div class="detail-head">
 		<div class="detail-head-img-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">Slide 1</div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
-                <div class="swiper-slide">Slide 4</div>
-                <div class="swiper-slide">Slide 5</div>
-                <div class="swiper-slide">Slide 6</div>
-                <div class="swiper-slide">Slide 7</div>
-                <div class="swiper-slide">Slide 8</div>
-                <div class="swiper-slide">Slide 9</div>
-                <div class="swiper-slide">Slide 10</div>
             </div>
 			<div class="detail-top-img-title"></div>
 			<div class="detail-head-img-examplepic">效果图</div>
@@ -63,7 +53,7 @@
 			<div class="detail-smalltag-title">佣金规则</div>
 			<div class="detail-laststate-edit" data-model="PlotPayExt">[编辑]</div>
 			<div class="detail-lookup" id="yongjin">
-				<!-- <div class="detail-lookup-text">(1个方案)</div> -->
+				<div class="detail-lookup-text">(<b id="paynum"></b>个方案)</div>
 				<img class="detail-lookup-img" src="./img/).png">
 			</div>
 		</div>
@@ -71,13 +61,23 @@
 		<div class="detail-pricerules-message"></div>
 	</div>
 
+    <div class="detail-daikanrules">
+        <div class="detail-blank"></div>
+        <div class="detail-small-tag">
+            <div class="detail-smalltag-title">带看规则</div>
+            <div class="detail-laststate-edit" data-model="PlotExt">[编辑]</div>
+        </div>
+        <div class="line"></div>
+        <div class="detail-daikanrules-message"></div>
+    </div>
+
 	<div class="detail-sailpoint">
 	<div class="detail-blank"></div>
 		<div class="detail-small-tag">
 			<div class="detail-smalltag-title">楼盘卖点</div>
-			<div class="detail-lookup">
+			<!-- <div class="detail-lookup">
 				<img class="detail-lookup-img" src="./img/).png">
-			</div>
+			</div> -->
 		</div>
 		<div class="line"></div>
 		<div class="detail-sailpoint-message"></div>
@@ -88,9 +88,9 @@
 		<div class="detail-blank"></div>
 		<div class="detail-small-tag">
 			<div class="detail-smalltag-title">主力户型</div>
-			<div class="detail-lookup">
+			<!-- <div class="detail-lookup">
 				<img class="detail-lookup-img" src="./img/).png">
-			</div>
+			</div> -->
 		</div>
 		<div class="line"></div>
 		<div class="detail-mainstyle-housecontainer">
@@ -187,6 +187,14 @@
 
 	<div class="telephone-consult hide">
 		<ul>
+        <li onclick="callConsult(this)">
+            <div class="telephone-place">
+                <img class="consult-user-img" src="./img/user.png">
+                <div class="consult-text">申请成为对接人</div>
+                <img class="consult-tel-img" src="./img/tel-green.png">
+            </div>
+            <div class="line"></div>
+        </li>
 			<!-- '<li onclick="callConsult(this)">
 				<div class="telephone-place">
 				<img class="consult-user-img" src="./img/user.png">
