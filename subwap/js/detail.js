@@ -79,7 +79,7 @@ function becomeDuijieren(){
         function(data, status) {
             if (data.status == "success") {
                 alert("申请成功！");
-                location.href = "login.html";
+                // location.href = "login.html";
             } else {
                 alert("申请失败！");
             }
