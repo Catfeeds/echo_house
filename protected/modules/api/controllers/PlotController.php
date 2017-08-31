@@ -409,14 +409,21 @@ class PlotController extends ApiController{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if($hid = $this->cleanXss($_POST['hid'])) {
 				$uid = $this->staff->id;
-				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")) {
-					$obj = new PlotMakertUserExt;
+				// var_dump($uid,$hid);exit;
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")->queryRow()) {
+					$obj = new PlotMarketUserExt;
 					$obj->status = 0;
 					$obj->uid = $uid;
 					$obj->hid = $hid;
-					$obj->save();
+					
+					if(!$obj->save())
+						$this->returnError(current(current($obj->getErrors())));
+				} else {
+					$this->returnError('操作失败1');
 				}
 			}
+		} else{
+			$this->returnError('操作失败');
 		}
 	}
 

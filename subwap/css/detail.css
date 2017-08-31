@@ -150,12 +150,17 @@ body{
 
 .detail-laststate-edit{
 	position: absolute;
-	line-height: 2.027rem;
 	color: #333333;
 	font-size: 0.64rem;
 	top: 0rem;
 	left: 3.867rem;
 	display: block;
+	background-color: #00B8EE;
+	height: 0.96rem;
+	margin:0.533rem 0rem;
+	width:2rem;
+	border-radius: 0.2rem;
+	text-align: center;
 }
 
 .detail-laststate-message{
@@ -324,11 +329,12 @@ body{
 }
 
 .detail-buttom{
-	position: relative;
+	position: fixed;
 	width: 20.0rem;
 	height: 2.347rem;
 	background-color: #fff;
 	z-index: 99;
+	bottom: 0rem;
 }
 
 .detail-button-phone{
@@ -337,6 +343,13 @@ body{
 	background-color: #34475a;
 	float: left;
 	height: 2.347rem;
+}
+
+.bottom-blank{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;
+	background-color: #fff;
 }
 
 .detail-button-phone-img{
@@ -358,7 +371,7 @@ body{
 
 .detail-button-distribution{
 	position: relative;
-	left: 0.03rem;
+	left: 0.05rem;
 	width: 4.64rem;
 	background-color: #34475a;
 	float: left;
@@ -400,10 +413,10 @@ body{
 }
 
 .telephone-consult{
-	position: absolute;
+	position: fixed;
 	height: auto;
 	width: 20.0rem;
-	bottom: -1rem;
+	bottom: 2.4rem;
 	background-color: #fff;
 	z-index: 99;
 }
@@ -441,7 +454,7 @@ body{
 	position: absolute;
 	font-size: 0.747rem;
 	color: #333333;
-	width: 5rem;
+	width: 14rem;
 	top: 0.6rem;
 	left: 2rem;
 }

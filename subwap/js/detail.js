@@ -71,10 +71,21 @@ $(document).ready(function(){
 });
 
 
-
-
-
 //打电话
+function becomeDuijieren(){
+	$.post("/api/plot/addMakert", {
+            'hid': hid
+        },
+        function(data, status) {
+            if (data.status == "success") {
+                alert("申请成功！");
+                // location.href = "login.html";
+            } else {
+                alert("申请失败！");
+            }
+        }
+    );
+}
 function callConsult(Obj){
 
 }
