@@ -131,7 +131,7 @@ class PlotExt extends Plot{
     {
         return array(
             'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid'),
-            'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid'),
+            'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0'),
             'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0','order'=>'news.updated desc'),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),

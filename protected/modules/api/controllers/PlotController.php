@@ -205,8 +205,11 @@ class PlotController extends ApiController{
 		} else {
 			$pay = [];
 		}
+		
 		if($news = $info->news) {
 			$news = $news[0]['content'];
+		} else {
+			$news = '';
 		}
 		$hxarr = [];
 		if($hxs = $info->hxs) {
