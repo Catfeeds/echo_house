@@ -344,24 +344,28 @@ class PlotController extends ApiController{
 	public function actionSubmit()
 	{
 		if(Yii::app()->request->getIsPostRequest()){
-			$uid = $_POST['uid'];
-			$hid = $_POST['hid'];
-			$content = $_POST['content'];
-			$user = UserExt::model()->findByPk($uid);
-			$model = $_POST['model'];
-			if($model == 'PlotExt') {
-				$obj = PlotExt::model()->findByPk($hid);
-			} else
-				$obj = new $model;
-			if(isset($obj->author) && isset($user->name)) {
-				$obj->author = $user->name;
+			if(!Yii::app()->user->getIsGuest()) {
+				$hid = $_POST['hid'];
+				$content = $_POST['content'];
+				$user = $this->staff;
+				$model = $_POST['model'];
+				if($model == 'PlotExt') {
+					$obj = PlotExt::model()->findByPk($hid);
+				} else
+					$obj = new $model;
+					$obj->hid = $hid;
+				if(isset($obj->author) && isset($user->name)) {
+					$obj->author = $user->name;
+				}
+				if($model == 'PlotExt') {
+					$obj->dk_rule = $content;
+				} else {
+					$obj->content = $content;
+				}
+				// var_dump($obj->attributes);exit;
+				if(!$obj->save())
+					$this->returnError(current(current($obj->getErrors())));
 			}
-			if($model == 'PlotExt') {
-				$obj->dk_rule = $content;
-			} else {
-				$obj->content = $content;
-			}
-			$obj->save();
 		}
 	}
 
