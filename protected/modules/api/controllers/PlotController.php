@@ -208,7 +208,14 @@ class PlotController extends ApiController{
 		if($news = $info->news) {
 			$news = $news[0]['content'];
 		}
-
+		$hxarr = [];
+		if($hxs = $info->hxs) {
+			foreach ($hxs as $key => $value) {
+				$tmp = $value->attributes;
+				$tmp['image'] = ImageTools::fixImage($tmp['image']);
+				$hxarr[] = $tmp;
+			}
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -223,7 +230,7 @@ class PlotController extends ApiController{
 			'pay'=>$pay,
 			'news'=>$news,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
-			'hx'=>$info->hxs,
+			'hx'=>$hxarr,
 			'phones'=>$this->staff?explode(' ', $info->market_users):[],
 			'phone'=>$this->staff?$info->market_user:'',
 			'images'=>$images,
@@ -356,5 +363,35 @@ class PlotController extends ApiController{
 			}
 			$obj->save();
 		}
+	}
+
+	public function actionSearch()
+	{
+		$kw=$this->cleanXss($_POST['kw']);
+		if($kw) {
+			$kwarr = [];
+			if(empty($_COOKIE['search_kw'])) {
+				$kwarr[] = $kw;
+			} else {
+				$kwarr = json_decode($_COOKIE['search_kw'],true);
+				array_unshift($kwarr, $kw);
+				$kwarr = array_slice($kwarr, 0,5);
+			}
+			setcookie('search_kw',json_encode($kwarr));
+			$this->redirect('/subwap/list.html?kw='.$kw);
+		}
+	}
+
+	public function actionGetSearchCoo()
+	{
+		if(empty($_COOKIE['search_kw'])) {
+			$this->frame['data'] = [];
+		} else
+			$this->frame['data'] = json_decode($_COOKIE['search_kw'],true);
+	}
+
+	public function actionDelSearchCoo()
+	{
+		setcookie('search_kw','');
 	}
 }

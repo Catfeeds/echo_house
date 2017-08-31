@@ -49,7 +49,7 @@ color:#c3c3c3;
 .search-history{
 	position: relative;
 	width: 20.0rem;
-	border-bottom: solid 0.027rem #c3c3c3;
+	/*border-bottom: solid 0.027rem #c3c3c3;*/
 	background-color: #fff;
 }
 .search-history-head{

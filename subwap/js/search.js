@@ -14,51 +14,44 @@ document.onkeydown=function(){
     }
 }
 
-// //cookie
-// function getCookie(c_name){
-//     if (document.cookie.length>0){
-//         c_start=document.cookie.indexOf(c_name + "=")
-//     if (c_start!=-1){ 
-//         c_start=c_start + c_name.length+1 
-//         c_end=document.cookie.indexOf(";",c_start)
-//     if (c_end==-1) c_end=document.cookie.length
-//         return unescape(document.cookie.substring(c_start,c_end))
-//     } 
-//   }
-// return ""
-// }
-
-// function setCookie(c_name,value,expiredays){
-//     var exdate=new Date()
-//     exdate.setDate(exdate.getDate()+expiredays)
-//     document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
-// }
-
-// function checkCookie()
-//     {
-//     username=getCookie('username')
-//     if (username!=null && username!="")
-//       {alert('Welcome again '+username+'!')}
-//     else 
-//       {
-//       username=prompt('Please enter your name:',"")
-//       if (username!=null && username!="")
-//         {
-//         setCookie('username',username,365)
-//         }
-//       }
-// }
-
-
-document.onkeydown=function(){   
-        $('#search-history-ul').remove();
+document.onkeyup=function(){   
+        $('#search-history-ul').empty();
         var kw= $('.list-search-frame-text').val();
          $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
+            var data = data.data;
          	for (var i=0;i<data.length;i++) {
-	        	house_name = data.title;
-	        	house_id = data.id;
-	        	$('#search-history-ul').append('<li data-id="'+house_id+'">'+house_name+'</li>');
+                // alert(data[i].title);
+	        	house_name = data[i].title;
+	        	house_id = data[i].id;
+	        	$('#search-history-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
         	} 
     	});
         
+}
+function todetail(obj) {
+    location.href = 'detail.html?id='+$(obj).data('id');
+}
+function tolist(obj) {
+    location.href = 'list.html?kw='+$(obj).data('id');
+}
+
+function checkfm() {
+    if($('.list-search-frame-text').val()=='') {
+        return false;
+    } else {
+        return true;
+    }
+}
+$(document).ready(function() {
+    $.get('/api/plot/getSearchCoo', function(data) {
+            var data = data.data;
+            for (var i=0;i<data.length;i++) {
+                $('#search-history-ul').append('<li onclick="tolist(this)" data-id="'+data[i]+'">'+data[i]+'</li>');
+            } 
+        });
+});
+function delCoo() {
+    $.get('/api/plot/delSearchCoo', function(data) {
+        $('#search-history-ul').empty();
+    });
 }
