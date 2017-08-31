@@ -14,7 +14,7 @@ document.onkeydown=function(){
     }
 }
 
-document.onkeyup=function(){   
+document.onkeydown=function(){   
         $('#search-history-ul').empty();
         var kw= $('.list-search-frame-text').val();
          $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
