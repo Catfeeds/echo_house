@@ -428,6 +428,7 @@ class PlotController extends ApiController{
 				$tmp['time'] = $this->cleanXss($_POST['time']);
 				$tmp['sex'] = $this->cleanXss($_POST['sex']);
 				$tmp['note'] = $this->cleanXss($_POST['note']);
+				$tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
 				$tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
 
 				$tmp['uid'] = $this->staff->id;
