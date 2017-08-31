@@ -16,7 +16,9 @@ class SiteExt extends Site{
         'map_zoom'=>'',
         'sen'=>'',
         'regis_words'=>'',
-        'login_img'=>''
+        'login_img'=>'',
+        'appid'=>'',
+        'appsecret'=>'',
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
