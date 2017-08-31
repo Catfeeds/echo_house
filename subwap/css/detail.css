@@ -181,8 +181,9 @@ body{
 }
 
 .detail-sailpoint-message{
+	font-size: 0.747rem;
 	position: relative;
-	height: 7.733rem;
+	height: 6rem;
 	width: 18.72rem;
 	padding-top: 0.667rem;
 	padding-left: 0.64rem;

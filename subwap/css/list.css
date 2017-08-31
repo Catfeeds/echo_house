@@ -408,12 +408,12 @@ color:#c3c3c3;
 	position: relative;
 	top: -3.52rem;
 	left:6.8rem;
-	width: 12.8rem;
+	width: 8rem;
 }
 .house-text-company{
 	font-size: 0.64rem;
 	position: relative;
-	top: -1.9rem;
+	top: -2rem;
 	left:6.8rem;
 	width: 12rem;
 	color:#999999;
@@ -469,8 +469,8 @@ color:#c3c3c3;
 	font-size: 0.907rem;
 	position: absolute;
 	top: 0.3rem;
-	left:7.2rem;
-	width: 12.0rem;
+	left:13.2rem;
+	width: 6.0rem;
 	color: #ee674c;
 	text-align: right;
 }
