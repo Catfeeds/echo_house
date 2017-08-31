@@ -403,4 +403,19 @@ class PlotController extends ApiController{
 	{
 		setcookie('search_kw','');
 	}
+	public function actionSetMarket()
+	{
+		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if($hid = $this->cleanXss($_POST['hid'])) {
+				$uid = $this->staff->id;
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")) {
+					$obj = new PlotMakertUserExt;
+					$obj->status = 0;
+					$obj->uid = $uid;
+					$obj->hid = $hid;
+					$obj->save();
+				}
+			}
+		}
+	}
 }
