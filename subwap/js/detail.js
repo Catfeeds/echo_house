@@ -89,7 +89,7 @@ $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
 });
 $('.detail-laststate-edit').click(function(){
-    location.href='publish.html';
+    location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
 });
 $('.detail-button-phone').click(function(){
 	if ($('.telephone-consult').is('.hide')) {

@@ -87,8 +87,10 @@ $(document).ready(function() {
         }
     });
         
-    if (GetQueryString('kw') != null)
+    if (GetQueryString('kw') != null) {
         o.kw = GetQueryString('kw');
+        showkw();
+    }
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);
@@ -530,7 +532,10 @@ $('#ensure').click(function() {
 });
 
 function delCom() {
-    $('#companytag').empty();
-    o.company = '';
-    ajaxGetList(o);
+    location.href = '/';
+}
+
+function showkw() {
+    html = ' 搜索条件：&nbsp;' + o.kw + ' x&nbsp; ';
+    $('#companytag').html(html);
 }
