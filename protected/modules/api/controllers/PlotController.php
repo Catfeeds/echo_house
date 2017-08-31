@@ -403,7 +403,8 @@ class PlotController extends ApiController{
 	{
 		setcookie('search_kw','');
 	}
-	public function actionSetMarket()
+	
+	public function actionAddMakert()
 	{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if($hid = $this->cleanXss($_POST['hid'])) {
