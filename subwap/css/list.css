@@ -17,7 +17,7 @@ body{
 }
 .list-search-cancle{
 	position: absolute;
-	font-size: 0.693rem;
+	font-size: 0.747rem;
 	color: #414141;
 	top: 0.7rem;
 	left: 17.947rem;
@@ -63,7 +63,7 @@ color:#c3c3c3;
 	width: 19.36rem;
 	height: 1.307rem;
 	color: #c3c3c3;
-	font-size: 0.693rem;
+	font-size: 0.747rem;
 	padding-left: 0.64rem;
 	padding-top: 0.4rem;
 	border-bottom: solid 0.027rem #c3c3c3;
@@ -80,7 +80,7 @@ color:#c3c3c3;
 	font-size: 0.64rem;
 	left: 1.8rem;
 	top: 0.4rem;
-	font-size: 0.693rem;
+	font-size: 0.747rem;
 	color: #c3c3c3;
 }
 .delete-img{
@@ -95,7 +95,7 @@ color:#c3c3c3;
 	font-size: 0.64rem;
 	left: 18rem;
 	top: 0.4rem;
-	font-size: 0.693rem;
+	font-size: 0.747rem;
 	color: #c3c3c3;
 }
 .list-head-container{
