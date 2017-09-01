@@ -540,7 +540,7 @@ function delCom() {
 }
 
 function showkw() {
-    html = ' 搜索条件：&nbsp;' + o.kw + ' x&nbsp; ';
+    html = ' &nbsp;搜索条件：&nbsp;' + o.kw + ' x&nbsp; ';
     $('#companytag').html(html);
 }
 
