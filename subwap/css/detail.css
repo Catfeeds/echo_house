@@ -373,7 +373,7 @@ body{
 
 .detail-button-distribution{
 	position: relative;
-	left: 0.05rem;
+	left: 0.053rem;
 	width: 4.64rem;
 	background-color: #34475a;
 	float: left;
@@ -397,17 +397,43 @@ body{
 	text-align: center;
 }
 
+.detail-button-share{
+	position: relative;
+	left: 0.106rem;
+	width: 4.64rem;
+	background-color: #34475a;
+	float: left;
+	height: 2.347rem;
+}
+
+.detail-button-share-img{
+	position: absolute;
+	top: 0.293rem;
+	left: 1.893rem;
+	width: 0.907rem;
+	height: 0.853rem;
+}
+
+.detail-button-share-text{
+	width: 4.64rem;
+	position: absolute;
+	top: 1.44rem;
+	font-size: 0.64rem;
+	color: #fff;
+	text-align: center;
+}
+
 .detail-button-baobei{
 	position: relative;
-	left: 0.08rem;
-	width: 10.62rem;
+	left: 0.159rem;
+	width: 5.921rem;
 	background-color: #ee674c;
 	float: left;
 	height: 2.347rem;
 }
 
 .detail-button-baobei-text{
-	width: 10.62rem;
+	width: 5.921rem;
 	position: absolute;
 	top: 0.5rem;
 	text-align: center;
