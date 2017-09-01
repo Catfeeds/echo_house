@@ -147,6 +147,7 @@ function ajaxGetList(obj) {
 
     $.get('/api/plot/list' + params, function(data) {
         var html = '';
+        $('#num').html('-');
         o.page = data.data.page;
         o.page_count = data.data.page_count;
         o.num = data.data.num;
