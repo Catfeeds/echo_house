@@ -8,6 +8,9 @@ o.note = '';
 o.is_only_sub = '';
 o.visit_way = '';
 $(document).ready(function() {
+	$.get('/api/config/index',function(data) {
+        $('.report-attention-text').html(data.data.report_words);
+    });
 	$('#appDateTime').val(getNowFormatDate());
 	if(GetQueryString('hid')!=null) {
 		o.hid = GetQueryString('hid');
