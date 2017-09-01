@@ -122,23 +122,26 @@ function share(){
 
 
 //展开折叠
-$('.on-off').click(function(){
-    if ($('.on-off').is('.off')) {
-        $('.on-off').removeClass('off');
-        $('.on-off').addClass('on');
+$('.maidian-on-off').click(function(){
+    if ($('.maidian-on-off').is('.off')) {
+        $('.maidian-on-off').removeClass('off');
+        $('.maidian-on-off').addClass('on');
         $('.detail-sailpoint-message').css('height','auto');
-        $('.on-off').empty();
-        $('.on-off').append('收起');
+        $('.maidian-on-off').empty();
+        $('.maidian-on-off').append('收起');
+        console.log(xxx);
     } else {
-        $('.on-off').removeClass('on');
-        $('.on-off').addClass('off');
+        $('.maidian-on-off').removeClass('on');
+        $('.maidian-on-off').addClass('off');
         $('.detail-sailpoint-message').css('height','3rem');
-        $('.on-off').empty();
-        $('.on-off').append('展开更多');
+        $('.maidian-on-off').empty();
+        $('.maidian-on-off').append('展开更多');
+        console.log(xxx);
     }
 });
 
-
+var xxx=$('.detail-sailpoint-message').height();
+console.log(xxx);
 
 
 //点击跳转
