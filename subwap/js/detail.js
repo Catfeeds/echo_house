@@ -62,10 +62,14 @@ $(document).ready(function(){
     	}
     	//顶部图片    	
     	for (var i = 0; i < detail.images.length; i++) {
-    		$('.swiper-wrapper').append('<div class="swiper-slide"><img class="detail-head-img" src="'+detail.images[i].url+'"></div>');
+            // $('.detail-head-img-examplepic').html(detail.images[i].type);
+    		$('.swiper-wrapper').append('<div class="swiper-slide"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></div>');
     	}
     	var swiper = new Swiper('.detail-head-img-container',{
-		    loop: true
+		    loop: true,
+            onSlideChangeEnd:function() {
+                $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
+            }
 		  });
     	// 插入查询电话
     	if(detail.phones.length > 0) {
