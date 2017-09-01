@@ -168,7 +168,7 @@ class PlotController extends ApiController{
         return $s;
 	}
 
-	public function actionInfo($id='')
+	public function actionInfo($id='',$phone='')
 	{
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
@@ -221,6 +221,9 @@ class PlotController extends ApiController{
 				$hxarr[] = $tmp;
 			}
 		}
+		$phones = explode(' ', $info->market_users);
+		$phones[] = $info->market_user;
+		$phones = array_unique($phones);
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -236,8 +239,8 @@ class PlotController extends ApiController{
 			'news'=>$news,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
-			'phones'=>$this->staff?explode(' ', $info->market_users):[],
-			'phone'=>$this->staff?$info->market_user:'',
+			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
+			'phone'=>$phone?$phone:($this->staff?$info->market_user:''),
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
 			'is_login'=>$this->staff?'1':'0',

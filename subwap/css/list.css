@@ -155,7 +155,7 @@ color:#c3c3c3;
 .list-head-item{
 	position: relative;
 	height: 1.067rem;
-	font-size: 0.747rem;
+	font-size: 0.8rem;
 	color: #414141;
 	border-radius: 0.48rem;
 	margin:0.0rem 0.027rem;
@@ -404,6 +404,7 @@ color:#c3c3c3;
 	width: 5.333rem;
 }
 .house-text-head{
+	font-weight: bold;
 	font-size: 0.747rem;
 	position: relative;
 	top: -3.52rem;
@@ -416,7 +417,7 @@ color:#c3c3c3;
 	top: -2rem;
 	left:6.8rem;
 	width: 12rem;
-	color:#999999;
+	color:#868686;
 }
 .house-text-size{
 	font-size: 0.64rem;
@@ -424,7 +425,7 @@ color:#c3c3c3;
 	top: -4.053rem;
 	left:10.933rem;
 	width: 2.667rem;
-	color:#999999;
+	color:#868686;
 }
 .house-text-plot_name{
 	font-size: 0.64rem;
@@ -432,7 +433,7 @@ color:#c3c3c3;
 	top: -2.8rem;
 	left:6.8rem;
 	width: 12.0rem;
-	color:#999999;
+	color:#868686;
 }
 .house-text-plot_name-2{
 	font-size: 0.64rem;
@@ -440,15 +441,15 @@ color:#c3c3c3;
 	top: -3.3rem;
 	left:6.8rem;
 	width: 12.0rem;
-	color:#999999;
+	color:#868686;
 }
 .house-text-pay-yong{
 	position: absolute;
 	width: 0.8rem;
 	height: 0.8rem;
 	font-size: 0.64rem;
-	background-color: #00B8F5;
-	border-radius: 0.133rem;
+	background-color: rgb(223,82,37);
+	border-radius: 0.053rem;
 	text-align: center;
 	line-height: 0.8rem;
 	top: 2.8rem;
@@ -462,18 +463,18 @@ color:#c3c3c3;
 	left:6.8rem;
 	width: 12.0rem;
 	height: 1rem;
-	color:#999999;
+	color:rgb(223,82,37);
 	top: 2.8rem;
 	left: 7.8rem;
 	overflow: hidden;
 }
 .house-text-price{
-	font-size: 0.907rem;
+	font-size: 0.747rem;
 	position: absolute;
 	top: 0.3rem;
 	left:13.2rem;
 	width: 6.0rem;
-	color: #ee674c;
+	color: rgb(223,82,37);
 	text-align: right;
 }
 .distance-img{
@@ -489,7 +490,7 @@ color:#c3c3c3;
 	top: 1.64rem;
 	left: 16.7rem;
 	width: 3rem;
-	color:#999999;
+	color:#868686;
 }
 .line{
 	width: 20.0rem;

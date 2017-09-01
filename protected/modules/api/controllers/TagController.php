@@ -25,12 +25,12 @@ class TagController extends ApiController{
             	$aveprice = [];
 				$aveprice['name'] = '均价';
 				$aveprice['filed'] = 'aveprice';
-				$aveprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='price'")->queryAll();
+				$aveprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='price' order by sort asc")->queryAll();
 
 				$sfprice = [];
 				$sfprice['name'] = '首付';
 				$sfprice['filed'] = 'sfprice';
-				$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice'")->queryAll();
+				$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice' order by sort asc")->queryAll();
 
 				$sort = [];
 				$sort['name'] = '排序';
@@ -43,7 +43,7 @@ class TagController extends ApiController{
 				$wylx = [];
 				$wylx['name'] = '物业类型';
 				$wylx['filed'] = 'wylx';
-				$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx'")->queryAll();
+				$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx' order by sort asc")->queryAll();
 
 				$more = [];
 				$more['name'] = '更多';
