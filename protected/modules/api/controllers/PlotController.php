@@ -229,7 +229,7 @@ class PlotController extends ApiController{
 			'title'=>$info->title,
 			'area'=>$areaName,	
 			'street'=>$streetName,
-			'address'=>Tools::u8_title_substr($info->address,40),
+			'address'=>Tools::u8_title_substr($areaName.$streetName.$info->address,36),
 			'price'=>$info->price,
 			'unit'=>PlotExt::$unit[$info->unit],
 			'map_lat'=>$info->map_lat?$info->map_lat:SiteExt::getAttr('qjpz','map_lat'),
