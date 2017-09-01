@@ -14,8 +14,10 @@
 		<img class="user-pic" src="../../../../../../../subwap/img/user-pic.png">
 		<div class="user-name"><?=$value->author?></div>
 		<div class="user-comment"><?=$value->content?></div>
+		<div class="date-time">
 		<div class="date"><?=date('m-d',$value->updated)?></div>
 		<div class="time"><?=date('H:i',$value->updated)?></div>
+		</div>
 	</div>
 <?php }?>
 	
