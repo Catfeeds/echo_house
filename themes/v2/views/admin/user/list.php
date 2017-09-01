@@ -19,6 +19,11 @@ $this->breadcrumbs = array($this->pageTitle);
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
+    <div class="pull-right">
+        <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
+            添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
+        </a>
+    </div>
 </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">

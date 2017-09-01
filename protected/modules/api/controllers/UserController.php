@@ -38,9 +38,25 @@ class UserController extends ApiController{
 			$obj = Yii::app()->request->getPost('UserExt',[]);
 			if($obj) {
 				$user = new UserExt;
-				$code = isset($obj['companyCode']) ? $obj['companyCode'] : '';
-				unset($obj['companyCode']);
-				if($code && $obj['type']<3) {
+				
+				if($obj['type']<3) {
+					$code = $obj['companyCode'];
+					unset($obj['companyCode']);
+					if(!$code||!is_numeric($code)) {
+						$this->returnError('门店码有误');
+						return ;
+					}
+					if($obj['type'] == '1') {
+						if(substr($code, 0,1)!='8') {
+							$this->returnError('门店码有误');
+							return ;
+						}
+					} elseif($obj['type'] == '2') {
+						if(substr($code, 0,1)!='6') {
+							$this->returnError('门店码有误');
+							return ;
+						}
+					}
 					$company = CompanyExt::getCompanyByCode($code);
 					if($company) {
 						$user->cid = $company->id;
