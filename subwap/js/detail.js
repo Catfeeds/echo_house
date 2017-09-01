@@ -132,10 +132,10 @@ $('#paramter').click(function(){
     location.href='/wap/plot/paramter?hid='+hid;
 });   
 $('#map').click(function(){
-    $.get('http://api.map.baidu.com/geocoder/v2/?ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das&callback=renderReverse&location='+detail.map_lat+','+detail.map_lng+'&output=json&pois=1',function(data) {
-        
+    $.get('/api/config/getP?lat='+detail.map_lat+'&lng='+detail.map_lng,function(data) {
+        location.href='https://map.baidu.com/mobile/webapp/place/detail/qt=inf&uid='+data.data+'/vt=map';
     });
-    // location.href='/wap/plot/map?hid='+hid;s
+    // 
 });   
 $('#yongjin').click(function(){
     location.href='/wap/plot/pay?hid='+hid;
