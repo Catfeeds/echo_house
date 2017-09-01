@@ -357,7 +357,7 @@ body{
 
 .detail-button-phone-img{
 	position: absolute;
-	top: 0.293rem;
+	top: 0.427rem;
 	left: 1.893rem;
 	width: 0.853rem;
 	height: 0.853rem;
@@ -367,7 +367,7 @@ body{
 	width: 4.64rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.64rem;
+	font-size: 0.427rem;
 	color: #fff;
 	text-align: center;
 }
@@ -383,7 +383,7 @@ body{
 
 .detail-button-distribution-img{
 	position: absolute;
-	top: 0.293rem;
+	top: 0.427rem;
 	left: 1.893rem;
 	width: 0.907rem;
 	height: 0.853rem;
@@ -393,7 +393,7 @@ body{
 	width: 4.64rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.64rem;
+	font-size: 0.427rem;
 	color: #fff;
 	text-align: center;
 }
@@ -409,7 +409,7 @@ body{
 
 .detail-button-share-img{
 	position: absolute;
-	top: 0.293rem;
+	top: 0.427rem;
 	left: 1.893rem;
 	width: 0.907rem;
 	height: 0.853rem;
@@ -419,12 +419,13 @@ body{
 	width: 4.64rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.64rem;
+	font-size: 0.427rem;
 	color: #fff;
 	text-align: center;
 }
 
 .detail-button-baobei{
+	font-size: 0.853rem;
 	position: relative;
 	left: 0.159rem;
 	width: 5.921rem;
