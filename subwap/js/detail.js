@@ -87,10 +87,13 @@ $(document).ready(function(){
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
-    			tmp = detail.phones[i] == detail.phone ? '&nbsp;<span class="major-phone">负责人</span>' : '';
-                phone=detail.phone;
-	    		$('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+tmp+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
-	    	}
+    	    	if (tmp = detail.phones[i] == detail.phone) {
+                    phone=detail.phone;
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+tmp+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                } else {
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+tmp+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                }
+            }
     	}
     	
     });
