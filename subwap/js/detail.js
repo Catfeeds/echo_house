@@ -1,5 +1,7 @@
 //获取传过来的ID的函数
 var hid = '';
+var title='';
+var phone='';
 var detail=new Object();
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -22,6 +24,7 @@ $(document).ready(function(){
         detail = data.data;
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
+        title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
 	    $('.detail-head-location').append(detail.address);
 	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
@@ -75,6 +78,7 @@ $(document).ready(function(){
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
     			tmp = detail.phones[i] == detail.phone ? '&nbsp;<span class="major-phone">负责人</span>' : '';
+                phone=detail.phone;
 	    		$('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+tmp+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
 	    	}
     	}
@@ -124,6 +128,9 @@ $('#yongjin').click(function(){
 });   
 $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
+});
+$('.detail-button-distribution').click(function(){
+    location.href='distribution.html?hid='+hid+'&title='+title+'&phone='+phone;
 });
 $('.detail-laststate-edit').click(function(){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
