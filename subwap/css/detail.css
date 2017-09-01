@@ -249,6 +249,7 @@ body{
 	width: 20.0rem;
 	background-color: #fff;
 	overflow:hidden;
+	display: block;
 }
 
 .detail-mainstyle-housecontainer{
