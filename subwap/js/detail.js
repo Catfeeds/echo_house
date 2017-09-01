@@ -2,6 +2,7 @@
 var hid = '';
 var title='';
 var phone='';
+var url='';
 var detail=new Object();
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -112,11 +113,12 @@ function becomeDuijieren(){
         }
     );
 }
-function callConsult(Obj){
 
+//分享页面
+function share(){
+    url=window.location.href;
+    location.href='qrcode.html?url='+url;
 }
-
-
 
 
 
