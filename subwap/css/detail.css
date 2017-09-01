@@ -227,14 +227,33 @@ body{
 	display:block;
 }
 
-.detail-sailpoint-message{
+.detail-sailpoint-message-container{
 	font-size: 0.747rem;
 	position: relative;
 	height: auto;
 	width: 18.72rem;
-	padding: 0.747rem;
+	padding: 0.747rem 0.747rem 1.5rem 0.747rem;
 	overflow: hidden;
 	color: #868686;
+	overflow: hidden;
+}
+
+.detail-sailpoint-message{
+	font-size: 0.747rem;
+	position: relative;
+	height: 3rem;
+	width: 18.72rem;
+	overflow: hidden;
+	color: #868686;
+	overflow: hidden;
+}
+
+.on-off{
+	position: absolute;
+	bottom: 0.4rem;
+	left: 1rem;
+	font-size: 0.747rem;
+	color: #00b7ee;
 }
 
 .detail-sailpoint-message div{

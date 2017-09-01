@@ -121,8 +121,22 @@ function share(){
 }
 
 
-
-
+//展开折叠
+$('.on-off').click(function(){
+    if ($('.on-off').is('.off')) {
+        $('.on-off').removeClass('off');
+        $('.on-off').addClass('on');
+        $('.detail-sailpoint-message').css('height','auto');
+        $('.on-off').empty();
+        $('.on-off').append('收起');
+    } else {
+        $('.on-off').removeClass('on');
+        $('.on-off').addClass('off');
+        $('.detail-sailpoint-message').css('height','3rem');
+        $('.on-off').empty();
+        $('.on-off').append('展开更多');
+    }
+});
 
 
 
