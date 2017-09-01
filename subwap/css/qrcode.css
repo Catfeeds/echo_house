@@ -1,0 +1,19 @@
+.qrcode-container{
+	position: relative;
+	width: 20rem;
+	height: 20rem;
+}
+
+.qrcode-img{
+	position: absolute;
+	width: 10rem;
+	height: 10rem;
+	left: 5rem;
+	top: 5rem;
+}
+
+.qrcode-text{
+	position:relative;
+	font-size: 0.747rem;
+	padding: 0rem 1rem;
+}
