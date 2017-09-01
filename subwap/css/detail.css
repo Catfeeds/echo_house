@@ -167,7 +167,7 @@ body{
 	position: relative;
 	width: 18.72rem;
 	height: auto;
-	padding: 0.747rem;
+	max-height: 3rem;
 	font-size: 0.747rem;
 	color: #868686;
 	overflow: hidden;
@@ -227,12 +227,23 @@ body{
 	display:block;
 }
 
+.detail-laststate-message-container{
+	position: relative;
+	width: 18.72rem;
+	height: auto;
+	max-height: 3rem;
+	padding: 0.747rem;
+	font-size: 0.747rem;
+	color: #868686;
+	overflow: hidden;
+}
+
 .detail-sailpoint-message-container{
 	font-size: 0.747rem;
 	position: relative;
 	height: auto;
 	width: 18.72rem;
-	padding: 0.747rem 0.747rem 1.5rem 0.747rem;
+	padding: 0.747rem 0.747rem 2rem 0.747rem;
 	overflow: hidden;
 	color: #868686;
 	overflow: hidden;
@@ -241,17 +252,17 @@ body{
 .detail-sailpoint-message{
 	font-size: 0.747rem;
 	position: relative;
-	height: 3rem;
+	height: 4rem;
 	width: 18.72rem;
 	overflow: hidden;
 	color: #868686;
 	overflow: hidden;
 }
 
-.on-off{
+.maidian-on-off{
 	position: absolute;
-	bottom: 0.4rem;
-	left: 1rem;
+	bottom: 0.5rem;
+	left: 0.747rem;
 	font-size: 0.747rem;
 	color: #00b7ee;
 }
