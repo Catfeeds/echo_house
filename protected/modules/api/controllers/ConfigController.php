@@ -13,7 +13,7 @@ class ConfigController extends ApiController{
 	
 	public function actionTest()
 	{
-		$ht = 'http://api.map.baidu.com/geocoder/v2/?ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1';
+		$ht = 'http://api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1';
 		var_dump(HttpHelper::get($ht));exit;
 	}
 
