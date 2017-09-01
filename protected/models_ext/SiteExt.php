@@ -20,6 +20,7 @@ class SiteExt extends Site{
         'login_img'=>'',
         'appid'=>'',
         'appsecret'=>'',
+        'wx_share_image'=>'',
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -37,6 +38,9 @@ class SiteExt extends Site{
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
             'map_lat'=>['type'=>'text','name'=>'默认纬度'],
             'map_zoom'=>['type'=>'text','name'=>'默认缩放值'],
+            'appid'=>['type'=>'text','name'=>'开发者ID'],
+            'appsecret'=>['type'=>'text','name'=>'开发者密码'],
+            'wx_share_image'=>['type'=>'image','max'=>1,'name'=>'微信分享头图'],
             // 'pcIndexGun'=>['type'=>'text','name'=>'pc首页小喇叭'],
 
             // 'wxgzh'=>['type'=>'text','name'=>'微信公众号'],

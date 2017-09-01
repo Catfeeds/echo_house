@@ -9,6 +9,7 @@ class ApiModule extends CWebModule {
 		$this->setImport(array(
 				 'api.models.*',
 				 'api.models_ext.*',
+				 'api.widgets.*',
 				 'api.components.*',
 		 ));
 

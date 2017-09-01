@@ -22,6 +22,9 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid, function(data) {
         detail = data.data;
+        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.title+'&link='+window.location.href,function(data) {
+            $('body').append(data);
+        });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
         title=detail.title;
