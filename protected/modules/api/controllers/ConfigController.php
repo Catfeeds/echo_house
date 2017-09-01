@@ -10,4 +10,11 @@ class ConfigController extends ApiController{
 		];
 		$this->frame['data'] = $data;
 	}
+	
+	public function actionTest()
+	{
+		$ht = 'http://api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1';
+		var_dump(HttpHelper::get($ht));exit;
+	}
+
 }
