@@ -9,7 +9,7 @@
         p{margin-left:5px; font-size:14px;}
     </style>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das"></script>
-    <title>纯文本的信息窗口</title>
+    <title><?=$info->title?></title>
 </head>
 <body>
     <div id="allmap"></div>
@@ -28,7 +28,7 @@
       height: 100,     // 信息窗口高度
       title : "<?=$info->title?>" , // 信息窗口标题
       enableMessage:true,//设置允许信息窗发送短息
-      message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
+      message:""
     }
     var infoWindow = new BMap.InfoWindow("<?=$info->address?>", opts);  // 创建信息窗口对象 
     marker.addEventListener("click", function(){          
