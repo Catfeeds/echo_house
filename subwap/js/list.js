@@ -80,9 +80,9 @@ $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
     });
-    $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
-    $('#priceul').append('<li id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
-    $('#FirstPayul').append('<li id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
+    $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
+    $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
+    $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
     $.get('/api/plot/getHasCoo', function(data) {
         if(data.status == 'error') {
@@ -370,7 +370,7 @@ function showStreet(obj) {
     $(obj).addClass('filter1-left-active');
 
     $('#streetul').empty();
-    $('#streetul').append('<li id="street0" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '">不限<div class="line"></div></li>');
+    $('#streetul').append('<li id="street0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '">不限<div class="line"></div></li>');
     $('.filter-filter1-right').css('display', 'block');
     var areaid = $(obj).data('id');
     var arealist = filter[0];
@@ -505,7 +505,7 @@ function getFilterTitle(obj) {
                                 innerhtml += '<li onclick="setFilterItem(this)" data-id="' + secondlist[b].id + '">' + secondlist[b].name + '</li>';
                             }
                         }
-                        html += '<li data-id="' + list[a].id + '" class="filter4-item"><div class="filter4-item-head"><strong>' + list[a].name + '</strong></div><div class="filter4-item-item"><ul class="clearfloat"><div id="filter4-item0"><li onclick="setFilterItem(this)">不限</li>' + innerhtml + '</div></ul></div></li>';
+                        html += '<li data-id="' + list[a].id + '" class="filter4-item"><div class="filter4-item-head"><strong>' + list[a].name + '</strong></div><div class="filter4-item-item"><ul class="clearfloat"><div id="filter4-item0"><li class="filter-filter4-button-active" onclick="setFilterItem(this)">不限</li>' + innerhtml + '</div></ul></div></li>';
                     }
                 }
                 break;
