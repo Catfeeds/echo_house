@@ -1,4 +1,7 @@
-$().ready(function() {
+$(document).ready(function() {
+    $.get('/api/config/index',function(data) {
+        $('.register-attention-text').html(data.data.regis_words);
+    });
     $('#form').validate();
 });
 

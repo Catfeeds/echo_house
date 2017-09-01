@@ -150,7 +150,7 @@ color:#c3c3c3;
 .report-attention-text{
 	position: absolute;
 	left: 1.707rem;
-	width: 10rem;
+	/*width: 10rem;*/
 	font-size: 0.64rem;
 }
 .report-report{

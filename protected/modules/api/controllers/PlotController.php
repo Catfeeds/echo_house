@@ -180,6 +180,8 @@ class PlotController extends ApiController{
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 			}
 		}
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image)];
+		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
 			$areaName = $area->name;
