@@ -77,14 +77,23 @@ function sub() {
 		});
 }
 
-$('.on-off').click(function(){
-	if ($('.on-off').is('.off')) {
-		$('.on-off').removeClass('off');
-		$('.on-off').attr('src','./img/on.png');
+$('.baobei-on-off').click(function(){
+	if ($('.baobei-on-off').is('.off')) {
+		$('.baobei-on-off').removeClass('off');
+		$('.baobei-on-off').attr('src','./img/on.png');
 		o.is_only_sub=1;
 	} else {
-		$('.on-off').addClass('off');
-		$('.on-off').attr('src','./img/off.png');
+		$('.baobei-on-off').addClass('off');
+		$('.baobei-on-off').attr('src','./img/off.png');
 		o.is_only_sub=0;
+	}
+});
+$('.phone-on-off').click(function(){
+	if ($('.phone-on-off').is('.off')) {
+		$('.phone-on-off').removeClass('off');
+		$('.phone-on-off').attr('src','./img/on.png');	
+	} else {
+		$('.phone-on-off').addClass('off');
+		$('.phone-on-off').attr('src','./img/off.png');
 	}
 });
