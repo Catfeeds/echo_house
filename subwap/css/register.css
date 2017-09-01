@@ -124,12 +124,23 @@ color:#c3c3c3;
 	overflow: hidden;
 }
 
+.regisiter-usertype-choice-strip{
+	position: absolute;
+	width: 13rem;
+	height: 1.733rem;
+	top: 0rem;
+	left: 0rem;
+	font-size: 0.693rem;
+	border-width: 0.027rem;
+}
+
 .regisiter-usertype-choice{
 	position: relative;
-	width: 4.107rem;
+	top: -0.133rem;
+	width: 4.12rem;
 	font-size: 0.693rem;
 	text-align: center;
-	line-height: 1.733rem;;
+	line-height: 2rem;;
 	float: left;
 }
 
