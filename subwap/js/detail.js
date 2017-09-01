@@ -8,6 +8,11 @@ function GetQueryString(name) {
     return null;
 }
 $(document).ready(function(){
+    $.get('/api/config/index',function(data) {
+        if(data.data.is_user == false) {
+            location.href = 'login.html';
+        }
+    });
 	//获取ID
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
 		hid = GetQueryString('id');
