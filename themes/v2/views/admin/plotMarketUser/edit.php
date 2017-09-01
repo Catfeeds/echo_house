@@ -17,7 +17,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 <div class="form-group">
     <label class="col-md-2 control-label">经纪人</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll('type=3'),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
+        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>
 </div>
