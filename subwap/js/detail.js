@@ -51,12 +51,15 @@ $(document).ready(function(){
     	}
     	//插入主力户型
     	if(detail.hx!=''&&detail.hx!=undefined){
+            $('.detail-mainstyle').css('display','block');
         	for(var i=0;i<detail.hx.length;i++){
         		if(detail.hx[i].size==''||detail.hx[i].size==undefined){
         			detail.hx[i].size="--";
         		}
         		$('.detail-mainstyle-housecontainer ul').append('<li><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
         	}
+        }else{
+            $('.detail-mainstyle').css('display','none');
         }
     	//判断能否编辑
     	if(detail.can_edit==0){
