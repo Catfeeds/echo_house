@@ -4,8 +4,10 @@ class WxController extends Controller{
 	public function actionZone($imgUrl='',$title='', $link='',$desc='')
 	{
 		$this->onMenuShareTimeline($imgUrl, $title, $link);
+        $this->endWeChat();
         $this->onMenuShareAppMessage($imgUrl, $title,$desc, $link);
-		$this->endWeChat();
+        $this->endWeChat();
+		
 	}
 
 	/**
