@@ -40,8 +40,8 @@ class UserController extends ApiController{
 				$user = new UserExt;
 				
 				if($obj['type']<3) {
-					$code = $obj['companyCode'];
-					unset($obj['companyCode']);
+					$code = $obj['companycode'];
+					unset($obj['companycode']);
 					if(!$code||!is_numeric($code)) {
 						$this->returnError('门店码有误');
 						return ;

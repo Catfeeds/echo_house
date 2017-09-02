@@ -92,7 +92,7 @@ class CompanyExt extends Company{
         return Yii::app()->db->createCommand("select id,name from user where cid=$id and is_manage=1")->queryRow();
     }
 
-    public static function actionGetCompanyByCode($code='')
+    public static function getCompanyByCode($code='')
     {
         if($code) {
             return CompanyExt::model()->normal()->find("code='$code'");

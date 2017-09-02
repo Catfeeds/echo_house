@@ -45,6 +45,16 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
             </div>
 
             <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">微信分享标题</label>
+                <div class="col-md-10">
+                    <!--<input type="text" class="form-control" placeholder="">-->
+                    <?php echo $form->textField($plot,'wx_share_title',array('class'=>'form-control','data-target'=>'pointname')); ?>
+                    <span class="help-block"><?php echo $form->error($plot, 'wx_share_title'); ?></span>
+                </div>
+                <div class="col-md-12"></div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">物业类型</label>
                 <div class="col-md-10">
                     <?php echo $form->dropDownList($plot, 'wylx',  CHtml::listData(TagExt::model()->getTagByCate('wylx')->normal()->findAll(),'id','name'), array('class'=>'form-control select2','multiple'=>'multiple')); ?>

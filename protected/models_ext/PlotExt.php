@@ -76,6 +76,7 @@ class PlotExt extends Plot{
         'zd_company'=>'',
         'wzlm'=>'',
         'sfprice'=>'',
+        'wx_share_title'=>'',
         // ''
     ];
 
