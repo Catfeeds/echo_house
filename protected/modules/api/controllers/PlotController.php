@@ -244,6 +244,7 @@ class PlotController extends ApiController{
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
 			'is_login'=>$this->staff?'1':'0',
+			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
