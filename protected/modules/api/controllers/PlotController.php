@@ -240,7 +240,7 @@ class PlotController extends ApiController{
 		}
 		
 		// $phones[] = $info->market_user;
-		$phones = array_unique($phones);
+		$phones = array_filter(array_unique($phones));
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -434,7 +434,7 @@ class PlotController extends ApiController{
 			if($hid = $this->cleanXss($_POST['hid'])) {
 				$uid = $this->staff->id;
 				// var_dump($uid,$hid);exit;
-				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")->queryRow()) {
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0")->queryRow()) {
 					$obj = new PlotMarketUserExt;
 					$obj->status = 0;
 					$obj->uid = $uid;
