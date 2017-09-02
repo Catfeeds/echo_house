@@ -11,6 +11,7 @@ function GetQueryString(name) {
     return null;
 }
 $(document).ready(function(){
+    var clipboard = new Clipboard('.consult-text');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == false) {
             location.href = 'login.html';
@@ -23,6 +24,9 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid, function(data) {
         detail = data.data;
+        if(detail.is_show_add==0||detail.is_show_add=='0') {
+            $('#showadd').remove();
+        }
         $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
             $('body').append(data);
         });
@@ -89,9 +93,9 @@ $(document).ready(function(){
     		for (var i = 0; i < detail.phones.length; i++) {
     	    	if (tmp = detail.phones[i] == detail.phone) {
                     phone=detail.phone;
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phones[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phones[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
             }
     	}
@@ -178,4 +182,8 @@ $('.detail-button-phone').click(function(){
 		$('.tel-bg').addClass('hide');
 	}
 });
+
+function copyUrl2() {
+    alert('已成功复制手机号，请至微信搜索添加');
+}
 

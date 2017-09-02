@@ -222,7 +222,17 @@ class PlotController extends ApiController{
 			}
 		}
 		$phones = explode(' ', $info->market_users);
-		$phones[] = $info->market_user;
+		array_unshift($phones, $info->market_user);
+
+		$companys = $info->getItsCompany();
+		$is_show_add = 0;
+		if(!Yii::app()->user->getIsGuest()) {
+			if($companys && in_array($this->staff->cid, array_keys($companys))) {
+				$is_show_add = 1;
+			}
+		}
+		
+		// $phones[] = $info->market_user;
 		$phones = array_unique($phones);
 		$data = [
 			'id'=>$id,
@@ -245,6 +255,7 @@ class PlotController extends ApiController{
 			'dk_rule'=>$info->dk_rule,
 			'is_login'=>$this->staff?'1':'0',
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
+			'is_show_add'=>$is_show_add,
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
