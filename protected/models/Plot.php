@@ -61,7 +61,7 @@ class Plot extends CActiveRecord
 			array('fcode', 'length', 'max'=>1),
 			array('address, sale_addr, image', 'length', 'max'=>150),
 			array('map_lng, map_lat', 'length', 'max'=>60),
-			array('market_user', 'length', 'max'=>12),
+			array('market_user', 'length', 'max'=>20),
 			array('market_users', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
