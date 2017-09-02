@@ -97,13 +97,13 @@ class PlotMarketUserExt extends PlotMakertUser{
             $pharr = array_filter(explode(' ', $market_users));
             if($this->status==1) {
                 if(!in_array($phone, $pharr)) {
-                    $pharr[] = $phone;
+                    $pharr[] = $this->user->name.$phone;
                     $this->plot->market_users = implode(' ', $pharr);
                     $this->plot->save();
                 }
             } else {
                 if(in_array($phone, $pharr)) {
-                    $market_users = str_replace($phone, '', $market_users);
+                    $market_users = str_replace($this->user->name.$phone, '', $market_users);
                     $newarr = array_filter(explode(' ', $market_users));
                     $this->plot->market_users = implode(' ', $newarr);
                     $this->plot->save();
