@@ -94,6 +94,11 @@ $(document).ready(function() {
         o.kw = GetQueryString('kw');
         showkw();
     }
+    if (GetQueryString('zd_company') != null) {
+        o.company = GetQueryString('zd_company');
+        html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
+        $('#companytag').html(html);
+    }
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);

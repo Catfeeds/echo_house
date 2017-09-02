@@ -246,6 +246,12 @@ class PlotController extends ApiController{
 				$phonesnum = array_merge($phonesnum,$tmp);
 			}
 		}
+		// 分享出去 总代或者分销加电话咨询，否则提示下载
+		// if($phone) {
+		// 	if(in_array($phone, $phones)) {
+
+		// 	}
+		// }
 		// $phones[] = $info->market_user;
 		
 		$data = [
@@ -271,6 +277,7 @@ class PlotController extends ApiController{
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 			'is_show_add'=>$is_show_add,
 			'phonesnum'=>$phonesnum,
+			'zd_company'=>$companys[0],
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;

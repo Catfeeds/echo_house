@@ -12,17 +12,20 @@ function GetQueryString(name) {
 }
 $(document).ready(function(){
     var clipboard = new Clipboard('.consult-text');  
-    $.get('/api/config/index',function(data) {
-        if(data.data.is_user == false) {
-            location.href = 'login.html';
-        }
-    });
+    // $.get('/api/config/index',function(data) {
+    //     if(data.data.is_user == false) {
+    //         location.href = 'login.html';
+    //     }
+    // });
 	//获取ID
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
 		hid = GetQueryString('id');
 	}
+    if(GetQueryString('phone')!=''&&GetQueryString('phone')!=undefined) {
+        phone = GetQueryString('phone');
+    }
 	//获取数据
-	$.get('/api/plot/info?id='+hid, function(data) {
+	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
@@ -34,7 +37,10 @@ $(document).ready(function(){
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
         title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
-	    $('.detail-head-location').append(detail.address);
+	    $('#maptext').append(detail.address);
+        $('#zdtext').append('总代: '+detail.zd_company.name);
+        $('#zd').attr('data-id',detail.zd_company.id);
+        $('#zd').attr('data-name',detail.zd_company.name);
 	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
 		$('.detail-laststate-message').append(detail.news?detail.news:'暂无');
     	if(detail.is_login == '1') {
@@ -185,5 +191,9 @@ $('.detail-button-phone').click(function(){
 
 function copyUrl2() {
     alert('已成功复制手机号，请至微信搜索添加');
+}
+
+function show_zd_list(obj) {
+    location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).data('name');
 }
 
