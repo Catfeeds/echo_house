@@ -98,6 +98,7 @@ $(document).ready(function() {
         o.company = GetQueryString('zd_company');
         html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
         $('#companytag').html(html);
+        $("title").html(GetQueryString('company')+'代理项目列表'); 
     }
     ajaxGetTop();
     ajaxGetFilter();
@@ -259,11 +260,7 @@ function ajaxAddList(obj) {
 
 //公司列表
 function setCompany(obj) {
-    init();
-    o.company = $(obj).data('id');
-    html = ' &nbsp;' + $(obj).html() + ' x&nbsp; ';
-    $('#companytag').html(html);
-    ajaxGetList(o);
+    location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();
 }
 //头部文字
 function getTopId(obj) {
