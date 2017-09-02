@@ -221,8 +221,9 @@ class PlotController extends ApiController{
 				$hxarr[] = $tmp;
 			}
 		}
-		$phones = explode(' ', $info->market_users);
-		array_unshift($phones, $info->market_user);
+		$phones = array_filter(explode(' ', $info->market_users));
+		$info->market_user && array_unshift($phones, $info->market_user);
+		$phones = array_unique($phones);
 
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
@@ -240,7 +241,7 @@ class PlotController extends ApiController{
 		}
 		
 		// $phones[] = $info->market_user;
-		$phones = array_filter(array_unique($phones));
+		
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
