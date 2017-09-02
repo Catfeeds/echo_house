@@ -226,8 +226,15 @@ class PlotController extends ApiController{
 
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
+		$cids = [];
 		if(!Yii::app()->user->getIsGuest()) {
-			if($companys && in_array($this->staff->cid, array_keys($companys))) {
+			if($companys) {
+				foreach ($companys as $key => $value) {
+					$cids[] = $value['id'];
+				}
+			}
+			// var_dump($this->staff->cid, $cids);exit;
+			if($companys && in_array($this->staff->cid, $cids)) {
 				$is_show_add = 1;
 			}
 		}
