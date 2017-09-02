@@ -31,7 +31,7 @@ class WeChat extends CWidget
     {
         if(!$this->getIsEnable()) return;
         //加载js文件
-        echo '<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" charset="utf-8"></script>';
+        echo '<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="utf-8"></script>';
         echo '<script>';
         $this->generateConfig();
         echo 'wx.ready(function(){';

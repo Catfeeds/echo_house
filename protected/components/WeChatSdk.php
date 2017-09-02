@@ -4,9 +4,9 @@
  */
 class WeChatSdk extends CComponent
 {
-    private $appId;
-    private $appSecret;
-    private $url;
+    public $appId;
+    public $appSecret;
+    public $url;
     const TICKET_CACHE_KEY = 'WeChat.ticket';
     const ACCESS_TOKEN_CACHE_KEY = 'WeChat.accessToken';
 
@@ -48,7 +48,7 @@ class WeChatSdk extends CComponent
         return $signPackage;
     }
 
-    private function createNonceStr($length = 16) {
+    public function createNonceStr($length = 16) {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         $str = "";
         for ($i = 0; $i < $length; $i++) {
@@ -57,7 +57,7 @@ class WeChatSdk extends CComponent
         return $str;
     }
 
-    private function getJsApiTicket() {
+    public function getJsApiTicket() {
         // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
         $data = Yii::app()->cache->get(self::TICKET_CACHE_KEY) ? Yii::app()->cache->get(self::TICKET_CACHE_KEY) : (object)array('expire_time'=>0,'jsapi_ticket'=>'');
         $ticket = '';
@@ -78,7 +78,7 @@ class WeChatSdk extends CComponent
         return $ticket;
     }
 
-    private function getAccessToken() {
+    public function getAccessToken() {
         // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
         // $data = json_decode(file_get_contents("access_token.json"));
         $data = Yii::app()->cache->get(self::ACCESS_TOKEN_CACHE_KEY) ? Yii::app()->cache->get(self::ACCESS_TOKEN_CACHE_KEY) : (object)array('expire_time'=>0,'access_token'=>'');
@@ -99,7 +99,7 @@ class WeChatSdk extends CComponent
         return $access_token;
     }
 
-    private function httpGet($url) {
+    public function httpGet($url) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 500);
