@@ -93,9 +93,9 @@ $(document).ready(function(){
     		for (var i = 0; i < detail.phones.length; i++) {
     	    	if (tmp = detail.phones[i] == detail.phone) {
                     phone=detail.phone;
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phones[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phones[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
             }
     	}

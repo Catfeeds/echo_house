@@ -239,7 +239,13 @@ class PlotController extends ApiController{
 				$is_show_add = 1;
 			}
 		}
-		
+		$phonesnum = [];
+		if($phones) {
+			foreach ($phones as $key => $value) {
+				preg_match('/[0-9]+/', $value,$tmp);
+				$phonesnum = array_merge($phonesnum,$tmp);
+			}
+		}
 		// $phones[] = $info->market_user;
 		
 		$data = [
@@ -264,6 +270,7 @@ class PlotController extends ApiController{
 			'is_login'=>$this->staff?'1':'0',
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 			'is_show_add'=>$is_show_add,
+			'phonesnum'=>$phonesnum,
 		];
 		
 		$data['can_edit'] = $this->staff && $data['phone']==$this->staff->phone?1:0;
