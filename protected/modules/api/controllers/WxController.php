@@ -11,12 +11,13 @@ class WxController extends Controller{
      * 获取wechat小物件
      * @return WeChat | null
      */
-    public function beginWeChat()
+    public function beginWeChat($url='')
     {
         // if(strpos($_SERVER['HTTP_USER_AGENT'],"MicroMessenger")!==false && $this->weChat===null) {
             $this->weChat = $this->beginWidget('WeChat', [
                 'appId' => SiteExt::getAttr('qjpz','appid'),
                 'appSecret' => SiteExt::getAttr('qjpz','appsecret'),
+                'url'=>$url,
             ]);
         // }
             // var_dump(1,$this->weChat);exit;
@@ -43,7 +44,7 @@ class WxController extends Controller{
      */
     public function onMenuShareTimeline($imgUrl='', $title='', $link='')
     {
-        if($wx = $this->beginWechat()) {
+        if($wx = $this->beginWechat($link)) {
             if($imgUrl=='' && SiteExt::getAttr('qjpz','wx_share_image')) {
                 $imgUrl = ImageTools::fixImage(SiteExt::getAttr('qjpz','wx_share_image'));
             }

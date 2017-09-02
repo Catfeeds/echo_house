@@ -25,6 +25,7 @@ class WeChat extends CWidget
      * jsapilist
      * @var array
      */
+    public $url = '';
     public $jsApiList = array('onMenuShareTimeline','onMenuShareAppMessage');
 
     public function init()
@@ -58,7 +59,7 @@ class WeChat extends CWidget
      */
     public function generateConfig()
     {
-        $wechat = new WeChatSdk($this->appId, $this->appSecret);
+        $wechat = new WeChatSdk($this->appId, $this->appSecret,$this->url);
         $sign = $wechat->getSignPackage();
         $str = "wx.config({
                 debug: {debug},
