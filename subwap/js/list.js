@@ -99,7 +99,6 @@ $(document).ready(function() {
         html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
         $('#companytag').html(html);
         $("title").html(GetQueryString('company')+'-代理项目列表'); 
-        $("description").html('请登录经纪圈查看项目详情'); 
     }
     ajaxGetTop();
     ajaxGetFilter();
