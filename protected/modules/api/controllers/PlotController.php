@@ -281,7 +281,7 @@ class PlotController extends ApiController{
 			'zd_company'=>$companys[0],
 		];
 		
-		$data['can_edit'] = $this->staff && strstr($this->staff->phone,$info->market_user)?1:0;
+		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
 		$this->frame['data'] = $data;
 	}
 
