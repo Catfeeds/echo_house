@@ -3,7 +3,7 @@ class TagController extends ApiController{
 	public function actionIndex($cate='')
 	{
 		if($cate) {
-			$this->frame['data'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='$cate'")->queryAll();
+			$this->frame['data'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='$cate' order by sort asc")->queryAll();
 		}
 	}
 	public function actionList($cate='')

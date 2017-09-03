@@ -181,7 +181,7 @@ class PlotController extends AdminController{
 			$zd_company = $house->zd_company;
 			$tagArray = [];
 			foreach (PlotExt::$tagArr as $tagKey) {
-				if($house->$tagKey) {
+				if(isset($values[$tagKey])&&$values[$tagKey]) {
 					if(!is_array($house->$tagKey))
 						$tmp = [$house->$tagKey];
 					else
@@ -189,7 +189,7 @@ class PlotController extends AdminController{
 					$tagArray = array_merge($tagArray,$tmp);
 				}
 			}
-			// var_dump($house->zxzt);exit;
+			// var_dump($tagArray);exit;
 			if($house->save()) {
 				if($zd_company) {
 					PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
