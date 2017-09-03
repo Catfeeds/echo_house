@@ -53,7 +53,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=CompanyExt::$type[$v->type].' '.($v->type==1?'<a href="'.$this->createUrl('/admin/plot/list',['company'=>$v->id]).'">代理项目</a>':'')?></td>
             <td class="text-center"><?=$v->address?></td> 
-            <td class="text-center"><?=($v->getMangerArr()?$v->getMangerArr()['name']:'-').'/'.$v->phone?></td> 
+            <td class="text-center"><?=$v->manager.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <!-- <td class="text-center"><?=date('Y-m-d',$v->updated)?></td> -->
