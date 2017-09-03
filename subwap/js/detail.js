@@ -38,7 +38,7 @@ $(document).ready(function(){
         title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
 	    $('#maptext').append(detail.address);
-        $('#zdtext').append('总代: '+detail.zd_company.name);
+        $('#zdtext').append(detail.zd_company.name);
         $('#zd').attr('data-id',detail.zd_company.id);
         $('#zd').attr('data-name',detail.zd_company.name);
 	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
