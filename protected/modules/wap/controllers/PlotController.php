@@ -7,7 +7,7 @@ class PlotController extends WapController{
 			$this->redirect('/subwap/list.html');
 		}
 		$fields = [
-			'open_time','is_new','delivery_time','developer','brand','manage_company','sale_tel','size','capacity','green','household_num','carport','price','manage_fee','property_years','dk_rule','id'
+			'open_time','is_new','delivery_time','developer','brand','manage_company','sale_tel','size','capacity','green','household_num','carport','price','manage_fee','property_years','dk_rule','id','floor_desc','building_num','transit'
 		];
 		$data = [];
 		foreach ($fields as $key => $value) {
@@ -32,7 +32,11 @@ class PlotController extends WapController{
 			}
 		}
 		$data['open_time'] && $data['open_time'] = date('Y-m-d',$data['open_time']);
-		$data['delivery_time'] && $data['delivery_time'] = date('Y-m-d',$data['delivery_time']);
+		if($data['delivery_time'] && $data['delivery_time']>time()) {
+			$data['delivery_time'] = date('Y-m-d',$data['delivery_time']);
+		} else {
+			$data['delivery_time'] = '现房';
+		}
 		$data['zxzt'] = $zxzt;
 		$data['jzlb'] = $jzlb;
 		$this->render('paramter',$data);

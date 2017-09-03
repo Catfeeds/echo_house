@@ -16,7 +16,7 @@
 	<div class="line"></div>
 	<?php } ?>
 	
-	<div class="jieyong-rules">
+	<!-- <div class="jieyong-rules">
 		<div class="jieyong-rules-title">结佣规则</div>
 		<div class="jieyong-text1"><?=$info->jy_rule?$info->jy_rule:'暂无'?></div>
 	</div>
@@ -24,7 +24,7 @@
 	<div class="developer-rules">
 		<div class="developer-rules-title">开发商规则</div>
 		<div class="jieyong-text1"><?=$info->kfs_rule?$info->kfs_rule:'暂无'?></div>
-	</div>
+	</div> -->
 
 
 

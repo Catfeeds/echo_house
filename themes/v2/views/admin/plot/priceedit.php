@@ -15,7 +15,14 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">名字<span class="required" aria-required="true">*</span></label>
+    <label class="col-md-2 control-label">佣金金额<span class="required" aria-required="true">*</span></label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'price', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'price') ?></div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">佣金方案<span class="required" aria-required="true">*</span></label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'name', array('class' => 'form-control')); ?>
         <input type="hidden" name="<?=get_class($article).'[hid]'?>" value="<?=$hid?>">
@@ -23,7 +30,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     <div class="col-md-2"><?php echo $form->error($article, 'name') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">内容<span class="required" aria-required="true">*</span></label>
+    <label class="col-md-2 control-label">结佣规则<span class="required" aria-required="true">*</span></label>
     <div class="col-md-4">
         <?php echo $form->textarea($article, 'content', array('class' => 'form-control')); ?>
     </div>

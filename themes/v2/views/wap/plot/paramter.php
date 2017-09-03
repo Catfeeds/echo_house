@@ -12,7 +12,7 @@
 		<div class="parameter-blank"></div>
 		<div class="parameter-tag">
 			<div class="parameter-tag-name">开盘时间</div>
-			<div class="parameter-tag-value"><?=$open_time?$open_time:'-'?></div>
+			<div class="parameter-tag-value"><?=$open_time?$open_time:'已开盘'?></div>
 		</div>
 		<div class="line"></div>
 		<div class="parameter-tag">
@@ -57,13 +57,23 @@
 		</div>
 		<div class="line"></div>
 		<div class="parameter-tag">
-			<div class="parameter-tag-name">绿化面积</div>
-			<div class="parameter-tag-value"><?=$green?$green:'-'?></div>
+			<div class="parameter-tag-name">绿化率</div>
+			<div class="parameter-tag-value"><?=$green?($green.'%'):'-'?></div>
 		</div>
 		<div class="line"></div>
 		<div class="parameter-tag">
 			<div class="parameter-tag-name">总户数</div>
 			<div class="parameter-tag-value"><?=$household_num?$household_num:'-'?></div>
+		</div>
+		<div class="line"></div>
+		<div class="parameter-tag">
+			<div class="parameter-tag-name">总栋数</div>
+			<div class="parameter-tag-value"><?=$building_num?$building_num:'-'?></div>
+		</div>
+		<div class="line"></div>
+		<div class="parameter-tag">
+			<div class="parameter-tag-name">楼层状况</div>
+			<div class="parameter-tag-value"><?=$floor_desc?$floor_desc:'-'?></div>
 		</div>
 		<div class="line"></div>
 		<div class="parameter-tag">
@@ -74,7 +84,7 @@
 
 	<div class="parameter-house-parameter">
 		<div class="parameter-blank-2">
-			<div class="parameter-blank-text">住宅参数</div>
+			<div class="parameter-blank-text">项目参数</div>
 		</div>
 		<div class="parameter-tag">
 			<div class="parameter-tag-name">均价</div>
@@ -87,11 +97,6 @@
 		</div>
 		<div class="line"></div>
 		<div class="parameter-tag">
-			<div class="parameter-tag-name">建筑类型</div>
-			<div class="parameter-tag-value"><?=$jzlb?implode(',', $jzlb):'-'?></div>
-		</div>
-		<div class="line"></div>
-		<div class="parameter-tag">
 			<div class="parameter-tag-name">装修状况</div>
 			<div class="parameter-tag-value"><?=$zxzt?implode(',', $zxzt):'-'?></div>
 		</div>
@@ -100,10 +105,17 @@
 			<div class="parameter-tag-name">产权年限</div>
 			<div class="parameter-tag-value"><?=$property_years?$property_years:'-'?></div>
 		</div>
-		<div class="parameter-tag">
-			<div class="parameter-tag-name">带看规则</div>
-			<div class="parameter-tag-value"><?=$dk_rule?$dk_rule:'-'?></div>
+	</div>
+
+	<div class="parameter-house-parameter">
+		<div class="parameter-blank-2">
+			<div class="parameter-blank-text">交通配套</div>
 		</div>
+		<div class="parameter-tag">
+			<div class="parameter-tag-name">交通状况</div>
+			<div class="parameter-tag-value"><?=$transit?$transit:'-'?></div>
+		</div>
+		<div class="line"></div>
 	</div>
 <script type="text/javascript" src="../../../../../../../subwap/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="../../../../../../../subwap/js/rem.js"></script>

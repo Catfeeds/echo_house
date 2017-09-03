@@ -15,8 +15,9 @@
         <tr>
             <th class="text-center">排序</th>
             <th class="text-center">id</th>
-            <th class="text-center">名字</th>
-            <th class="text-center">内容</th>
+            <th class="text-center">金额</th>
+            <th class="text-center">方案</th>
+            <th class="text-center">规则</th>
             <th class="text-center">状态</th>
             <th class="text-center">操作</th>
             <!-- <th class="text-center">面积</th> -->
@@ -28,6 +29,7 @@
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->id ?></td>
+            <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->price ?></td>
             <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->name ?></td>
             <td style="text-align:center;vertical-align: middle" class="text-center"><?=Tools::u8_title_substr($v->content,100)?></td>
             <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>

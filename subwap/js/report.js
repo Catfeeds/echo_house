@@ -44,22 +44,22 @@ function getNowFormatDate() {
 
 function setSexB() {
 	$('.sex-icon').css('background-color','');
-	$('.sex-boy').css('background-color','#00b8ee');
+	$('.sex-boy').css('background-color','#00b7ee');
 	o.sex = '1';
 }
 function setSexG() {
 	$('.sex-icon').css('background-color','');
-	$('.sex-girl').css('background-color','#00b8ee');
+	$('.sex-girl').css('background-color','#00b7ee');
 	o.sex = '2';
 }
 function setSexC() {
 	$('.visit-icon').css('background-color','');
-	$('.visit-boy').css('background-color','#00b8ee');
+	$('.visit-boy').css('background-color','#00b7ee');
 	o.visit_way = '1';
 }
 function setSexD() {
 	$('.visit-icon').css('background-color','');
-	$('.visit-girl').css('background-color','#00b8ee');
+	$('.visit-girl').css('background-color','#00b7ee');
 	o.visit_way = '2';
 }
 

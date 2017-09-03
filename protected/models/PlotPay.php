@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'plot_pay':
  * @property integer $id
  * @property string $name
+ * @property string $price
  * @property string $content
  * @property integer $hid
  * @property integer $sort
@@ -34,11 +35,11 @@ class PlotPay extends CActiveRecord
 		return array(
 			array('created', 'required'),
 			array('hid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>100),
+			array('name, price', 'length', 'max'=>100),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, content, hid, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, name, price, content, hid, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +62,7 @@ class PlotPay extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'price' => 'Price',
 			'content' => 'Content',
 			'hid' => 'Hid',
 			'sort' => 'Sort',
@@ -91,6 +93,7 @@ class PlotPay extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('price',$this->price,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('hid',$this->hid);
 		$criteria->compare('sort',$this->sort);

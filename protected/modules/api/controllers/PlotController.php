@@ -121,7 +121,7 @@ class PlotController extends ApiController{
 				if(Yii::app()->user->getIsGuest()) {
 					$pay = '';
 				} elseif($pays = $value->pays) {
-					$pay = $pays[0]['name'].'('.count($pays).'个方案)';
+					$pay = $pays[0]['price'].'('.count($pays).'个方案)';
 				} else {
 					$pay = '';
 				}
@@ -173,6 +173,7 @@ class PlotController extends ApiController{
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
 		}
+		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
 		$images = Yii::app()->db->createCommand("select id,type,url from plot_image where hid=$id")->queryAll();
 		if($images) {
 			foreach ($images as $key => $value) {
@@ -217,7 +218,7 @@ class PlotController extends ApiController{
 		if($hxs = $info->hxs) {
 			foreach ($hxs as $key => $value) {
 				$tmp = $value->attributes;
-				$tmp['image'] = ImageTools::fixImage($tmp['image']);
+				$tmp['image'] = $tmp['image']?ImageTools::fixImage($tmp['image']):$info_no_pic;
 				$hxarr[] = $tmp;
 			}
 		}
@@ -315,7 +316,11 @@ class PlotController extends ApiController{
 			}
 		}
 		$data['open_time'] && $data['open_time'] = date('Y-m-d',$data['open_time']);
-		$data['delivery_time'] && $data['delivery_time'] = date('Y-m-d',$data['delivery_time']);
+		if($data['delivery_time'] && $data['delivery_time']>time()) {
+			$data['delivery_time'] = date('Y-m-d',$data['delivery_time']);
+		} else {
+			$data['delivery_time'] = '现房';
+		}
 		$data['zxzt'] = $zxzt;
 		$data['jzlb'] = $jzlb;
 		$this->frame['data'] = $data;
