@@ -23,5 +23,28 @@ class ConfigController extends ApiController{
 		$uid = $res['result']['pois'][0]['uid'];
 		$this->frame['data'] = $uid;
 	}
+	public function actionQr($url='')
+	{
+		if($url) {
+			$value = $url; //二维码内容 
+
+			$errorCorrectionLevel = 'L';//容错级别 
+
+			$matrixPointSize = 6;//生成图片大小 
+
+			//生成二维码图片 
+
+			QRcode::png($value, 'img/qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2); 
+
+			$logo = 'logo.png';//准备好的logo图片 
+
+			$QR = 'img/qrcode.png';//已经生成的原始二维码图 
+
+			// var_dump(Yii::app()->basePath.'/../'.$QR);exit;
+			$img = Yii::app()->basePath.'/../'.$QR;
+			$this->frame['data'] = ImageTools::fixImage(Yii::app()->file->fetch($img));
+			// unlink($QR);
+		}
+	}
 
 }
