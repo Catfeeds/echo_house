@@ -264,7 +264,7 @@ class PlotController extends ApiController{
 				$tagName[] = TagExt::model()->findByPk($value)->name;
 			}
 		}
-		array_unshift($tagName, Yii::app()->params['dllx'][$info->dllx]);
+		$info->dllx && array_unshift($tagName, Yii::app()->params['dllx'][$info->dllx]);
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
