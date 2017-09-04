@@ -3,6 +3,7 @@ var hid = '';
 var title='';
 var phone='';
 var url='';
+var thisphone = '';
 var detail=new Object();
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -12,11 +13,11 @@ function GetQueryString(name) {
 }
 $(document).ready(function(){
     var clipboard = new Clipboard('.consult-text');  
-    // $.get('/api/config/index',function(data) {
-    //     if(data.data.is_user == false) {
-    //         location.href = 'login.html';
-    //     }
-    // });
+    $.get('/api/config/index',function(data) {
+        if(data.data.is_user == true) {
+            thisphone = data.data.user.phone;
+        }
+    });
 	//获取ID
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
 		hid = GetQueryString('id');
@@ -30,7 +31,7 @@ $(document).ready(function(){
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
         }
-        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
+        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&phone='+thisphone+'&desc='+detail.sell_point,function(data) {
             $('body').append(data);
         });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
