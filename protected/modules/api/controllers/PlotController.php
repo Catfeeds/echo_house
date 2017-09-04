@@ -227,9 +227,18 @@ class PlotController extends ApiController{
 		$info->market_user && array_unshift($phones, $info->market_user);
 		$phones = array_unique($phones);
 
+		$phonesnum = [];
+		if($phones) {
+			foreach ($phones as $key => $value) {
+				preg_match('/[0-9]+/', $value,$tmp);
+				$phonesnum = array_merge($phonesnum,$tmp);
+			}
+		}
+
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
 		$cids = [];
+		// $share_phone = '';
 		if(!Yii::app()->user->getIsGuest()) {
 			if($companys) {
 				foreach ($companys as $key => $value) {
@@ -240,24 +249,25 @@ class PlotController extends ApiController{
 			if($companys && in_array($this->staff->cid, $cids)) {
 				$is_show_add = 1;
 			}
+			// if(in_array($this->staff->phone, $phonesnum)) {
+			// 	$share_phone = $phone;
+			// }
 		}
-		$phonesnum = [];
-		if($phones) {
-			foreach ($phones as $key => $value) {
-				preg_match('/[0-9]+/', $value,$tmp);
-				$phonesnum = array_merge($phonesnum,$tmp);
-			}
-		}
+		
 		$is_contact_only = 0;
 		// 分享出去 总代或者分销加电话咨询，否则提示下载
-		if($phone) {
-			if(in_array($phone, $phonesnum)) {
-				$is_contact_only = 1;
-			} else {
-				$is_contact_only = 2;
+		if($phone && $phones) {
+			foreach ($phones as $key => $value) {
+				if(strstr($value,$phone)) {
+					$is_contact_only = 1;
+					$phone = $value;
+					break;
+				}
 			}
+			!$is_contact_only && $is_contact_only = 2;
 		}
-		$tags = $info->wylx+$info->zxzt;
+		$tags = array_merge($info->wylx,$info->zxzt);
+		// var_dump($info->wylx,$info->zxzt);exit;
 		$tagName = [];
 		if($tags) {
 			foreach ($tags as $key => $value) {
@@ -291,6 +301,7 @@ class PlotController extends ApiController{
 			'zd_company'=>$companys[0],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
+			// 'share_phone'=>$share_phone,
 		];
 		
 		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
