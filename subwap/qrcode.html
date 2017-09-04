@@ -25,8 +25,8 @@
 	function generateQRCode(rendermethod, picwidth, picheight, url) {  
     $("#code").qrcode({   
             render: rendermethod, // 渲染方式有table方式（IE兼容）和canvas方式  
-            width: picwidth+'rem', //宽度   
-            height:picheight+'rem', //高度   
+            width: picwidth, //宽度   
+            height:picheight, //高度   
             text: utf16to8(url), //内容   
             typeNumber:-1,//计算模式  
             correctLevel:2,//二维码纠错级别  
@@ -36,7 +36,7 @@
         });  
     }  
     function init() {  
-        generateQRCode("table",6, 6, window.location.href);  
+        generateQRCode("table",112.5, 112.5, window.location.href);  
     }  
     function utf16to8(str) {  
         var out, i, len, c;  

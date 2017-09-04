@@ -1,26 +1,28 @@
 .qrcode-container{
 	position: relative;
-	width: 20rem;
-	height: 20rem;
+	width: 337.5px;
+	height: 337.5px;
+	margin:0 auto;
+	overflow: hidden;
 }
 
 .qrcode-bg{
 	position: absolute;
-	width: 18rem;
-	height: 18rem;
-	padding: 1rem;
+	width: 337.5px;
+	height: 337.5px;
+	padding: 37.5px;
 }
 
 .qrcode-img{
 	position: absolute;
-	width: 6rem;
-	height: 6rem;
-	left: 5.03rem;
-	top: 5.1rem;
+	width: 112.5px;
+	height: 112.5px;
+	left: 113.625px;
+	top: 116.25px;
 }
 
 .qrcode-text{
 	position:relative;
 	font-size: 0.747rem;
-	padding: 0rem 1rem;
+	padding: 2rem 1rem;
 }
