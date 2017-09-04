@@ -8,6 +8,7 @@ class PlotController extends ApiController{
 		$sfprice = (int)Yii::app()->request->getQuery('sfprice',0);
 		$sort = (int)Yii::app()->request->getQuery('sort',0);
 		$wylx = (int)Yii::app()->request->getQuery('wylx',0);
+		$zxzt = (int)Yii::app()->request->getQuery('zxzt',0);
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
@@ -26,7 +27,7 @@ class PlotController extends ApiController{
 		}
 		$ids = $companyids = [];
 		// var_dump($toptag,$sfprice,$wylx);exit;
-		foreach (['sfprice','wylx','toptag'] as $key => $value) {
+		foreach (['sfprice','wylx','toptag','zxzt'] as $key => $value) {
 			if($$value) {
 				$idarr = Yii::app()->db->createCommand("select hid from plot_tag where tid=".$$value)->queryAll();
 				if($idarr) {
@@ -174,7 +175,7 @@ class PlotController extends ApiController{
 			return $this->returnError('参数错误');
 		}
 		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
-		$images = Yii::app()->db->createCommand("select id,type,url from plot_image where hid=$id")->queryAll();
+		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
 				$images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
@@ -254,7 +255,13 @@ class PlotController extends ApiController{
 		// 	}
 		// }
 		// $phones[] = $info->market_user;
-		
+		$tags = $info->wylx+$info->zxzt;
+		$tagName = [];
+		if($tags) {
+			foreach ($tags as $key => $value) {
+				$tagName[] = TagExt::model()->findByPk($value)->name;
+			}
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -279,6 +286,7 @@ class PlotController extends ApiController{
 			'is_show_add'=>$is_show_add,
 			'phonesnum'=>$phonesnum,
 			'zd_company'=>$companys[0],
+			'tags'=>$tagName,
 		];
 		
 		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;

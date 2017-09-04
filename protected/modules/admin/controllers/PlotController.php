@@ -119,13 +119,32 @@ class PlotController extends AdminController{
 		if(!$house){
 			$this->redirect('/admin');
 		}
+		if(Yii::app()->request->getIsPostRequest()) {
+			PlotImageExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+			$values = Yii::app()->request->getPost("TkExt",[]);
+			$urls = $values['album'];
+			$type = $values['type'];
+			$sort = $values['sort'];
+			if($urls) {
+				foreach ($urls as $key => $value) {
+					$model =  new PlotImageExt;
+					$model->hid = $house->id;
+					$model->url = $value;
+					$model->sort = $sort[$key];
+					$model->type = $type[$key];
+					$model->save();
+				}
+			}
+			$this->redirect('list');
+		}
 		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
 		$criteria->addCondition('hid=:hid');
 		$criteria->params[':hid'] = $hid;
 		$houses = PlotImageExt::model()->undeleted()->getList($criteria,20);
 		// var_dump($houses->dat);exit;
-		$this->render('imagelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+		// $this->render('imagelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+		$this->render('images',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 	/**
 	 * [actionList 相册列表]

@@ -60,3 +60,28 @@ body{
 	line-height: 2.347rem;
 	border:none;
 }
+
+.register-attention{
+	position: relative;
+	top: 0.04rem;
+	height: 1.893rem;
+	width: 20rem;
+	font-size: 0.64rem;
+	color: #999999;
+}
+
+.register-attention-img{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	top: 0.533rem;
+	left: 0.64rem;
+}
+
+.register-attention-text{
+	position: absolute;
+	top: 0.533rem;
+	left: 1.707rem;
+	/*width: 10rem;*/
+	font-size: 0.64rem;
+}

@@ -87,7 +87,8 @@ class PlotExt extends Plot{
     public function rules() {
         $rules = parent::rules();
         return array_merge($rules, array(
-            array(implode(',',array_keys(self::$tags)), 'safe')
+            array(implode(',',array_keys(self::$tags)), 'safe'),
+            array('title','unique'),
         ));
     }
 
@@ -131,8 +132,8 @@ class PlotExt extends Plot{
     public function relations()
     {
         return array(
-            'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid'),
-            'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0'),
+            'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid','condition'=>'hxs.deleted=0','order'=>'hxs.updated desc'),
+            'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0','order'=>'images.sort desc'),
             'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0','order'=>'news.updated desc'),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),

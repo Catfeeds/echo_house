@@ -45,9 +45,14 @@ class TagController extends ApiController{
 				$wylx['filed'] = 'wylx';
 				$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx' order by sort asc")->queryAll();
 
+				$zxzt = [];
+				$zxzt['name'] = '装修状态';
+				$zxzt['filed'] = 'zxzt';
+				$zxzt['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='zxzt' order by sort asc")->queryAll();
+
 				$more = [];
 				$more['name'] = '更多';
-				$more['list'] = [$sort,$wylx];
+				$more['list'] = [$sort,$wylx,$zxzt];
 				
             	$this->frame['data'] = [$area,$aveprice,$sfprice,$more];
 				break;

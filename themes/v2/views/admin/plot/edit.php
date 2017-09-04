@@ -12,6 +12,17 @@ $parentArea = AreaExt::model()->parent()->normal()->findAll();
 $parent = $plot->area?$plot->area:(isset($parentArea[0])?$parentArea[0]->id:0);
 $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll() : array(0=>'--无子分类--');
 ?>
+<?php $this->widget('ext.ueditor.UeditorWidget',array('id'=>'PlotExt_peripheral','options'=>"toolbars:[['fullscreen','source','undo','redo','|','customstyle','paragraph','fontfamily','fontsize'],
+        ['bold','italic','underline','fontborder','strikethrough','superscript','subscript','removeformat',
+        'formatmatch', 'autotypeset', 'blockquote', 'pasteplain','|',
+        'forecolor','backcolor','insertorderedlist','insertunorderedlist','|',
+        'rowspacingtop','rowspacingbottom', 'lineheight','|',
+        'directionalityltr','directionalityrtl','indent','|'],
+        ['justifyleft','justifycenter','justifyright','justifyjustify','|','link','unlink','|',
+        'insertimage','emotion','scrawl','insertvideo','music','attachment','map',
+        'insertcode','|',
+        'horizontal','inserttable','|',
+        'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm',array('htmlOptions'=>array('class'=>'form-horizontal'),'enableAjaxValidation'=>false)) ?>
 
 <div class="tabbale">
@@ -109,13 +120,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
-                <div class="col-md-10">
-                    <?php echo $form->TextArea($plot, 'peripheral', array('class'=>'form-control','rows'=>5)); ?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'peripheral'); ?></div>
-            </div>
+            
 
         </div>
         <!-- 基本信息右侧 -->
@@ -211,12 +216,19 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <div class="col-md-12"><?php echo $form->error($plot, 'wzlm'); ?></div>
             </div>
             <div class="form-group">
-            <label class="col-md-2 control-label text-nowrap">带看规则</label>
-            <div class="col-md-10">
-                <?php echo $form->textarea($plot,'dk_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+                <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
+                <div class="col-md-10">
+                    <?php echo $form->textarea($plot, 'peripheral'); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'peripheral'); ?></div>
             </div>
-            <div class="col-md-12"><?php echo $form->error($plot, 'dk_rule'); ?></div>
-        </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">带看规则</label>
+                <div class="col-md-10">
+                    <?php echo $form->textarea($plot,'dk_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'dk_rule'); ?></div>
+            </div>
         </div>
     </div>
 
