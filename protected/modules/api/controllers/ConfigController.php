@@ -8,6 +8,7 @@ class ConfigController extends ApiController{
 			'report_words'=>SiteExt::getAttr('qjpz','report_words'),
 			'coo_words'=>SiteExt::getAttr('qjpz','coo_words'),
 			'is_user'=>!Yii::app()->user->getIsGuest(),
+			'user'=>$this->staff,
 		];
 		$this->frame['data'] = $data;
 	}

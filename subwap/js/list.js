@@ -81,7 +81,10 @@ $(document).ready(function() {
     var toptag = '';
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
-        user = data.data;
+        if(is_user==true) {
+            user = data.data.user;
+        }
+        
     });
     $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
