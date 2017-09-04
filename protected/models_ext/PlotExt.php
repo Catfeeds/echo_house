@@ -77,6 +77,7 @@ class PlotExt extends Plot{
         'wzlm'=>'',
         'sfprice'=>'',
         'wx_share_title'=>'',
+        'dllx'=>'',
         // ''
     ];
 

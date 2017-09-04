@@ -107,6 +107,15 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <div class="col-md-12"><?php echo $form->error($plot, 'zd_company'); ?></div>
             </div>
             <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">代理类型</label>
+                <div class="col-md-10">
+                    <div class="radio-list">
+                        <?php echo $form->radioButtonList($plot,'dllx', Yii::app()->params['dllx'],array('class'=>'radio-inline', 'separator'=>'&nbsp;&nbsp;','template'=>'<label>{input} {label}</label>')) ?>
+                    </div>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'dllx'); ?></div>
+            </div>
+            <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">对接人</label>
                 <div class="col-md-10">
                     <?php echo $form->textField($plot,'market_users',array('class'=>'form-control','placeholder'=>'多个用空格隔开')); ?>
