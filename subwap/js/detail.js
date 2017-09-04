@@ -41,7 +41,6 @@ $(document).ready(function(){
         if (detail.tags.length<1) {
             $('.head-price-tags').css('display','none');
         }
-        console.log(detail.tags.length);
         for (var i = 0; i < detail.tags.length; i++) {
             if (i%3==1) {
                 $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
@@ -111,6 +110,15 @@ $(document).ready(function(){
                 $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
             }
 		  });
+        //底部按钮变化
+        if (detail.is_contact_only==1) {
+            $('.detail-buttom0').css('display','none');
+            $('.detail-buttom1').css('display','block');
+        }
+        if (detail.is_contact_only==2){
+            $('.detail-buttom0').css('display','none');
+            $('.detail-buttom2').css('display','block');
+        }
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
@@ -202,6 +210,15 @@ $('.detail-button-phone').click(function(){
 		$('.telephone-consult').addClass('hide');
 		$('.tel-bg').addClass('hide');
 	}
+});
+$('.detail-buttom1').click(function(){
+    if ($('.telephone-consult').is('.hide')) {
+        $('.telephone-consult').removeClass('hide');
+        $('.tel-bg').removeClass('hide');
+    } else {
+        $('.telephone-consult').addClass('hide');
+        $('.tel-bg').addClass('hide');
+    }
 });
 $('.tel-bg').click(function(){
     $('.telephone-consult').addClass('hide');

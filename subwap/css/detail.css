@@ -394,13 +394,41 @@ body{
 	overflow:hidden;
 }
 
-.detail-buttom{
+.detail-buttom0{
 	position: fixed;
 	width: 20.0rem;
 	height: 2.613rem;
 	background-color: #fff;
 	z-index: 99;
 	bottom: 0rem;
+	display: block;
+}
+
+.detail-buttom1{
+	position: fixed;
+	width: 20.0rem;
+	height: 2.613rem;
+	background-color: #00b7ee;
+	z-index: 99;
+	bottom: 0rem;
+	display: none;
+	font-size: 0.853rem;
+	line-height: 2.613rem;
+	text-align: center;
+	color: #fff;
+}
+.detail-buttom2{
+	position: fixed;
+	width: 20.0rem;
+	height: 2.613rem;
+	background-color: #ccc;
+	z-index: 99;
+	bottom: 0rem;
+	display: none;
+	font-size: 0.853rem;
+	line-height: 2.613rem;
+	text-align: center;
+	color: #fff;
 }
 
 .detail-button-phone{
@@ -509,7 +537,7 @@ body{
 	position: fixed;
 	height: auto;
 	width: 20.0rem;
-	bottom: 2.4rem;
+	bottom: 2.613rem;
 	background-color: #fff;
 	z-index: 99;
 }
@@ -561,7 +589,7 @@ body{
 	position: absolute;
 	font-size: 0.747rem;
 	color: #333333;
-	width: 14rem;
+	width: 11rem;
 	top: 0.6rem;
 	left: 2rem;
 }
