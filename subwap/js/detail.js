@@ -12,7 +12,7 @@ function GetQueryString(name) {
     return null;
 }
 $(document).ready(function(){
-    var clipboard = new Clipboard('.consult-text');  
+    var clipboard = new Clipboard('.copy-weixin');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
             thisphone = data.data.user.phone;
@@ -125,9 +125,9 @@ $(document).ready(function(){
     		for (var i = 0; i < detail.phones.length; i++) {
     	    	if (tmp = detail.phones[i] == detail.phone) {
                     phone=detail.phone;
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
             }
     	}
@@ -168,14 +168,12 @@ $('.maidian-on-off').click(function(){
         $('.detail-sailpoint-message').css('height','auto');
         $('.maidian-on-off').empty();
         $('.maidian-on-off').append('收起');
-        console.log(xxx);
     } else {
         $('.maidian-on-off').removeClass('on');
         $('.maidian-on-off').addClass('off');
         $('.detail-sailpoint-message').css('height','3rem');
         $('.maidian-on-off').empty();
         $('.maidian-on-off').append('展开更多');
-        console.log(xxx);
     }
 });
 
