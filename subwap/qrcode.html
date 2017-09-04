@@ -7,56 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="css/qrcode.css">
 	<title></title>
 </head>
-<body onload="init()">
+<body>
 	<div class="qrcode-container">
 		<img class="qrcode-bg" src="./img/qrcode-bg.png">
-		<div class="qrcode-img" id="code"></div>
-		<!-- <img class="qrcode-img" src="./img/qrcode-example.jpg"> -->
+		<img class="qrcode-img" src="./img/qrcode-example.jpg">
 	</div>
 	<div class="qrcode-text">请分享至微信识别该二维码或在微信环境打开以上链接</div>
 
 
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="js/qr.js"></script>
 <script type="text/javascript" src="js/rem.js"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
-<script>
-	function generateQRCode(rendermethod, picwidth, picheight, url) {  
-    $("#code").qrcode({   
-            render: rendermethod, // 渲染方式有table方式（IE兼容）和canvas方式  
-            width: picwidth, //宽度   
-            height:picheight, //高度   
-            text: utf16to8(url), //内容   
-            typeNumber:-1,//计算模式  
-            correctLevel:2,//二维码纠错级别  
-            background:"#ffffff",//背景颜色  
-            foreground:"#000000"  //二维码颜色  
-  
-        });  
-    }  
-    function init() {  
-        generateQRCode("table",112.5, 112.5, window.location.href);  
-    }  
-    function utf16to8(str) {  
-        var out, i, len, c;  
-        out = "";  
-        len = str.length;  
-        for (i = 0; i < len; i++) {  
-            c = str.charCodeAt(i);  
-            if ((c >= 0x0001) && (c <= 0x007F)) {  
-                out += str.charAt(i);  
-            } else if (c > 0x07FF) {  
-                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));  
-                out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));  
-                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
-            } else {  
-                out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));  
-                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));  
-            }  
-        }  
-        return out;  
-    }   
+<script type="text/javascript" src="js/qrcode.js"></script>
 </script>
 </body>
 </html>
