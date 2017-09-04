@@ -30,7 +30,7 @@ $(document).ready(function(){
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
         }
-        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link=detail.html?id='+detail.id+'&phone='+detail.share_phone+'&desc='+detail.sell_point,function(data) {
+        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&phone='+detail.share_phone+'&desc='+detail.sell_point,function(data) {
             $('body').append(data);
         });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
