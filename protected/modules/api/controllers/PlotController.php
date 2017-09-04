@@ -238,7 +238,7 @@ class PlotController extends ApiController{
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
 		$cids = [];
-		$share_phone = '';
+		// $share_phone = '';
 		if(!Yii::app()->user->getIsGuest()) {
 			if($companys) {
 				foreach ($companys as $key => $value) {
@@ -249,9 +249,9 @@ class PlotController extends ApiController{
 			if($companys && in_array($this->staff->cid, $cids)) {
 				$is_show_add = 1;
 			}
-			if(in_array($this->staff->phone, $phonesnum)) {
-				$share_phone = $phone;
-			}
+			// if(in_array($this->staff->phone, $phonesnum)) {
+			// 	$share_phone = $phone;
+			// }
 		}
 		
 		$is_contact_only = 0;
@@ -301,7 +301,7 @@ class PlotController extends ApiController{
 			'zd_company'=>$companys[0],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
-			'share_phone'=>$share_phone,
+			// 'share_phone'=>$share_phone,
 		];
 		
 		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
