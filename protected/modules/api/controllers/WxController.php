@@ -4,7 +4,8 @@ class WxController extends Controller{
 	public function actionZone($imgUrl='',$title='', $link='',$desc='',$phone='')
 	{
         // $baseUrl = Yii::app()->request->getHostInfo();
-        $link = $link.'&phone='.$phone;
+        // $linkarr = explode('_', $link);
+
         // var_dump($link);exit;
 		$this->onMenuShareTimeline($imgUrl, $title, $link);
         $this->endWeChat();

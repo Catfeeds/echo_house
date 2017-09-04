@@ -171,6 +171,9 @@ class PlotController extends ApiController{
 
 	public function actionInfo($id='',$phone='')
 	{
+		if($id && strstr($id,'_')) {
+			list($id,$phone) = explode('_', $id);
+		}
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
 		}
