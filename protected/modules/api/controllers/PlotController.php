@@ -248,13 +248,15 @@ class PlotController extends ApiController{
 				$phonesnum = array_merge($phonesnum,$tmp);
 			}
 		}
+		$is_contact_only = 0;
 		// 分享出去 总代或者分销加电话咨询，否则提示下载
-		// if($phone) {
-		// 	if(in_array($phone, $phones)) {
-
-		// 	}
-		// }
-		// $phones[] = $info->market_user;
+		if($phone) {
+			if(in_array($phone, $phonesnum)) {
+				$is_contact_only = 1;
+			} else {
+				$is_contact_only = 2;
+			}
+		}
 		$tags = $info->wylx+$info->zxzt;
 		$tagName = [];
 		if($tags) {
@@ -288,6 +290,7 @@ class PlotController extends ApiController{
 			'phonesnum'=>$phonesnum,
 			'zd_company'=>$companys[0],
 			'tags'=>$tagName,
+			'is_contact_only'=>$is_contact_only,
 		];
 		
 		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
