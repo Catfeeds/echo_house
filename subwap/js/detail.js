@@ -44,8 +44,10 @@ $(document).ready(function(){
         }
         for (var i = 0; i < detail.tags.length; i++) {
             if (i%3==1) {
+                $('#showadd').css('display','none');
                 $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
             }else if(i%3==2){
+                $('#showadd').css('display','none');
                 $('.head-price-tags ul').append('<li class="color2">'+detail.tags[i]+'</li>'); 
             }else{
                 $('.head-price-tags ul').append('<li class="color3">'+detail.tags[i]+'</li>');  
