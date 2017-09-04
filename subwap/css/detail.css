@@ -137,7 +137,6 @@ body{
 	width: 18.72rem;
 	height: 1.28rem;
 	margin: 0 auto;
-	display: none;
 	display: block;
 }
 
@@ -409,7 +408,8 @@ body{
 	width: 2.667rem;
 	background-color: #fff;
 	float: left;
-	height: 2.613rem;
+	height: 2.56rem;
+	border-top: solid 0.053rem #dfdfdf;
 }
 
 .bottom-blank{
@@ -441,7 +441,8 @@ body{
 	width: 2.667rem;
 	background-color: #fff;
 	float: left;
-	height: 2.613rem;
+	height: 2.56rem;
+	border-top: solid 0.053rem #dfdfdf;
 }
 
 .detail-button-distribution-img{
@@ -466,7 +467,8 @@ body{
 	width: 2.667rem;
 	background-color: #fff;
 	float: left;
-	height: 2.613rem;
+	height: 2.56rem;
+	border-top: solid 0.053rem #dfdfdf;
 }
 
 .detail-button-share-img{

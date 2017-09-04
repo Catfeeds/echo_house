@@ -127,7 +127,7 @@ $(document).ready(function(){
 });
 
 
-//打电话
+//申请成为对接人
 function becomeDuijieren(){
 	$.post("/api/plot/addMakert", {
             'hid': hid
@@ -203,6 +203,10 @@ $('.detail-button-phone').click(function(){
 		$('.telephone-consult').addClass('hide');
 		$('.tel-bg').addClass('hide');
 	}
+});
+$('.tel-bg').click(function(){
+    $('.telephone-consult').addClass('hide');
+    $('.tel-bg').addClass('hide');
 });
 
 function copyUrl2() {
