@@ -228,7 +228,8 @@ class PlotController extends ApiController{
 		}
 		$phones = array_filter(explode(' ', $info->market_users));
 		$info->market_user && array_unshift($phones, $info->market_user);
-		$phones = array_unique($phones);
+
+		$phones = array_keys(array_flip($phones));
 
 		$phonesnum = [];
 		if($phones) {
