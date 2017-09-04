@@ -38,11 +38,11 @@ class ConfigController extends ApiController{
 
 			$logo = 'logo.png';//准备好的logo图片 
 
-			$QR = 'img/qrcode.png';//已经生成的原始二维码图 
+			$QR = '/img/qrcode.png';//已经生成的原始二维码图 
 
 			// var_dump(Yii::app()->basePath.'/../'.$QR);exit;
-			$img = Yii::app()->basePath.'/../'.$QR;
-			$this->frame['data'] = ImageTools::fixImage(Yii::app()->file->fetch($img));
+			// $img = Yii::app()->basePath.'/../'.$QR;
+			$this->frame['data'] = Yii::app()->request->getHostInfo().$QR;
 			// unlink($QR);
 		}
 	}
