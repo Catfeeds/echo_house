@@ -552,3 +552,9 @@ function checkId(obj) {
         // location.href = '';
     }
 }
+
+
+//将屏幕滑回最上端
+$('.list-stick').click(function(){
+    window.scrollTo(0,0);
+});

@@ -362,6 +362,25 @@ color:#c3c3c3;
 	color: #fff;
 }
 
+.list-stick{
+	position: fixed;
+	top: 30.613rem;
+	left: 17.067rem;
+	height: 2.293rem;
+	width: 2.293rem;
+	background-color: #00b7ee;
+	border-radius: 1.147rem;
+	z-index: 999;
+}
+
+.list-stick-img{
+	position: absolute;
+	width: 0.96rem;
+	height: 0.987rem;
+	left: 0.667rem;
+	top: 0.747rem;
+}
+
 
 
 .houselist{

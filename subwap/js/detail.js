@@ -37,7 +37,20 @@ $(document).ready(function(){
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
         title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
-	    $('#maptext').append(detail.address);
+	    //顶部价格下面的标签
+        // if (detail.length=0) {
+        //     $('.head-price-tags').css('display','none');
+        // }
+        // for (var i = 0; i < detail.tags.length; i++) {
+        //     if (i%3=1) {
+        //         $('.head-price-tags ul').append('<li class="color1">'+detail.tag[i]+'</li>'); 
+        //     }else if(i%3=2){
+        //         $('.head-price-tags ul').append('<li class="color2">'+detail.tag[i]+'</li>'); 
+        //     }else{
+        //         $('.head-price-tags ul').append('<li class="color3">'+detail.tag[i]+'</li>');  
+        //     }
+        // }
+        $('#maptext').append(detail.address);
         $('#zdtext').append(detail.zd_company.name);
         $('#zd').attr('data-id',detail.zd_company.id);
         $('#zd').attr('data-name',detail.zd_company.name);
@@ -102,9 +115,9 @@ $(document).ready(function(){
     		for (var i = 0; i < detail.phones.length; i++) {
     	    	if (tmp = detail.phones[i] == detail.phone) {
                     phone=detail.phone;
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div data-clipboard-text="'+detail.phonesnum[i]+'" class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
             }
     	}
@@ -199,4 +212,5 @@ function copyUrl2() {
 function show_zd_list(obj) {
     location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).data('name');
 }
+
 
