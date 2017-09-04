@@ -21,10 +21,17 @@
 <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
 <script>
 	$(document).ready(function() {
-		$.get('/api/config/qr?url='+window.location.href,function(data) {
+		var url = GetQueryString('url');
+		$.get('/api/config/qr?url='+url,function(data) {
 			$('.qrcode-img').attr('src',data.data);
 		});
 	});
+	function GetQueryString(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) return unescape(decodeURI(r[2]));
+	    return null;
+	}
 </script>
 </body>
 </html>
