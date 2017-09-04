@@ -23,6 +23,17 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
         'insertcode','|',
         'horizontal','inserttable','|',
         'print','preview','searchreplace']]")); ?>
+<?php $this->widget('ext.ueditor.UeditorWidget',array('id'=>'PlotExt_dk_rule','options'=>"toolbars:[['fullscreen','source','undo','redo','|','customstyle','paragraph','fontfamily','fontsize'],
+        ['bold','italic','underline','fontborder','strikethrough','superscript','subscript','removeformat',
+        'formatmatch', 'autotypeset', 'blockquote', 'pasteplain','|',
+        'forecolor','backcolor','insertorderedlist','insertunorderedlist','|',
+        'rowspacingtop','rowspacingbottom', 'lineheight','|',
+        'directionalityltr','directionalityrtl','indent','|'],
+        ['justifyleft','justifycenter','justifyright','justifyjustify','|','link','unlink','|',
+        'insertimage','emotion','scrawl','insertvideo','music','attachment','map',
+        'insertcode','|',
+        'horizontal','inserttable','|',
+        'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm',array('htmlOptions'=>array('class'=>'form-horizontal'),'enableAjaxValidation'=>false)) ?>
 
 <div class="tabbale">
@@ -129,7 +140,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
-            
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
+                <div class="col-md-10">
+                    <?php echo $form->textarea($plot, 'peripheral'); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'peripheral'); ?></div>
+            </div>
 
         </div>
         <!-- 基本信息右侧 -->
@@ -224,17 +241,11 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'wzlm'); ?></div>
             </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
-                <div class="col-md-10">
-                    <?php echo $form->textarea($plot, 'peripheral'); ?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'peripheral'); ?></div>
-            </div>
+            
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">带看规则</label>
                 <div class="col-md-10">
-                    <?php echo $form->textarea($plot,'dk_rule',array('class'=>'form-control' ,  'placeholder'=>'')); ?>
+                    <?php echo $form->textarea($plot,'dk_rule'); ?>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'dk_rule'); ?></div>
             </div>
