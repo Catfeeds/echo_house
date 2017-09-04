@@ -37,19 +37,20 @@ $(document).ready(function(){
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
         title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
-	    //顶部价格下面的标签
-        // if (detail.length=0) {
-        //     $('.head-price-tags').css('display','none');
-        // }
-        // for (var i = 0; i < detail.tags.length; i++) {
-        //     if (i%3=1) {
-        //         $('.head-price-tags ul').append('<li class="color1">'+detail.tag[i]+'</li>'); 
-        //     }else if(i%3=2){
-        //         $('.head-price-tags ul').append('<li class="color2">'+detail.tag[i]+'</li>'); 
-        //     }else{
-        //         $('.head-price-tags ul').append('<li class="color3">'+detail.tag[i]+'</li>');  
-        //     }
-        // }
+	    // 顶部价格下面的标签
+        if (detail.tags.length<1) {
+            $('.head-price-tags').css('display','none');
+        }
+        console.log(detail.tags.length);
+        for (var i = 0; i < detail.tags.length; i++) {
+            if (i%3==1) {
+                $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
+            }else if(i%3==2){
+                $('.head-price-tags ul').append('<li class="color2">'+detail.tags[i]+'</li>'); 
+            }else{
+                $('.head-price-tags ul').append('<li class="color3">'+detail.tags[i]+'</li>');  
+            }
+        }
         $('#maptext').append(detail.address);
         $('#zdtext').append(detail.zd_company.name);
         $('#zd').attr('data-id',detail.zd_company.id);
@@ -169,8 +170,6 @@ $('.maidian-on-off').click(function(){
     }
 });
 
-var xxx=$('.detail-sailpoint-message').height();
-console.log(xxx);
 
 
 //点击跳转
