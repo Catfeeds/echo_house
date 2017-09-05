@@ -6,7 +6,21 @@ class IndexController extends HomeController
 {
     public function actionIndex($cid=0)
     {
+        
         $this->redirect('/subwap/list.html');
+    }
+
+    public function actionShowUser()
+    {
+        $key = '495e6105d4146af1d36053c1034bc819';
+        $uid = $this->showUid();
+        if($uid) {
+            $url = 'http://jj58.qianfanapi.com/api1_2/user/user-info';
+            $res = $this->get_response($key,$url,['user_ids'=>$uid]);
+            if($res) {
+                var_dump($res);exit;
+            }
+        }
     }
 
     public function actionAbout()
@@ -40,14 +54,19 @@ class IndexController extends HomeController
         
     }
 
-    public function actionShowCoo()
+    public function showUid()
     {
-        $token = $_COOKIE['wap_token'];
+        if(empty($_COOKIE['wap_token'])) {
+            return '';
+        } else {
+            $token = $_COOKIE['wap_token'];
+        }
         $url = 'http://jj58.qianfanapi.com/api1_2/cookie/auth-code';
         $key = '495e6105d4146af1d36053c1034bc819';
         $postArr = ['wap_token'=>$token,'secret_key'=>$key];
         $res = $this->get_response($key,$url,[],$postArr);
-        var_dump($res);exit;
+        $res = json_decode($res,true);
+        return $res['uid'];
     }
 
     public function get_response($secret_key, $url, $get_params, $post_data = array())
