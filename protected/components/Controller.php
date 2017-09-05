@@ -1,7 +1,7 @@
 <?php
 use Qiniu\Storage\UploadManager;
 use Qiniu\Auth;
-include_once("CCPRestSmsSDK.php");
+include_once("./CCPRestSmsSDK.php");
 /**
  * @author wibaqiu
  * @date 2015-09-07
