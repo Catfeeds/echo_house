@@ -17,17 +17,16 @@ class IndexController extends ApiController
             if($res) {
                 $res = json_decode($res,true);
                 $data = $res['data'][$uid];
-                var_dump($data);
                 if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
-                    var_dump($user->phone);
-                    $model = new ApiLoginForm();
-                    $model->username = $user->phone;
-                    $model->password = md5($user->pwd);
-                    var_dump($model->login());
-                }
-            }
-        }exit;
-    }
+                    $identity=new ApiIdentity('','');
+		            $identity->app_login = true;
+		            $identity->obj = $user;
+		            $identity->authenticate();
+		            var_dump(Yii::app()->user->login($identity, 3600*24));exit;
+            	}
+        	}
+    	}
+	}
 
     public function actionAbout()
     {

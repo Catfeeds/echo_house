@@ -6,6 +6,9 @@
  */
 class ApiIdentity extends CUserIdentity
 {
+	public $app_login = false;
+
+	public $obj = [];
 	/**
 	 * 验证身份
 	 * @return bool
@@ -21,29 +24,34 @@ class ApiIdentity extends CUserIdentity
 		// 	return $this->errorCode;
 		// }
 		// var_dump(2);exit;
-		if(is_numeric($this->username)) {
-			$info = UserExt::model()->normal()->find("phone='{$this->username}'");
+		if($app_login && $obj) {
+			$this->errorCode = self::ERROR_NONE;
 		} else {
-			$info = UserExt::model()->normal()->find("name='{$this->username}'");
-		} 
-		// var_dump($info);exit;
-		if($info) {
-
-			if($info->pwd!=md5($this->password)) {
-				$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+			if(is_numeric($this->username)) {
+				$info = UserExt::model()->normal()->find("phone='{$this->username}'");
 			} else {
-				$this->errorCode = self::ERROR_NONE;
-				$this->setState('id',$info->id);
-				$this->setState('phone',$info->phone);
-				$this->setState('username',$info->name);
-				return $this->errorCode;
-			}
-		}else {
-			$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
-		}
+				$info = UserExt::model()->normal()->find("name='{$this->username}'");
+			} 
+			// var_dump($info);exit;
+			if($info) {
 
-		$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
-		// exit;
+				if($info->pwd!=md5($this->password)) {
+					$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+				} else {
+					$this->errorCode = self::ERROR_NONE;
+					$this->setState('id',$info->id);
+					$this->setState('phone',$info->phone);
+					$this->setState('username',$info->name);
+					return $this->errorCode;
+				}
+			}else {
+				$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+			}
+
+			$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+			// exit;
+			
+		}
 		return $this->errorCode;
 	}
 
