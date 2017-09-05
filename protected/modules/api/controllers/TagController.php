@@ -21,40 +21,43 @@ class TagController extends ApiController{
 				// $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
             	// $areas[0]['childArea'] = $areas[0]->childArea;
             	$area['list'] = $areas;
+            	$ots = CacheExt::gas('wap_all_tags','AreaExt',0,'wap筛选标签缓存',function (){
+	            	$aveprice = [];
+					$aveprice['name'] = '均价';
+					$aveprice['filed'] = 'aveprice';
+					$aveprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='price' order by sort asc")->queryAll();
 
-            	$aveprice = [];
-				$aveprice['name'] = '均价';
-				$aveprice['filed'] = 'aveprice';
-				$aveprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='price' order by sort asc")->queryAll();
+					$sfprice = [];
+					$sfprice['name'] = '首付';
+					$sfprice['filed'] = 'sfprice';
+					$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice' order by sort asc")->queryAll();
 
-				$sfprice = [];
-				$sfprice['name'] = '首付';
-				$sfprice['filed'] = 'sfprice';
-				$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice' order by sort asc")->queryAll();
+					$sort = [];
+					$sort['name'] = '排序';
+					$sort['filed'] = 'sort';
+					$sort['list'] = [
+						['id'=>1,'name'=>'均价从高到低'],
+						['id'=>2,'name'=>'均价从低到高'],
+					];
 
-				$sort = [];
-				$sort['name'] = '排序';
-				$sort['filed'] = 'sort';
-				$sort['list'] = [
-					['id'=>1,'name'=>'均价从高到低'],
-					['id'=>2,'name'=>'均价从低到高'],
-				];
+					$wylx = [];
+					$wylx['name'] = '物业类型';
+					$wylx['filed'] = 'wylx';
+					$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx' order by sort asc")->queryAll();
 
-				$wylx = [];
-				$wylx['name'] = '物业类型';
-				$wylx['filed'] = 'wylx';
-				$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx' order by sort asc")->queryAll();
+					$zxzt = [];
+					$zxzt['name'] = '装修状态';
+					$zxzt['filed'] = 'zxzt';
+					$zxzt['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='zxzt' order by sort asc")->queryAll();
 
-				$zxzt = [];
-				$zxzt['name'] = '装修状态';
-				$zxzt['filed'] = 'zxzt';
-				$zxzt['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='zxzt' order by sort asc")->queryAll();
-
-				$more = [];
-				$more['name'] = '更多';
-				$more['list'] = [$sort,$wylx,$zxzt];
-				
-            	$this->frame['data'] = [$area,$aveprice,$sfprice,$more];
+					$more = [];
+					$more['name'] = '更多';
+					$more['list'] = [$sort,$wylx,$zxzt];
+					return [$aveprice,$sfprice,$more];
+				});
+				// var_dump($ots);exit;
+				array_unshift($ots,$area);
+            	$this->frame['data'] = $ots;
 				break;
 			
 			default:

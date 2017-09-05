@@ -6,6 +6,7 @@
  */
 class ApiIdentity extends CUserIdentity
 {
+	public $isapp = false;
 	/**
 	 * 验证身份
 	 * @return bool
@@ -29,7 +30,7 @@ class ApiIdentity extends CUserIdentity
 		// var_dump($info);exit;
 		if($info) {
 
-			if($info->pwd!=md5($this->password)) {
+			if($info->pwd!=($this->isapp?$this->password:md5($this->password))) {
 				$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
 			} else {
 				$this->errorCode = self::ERROR_NONE;

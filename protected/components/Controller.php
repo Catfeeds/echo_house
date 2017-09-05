@@ -1,13 +1,36 @@
 <?php
 use Qiniu\Storage\UploadManager;
 use Qiniu\Auth;
+include_once("./CCPRestSmsSDK.php");
 /**
  * @author wibaqiu
  * @date 2015-09-07
  */
 class Controller extends CController
 {
-	/**
+
+	//主帐号,对应开官网发者主账号下的 ACCOUNT SID
+	public $accountSid= '8a48b5514c6a0c54014c780d1e0c0955';
+
+	//主帐号令牌,对应官网开发者主账号下的 AUTH TOKEN
+	public $accountToken= '102fd7705b4144479a672933d3a77f88';
+
+	//应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
+	//在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
+	public $appId='8a216da85e4be3b3015e510cf9ed02a4';
+
+	//请求地址
+	//沙盒环境（用于应用开发调试）：sandboxapp.cloopen.com
+	//生产环境（用户应用上线使用）：app.cloopen.com
+	public $serverIP='app.cloopen.com';
+
+
+	//请求端口，生产环境和沙盒环境一致
+	public $serverPort='8883';
+
+	//REST版本号，在官网文档REST介绍中获得。
+	public $softVersion='2013-12-26';
+		/**
 	 * 站点配置
 	 * @var array
 	 */
@@ -323,6 +346,62 @@ class Controller extends CController
 		    }
 		}
 		return $data;
+	}
+	public function post($url, $post_data = '', $timeout = 5){//curl
+ 
+        $ch = curl_init();
+ 
+        curl_setopt ($ch, CURLOPT_URL, $url);
+ 
+        curl_setopt ($ch, CURLOPT_POST, 1);
+ 
+        if($post_data != ''){
+ 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+ 
+        }
+ 
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
+ 
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+ 
+        curl_setopt($ch, CURLOPT_HEADER, false);
+ 
+        $file_contents = curl_exec($ch);
+ 
+        curl_close($ch);
+ 
+        return $file_contents;
+ 
+    }
+
+    function sendTemplateSMS($to,$datas,$tempId)
+	{
+	     // 初始化REST SDK
+	     global $accountSid,$accountToken,$appId,$serverIP,$serverPort,$softVersion;
+	     $rest = new REST($serverIP,$serverPort,$softVersion);
+	     $rest->setAccount($accountSid,$accountToken);
+	     $rest->setAppId($appId);
+	    
+	     // 发送模板短信
+	     echo "Sending TemplateSMS to $to <br/>";
+	     $result = $rest->sendTemplateSMS($to,$datas,$tempId);
+	     if($result == NULL ) {
+	         echo "result error!";
+	         break;
+	     }
+	     if($result->statusCode!=0) {
+	         echo "error code :" . $result->statusCode . "<br>";
+	         echo "error msg :" . $result->statusMsg . "<br>";
+	         //TODO 添加错误处理逻辑
+	     }else{
+	         echo "Sendind TemplateSMS success!<br/>";
+	         // 获取返回信息
+	         $smsmessage = $result->TemplateSMS;
+	         echo "dateCreated:".$smsmessage->dateCreated."<br/>";
+	         echo "smsMessageSid:".$smsmessage->smsMessageSid."<br/>";
+	         //TODO 添加成功处理逻辑
+	     }
 	}
 
 }

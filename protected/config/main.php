@@ -157,7 +157,7 @@ $config1 = array(
                 //前台
                 'fz-<fenzhan:\w+>' => 'home/index/index',//分站主页
                 'fzactive-<fenzhan:\w+>' => 'home/index/active',//分站动态
-                '/' => 'home/index/index',
+                '/' => 'api/index/index',
                 'plot/<place:\d+>/<ext:\w+>' => 'home/plot/list',
                 'plot/<place:\d+>/' => 'home/plot/list',
                 'plot/<ext:\w+>' => 'home/plot/list',
