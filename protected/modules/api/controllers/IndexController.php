@@ -22,7 +22,7 @@ class IndexController extends ApiController
                     var_dump($user->phone);
                     $model = new ApiLoginForm();
                     $model->username = $user->phone;
-                    $model->pwd = md5($user->pwd);
+                    $model->password = md5($user->pwd);
                     var_dump($model->login());
                 }
             }
