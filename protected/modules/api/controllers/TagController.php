@@ -21,7 +21,7 @@ class TagController extends ApiController{
 				// $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
             	// $areas[0]['childArea'] = $areas[0]->childArea;
             	$area['list'] = $areas;
-            	$ots = CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
+            	$ots = CacheExt::gas('wap_all_tags','AreaExt',0,'wap筛选标签缓存',function (){
 	            	$aveprice = [];
 					$aveprice['name'] = '均价';
 					$aveprice['filed'] = 'aveprice';
@@ -55,7 +55,9 @@ class TagController extends ApiController{
 					$more['list'] = [$sort,$wylx,$zxzt];
 					return [$aveprice,$sfprice,$more];
 				});
-            	$this->frame['data'] = array_merge($area,$ots);
+				// var_dump($ots);exit;
+				array_unshift($ots,$area);
+            	$this->frame['data'] = $ots;
 				break;
 			
 			default:
