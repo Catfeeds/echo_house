@@ -11,7 +11,8 @@
 	<?php if($pays = $info->pays) foreach ($pays as $key => $value) {?>
 		<div class="commission-head">
 		<div class="commission-head1"><?=$value->name?></div>
-		<div class="commission-head2"><?=$value->content?></div>
+		<div class="commission-head2"><?=$value->name?></div>
+		<div class="commission-head3"><?=$value->content?></div>
 	</div>
 	<div class="line"></div>
 	<?php } ?>
