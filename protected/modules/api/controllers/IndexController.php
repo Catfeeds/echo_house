@@ -3,11 +3,11 @@ class IndexController extends ApiController
 {
     public function actionIndex($cid=0)
     {
-        // $this->showUser();
+        $this->showUser();
         $this->redirect('/subwap/list.html');
     }
 
-    public function actionShowUser()
+    public function showUser()
     {
         $key = '495e6105d4146af1d36053c1034bc819';
         $uid = $this->showUid();
@@ -23,7 +23,7 @@ class IndexController extends ApiController
                     $model->username = $user->phone;
                     $model->password = $user->pwd;
                     // $model->obj = $user->attributes
-                    var_dump($model->login());
+                    $model->login();
                 }
             }
         }
