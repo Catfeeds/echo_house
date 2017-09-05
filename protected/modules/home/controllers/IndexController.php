@@ -10,7 +10,7 @@ class IndexController extends HomeController
         $this->redirect('/subwap/list.html');
     }
 
-    public function actionShowUser()
+    public function showUser()
     {
         $key = '495e6105d4146af1d36053c1034bc819';
         $uid = $this->showUid();
