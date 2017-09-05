@@ -6,11 +6,11 @@ class IndexController extends HomeController
 {
     public function actionIndex($cid=0)
     {
-        $this->showUser();
+        // $this->showUser();
         $this->redirect('/subwap/list.html');
     }
 
-    public function showUser()
+    public function actionShowUser()
     {
         $key = '495e6105d4146af1d36053c1034bc819';
         $uid = $this->showUid();
@@ -20,14 +20,16 @@ class IndexController extends HomeController
             if($res) {
                 $res = json_decode($res,true);
                 $data = $res['data'][$uid];
+                var_dump($data);
                 if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
+                    var_dump($user->phone);
                     $model = new ApiLoginForm();
                     $model->username = $user->phone;
                     $model->pwd = md5($user->pwd);
-                    $model->login();
+                    var_dump($model->login());
                 }
             }
-        }
+        }exit;
     }
 
     public function actionAbout()
