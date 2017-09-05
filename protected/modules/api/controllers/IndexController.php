@@ -18,15 +18,16 @@ class IndexController extends ApiController
                 $res = json_decode($res,true);
                 $data = $res['data'][$uid];
                 if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
-                    $identity=new ApiIdentity('','');
-		            $identity->app_login = true;
-		            $identity->obj = $user;
-		            $identity->authenticate();
-		            var_dump(Yii::app()->user->login($identity, 3600*24));exit;
-            	}
-        	}
-    	}
-	}
+                    $model = new ApiLoginForm();
+                    $model->isapp = true;
+                    $model->username = $user->phone;
+                    $model->password = $user->pwd;
+                    // $model->obj = $user->attributes
+                    var_dump($model->login());
+                }
+            }
+        }
+    }
 
     public function actionAbout()
     {
