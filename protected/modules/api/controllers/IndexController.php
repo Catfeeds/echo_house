@@ -24,6 +24,8 @@ class IndexController extends ApiController
                     $model->password = $user->pwd;
                     // $model->obj = $user->attributes
                     $model->login();
+                } else {
+                	Yii::app()->user->logout();
                 }
             }
         }

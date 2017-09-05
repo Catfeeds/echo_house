@@ -88,7 +88,7 @@
 
 
 
-<div class="container container-big">
+<div class="container container-big" style="display: none">
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">   
                 <div class="row">  
@@ -144,6 +144,7 @@
 
 	<script type="text/javascript">
 		$('.regisiter-usertype-choice1').click(function(){
+			$('.container-big').css('display','none');
 			$('#companycode').attr('required');
 			$('#form-type').val($('.regisiter-usertype-choice1').data('type'));
 			$('.register-textarea-invitor').css({"display":"block"});
@@ -155,6 +156,7 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice2').click(function(){
+			$('.container-big').css('display','none');
 			$('#companycode').attr('required');
 			$('#form-type').val($('.regisiter-usertype-choice2').data('type'));
 			$('.register-textarea-invitor').css({"display":"block"});
@@ -166,6 +168,7 @@
 			$('.regisiter-usertype-choice3').css({"color":"#414141"});
 		});
 		$('.regisiter-usertype-choice3').click(function(){
+			$('.container-big').css('display','block');
 			$('#companycode').removeAttr('required');
 			$('#form-type').val($('.regisiter-usertype-choice3').data('type'));
 			$('.register-textarea-invitor').css({"display":"none"});
