@@ -44,7 +44,7 @@ class IndexController extends HomeController
     {
         $token = $_COOKIE['wap_token'];
         $url = 'http://jj58.qianfanapi.com/api1_2/cookie/auth-code';
-        $res = HttpHelper::post($url,['wap_token'=>$token,'secret_key'=>'495e6105d4146af1d36053c1034bc819']);
+        $res = $this->post($url,['wap_token'=>$token,'secret_key'=>'495e6105d4146af1d36053c1034bc819']);
         var_dump($res['content']);exit;
     }
 }
