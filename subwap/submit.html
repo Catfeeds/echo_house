@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="js/messages_zh.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/submit.css">
+
+
+
+	<link href="../../views/images/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../../views/styles/main.css">
+    <link rel="stylesheet" href="../../views/styles/highlight.css">
+
+	<title></title>
+</head>
+<body>
+	<form id="form" onsubmit="return false;">
+		<div class="submit-head-bg"></div>
+
+		<div class="submit-area">
+			<div class="submit-textarea">
+				<div class="submit-textname">门店名</div>
+				<input name="UserExt[name]" id="shopname" class="submit-text" type="text" placeholder="请填写门店名" required>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="submit-textarea">
+				<div class="submit-textname">所在区域</div>
+				<select class="submit-select" onchange="selectChange">
+					 <option value="volvo">Volvo</option>
+					 <option value="saab">Saab</option>
+					 <option value="opel">Opel</option>
+					 <option value="audi">Audi</option>
+				</select>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="submit-textarea">
+				<div class="submit-textname">门店地址</div>
+				<input name="UserExt[address]"  id="address" class="submit-text" type="text" placeholder="请填写门店地址" required>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="submit-textarea">
+				<div class="submit-textname">店长姓名</div>
+				<input id="name" class="submit-text" type="text" placeholder="请填写店长姓名" required>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="submit-textarea">
+				<div class="submit-textname">门店联系方式</div>
+				<input name="UserExt[phone]"  id="phone" class="submit-text" type="text" placeholder="请填写门店联系方式" required>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="submit-textarea">
+				<div class="submit-textname">门店类型</div>
+				<input class="radio1 radio active" type="radio" name="type" value="zongdai" checked="checked">
+				<div class="radio-text1">总代公司</div>
+				<input class="radio2 radio" type="radio" name="type" value="fenxiao">
+				<div class="radio-text2">分销公司</div>
+			</div>
+			<input type="hidden" name="UserExt[type]" value="0" id="type">
+		</div>
+
+		<div class="submit-head-bg"></div>
+
+
+	<input type="hidden" name="UserExt[image]" id="img-url">
+	<div class="container container-big">
+	        <div class="tab-content">
+	            <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">   
+	                <div class="row">  
+	                    <input type="hidden" id="domain" value="http://okwfe8mj2.bkt.clouddn.com/">
+	                    <input type="hidden" id="uptoken_url" value="">
+
+	                    <div class="col-md-12 upload-btn">
+
+	                        <div id="container">
+	                        
+	                            <a class="btn-default" id="pickfiles" href="#" >
+	                                <i class="glyphicon glyphicon-plus"></i>
+	                                上传门店认证材料
+	                            </a>
+	                        </div>
+	                    </div>
+
+	                    <div class="col-md-12 upload-detail">
+	                        <table class="table table-striped table-hover text-left" style="display:none">
+	                            <tbody id="fsUploadProgress">
+	                            </tbody>
+	                        </table>
+	                    </div>
+
+
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+	    <div class="submit-submit-bg"></div>
+		<button class="submit-submit" type="submit">提 交</button>
+
+	</form>
+
+<script type="text/javascript" src="js/submit.js"></script>
+
+<script type="text/javascript" src="../../views/bower_components/plupload/js/moxie.js"></script>
+<script type="text/javascript" src="../../views/bower_components/plupload/js/plupload.dev.js"></script>
+<script type="text/javascript" src="../../views/bower_components/plupload/js/i18n/zh_CN.js"></script>
+<script type="text/javascript" src="../../views/scripts/ui.js"></script>
+<script type="text/javascript" src="../../views/src/qiniu.js"></script>
+<script type="text/javascript" src="../../views/scripts/highlight.js"></script>
+<script type="text/javascript" src="../../views/scripts/main.js"></script>
+<script type="text/javascript">
+hljs.initHighlightingOnLoad();
+</script>
+
+</body>
+</html>
