@@ -97,9 +97,9 @@ $(document).ready(function() {
     ajaxGetList(o);
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-    $.get('/api/tag/list?cate=plotFilter', function(data) {
-        filter = data.data;
-    });
+    // $.get('/api/tag/list?cate=plotFilter', function(data) {
+    //     filter = data.data;
+    // });
 });
 
 function GetQueryString(name) {
@@ -285,6 +285,7 @@ function ajaxGetTop() {
 //筛选栏文字
 function ajaxGetFilter() {
     $.get('/api/tag/list?cate=plotFilter', function(data) {
+        filter = data.data;
         var html = '';
         if (data.data.length > 0) {
             var list = data.data;
