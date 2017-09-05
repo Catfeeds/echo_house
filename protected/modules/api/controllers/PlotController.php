@@ -95,7 +95,7 @@ class PlotController extends ApiController{
 			}
 		}
 
-		$plots = PlotExt::model()->normal()->getList($criteria);
+		$plots = PlotExt::model()->normal()->with('companys')->getList($criteria);
 		$lists = [];
 		if($datares = $plots->data) {
 			foreach ($datares as $key => $value) {
@@ -111,8 +111,8 @@ class PlotController extends ApiController{
 					// unset($company);
 					$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
 				} else {
-					if($companydes = $value->getItsCompany()) {
-						$companydes = $companydes[0];
+					if($companydes = $value->companys) {
+						$companydes = ['id'=>$companydes[0]['id'],'name'=>$companydes[0]['name']];
 					} else {
 						$companydes = [];
 					}
