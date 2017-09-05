@@ -6,7 +6,7 @@ class IndexController extends HomeController
 {
     public function actionIndex($cid=0)
     {
-        
+        $this->showUser();
         $this->redirect('/subwap/list.html');
     }
 
@@ -18,7 +18,14 @@ class IndexController extends HomeController
             $url = 'http://jj58.qianfanapi.com/api1_2/user/user-info';
             $res = $this->get_response($key,$url,['user_ids'=>$uid]);
             if($res) {
-                var_dump($res);exit;
+                $res = json_decode($res,true);
+                $data = $res['data'][$uid];
+                if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
+                    $model = new ApiLoginForm();
+                    $model->username = $user->phone;
+                    $model->pwd = md5($user->pwd);
+                    $model->login();
+                }
             }
         }
     }
