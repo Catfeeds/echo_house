@@ -24,7 +24,7 @@ class ApiIdentity extends CUserIdentity
 		// 	return $this->errorCode;
 		// }
 		// var_dump(2);exit;
-		if($app_login && $obj) {
+		if($this->app_login && $this->obj) {
 			$this->errorCode = self::ERROR_NONE;
 		} else {
 			if(is_numeric($this->username)) {
