@@ -47,14 +47,6 @@ function getCookie(c_name) {
     return ""
 }
 
-function checkCookie() {
-    $.get('/api/plot/getHasCoo', function(data) {
-        if(data.status == 'error') {
-            getLocation();
-        }
-    });
-}
-
 function getLocation() {
     // 百度地图API功能
     var map = new BMap.Map("allmap");
@@ -105,9 +97,9 @@ $(document).ready(function() {
     ajaxGetList(o);
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-    $.get('/api/tag/list?cate=plotFilter', function(data) {
-        filter = data.data;
-    });
+    // $.get('/api/tag/list?cate=plotFilter', function(data) {
+    //     filter = data.data;
+    // });
 });
 
 function GetQueryString(name) {
@@ -293,6 +285,7 @@ function ajaxGetTop() {
 //筛选栏文字
 function ajaxGetFilter() {
     $.get('/api/tag/list?cate=plotFilter', function(data) {
+        filter = data.data;
         var html = '';
         if (data.data.length > 0) {
             var list = data.data;
