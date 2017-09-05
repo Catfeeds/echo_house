@@ -39,4 +39,11 @@ class IndexController extends HomeController
         } 
         
     }
+
+    public function actionShowCoo()
+    {
+        var_dump($_COOKIE['wap_token']);
+        $res = HttpHelper::get('http://jj58.qianfanapi.com/api1_2/cookie/auth-code?wap_token='.$_COOKIE['wap_token'].'&secret_key=495e6105d4146af1d36053c1034bc819');
+        var_dump($res['content']);exit;
+    }
 }
