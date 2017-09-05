@@ -47,14 +47,6 @@ function getCookie(c_name) {
     return ""
 }
 
-function checkCookie() {
-    $.get('/api/plot/getHasCoo', function(data) {
-        if(data.status == 'error') {
-            getLocation();
-        }
-    });
-}
-
 function getLocation() {
     // 百度地图API功能
     var map = new BMap.Map("allmap");
