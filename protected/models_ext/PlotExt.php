@@ -158,6 +158,10 @@ class PlotExt extends Plot{
     }
 
     public function beforeValidate() {
+        if(!$this->company_id && $cms = $this->companys) {
+            $this->company_id = $cms[0]['id'];
+            $this->company_name = $cms[0]['name'];
+        }
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
         else

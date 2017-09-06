@@ -513,7 +513,7 @@ function getFilterTitle(obj) {
 function setFilterItem(obj) {
     $(obj).parent().children().removeClass('filter-filter4-button-active');
     $(obj).addClass('filter-filter4-button-active');
-    if ($(obj).data('id') < 3) {
+    if ($(obj).data('id') < 4) {
         o.sort = $(obj).data('id');
     } else {
         o.wylx = $(obj).data('id');

@@ -29,6 +29,8 @@
  * @property integer $price_mark
  * @property string $data_conf
  * @property integer $status
+ * @property integer $company_id
+ * @property string $company_name
  * @property integer $sort
  * @property integer $views
  * @property integer $deleted
@@ -55,17 +57,17 @@ class Plot extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, pinyin, area, street, data_conf, created', 'required'),
-			array('sale_status, tag_id, is_new, area, street, open_time, delivery_time, map_zoom, price, unit, price_mark, status, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
+			array('sale_status, tag_id, is_new, area, street, open_time, delivery_time, map_zoom, price, unit, price_mark, status, company_id, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			array('pinyin, sale_tel', 'length', 'max'=>100),
 			array('fcode', 'length', 'max'=>1),
 			array('address, sale_addr, image', 'length', 'max'=>150),
 			array('map_lng, map_lat', 'length', 'max'=>60),
 			array('market_user', 'length', 'max'=>20),
-			array('market_users', 'length', 'max'=>255),
+			array('market_users, company_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, data_conf, status, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
+			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, data_conf, status, company_id, company_name, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,37 +88,39 @@ class Plot extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => '主键id',
-			'title' => '楼盘名称',
-			'pinyin' => '拼音',
-			'fcode' => '首字母',
-			'sale_status' => '销售状态',
-			'tag_id' => '对应论坛标签id',
-			'is_new' => '是否新盘',
-			'area' => '所在区域',
-			'street' => '所在商圈',
-			'open_time' => '开盘时间',
-			'delivery_time' => '最新交付时间',
-			'address' => '楼盘地址',
-			'sale_addr' => '售楼地址',
-			'sale_tel' => '售楼电话',
-			'map_lng' => '经度',
-			'map_lat' => '纬度',
-			'map_zoom' => '地图放大',
-			'image' => '配图',
-			'price' => '价格',
-			'unit' => '单位',
+			'id' => 'ID',
+			'title' => 'Title',
+			'pinyin' => 'Pinyin',
+			'fcode' => 'Fcode',
+			'sale_status' => 'Sale Status',
+			'tag_id' => 'Tag',
+			'is_new' => 'Is New',
+			'area' => 'Area',
+			'street' => 'Street',
+			'open_time' => 'Open Time',
+			'delivery_time' => 'Delivery Time',
+			'address' => 'Address',
+			'sale_addr' => 'Sale Addr',
+			'sale_tel' => 'Sale Tel',
+			'map_lng' => 'Map Lng',
+			'map_lat' => 'Map Lat',
+			'map_zoom' => 'Map Zoom',
+			'image' => 'Image',
+			'price' => 'Price',
+			'unit' => 'Unit',
 			'market_user' => 'Market User',
 			'market_users' => 'Market Users',
-			'price_mark' => '价格标识',
-			'data_conf' => '项目信息存储',
-			'status' => '状态',
-			'sort' => '排序',
-			'views' => '访问量',
-			'deleted' => '删除时间',
-			'created' => '添加时间',
-			'updated' => '修改时间',
-			'old_id' => '旧数据id',
+			'price_mark' => 'Price Mark',
+			'data_conf' => 'Data Conf',
+			'status' => 'Status',
+			'company_id' => 'Company',
+			'company_name' => 'Company Name',
+			'sort' => 'Sort',
+			'views' => 'Views',
+			'deleted' => 'Deleted',
+			'created' => 'Created',
+			'updated' => 'Updated',
+			'old_id' => 'Old',
 		);
 	}
 
@@ -163,6 +167,8 @@ class Plot extends CActiveRecord
 		$criteria->compare('price_mark',$this->price_mark);
 		$criteria->compare('data_conf',$this->data_conf,true);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('company_id',$this->company_id);
+		$criteria->compare('company_name',$this->company_name,true);
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('views',$this->views);
 		$criteria->compare('deleted',$this->deleted);

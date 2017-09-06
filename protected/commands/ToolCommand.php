@@ -34,7 +34,7 @@ class ToolCommand extends CConsoleCommand
     }
     public function actionDo()
     {
-        $infos = ArticleExt::model()->findAll();
+        $infos = PlotExt::model()->findAll();
         foreach ($infos as $key => $value) {
             $value->save();
         }
