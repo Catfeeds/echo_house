@@ -548,6 +548,8 @@ class PlotController extends ApiController{
     {
         $infos = PlotExt::model()->findAll();
         foreach ($infos as $key => $value) {
+        	// if(!$value->company_name)
+        	// 	$value->company_id = '';
             $value->save();
         }
         echo "ok";

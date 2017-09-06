@@ -200,7 +200,7 @@ class PlotController extends AdminController{
 			$zd_company = $house->zd_company;
 			if($zd_company) {
 				$house->company_name = CompanyExt::model()->findByPk($zd_company[0])->name;
-				$house->company_name = $zd_company[0];
+				$house->company_id = $zd_company[0];
 			}
 			$tagArray = [];
 			foreach (PlotExt::$tagArr as $tagKey) {
