@@ -26,8 +26,7 @@ var scrollHandler = function() {
     if (aa < 0.01) { //0.02是个参数  
         if (o.page < o.page_count) {
             o.page++;
-            // 出现加载中
-            $('.loaddiv').css('display','block');
+            
             ajaxAddList(o);
         }
     }
@@ -94,8 +93,6 @@ $(document).ready(function() {
         $('#companytag').html(html);
         $("title").html(GetQueryString('company')+'-代理项目列表'); 
     }
-    // 出现加载中
-    $('.loaddiv').css('display','block');
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);
@@ -114,6 +111,8 @@ function GetQueryString(name) {
 }
 //请求商品列表
 function ajaxGetList(obj) {
+    // 出现加载中
+    $('.loaddiv').css('display','block');
     var params = '?t=1';
     $('#ul1').empty();
     if (obj.toptag != '' && obj.toptag != 'undefined') {
@@ -187,6 +186,8 @@ function ajaxGetList(obj) {
 }
 
 function ajaxAddList(obj) {
+    // 出现加载中
+    $('.loaddiv').css('display','block');
     var params = '?t=1';
     // $('#ul1').empty();
     if (obj.toptag != '' && obj.toptag != 'undefined') {
