@@ -97,28 +97,24 @@ $('.baobei-on-off').click(function(){
 	}
 });
 
+//替换版
+// var phone='';
+// var phone2='';
+// var phone3='';
+// var hidden='';
 // $('.phone-on-off').click(function(){
 // 	if ($('.phone-on-off').is('.off')) {
 // 		$('.phone-on-off').removeClass('off');
 // 		$('.phone-on-off').attr('src','./img/on.png');
-// 		phone=$('#phone').val();
-// 		if(phone.length>=11) {
-// 			phone2=phone.substr(3,4);
-// 			hidden=phone.replace(phone2,"****");
-// 			$('#phone').val(hidden);
-// 		}	
+// 		phone=$('#phone0').val();
+// 		for (var i = 3; i < phone.length; i++) {
+// 			phone1=phone.replace(phone[i],"*");
+// 		}
+// 		$('#phone0').val(phone1);
 // 	} else {
 // 		$('.phone-on-off').addClass('off');
 // 		$('.phone-on-off').attr('src','./img/off.png');
-// 		$('#phone').val(phone);
-// 	}
-// });
-// $('#phone').blur(function(){
-// 	phone=$('#phone').val();
-// 	if(phone.length>3 && !$('.phone-on-off').is('.off')) {
-// 		phone2=phone.substr(3,4);
-// 		hidden=phone.replace(phone2,"****");
-// 		$('#phone').val(hidden);
+// 		$('#phone0').val(phone);
 // 	}
 // });
 
