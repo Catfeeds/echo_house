@@ -8,21 +8,24 @@ class PlotController extends AdminController{
 	public function init()
 	{
 		parent::init();
-		$id = (int)Yii::app()->request->getQuery('id',0);
-		!$id && $id = (int)Yii::app()->request->getQuery('hid',0);
-		if($id) {
-			$hids = Yii::app()->db->createCommand("select hid from plot_company where cid=".Yii::app()->user->cid)->queryAll();
-			$ids = [];
-			if($hids) {
-				foreach ($hids as $key => $value) {
-					$ids[] = $value['hid'];
-				}
+		if(Yii::app()->user->id>1) {
+			$id = (int)Yii::app()->request->getQuery('id',0);
+			!$id && $id = (int)Yii::app()->request->getQuery('hid',0);
+			if($id) {
+				$hids = Yii::app()->db->createCommand("select hid from plot_company where cid=".Yii::app()->user->cid)->queryAll();
+				$ids = [];
+				if($hids) {
+					foreach ($hids as $key => $value) {
+						$ids[] = $value['hid'];
+					}
 
-			}
-			if(!$ids || !in_array($id, $ids)) {
-				$this->redirect('list');
+				}
+				if(!$ids || !in_array($id, $ids)) {
+					$this->redirect('list');
+				}
 			}
 		}
+			
 	}
 	public $controllerName = '';
 	/**
