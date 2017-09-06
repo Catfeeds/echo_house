@@ -67,13 +67,32 @@ color:#c3c3c3;
 .report-smalltag-name{
 	position: absolute;	
 	top: 0rem;
-	left: 3.147rem;
 	font-size: 0.8rem;
-	width: 11.0rem;
 	border:none;
+	width: 11rem;
+	left: 3.147rem;
 	color: #414141;
 	line-height: 2.027rem;
 }
+#phone0{
+	display: block;
+}
+#phone1{
+	width: 1.5rem;
+	left: 3.147rem;
+}
+#phone2{
+	width: 1.6rem;
+	left: 4.6rem;
+}
+#phone3{
+	width: 2rem;
+	left: 6.147rem;
+}
+.phone-on{
+	display: none;
+}
+
 .sex-boy{
 	position: absolute;
 	background-color: #cccccc;
