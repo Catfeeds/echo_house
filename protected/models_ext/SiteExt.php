@@ -23,7 +23,8 @@ class SiteExt extends Site{
         'appsecret'=>'',
         'wx_share_image'=>'',
         'info_no_pic'=>'',
-        'site_phone'=>''
+        'site_phone'=>'',
+        'siteqq'=>''
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -40,6 +41,7 @@ class SiteExt extends Site{
             'coo_words'=>['type'=>'text','name'=>'分销页备注'],
             'bussiness_tel'=>['type'=>'text','name'=>'业务部联系方式'],
             'site_phone'=>['type'=>'text','name'=>'站点客服'],
+            'siteqq'=>['type'=>'text','name'=>'站点qq'],
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
             'map_lat'=>['type'=>'text','name'=>'默认纬度'],
             'map_zoom'=>['type'=>'text','name'=>'默认缩放值'],

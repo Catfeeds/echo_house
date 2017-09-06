@@ -2,6 +2,7 @@
 class PlotController extends ApiController{
 	public function actionList()
 	{
+		$info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
 		$area = (int)Yii::app()->request->getQuery('area',0);
 		$street = (int)Yii::app()->request->getQuery('street',0);
 		$aveprice = (int)Yii::app()->request->getQuery('aveprice',0);
@@ -127,7 +128,7 @@ class PlotController extends ApiController{
 					'unit'=>PlotExt::$unit[$value->unit],
 					'area'=>$areaName,
 					'street'=>$streetName,
-					'image'=>ImageTools::fixImage($value->image),
+					'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 					'zd_company'=>$companydes,
 					'pay'=>$pay,
 					'distance'=>round($this->getDistance($value),2),
@@ -296,7 +297,7 @@ class PlotController extends ApiController{
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 			'is_show_add'=>$is_show_add,
 			'phonesnum'=>$phonesnum,
-			'zd_company'=>$companys[0],
+			'zd_company'=>$companys?$companys[0]:[],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
 			// 'share_phone'=>$share_phone,
@@ -546,13 +547,9 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-        $infos = PlotExt::model()->findAll();
-        foreach ($infos as $key => $value) {
-        	// if(!$value->company_name)
-        	// 	$value->company_id = '';
-            $value->save();
-        }
-        echo "ok";
+    	// var_dump(Yii::app()->msg);exit;
+        // var_dump(SmsExt::addOne('13861242596','1111'));
+        exit;
     }
     public function actionSubCompany()
     {

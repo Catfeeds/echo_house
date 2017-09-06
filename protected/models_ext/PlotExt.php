@@ -90,6 +90,7 @@ class PlotExt extends Plot{
         return array_merge($rules, array(
             array(implode(',',array_keys(self::$tags)), 'safe'),
             array('title','unique'),
+            array('zd_company','required'),
         ));
     }
 

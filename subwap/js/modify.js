@@ -37,7 +37,7 @@ function onemin_clock() {
 
  }
 function send_msg(phonenumber) {
-    $.get('/api/user/addOne?phone=' + phonenumber, function(data) {
+    $.get('/api/user/addOne?phone=' + phonenumber+'&type=2', function(data) {
             if (data.status == "success") {
                 alert("验证码已发送，请查收");
             } else {
