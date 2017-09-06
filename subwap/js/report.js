@@ -135,15 +135,15 @@ $('.phone-on-off').click(function(){
 	}
 });
 
-$('#phone1').keydown(function(){
-	if($('#phone1').val().length==3) {
-		$('#phone3').focus();
-	}
-});
-$('#phone3').keydown(function(){
-	if($('#phone3').val().length==0) {
-		$('#phone1').focus();
-	}
-});
+// $('#phone1').keydown(function(){
+// 	if($('#phone1').val().length==3) {
+// 		$('#phone3').focus();
+// 	}
+// });
+// $('#phone3').keydown(function(){
+// 	if($('#phone3').val().length==0) {
+// 		$('#phone1').focus();
+// 	}
+// });
 
 
