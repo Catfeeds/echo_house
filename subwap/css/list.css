@@ -526,3 +526,16 @@ color:#c3c3c3;
 #ul1 a{
 	color: #333333;
 }
+
+.loaddiv{
+	position: relative;
+	width: 1.707rem;
+	height: 1.707rem;
+	left: 9.147rem;
+	margin: 0.5rem 0rem;
+	display: none;
+}
+.loading-img{
+	width: 1.707rem;
+	height: 1.707rem;
+}

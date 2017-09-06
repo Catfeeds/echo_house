@@ -27,6 +27,7 @@ var scrollHandler = function() {
         if (o.page < o.page_count) {
             o.page++;
             // 出现加载中
+            $('.loaddiv').css('display','block');
             ajaxAddList(o);
         }
     }
@@ -94,6 +95,7 @@ $(document).ready(function() {
         $("title").html(GetQueryString('company')+'-代理项目列表'); 
     }
     // 出现加载中
+    $('.loaddiv').css('display','block');
     ajaxGetTop();
     ajaxGetFilter();
     ajaxGetList(o);
@@ -180,6 +182,7 @@ function ajaxGetList(obj) {
         $('#ul1').append(html);
         $('#num').html(o.num);
         // 加载中消失
+        $('.loaddiv').css('display','none');
     });
 }
 
@@ -251,6 +254,7 @@ function ajaxAddList(obj) {
         $('#ul1').append(html);
         $('#num').html(o.num);
         // 加载中消失
+        $('.loaddiv').css('display','none');
     });
 }
 
