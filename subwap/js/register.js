@@ -49,9 +49,9 @@ function send_msg(phonenumber) {
         });
 }
 $('.register-register').click(function() {
-    var username = $('#username').val();
-    var phonenumber = $('#writephonenumber').val();
-    var password = $('#password').val();
+    var username = $('#username').val().trim();
+    var phonenumber = $('#writephonenumber').val().trim();
+    var password = $('#password').val().trim();
 
     if(!/^[\u0391-\uFFE5]+$/.test(username)) {
         alert("姓名仅限中文");

@@ -23,7 +23,7 @@ var scrollHandler = function() {
     var pageH = $(document.body).height();
     var scrollT = $(window).scrollTop(); //滚动条top   
     var aa = (pageH - winH - scrollT) / winH;
-    if (aa < 0.01) { //0.02是个参数  
+    if (aa < 0.02) { //0.02是个参数  
         if (o.page < o.page_count) {
             o.page++;
             

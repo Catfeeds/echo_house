@@ -75,7 +75,7 @@ color:#c3c3c3;
 	line-height: 2.027rem;
 }
 #phone0{
-	display: block;
+	display: none;
 }
 #phone1{
 	width: 1.5rem;
@@ -90,7 +90,7 @@ color:#c3c3c3;
 	left: 6.147rem;
 }
 .phone-on{
-	display: none;
+	display: block;
 }
 
 .sex-boy{
