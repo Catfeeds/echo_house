@@ -11,12 +11,6 @@ $(document).ready(function(){
 //validate
 	$('#form').validate();
 });
-//下拉框事件
-function selectChange(){
-	var index=$('.submit-select').selectedIndex;
-	var value=$('.submit-select')[index];
-	console.log(value);
-}
 //单选框的点击事件
 $('.radio1').click(function(){
 	$('.radio').removeClass('active');
@@ -58,7 +52,7 @@ function regis() {
             'UserExt[address]': $('#address').val(),
             'UserExt[phone]': $('#phone').val(),
             'UserExt[type]': $('#type').val(),
-            'UserExt[area]': value,
+            'UserExt[area]': $('.submit-select').val(),
             'UserExt[image]': $('#img-url').val(),
         },
         function(data, status) {
