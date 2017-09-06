@@ -7,6 +7,9 @@ o.phone = '';
 o.note = '';
 o.is_only_sub = '';
 o.visit_way = '';
+var phone='';
+var phone2='';
+var hidden='';
 $(document).ready(function() {
 	$.get('/api/config/index',function(data) {
         $('.report-attention-text').html(data.data.report_words);
@@ -64,8 +67,13 @@ function setSexD() {
 }
 
 function sub() {
+	if ($('.phone-on-off').is('.off')) {
+		phonenumber=$('#phone0').val();
+	} else {
+		phonenumber=$('#phone1').val()+'****'+$('#phone3').val();
+	}
 	o.time = $('#appDateTime').val();
-	o.phone = $('#phone').val();
+	o.phone = phonenumber;
 	o.name = $('#name').val();
 	o.note=$('.report-write').val();
 	if(o.time.trim() == '' || o.name.trim()==''||o.phone.trim()=='') {
@@ -88,12 +96,58 @@ $('.baobei-on-off').click(function(){
 		o.is_only_sub=0;
 	}
 });
+
+// $('.phone-on-off').click(function(){
+// 	if ($('.phone-on-off').is('.off')) {
+// 		$('.phone-on-off').removeClass('off');
+// 		$('.phone-on-off').attr('src','./img/on.png');
+// 		phone=$('#phone').val();
+// 		if(phone.length>=11) {
+// 			phone2=phone.substr(3,4);
+// 			hidden=phone.replace(phone2,"****");
+// 			$('#phone').val(hidden);
+// 		}	
+// 	} else {
+// 		$('.phone-on-off').addClass('off');
+// 		$('.phone-on-off').attr('src','./img/off.png');
+// 		$('#phone').val(phone);
+// 	}
+// });
+// $('#phone').blur(function(){
+// 	phone=$('#phone').val();
+// 	if(phone.length>3 && !$('.phone-on-off').is('.off')) {
+// 		phone2=phone.substr(3,4);
+// 		hidden=phone.replace(phone2,"****");
+// 		$('#phone').val(hidden);
+// 	}
+// });
+
+
+
+//2框版
 $('.phone-on-off').click(function(){
 	if ($('.phone-on-off').is('.off')) {
+		$('#phone0').css('display','none');
+		$('.phone-on').css('display','block');	
 		$('.phone-on-off').removeClass('off');
-		$('.phone-on-off').attr('src','./img/on.png');	
+		$('.phone-on-off').attr('src','./img/on.png');
 	} else {
+		$('.phone-on').css('display','none');
+		$('#phone0').css('display','block');
 		$('.phone-on-off').addClass('off');
 		$('.phone-on-off').attr('src','./img/off.png');
 	}
 });
+
+$('#phone1').keyup(function(){
+	if($('#phone1').val().length==3) {
+		$('#phone3').focus();
+	}
+});
+$('#phone3').keyup(function(){
+	if($('#phone3').val().length==0) {
+		$('#phone1').focus();
+	}
+});
+
+
