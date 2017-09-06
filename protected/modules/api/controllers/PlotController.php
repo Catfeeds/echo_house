@@ -558,7 +558,7 @@ class PlotController extends ApiController{
 			$values = Yii::app()->request->getPost('CompanyExt',[]);
 			$obj = new CompanyExt;
 			$obj->attributes = $values;
-			$obj->status = 1;
+			$obj->status = 0;
 			$obj->save();
 		}
     }
