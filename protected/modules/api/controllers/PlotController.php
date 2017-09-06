@@ -541,7 +541,7 @@ class PlotController extends ApiController{
 				$tmp['com_phone'] = $this->cleanXss($_POST['com_phone']);
 				$tmp['uid'] = $this->staff->id;
 // var_dump($plot);exit;
-				if($plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=".$tmp['uid']." and hid=".$tmp['hid'])->queryScalar()) {
+				if($this->staff->type>1 && $plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=".$tmp['uid']." and hid=".$tmp['hid'])->queryScalar()) {
 					$obj = new CooperateExt;
 					$obj->attributes = $tmp;
 					$obj->status = 0;
