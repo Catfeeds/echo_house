@@ -10,9 +10,10 @@ class UserController extends ApiController{
 		}
 	}
 
-	public function actionAddOne($phone='')
+	public function actionAddOne($phone='',$type='1')
 	{
-		if(!SmsExt::addOne($phone)) {
+		$arr = [1=>'注册',2=>'找回密码'];
+		if(!SmsExt::addOne($phone,$arr[$type])) {
 			$this->returnError('操作失败');
 		}
 		// $this->returnSuccess('操作成功');

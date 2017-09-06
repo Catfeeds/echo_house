@@ -61,6 +61,7 @@ class AdminController extends Controller
      */
     public function getVipMenu()
     {
+        if(Yii::app()->user->id == 1)
         return [
             ['label'=>'管理中心','icon'=>'icon-settings','url'=>'/admin/common/index','active'=>$this->route=='admin/common/index'],
             ['label' => '项目管理', 'icon' => 'icon-speedometer', 'items' => [
@@ -80,7 +81,15 @@ class AdminController extends Controller
 
             
         ];
-    }
+        else
+           return [
+                ['label'=>'管理中心','icon'=>'icon-settings','url'=>'/admin/common/index','active'=>$this->route=='admin/common/index'],
+                ['label' => '项目管理', 'icon' => 'icon-speedometer', 'items' => [
+                    ['label' => '项目列表', 'url' => ['/admin/plot/list']],
+                    ['label' => '新建项目', 'url' => ['/admin/plot/edit'],'active'=>$this->route=='admin/plot/edit'],
+                ]],
+            ]; 
+    } 
 
     /**
      * [getPersonalSalingNum 个人可以上架数目]

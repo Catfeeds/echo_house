@@ -5,6 +5,25 @@
  * @date(2017.03.17)
  */
 class PlotController extends AdminController{
+	public function init()
+	{
+		parent::init();
+		$id = (int)Yii::app()->request->getQuery('id',0);
+		!$id && $id = (int)Yii::app()->request->getQuery('hid',0);
+		if($id) {
+			$hids = Yii::app()->db->createCommand("select hid from plot_company where cid=".Yii::app()->user->cid)->queryAll();
+			$ids = [];
+			if($hids) {
+				foreach ($hids as $key => $value) {
+					$ids[] = $value['hid'];
+				}
+
+			}
+			if(!$ids || !in_array($id, $ids)) {
+				$this->redirect('list');
+			}
+		}
+	}
 	public $controllerName = '';
 	/**
 	 * [actionList 楼盘列表]
@@ -30,6 +49,9 @@ class PlotController extends AdminController{
             $criteria->params[':beginTime'] = TimeTools::getDayBeginTime($beginTime);
             $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
 
+        }
+        if(Yii::app()->user->id>1) {
+        	$company=Yii::app()->user->cid;
         }
         if($company) {
         	$ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
@@ -197,11 +219,19 @@ class PlotController extends AdminController{
 			if(strpos($house->delivery_time,'-')) {
 				$house->delivery_time = strtotime($house->delivery_time);
 			}
-			$zd_company = $house->zd_company;
+			$zd_company = [];
+			if(Yii::app()->user->id==1) {
+				$zd_company = $house->zd_company;
+				
+			} else {
+				if($house->getIsNewRecord())
+					$zd_company = [Yii::app()->user->cid];
+			}
 			if($zd_company) {
 				$house->company_name = CompanyExt::model()->findByPk($zd_company[0])->name;
-				$house->company_name = $zd_company[0];
+				$house->company_id = $zd_company[0];
 			}
+				
 			$tagArray = [];
 			foreach (PlotExt::$tagArr as $tagKey) {
 				if(isset($values[$tagKey])&&$values[$tagKey]) {

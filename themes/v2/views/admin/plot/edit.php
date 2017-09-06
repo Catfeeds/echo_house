@@ -110,6 +110,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'image'); ?></div>
             </div>
+            <?php if(Yii::app()->user->id==1):?>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">总代公司</label>
                 <div class="col-md-10">
@@ -117,6 +118,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'zd_company'); ?></div>
             </div>
+            <?php endif;?>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">代理类型</label>
                 <div class="col-md-10">
@@ -129,14 +131,14 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">对接人</label>
                 <div class="col-md-10">
-                    <?php echo $form->textField($plot,'market_users',array('class'=>'form-control','placeholder'=>'多个用空格隔开')); ?>
+                    <?php echo $form->textField($plot,'market_users',array('class'=>'form-control','placeholder'=>'格式为：张三13861111111 多个用空格隔开')); ?>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
              <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">指定对接</label>
                 <div class="col-md-10">
-                    <?php echo $form->textField($plot,'market_user',array('class'=>'form-control')); ?>
+                    <?php echo $form->textField($plot,'market_user',array('class'=>'form-control','placeholder'=>'格式为：张三13861111111')); ?>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>

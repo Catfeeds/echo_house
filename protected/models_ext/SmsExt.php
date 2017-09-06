@@ -86,7 +86,7 @@ class SmsExt extends Sms{
         );
     }
 
-    public static function addOne($phone='')
+    public static function addOne($phone='',$type='注册')
     {
         // 一分钟有效期外或者新的可以保存
         if($phone) {
@@ -100,13 +100,45 @@ class SmsExt extends Sms{
             $model->phone = $phone;
             $model->code = $code;
             if($model->save()) {
-                Yii::app()->mns->run((string)$phone,(string)$code);
+                Yii::app()->msg->sendSms(Yii::app()->params['msgArr'][$type],$phone,['code'=>$code]);
                 // Yii::app()->mns->run($phone,$code);
                 return true;
             } else {
                 return false;
             }
         }
+    }
+    public static function sendOne($phone='',$type='')
+    {
+        // 一分钟有效期外或者新的可以保存
+        if($phone) {
+            if($info = SmsExt::model()->find("phone='$phone'")) {
+                if(time()-$info->created<60) {
+                    return false;
+                }
+            }
+            $code = rand(1000,9999);
+            $model = new SmsExt;
+            $model->phone = $phone;
+            $model->code = $code;
+            if($model->save()) {
+                Yii::app()->msg->sendSms(Yii::app()->params['msgArr'][$type],$phone,['code'=>$code]);
+                // Yii::app()->mns->run($phone,$code);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    public static function sendMsg($type='',$phone='',$arr)
+    {
+        // 一分钟有效期外或者新的可以保存
+        if($phone) {
+            Yii::app()->msg->sendSms(Yii::app()->params['msgArr'][$type],$phone,$arr);
+            } else {
+                return false;
+           
+            }
     }
 
     public static function checkPhone($phone='',$code='')
