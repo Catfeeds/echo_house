@@ -10,8 +10,12 @@
 <body>
 	<?php if($pays = $info->pays) foreach ($pays as $key => $value) {?>
 		<div class="commission-head">
+<<<<<<< HEAD
 		<img class="commission-head-logo" src="../../subwap/img/pay.png">
 		<div class="commission-head1"><?=$value->name?></div>
+=======
+		<div class="commission-head1"><?=$value->price?></div>
+>>>>>>> 7b467e0c1e3d8cfc7c235f5b7ce77146086900f6
 		<div class="commission-head2"><?=$value->name?></div>
 		<div class="commission-head3"><?=$value->content?></div>
 	</div>

@@ -552,4 +552,14 @@ class PlotController extends ApiController{
         }
         echo "ok";
     }
+    public function actionSubCompany()
+    {
+    	if(Yii::app()->request->getIsPostRequest()) {
+			$values = Yii::app()->request->getPost('CompanyExt',[]);
+			$obj = new CompanyExt;
+			$obj->attributes = $values;
+			$obj->status = 0;
+			$obj->save();
+		}
+    }
 }
