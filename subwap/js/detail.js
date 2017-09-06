@@ -87,9 +87,9 @@ $(document).ready(function(){
         			detail.hx[i].size="--";
         		}
                 if(detail.hx[i].bedroom>0)
-        		  $('.detail-mainstyle-housecontainer ul').append('<li><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+        		  $('.detail-mainstyle-housecontainer ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
         	    else
-                    $('.detail-mainstyle-housecontainer ul').append('<li><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                    $('.detail-mainstyle-housecontainer ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
             }
         }else{
             $('.detail-mainstyle').css('display','none');
@@ -104,7 +104,7 @@ $(document).ready(function(){
         if(detail.images!=''&&detail.images!=undefined){  	
         	for (var i = 0; i < detail.images.length; i++) {
                 // $('.detail-head-img-examplepic').html(detail.images[i].type);
-        		$('.swiper-wrapper').append('<div class="swiper-slide"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></div>');
+        		$('.swiper-wrapper').append('<div class="swiper-slide"><a href="'+detail.images[i].url+'"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
         	}
         }
     	var swiper = new Swiper('.detail-head-img-container',{
@@ -135,6 +135,10 @@ $(document).ready(function(){
     	}
     	
     });
+    // setInterval("console.log($('.detail-sailpoint-message').height())",5);
+    // if ($('.detail-sailpoint-message').height()<3rem) {
+    //     $('.maidian-on-off').css('display','none');
+    // } 
 
 });
 
@@ -167,13 +171,13 @@ $('.maidian-on-off').click(function(){
     if ($('.maidian-on-off').is('.off')) {
         $('.maidian-on-off').removeClass('off');
         $('.maidian-on-off').addClass('on');
-        $('.detail-sailpoint-message').css('height','auto');
+        $('.detail-sailpoint-message').css('max-height','100rem');
         $('.maidian-on-off').empty();
         $('.maidian-on-off').append('收起');
     } else {
         $('.maidian-on-off').removeClass('on');
         $('.maidian-on-off').addClass('off');
-        $('.detail-sailpoint-message').css('height','3rem');
+        $('.detail-sailpoint-message').css('max-height','3rem');
         $('.maidian-on-off').empty();
         $('.maidian-on-off').append('展开更多');
     }

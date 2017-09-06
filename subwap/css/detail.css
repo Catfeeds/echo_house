@@ -285,7 +285,8 @@ body{
 .detail-sailpoint-message{
 	font-size: 0.747rem;
 	position: relative;
-	height: 3rem;
+	height: auto;
+	max-height: 3rem;
 	width: 18.72rem;
 	overflow: hidden;
 	color: #868686;
@@ -298,6 +299,7 @@ body{
 	left: 0.747rem;
 	font-size: 0.747rem;
 	color: #00b7ee;
+	display: block;
 }
 
 .detail-sailpoint-message div{
