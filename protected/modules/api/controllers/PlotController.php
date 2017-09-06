@@ -83,19 +83,17 @@ class PlotController extends ApiController{
 					# code...
 					break;
 			}
-		} else {	
-			// var_dump(empty($_COOKIE['house_lng']));exit;
-			if(isset($_COOKIE['house_lng']) && isset($_COOKIE['house_lat'])) {
+			if($sort == 3 && isset($_COOKIE['house_lng']) && isset($_COOKIE['house_lat'])) {
 				// var_dump(1);exit;
 				$city_lat = $_COOKIE['house_lat'];
 				$city_lng = $_COOKIE['house_lng'];
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
-			} else {
-				$criteria->order = 'sort desc,updated desc';
 			}
+		} else {	
+			$criteria->order = 'sort desc,updated desc';
 		}
 
-		$plots = PlotExt::model()->normal()->with('companys')->getList($criteria);
+		$plots = PlotExt::model()->normal()->getList($criteria);
 		$lists = [];
 		if($datares = $plots->data) {
 			foreach ($datares as $key => $value) {
@@ -111,11 +109,7 @@ class PlotController extends ApiController{
 					// unset($company);
 					$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
 				} else {
-					if($companydes = $value->companys) {
-						$companydes = ['id'=>$companydes[0]['id'],'name'=>$companydes[0]['name']];
-					} else {
-						$companydes = [];
-					}
+					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 				}
 					
 				// var_dump(Yii::app()->user->getIsGuest());exit;
@@ -550,4 +544,12 @@ class PlotController extends ApiController{
 			}
 		}
 	}
+	public function actionDo()
+    {
+        $infos = PlotExt::model()->findAll();
+        foreach ($infos as $key => $value) {
+            $value->save();
+        }
+        echo "ok";
+    }
 }

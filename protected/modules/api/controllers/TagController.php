@@ -6,6 +6,10 @@ class TagController extends ApiController{
 			$this->frame['data'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='$cate' order by sort asc")->queryAll();
 		}
 	}
+	public function actionArea()
+	{
+		$this->frame['data'] = Yii::app()->db->createCommand("select id,name from area where status=1 and parent=0 order by sort asc")->queryAll();
+	}
 	public function actionList($cate='')
 	{
 		switch ($cate) {
@@ -38,6 +42,7 @@ class TagController extends ApiController{
 					$sort['list'] = [
 						['id'=>1,'name'=>'均价从高到低'],
 						['id'=>2,'name'=>'均价从低到高'],
+						['id'=>3,'name'=>'位置从近到远'],
 					];
 
 					$wylx = [];
