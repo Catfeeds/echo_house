@@ -8,6 +8,17 @@ class PlotController extends AdminController{
 	public function init()
 	{
 		parent::init();
+		
+			
+	}
+
+	public function filters()
+	{
+		return ['staff+edit,newsList,imageList,priceList'];
+	}
+
+	public function filterStaff($chain)
+	{
 		if(Yii::app()->user->id>1) {
 			$id = (int)Yii::app()->request->getQuery('id',0);
 			!$id && $id = (int)Yii::app()->request->getQuery('hid',0);
@@ -22,10 +33,13 @@ class PlotController extends AdminController{
 				}
 				if(!$ids || !in_array($id, $ids)) {
 					$this->redirect('list');
+				} else {
+					$chain->run();
 				}
 			}
+		} else {
+			$chain->run();
 		}
-			
 	}
 	public $controllerName = '';
 	/**
@@ -340,7 +354,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotImageExt';
 		$this->controllerName = '楼盘相册';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
-		$info->status=$info->getIsNewRecord()?1:0;
+		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			if($info->save()) {
@@ -359,7 +373,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotHxExt';
 		$this->controllerName = '楼盘户型';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
-		$info->status=$info->getIsNewRecord()?1:0;
+		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 
@@ -379,7 +393,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotNewsExt';
 		$this->controllerName = '楼盘动态';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
-		$info->status=$info->getIsNewRecord()?1:0;
+		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			// var_dump($info->attributes);exit;
@@ -399,7 +413,7 @@ class PlotController extends AdminController{
 		$modelName = 'PlotPayExt';
 		$this->controllerName = '楼盘佣金';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
-		$info->status=$info->getIsNewRecord()?1:0;
+		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 
