@@ -233,6 +233,10 @@ class PlotController extends ApiController{
 				$phonesnum = array_merge($phonesnum,$tmp);
 			}
 		}
+		$major_phone = '';
+		if($info->market_user) {
+			preg_match('/[0-9]+/', $info->market_user,$major_phone);
+		}
 
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
@@ -290,7 +294,7 @@ class PlotController extends ApiController{
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
 			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
-			'phone'=>$phone?$phone:($this->staff?$info->market_user:''),
+			'phone'=>$phone?$phone:($this->staff?$major_phone:''),
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
 			'is_login'=>$this->staff?'1':'0',
@@ -532,15 +536,20 @@ class PlotController extends ApiController{
 	public function actionAddCo()
 	{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
-			if($tmp['hid'] = $this->cleanXss($_POST['hid']) ) {
+			if($tmp['hid'] = $this->cleanXss($_POST['hid'])) {
+				$plot = PlotExt::model()->findByPk($tmp['hid']);
 				$tmp['com_phone'] = $this->cleanXss($_POST['com_phone']);
 				$tmp['uid'] = $this->staff->id;
-
-				if(!Yii::app()->db->createCommand("select id from cooperate where uid=".$tmp['uid']." and hid=".$tmp['hid'])) {
+// var_dump($plot);exit;
+				if($plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=".$tmp['uid']." and hid=".$tmp['hid'])->queryScalar()) {
 					$obj = new CooperateExt;
 					$obj->attributes = $tmp;
 					$obj->status = 0;
-					$obj->save();
+					if($obj->save()) {
+						SmsExt::sendMsg('分销',$tmp['com_phone'],['staff'=>$this->staff->name.$this->staff->phone,'plot'=>$plot->title]);
+					}
+				} else {
+					$this->returnError('操作失败');
 				}
 			}
 		}

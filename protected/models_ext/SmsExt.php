@@ -130,6 +130,16 @@ class SmsExt extends Sms{
             }
         }
     }
+    public static function sendMsg($type='',$phone='',$arr)
+    {
+        // 一分钟有效期外或者新的可以保存
+        if($phone) {
+            Yii::app()->msg->sendSms(Yii::app()->params['msgArr'][$type],$phone,$arr);
+            } else {
+                return false;
+           
+            }
+    }
 
     public static function checkPhone($phone='',$code='')
     {
