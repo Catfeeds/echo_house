@@ -50,6 +50,7 @@ class UserController extends AdminController{
         $info = $id ? $modelName::model()->findByPk($id) : new $modelName;
         if(Yii::app()->request->getIsPostRequest()) {
             $info->attributes = Yii::app()->request->getPost($modelName,[]);
+            !$info->pwd && $info->pwd = md5('jjqxftv587');
             // $info->pwd = md5($info->pwd);
             if($info->save()) {
                 $this->setMessage('操作成功','success',['list']);

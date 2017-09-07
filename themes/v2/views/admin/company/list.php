@@ -51,7 +51,7 @@ $this->breadcrumbs = array($this->pageTitle);
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
-            <td class="text-center"><?=CompanyExt::$type[$v->type].' '.($v->type==1?'<a href="'.$this->createUrl('/admin/plot/list',['company'=>$v->id]).'">代理项目</a>':'')?></td>
+            <td class="text-center"><?=$v->type?(CompanyExt::$type[$v->type].' '.($v->type==1?'<a href="'.$this->createUrl('/admin/plot/list',['company'=>$v->id]).'">代理项目</a>':'')):''?></td>
             <td class="text-center"><?=$v->address?></td> 
             <td class="text-center"><?=$v->manager.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 

@@ -23,10 +23,10 @@ function shenQing(){
 		'com_phone':com_phone
 	},function(data,status){
 		if (data.status == "success") {
-                alert("申请成功！");
+                alert("申请成功，项目负责人将会尽快与您联系");
                 location.href = "detail.html?id="+hid;
             } else {
-                alert("申请失败！");
+                alert(data.msg);
             }
 	});
 }
