@@ -101,6 +101,13 @@ $(document).ready(function(){
     	}else{
     		$('.detail-laststate-edit').css('display','block');
     	}
+        //最新动态时间
+        if (detail.news_time=='') {
+            $('.detail-laststate-time').remove();
+        } else {
+            $('.detail-laststate-time').html(detail.news_time);
+        }
+        
     	//顶部图片  
         if(detail.images!=''&&detail.images!=undefined){  	
         	for (var i = 0; i < detail.images.length; i++) {
