@@ -310,6 +310,7 @@ class PlotController extends ApiController{
 			'zd_company'=>$companys?$companys[0]:[],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
+			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),
 			// 'share_phone'=>$share_phone,
 		];
 		
