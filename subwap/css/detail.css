@@ -1,6 +1,7 @@
 
 body{
 	background-color: #f5f5f5;
+	overflow-x: hidden;
 }
 
 .line{
@@ -221,6 +222,19 @@ body{
 	background-color: #fff;
 	overflow: hidden;
 	display: block;
+}
+.mzsm-container{
+	display: block;
+}
+.mzsm{
+	position: relative;
+	width: 18.72rem;
+	height: auto;
+	padding: 0.747rem;
+	font-size: 0.747rem;
+	color: #868686;
+	overflow: hidden;
+	background-color: #fff;
 }
 
 .detail-daikanrules{

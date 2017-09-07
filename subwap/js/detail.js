@@ -73,7 +73,13 @@ $(document).ready(function(){
     	} else {
     		$('.detail-pricerules').css('display','none');
     	}
-	    	
+	    //免责申明
+        if(detail.mzsm==''){
+            $('.mzsm-container').css('display','none');
+        }else{
+            $('.mzsm').html(detail.mzsm);
+        }
+        	
     	//楼盘卖点
     	if (detail.sell_point!=''&&detail.sell_point!=undefined) {
     		$('.detail-sailpoint-message').append(detail.sell_point);
