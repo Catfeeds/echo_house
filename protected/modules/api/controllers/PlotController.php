@@ -209,8 +209,8 @@ class PlotController extends ApiController{
 		}
 		
 		if($news = $info->news) {
-			$news = $news[0]['content'];
 			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
+			$news = $news[0]['content'];
 		} else {
 			$news_time = $news = '';
 		}
