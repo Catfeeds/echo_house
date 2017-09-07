@@ -1,7 +1,6 @@
 
 body{
 	background-color: #f5f5f5;
-	overflow-x: hidden;
 }
 
 .line{
@@ -228,7 +227,7 @@ body{
 }
 .mzsm{
 	position: relative;
-	width: 18.72rem;
+	width: 18.5rem;
 	height: auto;
 	padding: 0.747rem;
 	font-size: 0.747rem;
@@ -297,7 +296,7 @@ body{
 	font-size: 0.747rem;
 	position: relative;
 	height: auto;
-	width: 18.72rem;
+	width: 18.5rem;
 	padding: 0.747rem 0.747rem 2rem 0.747rem;
 	overflow: hidden;
 	color: #868686;
