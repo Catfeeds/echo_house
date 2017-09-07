@@ -523,7 +523,8 @@ class PlotController extends ApiController{
 							foreach ($stphones as $key => $value) {
 								$note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
 								// var_dump($note);exit;
-								Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
+								SmsExt::sendMsg('报备',$value,['staff'=>$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
+								// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
 							}
 						}
 						
