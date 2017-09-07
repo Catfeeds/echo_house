@@ -269,7 +269,11 @@ class PlotController extends ApiController{
 			}
 			!$is_contact_only && $is_contact_only = 2;
 		}
-		$tags = array_merge($info->wylx,$info->zxzt);
+		if(!is_array($info->wylx)) 
+			$info->wylx = [$info->wylx];
+		if(!is_array($info->zxzt)) 
+			$info->zxzt = [$info->zxzt];
+		$tags = array_filter(array_merge($info->wylx,$info->zxzt));
 		// var_dump($info->wylx,$info->zxzt);exit;
 		$tagName = [];
 		if($tags) {
