@@ -123,7 +123,7 @@ class PlotController extends ApiController{
 				}
 				$lists[] = [
 					'id'=>$value->id,
-					'title'=>$value->title,
+					'title'=>Tools::u8_title_substr($value->title,18),
 					'price'=>$value->price,
 					'unit'=>PlotExt::$unit[$value->unit],
 					'area'=>$areaName,
