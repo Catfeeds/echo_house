@@ -121,7 +121,7 @@ class WeChat extends CWidget
     public function onMenuShareAppMessage($imgUrl='', $title='',$desc='', $link='')
     {
         $title = strip_tags($title);
-        $desc = Tools::substr($desc,30);
+        $desc = Tools::substr(strip_tags($desc),30);
         $str = "wx.onMenuShareAppMessage({
             title: '{title}', // 分享标题
             link: '{link}', // 分享链接
