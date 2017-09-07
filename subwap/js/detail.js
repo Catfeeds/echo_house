@@ -28,6 +28,7 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
+        $('title').html(detail.title);
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
         }

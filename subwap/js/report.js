@@ -80,7 +80,10 @@ function sub() {
 		alert('请正确填写信息');
 	}else
 		$.post('/api/plot/addSub',o,function(data) {
-			alert('保存成功');
+			if(data.status == 'success')
+				alert('报备成功，项目负责人将会收到您的报备信息');
+			else
+				alert(data.msg);
 			location.href = 'detail.html?id='+o.hid;
 		});
 }

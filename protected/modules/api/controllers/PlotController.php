@@ -210,8 +210,9 @@ class PlotController extends ApiController{
 		
 		if($news = $info->news) {
 			$news = $news[0]['content'];
+			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
 		} else {
-			$news = '';
+			$news_time = $news = '';
 		}
 		$hxarr = [];
 		if($hxs = $info->hxs) {
@@ -295,6 +296,7 @@ class PlotController extends ApiController{
 			'map_zoom'=>$info->map_zoom?$info->map_zoom:SiteExt::getAttr('qjpz','map_zoom'),
 			'pay'=>$pay,
 			'news'=>$news,
+			'news_time'=>$news_time,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
 			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
@@ -308,6 +310,7 @@ class PlotController extends ApiController{
 			'zd_company'=>$companys?$companys[0]:[],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
+			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),
 			// 'share_phone'=>$share_phone,
 		];
 		
@@ -514,23 +517,38 @@ class PlotController extends ApiController{
 
 				$tmp['uid'] = $this->staff->id;
 
-				// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid")) {
-					$obj = new SubExt;
-					$obj->attributes = $tmp;
-					$obj->status = 0;
-					if($obj->save()) {
+				if($this->staff<=1) {
+					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
+				} 
+
+				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
+					return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
+				}
+				$obj = new SubExt;
+				$obj->attributes = $tmp;
+				$obj->status = 0;
+				if($obj->save()) {
+					if($this->staff->type==3) {
 						if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
 							foreach ($stphones as $key => $value) {
-								$note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
+								// $note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
 								// var_dump($note);exit;
 								SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
 								// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
 							}
 						}
+					} elseif ($this->staff->type==2) {
+						if($plot->market_user) {
+							preg_match('/[0-9]+/', $plot->market_user,$phone);
+							SmsExt::sendMsg('报备',$phone,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
+						}
 						
-					} else {
-						$this->returnError(current(current($obj->getErrors())));
 					}
+						
+					
+				} else {
+					$this->returnError(current(current($obj->getErrors())));
+				}
 				// }
 			}
 		} else {
