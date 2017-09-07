@@ -45,21 +45,14 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 <div class="form-group">
     <label class="col-md-2 control-label">选择门店</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'cid', CHtml::listData(CompanyExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control', 'encode' => false,'empty'=>'无')); ?>
+        <?php echo $form->dropDownList($article, 'cid',  CHtml::listData(CompanyExt::model()->normal()->findAll(),'id','name'), array('class'=>'form-control select2','empty'=>'无')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'cid') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label text-nowrap">头像</label>
-    <div class="col-md-8">
-        <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'image','inputName'=>'img','width'=>400,'height'=>300)); ?>
-        <span class="help-block">建议尺寸：430*230</span> 
-    </div>
-</div>
-<div class="form-group">
     <label class="col-md-2 control-label text-nowrap">认证材料</label>
     <div class="col-md-8">
-        <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'id_pic','inputName'=>'img','width'=>400,'height'=>300)); ?>
+        <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'image','inputName'=>'img','width'=>400,'height'=>300)); ?>
         <span class="help-block">建议尺寸：430*230</span> 
     </div>
 </div>
