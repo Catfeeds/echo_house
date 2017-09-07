@@ -210,8 +210,9 @@ class PlotController extends ApiController{
 		
 		if($news = $info->news) {
 			$news = $news[0]['content'];
+			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
 		} else {
-			$news = '';
+			$news_time = $news = '';
 		}
 		$hxarr = [];
 		if($hxs = $info->hxs) {
@@ -295,6 +296,7 @@ class PlotController extends ApiController{
 			'map_zoom'=>$info->map_zoom?$info->map_zoom:SiteExt::getAttr('qjpz','map_zoom'),
 			'pay'=>$pay,
 			'news'=>$news,
+			'news_time'=>$news_time,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
 			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
