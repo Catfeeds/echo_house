@@ -5,13 +5,28 @@
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/qrcode.css">
-	<title></title>
+	<title>分享给朋友</title>
 </head>
 <body>
-	<div class="qrcode-container">
-		<img class="qrcode-bg" src="./img/qrcode-bg.png">
-		<img class="qrcode-img" src="./img/qrcode-example.jpg">
-	</div>
+	<div class="qrcode-head-title"></div>
+	<img class="qrcode-head-img" src="http://okwfe8mj2.bkt.clouddn.com/2017/0904/15045072246979574494.gif">
+	<div class="qrcode-mid">
+		<div class="qrcode-container">
+			<img class="qrcode-img" src="./img/qrcode-example.jpg">
+		</div>
+		<div class="qrcode-head-price"></div>
+		<div class="qrcode-head-status">[在售]</div>
+		<div class="head-price-tags">
+			<ul class="clearfloat">
+				<!-- <li class="color1"></li> -->
+			</ul>
+		</div>
+		<div class="company-name"></div>
+		<div class="distribution">诚邀分销</div>
+	</div>	
+	<div class="line"></div>
+	
+
 	<div class="qrcode-text">请分享至微信识别该二维码或在微信环境打开以上链接</div>
 
 
@@ -19,19 +34,6 @@
 <script type="text/javascript" src="js/rem.js"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
-<script>
-	$(document).ready(function() {
-		var url = GetQueryString('url');
-		$.get('/api/config/qr?url='+url,function(data) {
-			$('.qrcode-img').attr('src',data.data);
-		});
-	});
-	function GetQueryString(name) {
-	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-	    var r = window.location.search.substr(1).match(reg);
-	    if (r != null) return unescape(decodeURI(r[2]));
-	    return null;
-	}
-</script>
+<script type="text/javascript" src="js/qrcode.js"></script>
 </body>
 </html>

@@ -1,26 +1,125 @@
-.qrcode-container{
+.qrcode-head-img{
 	position: relative;
-	width: 20rem;
-	height: 20rem;
+	width: 20.0rem;
+	height: 13.067rem;
 }
 
-.qrcode-bg{
+.qrcode-head-title{
 	position: absolute;
-	width: 18rem;
-	height: 18rem;
-	padding: 1rem;
+	top: 0.0rem;
+	width: 20.0rem;
+	font-size: 0.8rem;
+	top: 0.8rem;
+	color: #fff;
+	text-align: center;
+	z-index: 1;
+}
+
+.qrcode-mid{
+	position: relative;
+	height: 9rem;
+	width: 20.0rem;
+}
+
+.qrcode-container{
+	position: absolute;
+	width: 7rem;
+	height: 7rem;
+	border: solid 0.08rem #c3c3c3;
+	left: 1rem;
+	top: 1rem;
 }
 
 .qrcode-img{
-	position: absolute;
-	width: 6rem;
-	height: 6rem;
-	left: 5.03rem;
-	top: 5.1rem;
+	position: relative;
+	width: 6.5rem;
+	height: 6.5rem;
+	left: 0.25rem;
+	top: 0.25rem;
+}
+
+.line{
+	position: relative;
+	width: 18.667rem;
+	height: 0.053rem;
+	background-color: #c3c3c3;
+	left: 0.667rem;
 }
 
 .qrcode-text{
 	position:relative;
 	font-size: 0.747rem;
 	padding: 0rem 1rem;
+	color: #333;
+	margin-top: 0.5rem;
+}
+
+
+.qrcode-head-price{
+	position: absolute;
+	line-height: 2.347rem;
+	color: #ef7158;
+	font-size: 0.96rem;
+	top: 1rem;
+	left: 9.747rem;
+}
+
+.qrcode-head-status{
+	position: absolute;
+	line-height: 2.347rem;
+	color: #ef7158;
+	font-size: 0.747rem;
+	top: 1rem;
+	left: 16.4rem;
+}
+
+.head-price-tags{
+	position: absolute;
+	width: 18.72rem;
+	height: 1.28rem;
+	top: 3.5rem;
+	left: 9.747rem;
+	margin: 0 auto;
+	display: block;
+}
+
+.head-price-tags li{
+	position: relative;
+	border-radius: 0.16rem;
+	text-align: center;
+	float: left;
+	font-size: 0.64rem;
+	margin-right: 0.4rem;
+	padding: 0.08rem 0.267rem;
+	top: -0.2rem;
+}
+
+.color1{
+	background-color: #d9f4fc;
+	color: #00b7ee;
+}
+.color2{
+	background-color: #fdf0e6;
+	color: #ffab58;
+}
+.color3{
+	background-color: #e9fdda;
+	color: #9dd072;
+}
+
+.company-name{
+	position: absolute;
+	width: 10rem;
+	left: 9.747rem;
+	top: 5rem;
+	font-size: 0.8rem;
+}
+
+.distribution{
+	position: absolute;
+	width: 5rem;
+	left: 9.747rem;
+	top: 7rem;
+	font-size: 1.067rem;
+	font-weight: 700;
 }

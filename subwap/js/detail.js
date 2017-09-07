@@ -162,7 +162,7 @@ function becomeDuijieren(){
 
 //分享页面
 function share(){
-    url=window.location.href+'_'+thisphone;
+    url=window.location.href+'_'+thisphone+'&id='+hid;
     location.href='qrcode.html?url='+url;
 }
 
