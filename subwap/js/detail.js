@@ -32,7 +32,7 @@ $(document).ready(function(){
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
         }
-        $.get('/api/wx/zone?title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
+        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
             $('body').append(data);
         });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
@@ -73,13 +73,7 @@ $(document).ready(function(){
     	} else {
     		$('.detail-pricerules').css('display','none');
     	}
-	    //免责申明
-        if(detail.mzsm==''){
-            $('.mzsm-container').css('display','none');
-        }else{
-            $('.mzsm').html(detail.mzsm);
-        }
-        	
+	    	
     	//楼盘卖点
     	if (detail.sell_point!=''&&detail.sell_point!=undefined) {
     		$('.detail-sailpoint-message').append(detail.sell_point);
@@ -107,13 +101,6 @@ $(document).ready(function(){
     	}else{
     		$('.detail-laststate-edit').css('display','block');
     	}
-        //最新动态时间
-        if (detail.news_time=='') {
-            $('.detail-laststate-time').remove();
-        } else {
-            $('.detail-laststate-time').html(detail.news_time);
-        }
-        
     	//顶部图片  
         if(detail.images!=''&&detail.images!=undefined){  	
         	for (var i = 0; i < detail.images.length; i++) {
