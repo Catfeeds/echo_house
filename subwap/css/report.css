@@ -1,5 +1,6 @@
 body{
 	background-color: #f5f5f5;
+	overflow-x: hidden;
 }
 .report-blank{
 	position: relative;
@@ -30,16 +31,16 @@ body{
 .report-lookup{
 	position: absolute;
 	top: 0rem;
-	left: 15.787rem;
+	right: -0.3rem;
 	height:2.027rem;
-	width: 3.573rem; 
+	width: 10rem;
 }
 .report-lookup-text{
 	position: absolute;
 	top: 0rem;
-	left: -1rem;
+	right: 1rem;
 	height: 2.027rem;
-	width: 3.933rem;
+	width: 10rem;
 	line-height: 2.027rem;
 	font-size: 0.8rem;
 	color: #c3c3c3;
@@ -73,6 +74,7 @@ color:#c3c3c3;
 	left: 3.147rem;
 	color: #414141;
 	line-height: 2.027rem;
+	font-size: 0.8rem
 }
 #phone0{
 	display: none;
