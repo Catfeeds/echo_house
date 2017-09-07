@@ -553,8 +553,10 @@ class PlotController extends ApiController{
 					if($obj->save()) {
 						SmsExt::sendMsg('分销',$tmp['com_phone'],['staff'=>$this->staff->name.$this->staff->phone,'plot'=>$plot->title]);
 					}
+				} elseif($this->staff->type<=1) {
+					$this->returnError('您的账户类型为总代公司，不支持申请分销签约');
 				} else {
-					$this->returnError('操作失败');
+					$this->returnError('您已经提交申请，请勿重复提交');
 				}
 			}
 		}
