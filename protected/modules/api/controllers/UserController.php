@@ -39,7 +39,7 @@ class UserController extends ApiController{
 			$obj = Yii::app()->request->getPost('UserExt',[]);
 			if($obj) {
 				$user = new UserExt;
-				
+				$company = '';
 				if($obj['type']<3) {
 					$code = $obj['companycode'];
 					unset($obj['companycode']);
@@ -68,6 +68,10 @@ class UserController extends ApiController{
 				$user->pwd = md5($user->pwd);
 				if(!$user->save()) {
 					$this->returnError('操作失败');
+				} else {
+					if($company && $company->phone) {
+						SmsExt::sendMsg('门店新增员工',$company->phone,['staff'=>$user->name.$staff->phone,'code'=>$code,'tel'=>SiteExt::getAttr('qjpz','site_phone')]);
+					}
 				}
 			}
 		}

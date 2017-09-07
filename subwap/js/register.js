@@ -3,6 +3,7 @@ $(document).ready(function() {
         $('.register-attention-text').html(data.data.regis_words);
     });
     $('#form').validate();
+    // $('.container-big').css('display','none');
 });
 
 $('.register-getmessage').click(function() {
