@@ -101,6 +101,7 @@ $(document).ready(function(){
     	}else{
     		$('.detail-laststate-edit').css('display','block');
     	}
+        $('.mzsm').html(detail.mzsm);
     	//顶部图片  
         if(detail.images!=''&&detail.images!=undefined){  	
         	for (var i = 0; i < detail.images.length; i++) {
