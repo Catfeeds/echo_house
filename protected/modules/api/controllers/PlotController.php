@@ -498,7 +498,7 @@ class PlotController extends ApiController{
 					if(!$obj->save())
 						$this->returnError(current(current($obj->getErrors())));
 				} else {
-					$this->returnError('操作失败1');
+					$this->returnError('您已经提交申请，请勿重复提交');
 				}
 			}
 		} else{

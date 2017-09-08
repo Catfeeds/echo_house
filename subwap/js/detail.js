@@ -175,7 +175,7 @@ function becomeDuijieren(){
             if (data.status == "success") {
                 alert("申请成功！");
             } else {
-                alert("申请失败！");
+                alert(data.msg);
             }
         }
     );
