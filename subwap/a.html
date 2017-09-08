@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<title></title>
+</head>
+<body>
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+
+
+	
+
+	var qftype=new Object();
+	qftype.title='申请对接人费用';
+	qftype.cover='';
+	qftype.num=1;
+	qftype.gold_cost=0;
+	qftype.cash_cost=0.1;
+	var qfarray=new Array();
+	qfarray[0]=qftype;
+	var item=JSON.stringify(qfarray);
+	var address=new Object();
+	address.name='';
+	address.mobile='';
+	address.address='';
+	function becomeDuijieren(){
+	    QFH5.createOrder(10001,item,0,address,12,function(state,data){
+	        alert(state);
+		});
+	}
+});	
+</script>
+
+</body>
+</html>
