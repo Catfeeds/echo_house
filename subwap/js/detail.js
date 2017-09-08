@@ -147,7 +147,7 @@ $(document).ready(function(){
 
 
 //申请成为对接人
-var qftype=new Obj();
+var qftype=new Object();
 qftype.title='申请对接人费用';
 qftype.num=1;
 qftype.cash_cost=0.1;
