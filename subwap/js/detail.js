@@ -22,9 +22,9 @@ $(document).ready(function(){
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
 		hid = GetQueryString('id');
 	}
-    if(GetQueryString('phone')!=''&&GetQueryString('phone')!=undefined) {
-        phone = GetQueryString('phone');
-    }
+    // if(GetQueryString('phone')!=''&&GetQueryString('phone')!=undefined) {
+    //     phone = GetQueryString('phone');
+    // }
 	//获取数据
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
@@ -45,10 +45,10 @@ $(document).ready(function(){
         }
         for (var i = 0; i < detail.tags.length; i++) {
             if (i%3==1) {
-                $('#showadd').css('display','none');
+                // $('#showadd').css('display','none');
                 $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
             }else if(i%3==2){
-                $('#showadd').css('display','none');
+                // $('#showadd').css('display','none');
                 $('.head-price-tags ul').append('<li class="color2">'+detail.tags[i]+'</li>'); 
             }else{
                 $('.head-price-tags ul').append('<li class="color3">'+detail.tags[i]+'</li>');  
