@@ -624,7 +624,7 @@ class PlotController extends ApiController{
     				foreach ($phones as $key => $value) {
     					preg_match('/[0-9]+/', $value,$k);
     					// var_dump($value,$k);exit;
-    					$tmp[$k[0]] = $value;
+    					$tmp[] = ['key'=>$k[0],'value'=>$value];
     				}
     			}
     			$this->frame['data'] = $tmp;
