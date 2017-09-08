@@ -1,14 +1,19 @@
 var hid='';
 var title='';
 var com_phone='';
+var a='';
 $(document).ready(function() {	
 	hid=GetQueryString('hid');
 	title=GetQueryString('title');
-	com_phone=GetQueryString('phone');
 	$('#distribution-buliding').html(title);
-	$('#distribution-contacter').html(com_phone);
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.coo_words);
+    });
+    $.get('/api/plot/getPhones?hid='+hid,function(data) {
+        a=data.data;
+        for (var i = 0; i < a.length; i++) {
+          $('.distribution-contacter').append('<option value="'+a[i].key+'">'+a[i].value+'</option>');
+        }
     });
 });
 function GetQueryString(name) {
@@ -20,7 +25,7 @@ function GetQueryString(name) {
 function shenQing(){
 	$.post("/api/plot/addCo",{
 		'hid':hid,
-		'com_phone':com_phone
+		'com_phone':$('.distribution-contacter').val()
 	},function(data,status){
 		if (data.status == "success") {
                 alert("申请成功，项目负责人将会尽快与您联系");

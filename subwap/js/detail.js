@@ -147,14 +147,33 @@ $(document).ready(function(){
 
 
 //申请成为对接人
+// var qftype=new Object();
+// qftype.title='申请对接人费用';
+// qftype.cover='';
+// qftype.num=1;
+// qftype.gold_cost=0;
+// qftype.cash_cost=0.1;
+// var qfarray=new Array();
+// qfarray[0]=qftype;
+// var item=JSON.stringify(qfarray);
+// var address=new Object();
+// address.name='';
+// address.mobile='';
+// address.address='';
 function becomeDuijieren(){
+    // QFH5.createOrder(10001,item,0,address,12,function(state,data){
+    //     alert(state);
+    // });
+
+
+
+
 	$.post("/api/plot/addMakert", {
             'hid': hid
         },
         function(data, status) {
             if (data.status == "success") {
                 alert("申请成功！");
-                // location.href = "login.html";
             } else {
                 alert("申请失败！");
             }
@@ -205,7 +224,7 @@ $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
 });
 $('.detail-button-distribution').click(function(){
-    location.href='distribution.html?hid='+hid+'&title='+title+'&phone='+phone;
+    location.href='distribution.html?hid='+hid+'&title='+title;
 });
 $('.detail-laststate-edit').click(function(){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
