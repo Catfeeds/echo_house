@@ -29,9 +29,9 @@ $(document).ready(function(){
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
         $('title').html(detail.title);
-        if(detail.is_show_add==0||detail.is_show_add=='0') {
-            $('#showadd').remove();
-        }
+        // if(detail.is_show_add==0||detail.is_show_add=='0') {
+        //     $('#showadd').remove();
+        // }
         $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
             $('body').append(data);
         });
@@ -147,19 +147,32 @@ $(document).ready(function(){
 
 
 //申请成为对接人
+var qftype=new Obj();
+qftype.title='申请对接人费用';
+qftype.num=1;
+qftype.cash_cost=0.1;
+var qfarray=new Array();
+qfarray[0]=qftype;
+var item=JSON.stringify(qfarray);
 function becomeDuijieren(){
-	$.post("/api/plot/addMakert", {
-            'hid': hid
-        },
-        function(data, status) {
-            if (data.status == "success") {
-                alert("申请成功！");
-                // location.href = "login.html";
-            } else {
-                alert("申请失败！");
-            }
-        }
-    );
+    QFH5.createOrder(10001,item,0,'',12,function(state,data){
+        alert(state);
+});
+
+
+
+
+	// $.post("/api/plot/addMakert", {
+ //            'hid': hid
+ //        },
+ //        function(data, status) {
+ //            if (data.status == "success") {
+ //                alert("申请成功！");
+ //            } else {
+ //                alert("申请失败！");
+ //            }
+ //        }
+ //    );
 }
 
 //分享页面
