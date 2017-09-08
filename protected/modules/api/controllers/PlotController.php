@@ -237,11 +237,13 @@ class PlotController extends ApiController{
 		$major_phone = '';
 		if($info->market_user) {
 			preg_match('/[0-9]+/', $info->market_user,$major_phone);
+			$major_phone = $major_phone[0];
 		}
 
 		$companys = $info->getItsCompany();
 		$is_show_add = 0;
 		$cids = [];
+		// var_dump($companys);exit;
 		// $share_phone = '';
 		if(!Yii::app()->user->getIsGuest()) {
 			if($companys) {
@@ -249,7 +251,7 @@ class PlotController extends ApiController{
 					$cids[] = $value['id'];
 				}
 			}
-			// var_dump($this->staff->cid, $cids);exit;
+			// var_dump($companys,$cids);exit;
 			if($companys && in_array($this->staff->cid, $cids)) {
 				$is_show_add = 1;
 			}
@@ -514,7 +516,7 @@ class PlotController extends ApiController{
 				$tmp['note'] = $this->cleanXss($_POST['note']);
 				$tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
 				$tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
-
+				$notice = $this->cleanXss($_POST['notice']);
 				$tmp['uid'] = $this->staff->id;
 
 				if($this->staff<=1) {
@@ -528,22 +530,32 @@ class PlotController extends ApiController{
 				$obj->attributes = $tmp;
 				$obj->status = 0;
 				if($obj->save()) {
-					if($this->staff->type==3) {
-						if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
-							foreach ($stphones as $key => $value) {
+					$stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'));
+					if($notice) {
+						$stphones[] = $notice;
+					}
+					foreach ($stphones as $key => $value) {
 								// $note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
 								// var_dump($note);exit;
-								SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
-								// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
-							}
-						}
-					} elseif ($this->staff->type==2) {
-						if($plot->market_user) {
-							preg_match('/[0-9]+/', $plot->market_user,$phone);
-							SmsExt::sendMsg('报备',$phone,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
-						}
-						
+						SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
+						// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
 					}
+					// if($this->staff->type==3) {
+					// 	if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
+					// 		foreach ($stphones as $key => $value) {
+					// 			// $note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
+					// 			// var_dump($note);exit;
+					// 			SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
+					// 			// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
+					// 		}
+					// 	}
+					// } elseif ($this->staff->type==2) {
+					// 	if($plot->market_user) {
+					// 		preg_match('/[0-9]+/', $plot->market_user,$phone);
+					// 		SmsExt::sendMsg('报备',$phone,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
+					// 	}
+						
+					// }
 						
 					
 				} else {
@@ -594,5 +606,29 @@ class PlotController extends ApiController{
 			$obj->status = 0;
 			$obj->save();
 		}
+    }
+    public function actionGetPhones($hid='')
+    {
+    	if($hid) {
+    		$info = PlotExt::model()->findByPk($hid);
+    		if($info) {
+    			$phones = $tmp = [];
+    			if($info->market_users) {
+    				$phones = explode(' ', $info->market_users);
+    			}
+    			if($info->market_user) {
+    				array_unshift($phones, $info->market_user);
+    			}
+    			$phones = array_flip(array_flip($phones));
+    			if($phones) {
+    				foreach ($phones as $key => $value) {
+    					preg_match('/[0-9]+/', $value,$k);
+    					// var_dump($value,$k);exit;
+    					$tmp[$k[0]] = $value;
+    				}
+    			}
+    			$this->frame['data'] = $tmp;
+    		}
+    	}
     }
 }
