@@ -205,7 +205,7 @@ $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
 });
 $('.detail-button-distribution').click(function(){
-    location.href='distribution.html?hid='+hid+'&title='+title+'&phone='+phone;
+    location.href='distribution.html?hid='+hid+'&title='+title;
 });
 $('.detail-laststate-edit').click(function(){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');

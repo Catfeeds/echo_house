@@ -6,9 +6,11 @@ $(document).ready(function() {
 	title=GetQueryString('title');
 	com_phone=GetQueryString('phone');
 	$('#distribution-buliding').html(title);
-	$('#distribution-contacter').html(com_phone);
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.coo_words);
+    });
+    $.get('/api/plot/getPhones?hid='+hid,function(data) {
+        
     });
 });
 function GetQueryString(name) {
