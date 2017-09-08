@@ -5,11 +5,13 @@ o.time = '';
 o.sex = '';
 o.phone = '';
 o.note = '';
+o.notice='';
 o.is_only_sub = '';
 o.visit_way = '';
 var phone='';
 var phone2='';
 var hidden='';
+var a='';
 $(document).ready(function() {
 	$.get('/api/config/index',function(data) {
         $('.report-attention-text').html(data.data.report_words);
@@ -19,6 +21,12 @@ $(document).ready(function() {
 		o.hid = GetQueryString('hid');
 	}
 	$('#plottitle').html(GetQueryString('title'));
+	$.get('/api/plot/getPhones?hid='+o.hid,function(data) {
+        a=data.data;
+        for (var i = 0; i < a.length; i++) {
+          $('.report-contacter').append('<option value="'+a[i].key+'">'+a[i].value+'</option>');
+        }
+    });
 });
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -76,6 +84,7 @@ function sub() {
 	o.phone = phonenumber;
 	o.name = $('#name').val();
 	o.note=$('.report-write').val();
+	o.notice=$('.report-contacter').val();
 	if(o.time.trim() == '' || o.name.trim()==''||o.phone.trim()=='') {
 		alert('请正确填写信息');
 	}else
