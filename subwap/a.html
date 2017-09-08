@@ -30,11 +30,9 @@ $(document).ready(function(){
 	address.name='';
 	address.mobile='';
 	address.address='';
-	function becomeDuijieren(){
-	    QFH5.createOrder(10001,item,0,address,12,function(state,data){
+	QFH5.createOrder(10001,item,0,address,12,function(state,data){
 	        alert(state);
 		});
-	}
 });	
 </script>
 
