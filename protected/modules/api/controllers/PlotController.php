@@ -577,11 +577,17 @@ class PlotController extends ApiController{
 				$tmp['uid'] = $this->staff->id;
 // var_dump($plot);exit;
 				if($this->staff->type>1 && $plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=".$tmp['uid']." and hid=".$tmp['hid'])->queryScalar()) {
+					if($this->staff->cid) {
+						$company = Yii::app()->db->createCommand('select name from company where id='.$this->staff->cid)->queryScalar();
+					} else {
+						$company = ''；
+					}
+					
 					$obj = new CooperateExt;
 					$obj->attributes = $tmp;
 					$obj->status = 0;
 					if($obj->save()) {
-						SmsExt::sendMsg('分销',$tmp['com_phone'],['staff'=>$this->staff->name.$this->staff->phone,'plot'=>$plot->title]);
+						SmsExt::sendMsg('分销',$tmp['com_phone'],['staff'=>$company.$this->staff->name.$this->staff->phone,'plot'=>$plot->title]);
 					}
 				} elseif($this->staff->type<=1) {
 					$this->returnError('您的账户类型为总代公司，不支持申请分销签约');
