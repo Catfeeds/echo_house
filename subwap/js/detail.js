@@ -64,10 +64,15 @@ $(document).ready(function(){
 		$('.detail-laststate-message').append(detail.news?detail.news:'暂无');
     	if(detail.is_login == '1') {
     		if(detail.pay.length>0){
-	    		pay = detail.pay[0];
-	    		content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
-	    		$('.detail-pricerules-message').append(content);
-	    		$('#paynum').html(pay['num']);
+                pay = detail.pay[0];
+                content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
+                $('.detail-pricerules-message').append(content);
+                if(detail.pay.length==1) {
+                    $('#fangannum').css('display','none');
+                } else {
+                    
+                    $('#paynum').html(pay['num']);
+                }
 	    	}else{
 	    		$('.detail-pricerules-message').append('暂无');
 	    		$('#paynum').html('0');
@@ -195,7 +200,7 @@ function becomeDuijieren(){
             if (data.status == "success") {
                 alert("申请成功！");
             } else {
-                alert("申请失败！");
+                alert(data.msg);
             }
         }
     );

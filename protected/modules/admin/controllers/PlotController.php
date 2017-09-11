@@ -14,7 +14,7 @@ class PlotController extends AdminController{
 
 	public function filters()
 	{
-		return ['staff+edit,newsList,imageList,priceList'];
+		return ['staff+newsList,imageList,priceList'];
 	}
 
 	public function filterStaff($chain)
@@ -81,7 +81,7 @@ class PlotController extends AdminController{
         	$criteria->addInCondition('id',$idArr);
         }
 		$this->controllerName = '楼盘';
-		$criteria->order = 'updated desc,id desc';
+		$criteria->order = 'sort desc,updated desc,id desc';
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
 		$this->render('list',['cate'=>$cate,'cate1'=>$cate1,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
 	}
