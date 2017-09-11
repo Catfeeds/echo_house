@@ -117,7 +117,7 @@ class PlotController extends ApiController{
 				if(Yii::app()->user->getIsGuest()) {
 					$pay = '';
 				} elseif($pays = $value->pays) {
-					$pay = $pays[0]['price'].'('.count($pays).'个方案)';
+					$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
 				} else {
 					$pay = '';
 				}
