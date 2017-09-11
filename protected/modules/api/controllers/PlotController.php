@@ -580,7 +580,7 @@ class PlotController extends ApiController{
 					if($this->staff->cid) {
 						$company = Yii::app()->db->createCommand('select name from company where id='.$this->staff->cid)->queryScalar();
 					} else {
-						$company = ''；
+						$company = '';
 					}
 					
 					$obj = new CooperateExt;
