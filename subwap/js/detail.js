@@ -2,6 +2,7 @@
 var hid = '';
 var title='';
 var phone='';
+var area='';
 var url='';
 var thisphone = '';
 var detail=new Object();
@@ -37,6 +38,7 @@ $(document).ready(function(){
         });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
 	    $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
+        area=detail.area;
         title=detail.title;
 	    $('.detail-head-price').append(detail.price,detail.unit);
 	    // 顶部价格下面的标签
@@ -93,9 +95,9 @@ $(document).ready(function(){
         			detail.hx[i].size="--";
         		}
                 if(detail.hx[i].bedroom>0)
-        		  $('.detail-mainstyle-housecontainer ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+        		  $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
         	    else
-                    $('.detail-mainstyle-housecontainer ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                    $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
             }
         }else{
             $('.detail-mainstyle').css('display','none');
@@ -147,6 +149,24 @@ $(document).ready(function(){
     // if ($('.detail-sailpoint-message').height()<3rem) {
     //     $('.maidian-on-off').css('display','none');
     // } 
+    //同区域楼盘
+    $.get('?area='+area,function(data) {
+        samearea=data.data;
+    });
+    if(samearea.hx!=''&&samearea.hx!=undefined){
+        $('.detail-samearea').css('display','block');
+        for(var i=0;i<samearea.hx.length;i++){
+            if(samearea.hx[i].size==''||samearea.hx[i].size==undefined){
+                samearea.hx[i].size="--";
+            }
+            if(samearea.hx[i].bedroom>0)
+              $('#samearea ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+            else
+                $('#samearea ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+        }
+    }else{
+        $('.detail-samearea').css('display','none');
+    }
 
 });
 
