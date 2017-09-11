@@ -57,7 +57,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <label class="col-md-2 control-label text-nowrap">楼盘名称<span class="required" aria-required="true">*</span></label>
                 <div class="col-md-10">
                     <!--<input type="text" class="form-control" placeholder="">-->
-                    <?php echo $form->dropDownList($plot, 'title',  CHtml::listData(PlotExt::model()->normal()->findAll(),'id','title'), array('class'=>'form-control select2','empty'=>'')); ?>
+                    <?php echo $form->textField($plot,'title',array('class'=>'form-control','data-target'=>'pointname','onblur'=>'checkName(this)')); ?>
                     <span class="help-block"><?php echo $form->error($plot, 'title'); ?></span>
                 </div>
                 <div class="col-md-12"></div>
