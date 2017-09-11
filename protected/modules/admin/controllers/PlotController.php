@@ -14,7 +14,7 @@ class PlotController extends AdminController{
 
 	public function filters()
 	{
-		return ['staff+edit,newsList,imageList,priceList'];
+		return ['staff+newsList,imageList,priceList'];
 	}
 
 	public function filterStaff($chain)
