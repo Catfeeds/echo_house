@@ -529,7 +529,7 @@ class PlotController extends ApiController{
 				$tmp['name'] = $this->cleanXss($_POST['name']);
 				$tmp['time'] = strtotime($this->cleanXss($_POST['time']));
 				$tmp['sex'] = $this->cleanXss($_POST['sex']);
-				$tmp['note'] = $this->cleanXss($_POST['note']);
+				$tmp['note'] = $this->cleanXss(Yii::app()->request->getPost('note',''));
 				$tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
 				$tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
 				$notice = $this->cleanXss($_POST['notice']);
