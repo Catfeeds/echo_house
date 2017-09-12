@@ -20,7 +20,16 @@ class PlotController extends ApiController{
 		}
 		$criteria = new CDbCriteria;
 		if($kw) {
-			$criteria->addSearchCondition('title',$kw);
+			$criteria1 = new CDbCriteria;
+			$criteria1->addSearchCondition('name',$kw);
+			$compas = CompanyExt::model()->find($criteria1);
+			// var_dump($compas);exit;
+			// $compas && $company = $compas['id'];
+			if($compas) {
+				$company = $compas['id'];
+			}else
+				$criteria->addSearchCondition('title',$kw);
+			
 		}
 		if($area) {
 			$criteria->addCondition('area=:area');
@@ -53,6 +62,7 @@ class PlotController extends ApiController{
 		
 		if($company) {
 			$idarr = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
+			// var_dump($idarr);exit;
 			if($idarr) {
 				foreach ($idarr as $hid) {
 					$companyids[] = $hid['hid'];
@@ -108,8 +118,12 @@ class PlotController extends ApiController{
 			}
 			$this->frame['data'] = $dats;
 		} else {
+			// var_dump($criteria);exit;
 			$plots = PlotExt::model()->normal()->getList($criteria);
 			$lists = [];
+			if($company) {
+				$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
+			}
 			if($datares = $plots->data) {
 				foreach ($datares as $key => $value) {
 					if($area = $value->areaInfo)
@@ -120,10 +134,7 @@ class PlotController extends ApiController{
 						$streetName = $street->name;
 					else
 						$streetName = '';
-					if($company) {
-						// unset($company);
-						$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
-					} else {
+					if(!$company) {
 						$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					}
 						
@@ -188,6 +199,8 @@ class PlotController extends ApiController{
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
 		}
+		$info->views += 1;
+		$info->save();
 		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
 		$images = $info->images;
 		if($images) {
@@ -617,6 +630,14 @@ class PlotController extends ApiController{
     {
     	// var_dump(Yii::app()->msg);exit;
         // var_dump(SmsExt::addOne('13861242596','1111'));
+        $infos = PlotExt::model()->normal()->findAll();
+        foreach ($infos as $key => $value) {
+            if(!$value->first_pay && $value->pays) {
+                $value->first_pay = $value->pays[0]['price'];
+            }
+            $value->save();
+        }
+        echo "ok";
         exit;
     }
     public function actionSubCompany()

@@ -78,7 +78,6 @@ class PlotExt extends Plot{
         'sfprice'=>'',
         'wx_share_title'=>'',
         'dllx'=>'',
-        'first_pay'=>'',
         // ''
     ];
 
@@ -168,6 +167,12 @@ class PlotExt extends Plot{
             $this->created = $this->updated = time();
         else
             $this->updated = time();
+        // if(!$this->first_pay) {
+        //     $this->first_pay = Yii::app()->db->createCommand("select price from plot_pay where hid=".$this->id." and deleted=0 and status=1 and price!=''")->queryScalar();
+        //     // var_dump($this->first_pay);
+        //     // $this->save();
+        // }
+        // var_dump($this->data_conf);exit;
         return parent::beforeValidate();
     }
 

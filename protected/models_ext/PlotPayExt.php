@@ -55,16 +55,18 @@ class PlotPayExt extends PlotPay{
     public function afterSave()
     {
         parent::afterSave();
-        if($this->deleted==0&&$this->status==1&&$this->price&&!$this->plot->first_pay) {
-            $this->plot->first_pay = $this->price;
-            $this->plot->save();
+        $plot = $this->plot;
+        // var_dump($plot);exit;
+        if($this->deleted==0&&$this->status==1&&$this->price) {
+            $plot->first_pay = $this->price;
+            $plot->save();
         }elseif($this->deleted==1||$this->status==0) {
             if($pay = Yii::app()->db->createCommand("select price from plot_pay where hid=".$this->hid." and deleted=0 and status=1 and price!=''")->queryScalar()) {
-                $this->plot->first_pay = $pay;
-                $this->plot->save();
+                $plot->first_pay = $pay;
+                $plot->save();
             }else {
-                $this->plot->first_pay = '';
-                $this->plot->save();
+                $plot->first_pay = '';
+                $plot->save();
             }
         }
     }
