@@ -535,7 +535,7 @@ class PlotController extends ApiController{
 				$notice = $this->cleanXss($_POST['notice']);
 				$tmp['uid'] = $this->staff->id;
 
-				if($this->staff<=1) {
+				if($this->staff->type<=1) {
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 
