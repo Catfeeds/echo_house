@@ -70,9 +70,7 @@ function getLocation() {
 $(document).ready(function() {
     init();
     var toptag = '';
-    $.get('/api/config/index',function(data) {
-        is_user = data.data.is_user;
-    });
+    
     $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
@@ -93,9 +91,13 @@ $(document).ready(function() {
         $('#companytag').html(html);
         $("title").html(GetQueryString('company')+'-代理项目列表'); 
     }
-    ajaxGetTop();
-    ajaxGetFilter();
-    ajaxGetList(o);
+    $.get('/api/config/index',function(data) {
+        is_user = data.data.is_user;
+        ajaxGetTop();
+        ajaxGetFilter();
+        ajaxGetList(o);
+    });
+        
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
     // $.get('/api/tag/list?cate=plotFilter', function(data) {
