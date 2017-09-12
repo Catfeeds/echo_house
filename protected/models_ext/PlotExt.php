@@ -187,7 +187,8 @@ class PlotExt extends Plot{
                 }
             }
         }
-        CacheExt::delete('wap_init_plotlist');   
+        CacheExt::delete('wap_init_plotlist');  
+        PlotExt::setPlotCache(); 
     }
 
     /**
