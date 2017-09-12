@@ -18,10 +18,7 @@ $(document).ready(function(){
 			for (var i = 0; i < data.data.length; i++) {
 				$('#housename').append('<option value="'++'">'++'</option>');
 			}
-			for (var i = 0; i < data.data.length; i++) {
-				$('#housenum').append('<option value="'++'">'++'</option>');
-			}
-			if () {
+			if (==''&&==undefined) {
 				$('.report-attention-text').html();
 			}else{
 				$('.report-attention').css('display','none');
