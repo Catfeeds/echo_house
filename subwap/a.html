@@ -32,7 +32,16 @@ $(document).ready(function(){
 	address.address='';
 	var additem=JSON.stringify(address);
 	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
-	        alert(data.order_id);
+	        // alert(data.order_id);
+	        QFH5.jumpPayOrder(int data.order_id,function(state,data){
+		    if(state==1){
+		    	alert('bingo');
+		        //支付成功
+		    }else{
+		        //支付失败、用户取消支付
+		        alert(data.error);//data.error  string
+		    }
+		});
 		});
 });	
 </script>
