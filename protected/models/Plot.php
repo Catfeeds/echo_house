@@ -27,6 +27,7 @@
  * @property string $market_user
  * @property string $market_users
  * @property integer $price_mark
+ * @property string $first_pay
  * @property string $data_conf
  * @property integer $status
  * @property integer $company_id
@@ -64,10 +65,10 @@ class Plot extends CActiveRecord
 			array('address, sale_addr, image', 'length', 'max'=>150),
 			array('map_lng, map_lat', 'length', 'max'=>60),
 			array('market_user', 'length', 'max'=>20),
-			array('market_users, company_name', 'length', 'max'=>255),
+			array('market_users, first_pay, company_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, data_conf, status, company_id, company_name, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
+			array('id, title, pinyin, fcode, sale_status, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, first_pay, data_conf, status, company_id, company_name, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -111,6 +112,7 @@ class Plot extends CActiveRecord
 			'market_user' => 'Market User',
 			'market_users' => 'Market Users',
 			'price_mark' => 'Price Mark',
+			'first_pay' => 'First Pay',
 			'data_conf' => 'Data Conf',
 			'status' => 'Status',
 			'company_id' => 'Company',
@@ -165,6 +167,7 @@ class Plot extends CActiveRecord
 		$criteria->compare('market_user',$this->market_user,true);
 		$criteria->compare('market_users',$this->market_users,true);
 		$criteria->compare('price_mark',$this->price_mark);
+		$criteria->compare('first_pay',$this->first_pay,true);
 		$criteria->compare('data_conf',$this->data_conf,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('company_id',$this->company_id);

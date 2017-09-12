@@ -11,7 +11,7 @@ class PlotPayExt extends PlotPay{
     public function relations()
     {
         return array(
-            'team'=>array(self::BELONGS_TO, 'TeamExt', 'tid'),
+            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
@@ -50,6 +50,25 @@ class PlotPayExt extends PlotPay{
         else
             $this->updated = time();
         return parent::beforeValidate();
+    }
+
+    public function afterSave()
+    {
+        parent::afterSave();
+        $plot = $this->plot;
+        // var_dump($plot);exit;
+        if($this->deleted==0&&$this->status==1&&$this->price) {
+            $plot->first_pay = $this->price;
+            $plot->save();
+        }elseif($this->deleted==1||$this->status==0) {
+            if($pay = Yii::app()->db->createCommand("select price from plot_pay where hid=".$this->hid." and deleted=0 and status=1 and price!=''")->queryScalar()) {
+                $plot->first_pay = $pay;
+                $plot->save();
+            }else {
+                $plot->first_pay = '';
+                $plot->save();
+            }
+        }
     }
 
     /**

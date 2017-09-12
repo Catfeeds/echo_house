@@ -20,7 +20,16 @@ class PlotController extends ApiController{
 		}
 		$criteria = new CDbCriteria;
 		if($kw) {
-			$criteria->addSearchCondition('title',$kw);
+			$criteria1 = new CDbCriteria;
+			$criteria1->addSearchCondition('name',$kw);
+			$compas = CompanyExt::model()->find($criteria1);
+			// var_dump($compas);exit;
+			// $compas && $company = $compas['id'];
+			if($compas) {
+				$company = $compas['id'];
+			}else
+				$criteria->addSearchCondition('title',$kw);
+			
 		}
 		if($area) {
 			$criteria->addCondition('area=:area');
@@ -53,6 +62,7 @@ class PlotController extends ApiController{
 		
 		if($company) {
 			$idarr = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
+			// var_dump($idarr);exit;
 			if($idarr) {
 				foreach ($idarr as $hid) {
 					$companyids[] = $hid['hid'];
@@ -108,8 +118,12 @@ class PlotController extends ApiController{
 			}
 			$this->frame['data'] = $dats;
 		} else {
+			// var_dump($criteria);exit;
 			$plots = PlotExt::model()->normal()->getList($criteria);
 			$lists = [];
+			if($company) {
+				$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
+			}
 			if($datares = $plots->data) {
 				foreach ($datares as $key => $value) {
 					if($area = $value->areaInfo)
@@ -120,21 +134,18 @@ class PlotController extends ApiController{
 						$streetName = $street->name;
 					else
 						$streetName = '';
-					if($company) {
-						// unset($company);
-						$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
-					} else {
+					if(!$company) {
 						$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					}
 						
 					// var_dump(Yii::app()->user->getIsGuest());exit;
-					if(Yii::app()->user->getIsGuest()) {
-						$pay = '';
-					} elseif($pays = $value->pays) {
-						$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
-					} else {
-						$pay = '';
-					}
+					// if(Yii::app()->user->getIsGuest()) {
+					// 	$pay = '';
+					// } elseif($pays = $value->pays) {
+					// 	$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+					// } else {
+					// 	$pay = '';
+					// }
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
@@ -144,7 +155,7 @@ class PlotController extends ApiController{
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 						'zd_company'=>$companydes,
-						'pay'=>$pay,
+						'pay'=>$value->first_pay,
 						'distance'=>round($this->getDistance($value),2),
 					];
 				}
@@ -188,6 +199,8 @@ class PlotController extends ApiController{
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
 		}
+		$info->views += 1;
+		$info->save();
 		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
 		$images = $info->images;
 		if($images) {
@@ -539,7 +552,7 @@ class PlotController extends ApiController{
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 
-				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
+				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
 					return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
 				}
 				$obj = new SubExt;
@@ -617,6 +630,14 @@ class PlotController extends ApiController{
     {
     	// var_dump(Yii::app()->msg);exit;
         // var_dump(SmsExt::addOne('13861242596','1111'));
+        $infos = PlotExt::model()->normal()->findAll();
+        foreach ($infos as $key => $value) {
+            if(!$value->first_pay && $value->pays) {
+                $value->first_pay = $value->pays[0]['price'];
+            }
+            $value->save();
+        }
+        echo "ok";
         exit;
     }
     public function actionSubCompany()
