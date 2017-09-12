@@ -343,6 +343,7 @@ class PlotController extends ApiController{
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
 			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),
+			'areaid'=>$info->area,
 			// 'share_phone'=>$share_phone,
 		];
 		
