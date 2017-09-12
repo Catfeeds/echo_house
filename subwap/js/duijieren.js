@@ -1,17 +1,3 @@
-var qftype=new Object();
-qftype.title='申请对接人费用';
-qftype.cover='';
-qftype.num=1;
-qftype.gold_cost=0;
-qftype.cash_cost=0.1;
-var qfarray=new Array();
-qfarray[0]=qftype;
-var item=JSON.stringify(qfarray);
-var address=new Object();
-var additem=JSON.stringify(address);
-address.name='';
-address.mobile='';
-address.address='';
 $(document).ready(function(){
 	$.get("",function(data){
 		if (data.status=='success') {
@@ -26,15 +12,34 @@ $(document).ready(function(){
 		}
 	});
 });
+var qftype=new Object();
+qftype.title='申请对接人费用';
+qftype.cover='';
+qftype.num=1;
+qftype.gold_cost=0;
+qftype.cash_cost=0.1;
+var qfarray=new Array();
+qfarray[0]=qftype;
+var address=new Object();
+address.name='';
+address.mobile='';
+address.address='';
+qftype.title=$('#housename').val();
+qftype.num=$('#housenum').val();
+var item=JSON.stringify(qfarray);
+var additem=JSON.stringify(address);
+var order_id='';
 $('.submit-submit').click(function(){
-	qftype.title=$('#housename').val();
-	qftype.num=$('#housenum').val();
-	QFH5.createOrder(10001,item,0,address,12,function(state,data){
-        $.post("",{
-
-        },function(data,status){
-        	'':;
-        	'':;
-        });
+	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
+        order_id = data.order_id;
     });
+    QFH5.jumpPayOrder(order_id,function(state,data){
+		    if(state==1){
+		    	alert('支付成功');
+		        //支付成功
+		    }else{
+		        //支付失败、用户取消支付
+		        alert(data.error);//data.error  string
+		    }
+		});
 });
