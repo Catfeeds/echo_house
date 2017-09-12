@@ -1,0 +1,97 @@
+body{
+	width: 20rem;
+	background-color: #efeff4;
+}
+
+
+.submit-head-bg{
+	position: relative;
+	width: 20.0rem;
+	height: 0.533rem;
+	background-color: #efeff4;
+}
+
+.submit-textarea{
+	position: relative;
+	width: 20rem;
+	height: 2.64rem;
+	background-color: #fff;
+}
+
+.submit-select{
+	position: absolute;
+	width: 7rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 12rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
+
+.submit-textname{
+	position: absolute;
+	line-height: 2.64rem;
+	left: 0.88rem;
+	width: 5rem;
+	height: 2.64rem;
+	font-size: 0.8rem;
+}
+
+.line{
+	position: relative;
+	left: 0.64rem;
+	height: 0.027rem;
+	width: 18.747rem;
+	background-color: #eeeeee;
+}
+
+.submit-submit-bg{
+	position: fixed;
+	bottom: 0rem;
+	width: 20rem;
+	height: 3.347rem;
+}
+.submit-submit{
+	position: fixed;
+	bottom: 0.613rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #fff;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #00b7ee;
+	font-size: 0.747rem;
+	line-height: 2.347rem;
+	border:none;
+}
+
+.report-attention{
+	position: relative;
+	height: auto;
+	width: 20rem;
+	font-size: 0.64rem;
+	color: #999999;
+	display: block;
+}
+
+.report-attention-img{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	left: 0.64rem;
+}
+
+.report-attention-text{
+	position: relative;
+	left: 1.707rem;
+	height: auto;
+	width: 17rem;
+	font-size: 0.64rem;
+}
+
+.report-blank{
+	position: relative;
+	height: 0.533rem;
+	width: 20.0rem;
+}
