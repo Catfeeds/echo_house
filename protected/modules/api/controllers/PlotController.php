@@ -14,6 +14,10 @@ class PlotController extends ApiController{
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
+		$init = 0;
+		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+			$init = 1;
+		}
 		$criteria = new CDbCriteria;
 		if($kw) {
 			$criteria->addSearchCondition('title',$kw);
@@ -93,50 +97,62 @@ class PlotController extends ApiController{
 		} else {	
 			$criteria->order = 'sort desc,updated desc';
 		}
-
-		$plots = PlotExt::model()->normal()->getList($criteria);
-		$lists = [];
-		if($datares = $plots->data) {
-			foreach ($datares as $key => $value) {
-				if($area = $value->areaInfo)
-					$areaName = $area->name;
-				else
-					$areaName = '';
-				if($street = $value->streetInfo)
-					$streetName = $street->name;
-				else
-					$streetName = '';
-				if($company) {
-					// unset($company);
-					$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
-				} else {
-					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+		// 走缓存拿初始数据
+		if($init) {
+			$dats = PlotExt::setPlotCache();
+			if(isset($dats['list']) && $dats['list']) {
+				foreach ($dats['list'] as $key => $value) {
+					// var_dump($value);exit;
+					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
-					
-				// var_dump(Yii::app()->user->getIsGuest());exit;
-				if(Yii::app()->user->getIsGuest()) {
-					$pay = '';
-				} elseif($pays = $value->pays) {
-					$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
-				} else {
-					$pay = '';
-				}
-				$lists[] = [
-					'id'=>$value->id,
-					'title'=>Tools::u8_title_substr($value->title,18),
-					'price'=>$value->price,
-					'unit'=>PlotExt::$unit[$value->unit],
-					'area'=>$areaName,
-					'street'=>$streetName,
-					'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
-					'zd_company'=>$companydes,
-					'pay'=>$pay,
-					'distance'=>round($this->getDistance($value),2),
-				];
 			}
-			$pager = $plots->pagination;
-			$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
+			$this->frame['data'] = $dats;
+		} else {
+			$plots = PlotExt::model()->normal()->getList($criteria);
+			$lists = [];
+			if($datares = $plots->data) {
+				foreach ($datares as $key => $value) {
+					if($area = $value->areaInfo)
+						$areaName = $area->name;
+					else
+						$areaName = '';
+					if($street = $value->streetInfo)
+						$streetName = $street->name;
+					else
+						$streetName = '';
+					if($company) {
+						// unset($company);
+						$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
+					} else {
+						$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+					}
+						
+					// var_dump(Yii::app()->user->getIsGuest());exit;
+					if(Yii::app()->user->getIsGuest()) {
+						$pay = '';
+					} elseif($pays = $value->pays) {
+						$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+					} else {
+						$pay = '';
+					}
+					$lists[] = [
+						'id'=>$value->id,
+						'title'=>Tools::u8_title_substr($value->title,18),
+						'price'=>$value->price,
+						'unit'=>PlotExt::$unit[$value->unit],
+						'area'=>$areaName,
+						'street'=>$streetName,
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'zd_company'=>$companydes,
+						'pay'=>$pay,
+						'distance'=>round($this->getDistance($value),2),
+					];
+				}
+				$pager = $plots->pagination;
+				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
+			}
 		}
+			
 	}
 
 	public function getDistance($obj)
@@ -513,13 +529,13 @@ class PlotController extends ApiController{
 				$tmp['name'] = $this->cleanXss($_POST['name']);
 				$tmp['time'] = strtotime($this->cleanXss($_POST['time']));
 				$tmp['sex'] = $this->cleanXss($_POST['sex']);
-				$tmp['note'] = $this->cleanXss($_POST['note']);
+				$tmp['note'] = $this->cleanXss(Yii::app()->request->getPost('note',''));
 				$tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
 				$tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
 				$notice = $this->cleanXss($_POST['notice']);
 				$tmp['uid'] = $this->staff->id;
 
-				if($this->staff<=1) {
+				if($this->staff->type<=1) {
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 

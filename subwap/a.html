@@ -14,7 +14,7 @@
 $(document).ready(function(){
 	
 
-
+var order_id = 0;
 	
 
 	var qftype=new Object();
@@ -32,7 +32,18 @@ $(document).ready(function(){
 	address.address='';
 	var additem=JSON.stringify(address);
 	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
-	        alert(state);
+	        // alert(data.order_id);
+	        order_id = data.order_id;
+
+		});
+	QFH5.jumpPayOrder(303,function(state,data){
+		    if(state==1){
+		    	alert('bingo');
+		        //支付成功
+		    }else{
+		        //支付失败、用户取消支付
+		        alert(data.error);//data.error  string
+		    }
 		});
 });	
 </script>
