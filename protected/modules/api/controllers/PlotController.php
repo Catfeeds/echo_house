@@ -128,13 +128,13 @@ class PlotController extends ApiController{
 					}
 						
 					// var_dump(Yii::app()->user->getIsGuest());exit;
-					if(Yii::app()->user->getIsGuest()) {
-						$pay = '';
-					} elseif($pays = $value->pays) {
-						$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
-					} else {
-						$pay = '';
-					}
+					// if(Yii::app()->user->getIsGuest()) {
+					// 	$pay = '';
+					// } elseif($pays = $value->pays) {
+					// 	$pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+					// } else {
+					// 	$pay = '';
+					// }
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
@@ -144,7 +144,7 @@ class PlotController extends ApiController{
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 						'zd_company'=>$companydes,
-						'pay'=>$pay,
+						'pay'=>$value->first_pay,
 						'distance'=>round($this->getDistance($value),2),
 					];
 				}
@@ -539,7 +539,7 @@ class PlotController extends ApiController{
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 
-				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
+				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
 					return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
 				}
 				$obj = new SubExt;

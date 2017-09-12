@@ -78,6 +78,7 @@ class PlotExt extends Plot{
         'sfprice'=>'',
         'wx_share_title'=>'',
         'dllx'=>'',
+        'first_pay'=>'',
         // ''
     ];
 
@@ -188,7 +189,7 @@ class PlotExt extends Plot{
             }
         }
         CacheExt::delete('wap_init_plotlist');  
-        PlotExt::setPlotCache(); 
+        // PlotExt::setPlotCache(); 
     }
 
     /**
@@ -256,13 +257,13 @@ class PlotExt extends Plot{
                             $companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
                                 
                             // var_dump(Yii::app()->user->getIsGuest());exit;
-                            if(Yii::app()->user->getIsGuest()) {
-                                $pay = '';
-                            } elseif($pays = $value->pays) {
-                                $pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
-                            } else {
-                                $pay = '';
-                            }
+                            // if(Yii::app()->user->getIsGuest()) {
+                            //     $pay = '';
+                            // } elseif($pays = $value->pays) {
+                            //     $pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+                            // } else {
+                            //     $pay = '';
+                            // }
                             $lists[] = [
                                 'id'=>$value->id,
                                 'title'=>Tools::u8_title_substr($value->title,18),
@@ -272,8 +273,9 @@ class PlotExt extends Plot{
                                 'street'=>$streetName,
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
                                 'zd_company'=>$companydes,
-                                'pay'=>$pay,
-                                'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat)
+                                'pay'=>$value->first_pay,
+                                'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
+                                'obj'=>$value,
                             ];
                         }
                         $pager = $plots->pagination;

@@ -63,6 +63,9 @@ $(document).ready(function(){
 	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
 		$('.detail-laststate-message').append(detail.news?detail.news:'暂无');
     	if(detail.is_login == '1') {
+            if(detail.pay.length<=1) {
+                $('#fangannum').css('display','none');
+            }
     		if(detail.pay.length>0){
                 pay = detail.pay[0];
                 content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
