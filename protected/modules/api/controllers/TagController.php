@@ -2,7 +2,12 @@
 class TagController extends ApiController{
 	public function actionIndex($cate='')
 	{
-		if($cate) {
+		if($cate == 'wzlm') {
+			$this->frame['data'] = CacheExt::gas('tag_wzlm','AreaExt',0,'顶部标签缓存',function (){
+		            return Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wzlm' order by sort asc")->queryAll();
+		        });
+		}
+		elseif($cate) {
 			$this->frame['data'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='$cate' order by sort asc")->queryAll();
 		}
 	}
@@ -25,7 +30,7 @@ class TagController extends ApiController{
 				// $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
             	// $areas[0]['childArea'] = $areas[0]->childArea;
             	$area['list'] = $areas;
-            	$ots = CacheExt::gas('wap_all_tags','AreaExt',0,'wap筛选标签缓存',function (){
+            	$ots = CacheExt::gas('wap_all_filters','AreaExt',0,'wap筛选标签缓存',function (){
 	            	$aveprice = [];
 					$aveprice['name'] = '均价';
 					$aveprice['filed'] = 'aveprice';

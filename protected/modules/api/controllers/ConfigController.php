@@ -2,14 +2,21 @@
 class ConfigController extends ApiController{
 	public function actionIndex()
 	{
+		$oths = CacheExt::gas('wap_all_config','AreaExt',0,'wap配置缓存',function (){
+	            $tmp = [
+					'login_img'=>ImageTools::fixImage(SiteExt::getAttr('qjpz','login_img')),
+					'regis_words'=>SiteExt::getAttr('qjpz','regis_words'),
+					'report_words'=>SiteExt::getAttr('qjpz','report_words'),
+					'coo_words'=>SiteExt::getAttr('qjpz','coo_words'),
+				];
+		            return $tmp;
+		        });
+		
 		$data = [
-			'login_img'=>ImageTools::fixImage(SiteExt::getAttr('qjpz','login_img')),
-			'regis_words'=>SiteExt::getAttr('qjpz','regis_words'),
-			'report_words'=>SiteExt::getAttr('qjpz','report_words'),
-			'coo_words'=>SiteExt::getAttr('qjpz','coo_words'),
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
 		];
+		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
 	}
 	
