@@ -2,7 +2,7 @@
 var hid = '';
 var title='';
 var phone='';
-var area='';
+var areaid='';
 var url='';
 var thisphone = '';
 var detail=new Object();
@@ -29,6 +29,8 @@ $(document).ready(function(){
 	//获取数据
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
+        areaid = detail.areaid;
+        sameArea();
         $('title').html(detail.title);
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
@@ -61,7 +63,12 @@ $(document).ready(function(){
         $('#zd').attr('data-id',detail.zd_company.id);
         $('#zd').attr('data-name',detail.zd_company.name);
 	    $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
-		$('.detail-laststate-message').append(detail.news?detail.news:'暂无');
+        if (detail.news!=''&&detail.news!=undefined) {
+            $('.detail-laststate-message').append(detail.news);
+        }else{
+            $('.detail-laststate-message').append('暂无');
+            $('#laststate-img').css('display','none');
+        }
     	if(detail.is_login == '1') {
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');
@@ -98,9 +105,9 @@ $(document).ready(function(){
         			detail.hx[i].size="--";
         		}
                 if(detail.hx[i].bedroom>0)
-        		  $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+        		  $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
         	    else
-                    $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                    $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
             }
         }else{
             $('.detail-mainstyle').css('display','none');
@@ -152,28 +159,33 @@ $(document).ready(function(){
     // if ($('.detail-sailpoint-message').height()<3rem) {
     //     $('.maidian-on-off').css('display','none');
     // } 
+});
+function sameArea(){
     //同区域楼盘
-    $.get('?area='+area,function(data) {
-        samearea=data.data;
-    });
-    if(samearea.hx!=''&&samearea.hx!=undefined){
+    $.get('/api/plot/list?area='+areaid+'&limit=6',function(data) {
+        samearea=data.data.list;
+        if(samearea.length>0){
         $('.detail-samearea').css('display','block');
-        for(var i=0;i<samearea.hx.length;i++){
-            if(samearea.hx[i].size==''||samearea.hx[i].size==undefined){
-                samearea.hx[i].size="--";
+        for(var i=0;i<samearea.length;i++){
+            if(samearea[i].size==''||samearea[i].size==undefined){
+                samearea[i].size="--";
             }
-            if(samearea.hx[i].bedroom>0)
-              $('#samearea ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+            if (hid!=samearea[i].id) {
+            if(samearea[i].price!=''&&samearea[i].price!=undefined)
+              {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><a href="'+samearea[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div></a><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].size+'㎡</div><div class="detail-samearea-price">'+samearea[i].price+samearea[i].unit+'</div></li>');}
             else
-                $('#samearea ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><a href="'+samearea[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div></a><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].size+'㎡</div><div class="detail-mainstyle-room"></div></li>');}
+            }
         }
     }else{
         $('.detail-samearea').css('display','none');
     }
-
-});
-
-
+    });   
+};
+//同区域跳转
+function turnDetail(obj){
+    location.href="detail.html?id="+obj;
+}
 //申请成为对接人
 function becomeDuijieren(){
 	$.post("/api/plot/addMakert", {

@@ -393,6 +393,15 @@ body{
 	left: 0rem;
 }
 
+.detail-samearea-price{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #ee674c;
+	top: 7.04rem;
+	left: 0rem;
+	font-weight: 500;
+}
+
 .detail-mainstyle-status{
 	position: absolute;
 	font-size: 0.747rem;
@@ -407,6 +416,7 @@ body{
 	width: 20.0rem;
 	background-color: #fff;
 	overflow:hidden;
+	display: none;
 }
 
 .detail-sameprice{
