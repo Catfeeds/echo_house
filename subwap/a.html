@@ -32,7 +32,7 @@ $(document).ready(function(){
 	address.address='';
 	var additem=JSON.stringify(address);
 	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
-	        alert(state);
+	        alert(data.order_id);
 		});
 });	
 </script>
