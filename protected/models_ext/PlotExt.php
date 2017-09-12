@@ -246,6 +246,7 @@ class PlotExt extends Plot{
     public static function setPlotCache()
     {
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
+                    $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
                     $criteria->order = 'sort desc,updated desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
