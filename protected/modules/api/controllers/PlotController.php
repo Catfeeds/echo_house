@@ -10,6 +10,7 @@ class PlotController extends ApiController{
 		$sort = (int)Yii::app()->request->getQuery('sort',0);
 		$wylx = (int)Yii::app()->request->getQuery('wylx',0);
 		$zxzt = (int)Yii::app()->request->getQuery('zxzt',0);
+		$limit = (int)Yii::app()->request->getQuery('limit',20);
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
@@ -119,7 +120,7 @@ class PlotController extends ApiController{
 			$this->frame['data'] = $dats;
 		} else {
 			// var_dump($criteria);exit;
-			$plots = PlotExt::model()->normal()->getList($criteria);
+			$plots = PlotExt::model()->normal()->getList($criteria,$limit);
 			$lists = [];
 			if($company) {
 				$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();

@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title><?php echo $this->pageTitle ?>-房产报备管理后台</title>
+<title><?php echo $this->pageTitle ?>-经纪圈新房通管理后台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -61,7 +61,7 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo" style="width:500px">
 			<a href="<?php echo $this->createUrl('/admin/common/index') ?>"  class="logo-name">
-			项目报备管理后台
+			经纪圈新房通管理后台
 			<!-- <img src="/static/admin/layout/img/logo.png" alt="logo" class="logo-default"/> -->
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">

@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title><?php echo $this->pageTitle='项目报备系统后台登录' ?></title>
+<title><?php echo $this->pageTitle='经纪圈新房通后台登录' ?></title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -61,7 +61,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content ">
 	<!-- BEGIN LOGIN FORM -->
 	<form class="login-form" action="" method="post">
-		<h3 class="form-title" style="font-family: 微软雅黑">项目报备系统后台登录</h3>
+		<h3 class="form-title" style="font-family: 微软雅黑">经纪圈新房通后台登录</h3>
 		<div class="alert alert-danger <?php if(!$model->hasErrors('error')) echo 'display-hide'; ?>">
 			<button class="close" data-close="alert"></button>
 			<span><?php echo $model->getError('error') ?></span>
