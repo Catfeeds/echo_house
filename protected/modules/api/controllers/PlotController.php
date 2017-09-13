@@ -641,7 +641,8 @@ class PlotController extends ApiController{
         // }
         // echo "ok";
         // phpinfo();
-        Yii::app()->redis->getClient()->hSet('test','id','222');
+        var_dump(Yii::app()->redis->getClient()->hGetAll('test'));
+        // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
     }
     public function actionSubCompany()
