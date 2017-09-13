@@ -49,6 +49,7 @@ function subthis() {
 						    function(data, status) {
 						        if (data.status == "success") {
 						            alert("申请成功！");
+						            location.href = 'detail.html?id'+hid;
 						        } else {
 						            alert(data.msg);
 						        }

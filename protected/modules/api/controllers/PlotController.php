@@ -632,14 +632,16 @@ class PlotController extends ApiController{
     {
     	// var_dump(Yii::app()->msg);exit;
         // var_dump(SmsExt::addOne('13861242596','1111'));
-        $infos = PlotExt::model()->normal()->findAll();
-        foreach ($infos as $key => $value) {
-            if(!$value->first_pay && $value->pays) {
-                $value->first_pay = $value->pays[0]['price'];
-            }
-            $value->save();
-        }
-        echo "ok";
+        // $infos = PlotExt::model()->normal()->findAll();
+    // foreach ($infos as $key => $value) {
+        //     if(!$value->first_pay && $value->pays) {
+        //         $value->first_pay = $value->pays[0]['price'];
+        //     }
+        //     $value->save();
+        // }
+        // echo "ok";
+        // phpinfo();
+        Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
     }
     public function actionSubCompany()

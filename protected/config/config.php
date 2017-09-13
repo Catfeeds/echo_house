@@ -100,6 +100,9 @@ $config2 = array(
 );
 
 $cacheConfig['components']['cache'] = isset($config['cache']['host'])&&$config['cache']['host'] ? array('class'=>'CMemCache', 'servers'=>array($config['cache'])) : array('class'=>'CFileCache');
+if (isset($config['redis']) && $config['redis']) {
+    $config2['components']['redisConfig'] = array_merge(['class'=>'application.components.redis.HangjiaRedisConfig'], $config['redis']);
+}
 $config2 = CMap::mergeArray($config2, $cacheConfig);
 $config = CMap::mergeArray($config1, $config2);
 // var_dump($config);die;
