@@ -35,7 +35,7 @@ $(document).ready(function(){
         if(detail.is_show_add==0||detail.is_show_add=='0') {
             $('#showadd').remove();
         }
-        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point,function(data) {
+        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
             $('body').append(data);
         });
         $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
