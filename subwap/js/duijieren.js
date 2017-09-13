@@ -30,6 +30,7 @@ var item=JSON.stringify(qfarray);
 var additem=JSON.stringify(address);
 var order_id='';
 $('.submit-submit').click(function(){
+	alert(1);
 	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
 		alert(state);
         order_id = data.order_id;
