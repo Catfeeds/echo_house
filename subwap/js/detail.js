@@ -190,7 +190,7 @@ function turnDetail(obj){
 }
 //申请成为对接人
 function becomeDuijieren(){
-    location.href="detail.html";
+    location.href="duijieren.html";
 	// $.post("/api/plot/addMakert", {
  //            'hid': hid
  //        },
