@@ -111,6 +111,15 @@ $config1 = array(
 			'stateKeyPrefix' => '_hangjiauc',
             'allowAutoLogin' => true,
 		),
+        'redis' => [
+            'class' => 'application.components.redis.HangjiaRedisConnection',
+            'redisConfig' => function() {
+                return Yii::app()->redisConfig;
+            },
+            'redisPrefix' => function() {
+                return 'jjqxft';
+            }
+        ],
         'request' => array(
             'enableCsrfValidation' => false,
             'csrfTokenName' => 'CSRF_TOKEN'

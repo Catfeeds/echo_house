@@ -5,6 +5,7 @@ var phone='';
 var areaid='';
 var url='';
 var thisphone = '';
+var is_user = false;
 var detail=new Object();
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -16,7 +17,17 @@ $(document).ready(function(){
     var clipboard = new Clipboard('.copy-weixin');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
+            is_user = true;
             thisphone = data.data.user.phone;
+             //底部按钮变化
+            if (detail.is_contact_only==1) {
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom1').css('display','block');
+            }
+            if (detail.is_contact_only==2 || is_user==false){
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom2').css('display','block');
+            }
         }
     });
 	//获取ID
@@ -132,15 +143,7 @@ $(document).ready(function(){
                 $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
             }
 		  });
-        //底部按钮变化
-        if (detail.is_contact_only==1) {
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom1').css('display','block');
-        }
-        if (detail.is_contact_only==2){
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom2').css('display','block');
-        }
+       
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
@@ -188,17 +191,18 @@ function turnDetail(obj){
 }
 //申请成为对接人
 function becomeDuijieren(){
-	$.post("/api/plot/addMakert", {
-            'hid': hid
-        },
-        function(data, status) {
-            if (data.status == "success") {
-                alert("申请成功！");
-            } else {
-                alert(data.msg);
-            }
-        }
-    );
+    location.href="duijieren.html?hid="+hid;
+	// $.post("/api/plot/addMakert", {
+ //            'hid': hid
+ //        },
+ //        function(data, status) {
+ //            if (data.status == "success") {
+ //                alert("申请成功！");
+ //            } else {
+ //                alert(data.msg);
+ //            }
+ //        }
+ //    );
 }
 
 //分享页面

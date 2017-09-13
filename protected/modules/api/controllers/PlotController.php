@@ -554,7 +554,7 @@ class PlotController extends ApiController{
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 
-				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
+				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())->queryScalar()) {
 					return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
 				}
 				$obj = new SubExt;
@@ -632,14 +632,17 @@ class PlotController extends ApiController{
     {
     	// var_dump(Yii::app()->msg);exit;
         // var_dump(SmsExt::addOne('13861242596','1111'));
-        $infos = PlotExt::model()->normal()->findAll();
-        foreach ($infos as $key => $value) {
-            if(!$value->first_pay && $value->pays) {
-                $value->first_pay = $value->pays[0]['price'];
-            }
-            $value->save();
-        }
-        echo "ok";
+        // $infos = PlotExt::model()->normal()->findAll();
+    // foreach ($infos as $key => $value) {
+        //     if(!$value->first_pay && $value->pays) {
+        //         $value->first_pay = $value->pays[0]['price'];
+        //     }
+        //     $value->save();
+        // }
+        // echo "ok";
+        // phpinfo();
+        var_dump(Yii::app()->redis->getClient()->hGetAll('test'));
+        // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
     }
     public function actionSubCompany()
@@ -675,5 +678,18 @@ class PlotController extends ApiController{
     			$this->frame['data'] = $tmp;
     		}
     	}
+    }
+
+    public function actionCheckMarket($hid='')
+    {
+    	$uid = !Yii::app()->user->getIsGuest()?$this->staff->id:0;
+    	if(!$uid || !$hid) {
+    		return $this->returnError('参数错误');;
+    	}
+    	if(Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0")->queryRow()) {
+			$this->returnError('您已经提交申请，请勿重复提交');
+		} else {
+			$this->returnSuccess('bingo');
+		}
     }
 }

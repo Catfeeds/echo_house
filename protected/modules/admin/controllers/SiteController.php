@@ -46,4 +46,11 @@ class SiteController extends AdminController
 			$this->redirect('list');
 		}
 	}
+	public function actionDelCache()
+	{
+		foreach (['tag_wzlm','wap_all_area','wap_all_filters','wap_init_plotlist','wap_all_config'] as $key => $value) {
+			CacheExt::delete($value);
+		}
+		$this->setMessage('操作成功');
+	}
 }
