@@ -30,12 +30,9 @@ var item=JSON.stringify(qfarray);
 var additem=JSON.stringify(address);
 var order_id='';
 function subthis() {
-	alert(1);
 	QFH5.createOrder(10001,item,0,additem,12,function(state,data){
-		alert(state);
         order_id = data.order_id;
-    });
-    QFH5.jumpPayOrder(order_id,function(state,data){
+        QFH5.jumpPayOrder(order_id,function(state,data){
 		    if(state==1){
 		    	alert('支付成功');
 		        //支付成功
@@ -44,6 +41,8 @@ function subthis() {
 		        alert(data.error);//data.error  string
 		    }
 		});
+    });
+    
 }
 // $('.submit-submit').click(function(){
 // 	alert(1);
