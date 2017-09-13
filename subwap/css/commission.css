@@ -26,22 +26,27 @@ body{
 }
 
 .commission-head1{
-	position: absolute;
-	top: 0.773rem;
-	left: 2rem;
+	position: relative;
+	padding-top: 0.773rem;
+	padding-left: 2rem;
 	font-size: 0.747rem;
 	color: #333333;
+	height: auto;
+	width: 17rem;
 }
 
 .commission-head2{
-	position: absolute;
-	top: 2.113rem;
-	left: 0.64rem;
+	position: relative;
+	padding-top: 0.5rem;
+	padding-left: 0.64rem;
 	font-size: 0.747rem;
 	color: #333333;
+	height: auto;
+	width: 18rem;
 }
 .commission-head3{
-	padding: 3.453rem 0.64rem 0.64rem 0.64rem;
+	position: relative;
+	padding: 0.5rem 0.64rem 0.64rem 0.64rem;
 	font-size: 0.747rem;
 	width: 18rem;
 	height: auto;
