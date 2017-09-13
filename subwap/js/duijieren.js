@@ -1,17 +1,17 @@
-// $(document).ready(function(){
-// 	$.get("",function(data){
-// 		if (data.status=='success') {
-// 			for (var i = 0; i < data.data.length; i++) {
-// 				$('#housename').append('<option value="'++'">'++'</option>');
-// 			}
-// 			if (==''&&==undefined) {
-// 				$('.report-attention-text').html();
-// 			}else{
-// 				$('.report-attention').css('display','none');
-// 			}		
-// 		}
-// 	});
-// });
+$(document).ready(function(){
+	$.get("/api/config/index",function(data){
+		if (data.status=='success') {
+			// for (var i = 0; i < data.data.length; i++) {
+			// 	$('#housename').append('<option value="'++'">'++'</option>');
+			// }
+			if (data.data.add_market_words!=''&&data.data.add_market_words!=undefined) {
+				$('.report-attention-text').html(data.data.add_market_words);
+			}else{
+				$('.report-attention').css('display','none');
+			}		
+		}
+	});
+});
 var qftype=new Object();
 qftype.title='申请对接人费用';
 qftype.cover='';

@@ -2,6 +2,9 @@
 $this->pageTitle = '站点配置导览';
 $this->breadcrumbs = array('后台管理',$this->pageTitle);
 ?>
+<div class="pull-right">
+    <?=CHtml::ajaxLink('清除缓存',$this->createUrl('delCache'),['success'=>'function(data){location.reload()}'],['class'=>'btn red'])?>
+</div>
 <?php foreach($sites as $k => $model): ?>
     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
         <div class="dashboard-stat grey">
