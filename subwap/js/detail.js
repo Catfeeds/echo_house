@@ -19,6 +19,15 @@ $(document).ready(function(){
         if(data.data.is_user == true) {
             is_user = true;
             thisphone = data.data.user.phone;
+             //底部按钮变化
+            if (detail.is_contact_only==1) {
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom1').css('display','block');
+            }
+            if (detail.is_contact_only==2 || is_user==false){
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom2').css('display','block');
+            }
         }
     });
 	//获取ID
@@ -134,15 +143,7 @@ $(document).ready(function(){
                 $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
             }
 		  });
-        //底部按钮变化
-        if (detail.is_contact_only==1) {
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom1').css('display','block');
-        }
-        if (detail.is_contact_only==2 || is_user==false){
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom2').css('display','block');
-        }
+       
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
