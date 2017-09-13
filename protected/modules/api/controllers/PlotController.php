@@ -554,7 +554,7 @@ class PlotController extends ApiController{
 					return $this->returnError('您的账户类型为总代公司，不支持快速报备');
 				} 
 
-				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())) {
+				if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())->queryScalar()) {
 					return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
 				}
 				$obj = new SubExt;
