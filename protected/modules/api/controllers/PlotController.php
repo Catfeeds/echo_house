@@ -676,4 +676,17 @@ class PlotController extends ApiController{
     		}
     	}
     }
+
+    public function actionCheckMarket($hid='')
+    {
+    	$uid = !Yii::app()->user->getIsGuest()?$this->staff->id:0;
+    	if(!$uid || !$hid) {
+    		return $this->returnError('参数错误');;
+    	}
+    	if(Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0")->queryRow()) {
+			$this->returnError('您已经提交申请，请勿重复提交');
+		} else {
+			$this->returnSuccess('bingo');
+		}
+    }
 }
