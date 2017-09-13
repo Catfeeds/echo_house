@@ -1,3 +1,4 @@
+var hid = '';
 $(document).ready(function(){
 	$.get("/api/config/index",function(data){
 		if (data.status=='success') {
@@ -11,6 +12,9 @@ $(document).ready(function(){
 			}		
 		}
 	});
+	if(GetQueryString('hid')!=undefined) {
+		hid = GetQueryString('hid');
+	}
 });
 var qftype=new Object();
 qftype.title='申请对接人费用';
@@ -35,6 +39,17 @@ function subthis() {
         QFH5.jumpPayOrder(order_id,function(state,data){
 		    if(state==1){
 		    	alert('支付成功');
+		    	$.post("/api/plot/addMakert", {
+				        'hid': hid
+				    },
+				    function(data, status) {
+				        if (data.status == "success") {
+				            alert("申请成功！");
+				        } else {
+				            alert(data.msg);
+				        }
+				    }
+				);
 		        //支付成功
 		    }else{
 		        //支付失败、用户取消支付
@@ -43,6 +58,12 @@ function subthis() {
 		});
     });
     
+}
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(decodeURI(r[2]));
+    return null;
 }
 // $('.submit-submit').click(function(){
 // 	alert(1);
