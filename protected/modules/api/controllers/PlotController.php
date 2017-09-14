@@ -527,7 +527,7 @@ class PlotController extends ApiController{
 				}
 				$uid = $this->staff->id;
 				// var_dump($uid,$hid);exit;
-				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire_time>".time())->queryRow()) {
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
 					$obj = new PlotMarketUserExt;
 					$obj->status = 0;
 					$obj->uid = $uid;
