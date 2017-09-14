@@ -16,26 +16,27 @@ $(document).ready(function(){
 		hid = GetQueryString('hid');
 	}
 });
-var qftype=new Object();
-// qftype.title='申请对接人费用';
-qftype.cover='';
-// qftype.num=1;
 
-qftype.title=$('#housename').val();
-qftype.num=$('#housenum').val();
-qftype.gold_cost=0;
-
-qftype.cash_cost=qftype.title=='1个月'?59:169;
-var qfarray=new Array();
-qfarray[0]=qftype;
-var address=new Object();
-address.name='';
-address.mobile='';
-address.address='';
-var item=JSON.stringify(qfarray);
-var additem=JSON.stringify(address);
-var order_id='';
 function subthis() {
+	var qftype=new Object();
+	// qftype.title='申请对接人费用';
+	qftype.cover='';
+	// qftype.num=1;
+
+	qftype.title=$('#housename').val();
+	qftype.num=$('#housenum').val();
+	qftype.gold_cost=0;
+
+	qftype.cash_cost=qftype.title=='1个月'?59:169;
+	var qfarray=new Array();
+	qfarray[0]=qftype;
+	var address=new Object();
+	address.name='';
+	address.mobile='';
+	address.address='';
+	var item=JSON.stringify(qfarray);
+	var additem=JSON.stringify(address);
+	var order_id='';
 	// $.get("/api/plot/checkMarket?hid="+hid,function(data){
 		// if (data.status=='error') {
 		// 	alert(data.msg);		
