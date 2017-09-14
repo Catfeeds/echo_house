@@ -704,4 +704,31 @@ class PlotController extends ApiController{
 			$this->returnSuccess('bingo');
 		}
     }
+
+    public function actionAddReport()
+    {
+    	if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if($tmp['hid'] = $this->cleanXss($_POST['hid'])) {
+				$plot = PlotExt::model()->findByPk($tmp['hid']);
+				if(!$plot) {
+					return $this->returnError('操作失败');
+				}
+				$tmp['reason'] = $this->cleanXss($_POST['reason']);
+				$tmp['uid'] = $this->staff->id;
+// var_dump($plot);exit;
+				if(!Yii::app()->db->createCommand("select id from report where deleted=0 and uid=".$tmp['uid']." and hid=".$tmp['hid'])->queryScalar()) {
+					
+					$obj = new ReportExt;
+					$obj->attributes = $tmp;
+					$obj->status = 0;
+					if($obj->save()) {
+						return $this->returnSuccess('操作成功');
+					}
+				} else {
+					return $this->returnError('您已经提交申请，请勿重复提交');
+				}
+			}
+		}
+		return $this->returnError('操作失败');
+    }
 }
