@@ -298,6 +298,7 @@ $('.tip-off-select-window li').click(function(){
     $(this).children().removeClass('select-hide');
     if($(this).index()==4){
         $('.tip-off-detail').css('display','block');
+        $('.tip-off-detail').focus();
         reason='';
     }else{
         $('.tip-off-detail').css('display','none');
