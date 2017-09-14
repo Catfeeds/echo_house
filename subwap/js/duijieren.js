@@ -24,7 +24,8 @@ qftype.cover='';
 qftype.title=$('#housename').val();
 qftype.num=$('#housenum').val();
 qftype.gold_cost=0;
-qftype.cash_cost=0.1;
+
+qftype.cash_cost=qftype.title=='1个月'?59:169;
 var qfarray=new Array();
 qfarray[0]=qftype;
 var address=new Object();
