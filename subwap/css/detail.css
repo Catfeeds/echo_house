@@ -75,6 +75,7 @@ body{
 	position: relative;
 	width: 20.0rem;
 	height: 2.347rem;
+	background-color: #fff;
 }
 
 .detail-head-price{
@@ -179,6 +180,65 @@ body{
 	font-size: 0.8rem;
 	top: 0rem;
 	left: 0.747rem;
+}
+
+.detail-tip-off-img{
+	position: absolute;
+	left: 0.747rem;
+	top: 0.6rem;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.detail-tip-off-text{
+	position: absolute;
+	line-height: 2.347rem;
+	color: #333333;
+	font-size: 0.8rem;
+	top: 0rem;
+	left: 2rem;
+}
+
+.detail-tip-off-text-small{
+	position: absolute;
+	line-height: 2.347rem;
+	color: #868686;
+	font-size: 0.4rem;
+	padding-top: 0.05rem;
+	left: 5.3rem;
+}
+
+.detail-shu{
+	position: absolute;
+	width: 0.053rem;
+	height: 1.747rem;
+	top: 0.3rem;
+	background-color: #868686;
+	left: 16.5rem;
+}
+
+.detail-mail-container{
+	position: absolute;
+	left: 16.8rem;
+	width: 2.9rem;
+	height: 2.347rem;
+}
+
+.detail-mail-img{
+	position: absolute;
+	top: 0.2rem;
+	left: 0.85rem;
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.detail-mail-text{
+	position: absolute;
+	width: 2.9rem;
+	text-align: center;
+	color: #868686;
+	font-size: 0.4rem;
+	top: 1.4rem;
 }
 
 .detail-laststate-edit{
@@ -641,4 +701,88 @@ body{
 .major-phone{
 	color: #ee674c;
 	font-size: 0.267rem;
+}
+
+.tip-off{
+	position: fixed;
+	bottom: 0rem;
+	background-color: #fff;
+	width: 20rem;
+	height: 15.2rem;
+	overflow: hidden;
+	z-index: 9999;
+	display: none;
+}
+
+.tip-off-shutdown{
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	left: 18rem;
+	top: 0.65rem;
+	z-index: 10000
+}
+
+.tip-off-head{
+	position: relative;
+	width: 20rem;
+	height: 2.347rem;
+	line-height: 2.347rem;
+	text-align: center;
+	color: #868686;
+	font-size: 0.8rem;
+}
+
+.tip-off-select-window{
+	position: absolute;
+	width: 20rem;
+	height: 10.213rem;
+	bottom: 2.613rem;
+	overflow-y: scroll;
+}
+
+.tip-off-option{
+	position: relative;
+	width: 20rem;
+	height: 2.053rem;
+	line-height: 2rem;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #000000;
+}
+
+.tip-off-detail{
+	position: relative;
+	height: 6rem;
+	line-height: 1.8rem;
+	width: 16.87rem;
+	background-color: #F6F6F6;
+	margin:1rem;
+	border:0.053rem solid #c3c3c3;
+	border-radius: 0.4rem;
+	padding: 0rem 0.5rem;
+	display: none;
+}
+
+.tip-off-select{
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	left: 18rem;
+	top: 0.5rem;
+}
+
+.tip-off-tijiao{
+	position: fixed;
+	bottom: 0rem;
+	height: 2.613rem;
+	line-height: 2.613rem;
+	width: 20rem;
+	background-color: #00B7F0;
+	color: #fff;
+	text-align: center;
+}
+
+.select-hide{
+	display: none;
 }

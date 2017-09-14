@@ -283,5 +283,43 @@ function copyUrl2() {
 function show_zd_list(obj) {
     location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).data('name');
 }
+//举报
+$('.detail-mail-container').click(function(){
+    $('.tip-off').css('display','block');
+});
+$('.tip-off-shutdown').click(function(){
+    $('.tip-off').css('display','none');
+});
+var reason='';
+$('.tip-off-select-window li').click(function(){
+    $('.tip-off-select-window li').css('color','#000000');
+    $('.tip-off-select-window li img').addClass('select-hide');
+    $(this).css('color','#00B7F0');
+    $(this).children().removeClass('select-hide');
+    if($(this).index()==4){
+        $('.tip-off-detail').css('display','block');
+        reason='';
+    }else{
+        $('.tip-off-detail').css('display','none');
+        reason=$(this).find('div').html();
+    }
+    
+});
+
+$('.tip-off-tijiao').click(function(){
+    reason=reason==''?$('.tip-off-detail').val():reason;
+    $.post('/api/plot/addReport',{
+        'hid':hid,
+        'reason':reason
+    },function(data){
+        if (data.status=='success') {
+            alert("举报成功");
+        } else {
+            alert(data.msg);
+        }
+    });
+    $('.tip-off').css('display','none');
+});
+
 
 

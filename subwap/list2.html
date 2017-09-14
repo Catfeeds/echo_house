@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="list">
+<head>
+	<title>经纪圈新房通</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<meta name="description" content="请登录经纪圈查看项目详情"/>
+	<script src="http://api.map.baidu.com/api?v=2.0&ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das" type="text/javascript"></script>
+</head>
+<body>
+	<div class="list-head-bg"></div>
+	<div class="list-head-container">
+		<div class="list-head">
+			<!-- <div class="gradientcolor"></div> -->
+			<a href="search.html">
+			<img class="list-head-img" src="./img/search.png">
+			</a>
+			<div class="list-head-window">
+				<div class="list-head-list">
+					<ul ng-controller="topCtrl">
+						<li id="alltop" data-id="0" class="list-head-item list-head-text list-head-item-active" onclick="getTopId(this)">全部</li>
+						<li ng-repeat="item in toplist" class="list-head-item list-head-text" data-id="{{item.id}}" onclick="getTopId(this)">{{item.name}}</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="line"></div>
+
+		<ul class="list-filter clearfloat" ng-controller="filterCtrl">
+	            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" onclick="getFilterId(this)">{{item.name}}
+	            <img class="list-filter-slat" src="./img/slatdown.png" />
+	            </li>
+	    </ul>
+    </div>
+
+<!-- 筛选列表1 -->
+	<div class="filter-filter-bg" id="filter1">
+		<div class="line"></div>
+		<div class="filter-filter1">
+			<div class="filter-filter1-left"> 
+				<ul id="areaul">
+					<!-- 地区 -->
+				</ul>
+			</div>
+			<div class="filter-filter1-right"> 
+				<ul id="streetul">
+					<!-- 街道 -->
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- 筛选列表2 -->
+	<div class="filter-filter-bg" id="filter2">
+		<div class="line"></div>
+		<div class="filter-filter2">
+			<ul id="priceul">
+				<!-- 价格列表 -->
+			</ul>
+		</div>
+	</div>
+<!-- 筛选列表3 -->
+	<div class="filter-filter-bg" id="filter3">
+		<div class="line"></div>
+		<div class="filter-filter3">
+			<ul id="FirstPayul">
+				<!-- 首付列表 -->
+			</ul>
+		</div>
+	</div>
+<!-- 筛选列表4 -->
+	<div class="filter-filter-bg" id="filter4">
+		<div class="line"></div>
+		<div class="filter-filter4">
+			<ul id="filter4-list">	
+			</ul>
+			<div class="list-blank"></div>
+			<div class="line"></div>
+			<div class="filter-filter4-buttom">
+				<div class="filter-filter4-buttom-button" id="reset">重置</div>
+				<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure">确定</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- 返回顶部图标 -->
+	<div class="list-stick">
+		<img class="list-stick-img" src="./img/stick.png">
+	</div>
+
+
+<!-- 房子列表 -->
+	<div class="houselist">
+		<div class="hose-list-ammount-bg">
+			共<b id="num"></b>条房源
+			<div class="hose-list-ammount" id="companytag" onclick="delCom()">
+			</div>
+		</div>
+        <ul id="ul1" ng-controller="listCtrl">
+            <li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
+	            <div class="line"></div>
+	            <a href="detail.html?id='+item.id+'" onclick="checkId(this)">
+		            <img class="house-img" ng-Src="{{ item.image }}"/>
+		            <div class="house-text-head">{{item.title}}</div>
+	            </a>
+	            <div class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
+	            <div class="house-text-pay-yong">佣</div>
+	            <div class="house-text-pay">{{payword}}</div>
+	            <div class="house-text-price">{{item.price+ '' +item.unit}}</div>
+	            <img class="distance-img" src="./img/icon-distance.png">
+	            <div class="list-distance">{{item.distance}}km</div>
+	            <div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">{{company}}</div>
+            </li>
+        </ul>
+        <div class="loaddiv">  
+	        <img class="loading-img" src="img/loading.gif" />  
+	    </div> 
+    </div>
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/list2.js"></script>
+</body>
+</html>
