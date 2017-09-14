@@ -17,9 +17,12 @@ $(document).ready(function(){
 	}
 });
 var qftype=new Object();
-qftype.title='申请对接人费用';
+// qftype.title='申请对接人费用';
 qftype.cover='';
-qftype.num=1;
+// qftype.num=1;
+
+qftype.title=$('#housename').val();
+qftype.num=$('#housenum').val();
 qftype.gold_cost=0;
 qftype.cash_cost=0.1;
 var qfarray=new Array();
@@ -28,23 +31,23 @@ var address=new Object();
 address.name='';
 address.mobile='';
 address.address='';
-qftype.title=$('#housename').val();
-qftype.num=$('#housenum').val();
 var item=JSON.stringify(qfarray);
 var additem=JSON.stringify(address);
 var order_id='';
 function subthis() {
-	$.get("/api/plot/checkMarket?hid="+hid,function(data){
-		if (data.status=='error') {
-			alert(data.msg);		
-		} else {
+	// $.get("/api/plot/checkMarket?hid="+hid,function(data){
+		// if (data.status=='error') {
+		// 	alert(data.msg);		
+		// } else {
 			QFH5.createOrder(10001,item,0,additem,12,function(state,data){
 		        order_id = data.order_id;
 		        QFH5.jumpPayOrder(order_id,function(state,data){
 				    if(state==1){
 				    	alert('支付成功');
 				    	$.post("/api/plot/addMakert", {
-						        'hid': hid
+						        'hid': hid,
+						        'num': $('#housenum').val(),
+						        'title': $('#housename').val(),
 						    },
 						    function(data, status) {
 						        if (data.status == "success") {
@@ -62,8 +65,8 @@ function subthis() {
 				    }
 				});
 		    });
-		}
-	});
+		// }
+	// });
 			
     
 }

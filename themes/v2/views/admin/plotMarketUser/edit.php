@@ -29,6 +29,18 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label">到期时间</label>
+    <div class="col-md-4">
+        <div class="input-group date form_datetime" >
+            <?php echo $form->textField($article,'expire',array('class'=>'form-control','value'=>($article->expire?date('Y-m-d',$article->expire):''))); ?>
+            <span class="input-group-btn">
+              <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+           </span>
+        </div>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label">状态</label>
     <div class="col-md-4">
         <?php echo $form->radioButtonList($article, 'status', PlotMarketUserExt::$status, array('separator' => '')); ?>

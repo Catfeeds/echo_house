@@ -518,14 +518,21 @@ class PlotController extends ApiController{
 	{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if($hid = $this->cleanXss($_POST['hid'])) {
+				$title = $this->cleanXss($_POST['title']);
+				$num = $this->cleanXss($_POST['num']);
+				if(strstr($title, '1')) {
+					$time = 30*86400;
+				} elseif (strstr($title, '3')) {
+					$time = 30*86400*3;
+				}
 				$uid = $this->staff->id;
 				// var_dump($uid,$hid);exit;
-				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0")->queryRow()) {
+				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire_time>".time())->queryRow()) {
 					$obj = new PlotMarketUserExt;
 					$obj->status = 0;
 					$obj->uid = $uid;
 					$obj->hid = $hid;
-					
+					$obj->expire = time()+$time*$num;
 					if(!$obj->save())
 						$this->returnError(current(current($obj->getErrors())));
 				} else {
