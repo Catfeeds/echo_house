@@ -138,7 +138,19 @@ class PlotController extends ApiController{
 					if(!$company) {
 						$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					}
-						
+					$wyw = '';
+					$wylx = $value->wylx;
+					if($wylx) {
+						if(!is_array($wylx)) 
+							$wylx = [$wylx];
+						foreach ($wylx as $w) {
+							$t = TagExt::model()->findByPk($w)->name;
+							$t && $wyw .= $t.' ';
+						}
+						$wyw = trim($wyw);
+					}
+					
+					
 					// var_dump(Yii::app()->user->getIsGuest());exit;
 					// if(Yii::app()->user->getIsGuest()) {
 					// 	$pay = '';
@@ -155,6 +167,7 @@ class PlotController extends ApiController{
 						'area'=>$areaName,
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'wylx'=>$wyw,
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'distance'=>round($this->getDistance($value),2),
