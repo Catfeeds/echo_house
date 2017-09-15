@@ -437,7 +437,7 @@ color:#c3c3c3;
 	border-radius: 0.053rem;
 	text-align: center;
 	line-height: 0.8rem;
-	top: 0.7rem;
+	top: 0.693rem;
 	left: 6.8rem;
 	color: #fff;
 }
@@ -446,20 +446,24 @@ color:#c3c3c3;
 	font-weight: bold;
 	font-size: 0.8rem;
 	position: absolute;
-	top: 0.55rem;
+	top: 0.533rem;
 	left:7.8rem;
 	width: 7rem;
 	height: 1.067rem;
-	overflow-x: hidden;
+	line-height: 1.067rem;
+	overflow-x: visible;
+	overflow-y: hidden;
 }
 .house-text-head{
 	font-weight: bold;
 	font-size: 0.8rem;
 	position: absolute;
-	top: 0.55rem;
+	top: 0.533rem;
 	left:6.8rem;
 	width: 8rem;
 	height: 1.067rem;
+	line-height: 1.067rem;
+	overflow-y: visible;
 	overflow-x: hidden;
 }
 .house-text-company{
