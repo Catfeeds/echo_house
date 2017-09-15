@@ -280,6 +280,7 @@ class PlotExt extends Plot{
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
                                 'zd_company'=>$companydes,
                                 'pay'=>$value->first_pay,
+                                'sort'=>$value->sort,                        
                                 'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
                                 'obj'=>$value,
                             ];

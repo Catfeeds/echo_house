@@ -172,6 +172,7 @@ class PlotController extends ApiController{
 						'wylx'=>$wyw,
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
+						'sort'=>$value->sort,
 						'distance'=>round($this->getDistance($value),2),
 					];
 				}
