@@ -141,7 +141,7 @@ class PlotExt extends Plot{
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),
             'areaInfo' => array(self::BELONGS_TO, 'AreaExt', 'area'),//区
             'streetInfo' => array(self::BELONGS_TO, 'AreaExt', 'street'),//街道
-            'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
+            // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }
 
@@ -227,21 +227,21 @@ class PlotExt extends Plot{
         );
     }
 
-    public function getItsCompany()
-    {
-        $arr = [];
-        if($zd_company = $this->zd_company) {
-            if(!is_array($zd_company)) {
-                $zd_company = [$zd_company];
-            }
-            // $zd_company = array_filter($zd_company);
-            foreach ($zd_company as $key => $value) {
-                $obj = CompanyExt::model()->findByPk($value);
-                $arr[] = ['id'=>$obj->id,'name'=>$obj->name];
-            }
-        }
-        return $arr;
-    }
+    // public function getItsCompany()
+    // {
+    //     $arr = [];
+    //     if($zd_company = $this->zd_company) {
+    //         if(!is_array($zd_company)) {
+    //             $zd_company = [$zd_company];
+    //         }
+    //         // $zd_company = array_filter($zd_company);
+    //         foreach ($zd_company as $key => $value) {
+    //             $obj = CompanyExt::model()->findByPk($value);
+    //             $arr[] = ['id'=>$obj->id,'name'=>$obj->name];
+    //         }
+    //     }
+    //     return $arr;
+    // }
 
     public static function setPlotCache()
     {

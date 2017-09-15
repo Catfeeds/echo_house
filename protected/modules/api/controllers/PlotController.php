@@ -62,22 +62,24 @@ class PlotController extends ApiController{
 		// $ids = array_intersect($ids,$tagids);
 		
 		if($company) {
-			$idarr = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
-			// var_dump($idarr);exit;
-			if($idarr) {
-				foreach ($idarr as $hid) {
-					$companyids[] = $hid['hid'];
-				}
-			}
-			if($ids) {
-				$ids = array_intersect($ids,$companyids);
-			} else {
-				$ids = $companyids;
-			}
+			// $idarr = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
+			// // var_dump($idarr);exit;
+			// if($idarr) {
+			// 	foreach ($idarr as $hid) {
+			// 		$companyids[] = $hid['hid'];
+			// 	}
+			// }
+			// if($ids) {
+			// 	$ids = array_intersect($ids,$companyids);
+			// } else {
+			// 	$ids = $companyids;
+			// }
+			$criteria->addCondition('company_id=:comid');
+			$criteria->params[':comid'] = $company;
 		}
 		// var_dump($ids);exit;
 		// $ids = array_intersect($ids,$companyids);
-		if($sfprice>0||$wylx>0||$toptag>0||$company>0) {
+		if($sfprice>0||$wylx>0||$toptag>0) {
 			$criteria->addInCondition('id',$ids);
 		}
 		if($aveprice) {
@@ -122,9 +124,9 @@ class PlotController extends ApiController{
 			// var_dump($criteria);exit;
 			$plots = PlotExt::model()->normal()->getList($criteria,$limit);
 			$lists = [];
-			if($company) {
-				$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
-			}
+			// if($company) {
+			// 	$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
+			// }
 			if($datares = $plots->data) {
 				foreach ($datares as $key => $value) {
 					if($area = $value->areaInfo)
@@ -135,9 +137,9 @@ class PlotController extends ApiController{
 						$streetName = $street->name;
 					else
 						$streetName = '';
-					if(!$company) {
-						$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
-					}
+					// if(!$company) {
+					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+					// }
 					$wyw = '';
 					$wylx = $value->wylx;
 					if($wylx) {
@@ -234,15 +236,15 @@ class PlotController extends ApiController{
 			$streetName = $street->name;
 		else
 			$streetName = '';
-		if($companydes = $info->getItsCompany()) {
-			// var_dump($companydes);exit;
-			$companyArr = [];
-			foreach ($companydes as $key => $value) {
-				$value && $companyArr[] = $value['name'];
-			}
-		} else {
-			$companyArr = [];
-		}
+		// if($companydes = $info->getItsCompany()) {
+		// 	// var_dump($companydes);exit;
+		// 	$companyArr = [];
+		// 	foreach ($companydes as $key => $value) {
+		// 		$value && $companyArr[] = $value['name'];
+		// 	}
+		// } else {
+		// 	$companyArr = [];
+		// }
 		if(Yii::app()->user->getIsGuest()) {
 			$pay = [];
 		} elseif($pays = $info->pays) {
@@ -283,19 +285,22 @@ class PlotController extends ApiController{
 			$major_phone = $major_phone[0];
 		}
 
-		$companys = $info->getItsCompany();
+		// $companys = $info->getItsCompany();
 		$is_show_add = 0;
 		$cids = [];
 		// var_dump($companys);exit;
 		// $share_phone = '';
 		if(!Yii::app()->user->getIsGuest()) {
-			if($companys) {
-				foreach ($companys as $key => $value) {
-					$cids[] = $value['id'];
-				}
-			}
+			// if($companys) {
+			// 	foreach ($companys as $key => $value) {
+			// 		$cids[] = $value['id'];
+			// 	}
+			// }
 			// var_dump($companys,$cids);exit;
-			if($companys && in_array($this->staff->cid, $cids)) {
+			// if($companys && in_array($this->staff->cid, $cids)) {
+			// 	$is_show_add = 1;
+			// }
+			if($this->staff->cid==$info->company_id) {
 				$is_show_add = 1;
 			}
 			// if(in_array($this->staff->phone, $phonesnum)) {
@@ -352,7 +357,7 @@ class PlotController extends ApiController{
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 			'is_show_add'=>$is_show_add,
 			'phonesnum'=>$phonesnum,
-			'zd_company'=>$companys?$companys[0]:[],
+			'zd_company'=>['id'=>$info->company_id,'name'=>$info->company_name],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
 			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),

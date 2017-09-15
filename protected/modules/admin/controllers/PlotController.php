@@ -244,6 +244,10 @@ class PlotController extends AdminController{
 				if($house->getIsNewRecord())
 					$zd_company = [Yii::app()->user->cid];
 			}
+			if(!is_array($zd_company) && $zd_company) {
+				$zd_company = [$zd_company];
+			}
+			// var_dump($zd_company);exit;
 			if($zd_company) {
 				$house->company_name = CompanyExt::model()->findByPk($zd_company[0])->name;
 				$house->company_id = $zd_company[0];
@@ -261,15 +265,15 @@ class PlotController extends AdminController{
 			}
 			// var_dump($tagArray);exit;
 			if($house->save()) {
-				if($zd_company) {
-					PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
-					foreach ($zd_company as $cid) {
-						$obj = new PlotCompanyExt;
-						$obj->hid = $house->id;
-						$obj->cid = $cid;
-						$obj->save();
-					}
-				}
+				// if($zd_company) {
+				// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+				// 	foreach ($zd_company as $cid) {
+				// 		$obj = new PlotCompanyExt;
+				// 		$obj->hid = $house->id;
+				// 		$obj->cid = $cid;
+				// 		$obj->save();
+				// 	}
+				// }
 				PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
 				if($tagArray)
 					foreach ($tagArray as $tid) {
