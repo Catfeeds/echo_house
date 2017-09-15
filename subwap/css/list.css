@@ -421,7 +421,7 @@ color:#c3c3c3;
 }
 
 .house-img{
-	position: relative;
+	position: absolute;
 	top: 0.667rem;
 	left: 0.667rem;
 	height: 4.0rem;
@@ -445,8 +445,8 @@ color:#c3c3c3;
 .house-text-headj{
 	font-weight: bold;
 	font-size: 0.747rem;
-	position: relative;
-	top: -3.52rem;
+	position: absolute;
+	top: 0.56rem;
 	left:7.8rem;
 	width: 7rem;
 	height: 1.013rem;
@@ -455,8 +455,8 @@ color:#c3c3c3;
 .house-text-head{
 	font-weight: bold;
 	font-size: 0.747rem;
-	position: relative;
-	top: -3.52rem;
+	position: absolute;
+	top: 0.56rem;
 	left:6.8rem;
 	width: 8rem;
 	height: 1.013rem;
@@ -465,7 +465,7 @@ color:#c3c3c3;
 .house-text-company{
 	font-size: 0.64rem;
 	position: relative;
-	top: -2rem;
+	top: 2.9rem;
 	left:6.8rem;
 	width: 12rem;
 	color:#868686;
@@ -478,18 +478,10 @@ color:#c3c3c3;
 	width: 2.667rem;
 	color:#868686;
 }
-.house-text-plot_name{
-	font-size: 0.64rem;
-	position: relative;
-	top: -2.8rem;
-	left:6.8rem;
-	width: 12.0rem;
-	color:#868686;
-}
 .house-text-plot_name-2{
 	font-size: 0.64rem;
 	position: relative;
-	top: -3.3rem;
+	top: 1.6rem;
 	left:6.8rem;
 	width: 12.0rem;
 	color:#868686;
