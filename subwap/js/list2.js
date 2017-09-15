@@ -5,7 +5,6 @@ app.controller('topCtrl', function($scope, $http) {
         method: 'GET',
         url: '/api/tag/index?cate=wzlm'
     }).then(function successCallback(response) {
-            var toplist='';
             $scope.toplist = response.data.data;
         }, function errorCallback(response) {
             // 请求失败执行代码
@@ -18,14 +17,21 @@ app.controller('filterCtrl', function($scope, $http) {
         method: 'GET',
         url: '/api/tag/list?cate=plotFilter'
     }).then(function successCallback(response) {
-            var $scope.filterlist = response.data.data;
-            var $scope.filterlist1 = response.data.data[0].list;
-            var $scope.filterlist2 = response.data.data[1].list;
-            var $scope.filterlist3 = response.data.data[2].list;
-            var $scope.filterlist4 = response.data.data[3].list;
+            $scope.filterlist = response.data.data;
+            $scope.filterlist1 = response.data.data[0].list;
+            $scope.filterlist2 = response.data.data[1].list;
+            $scope.filterlist3 = response.data.data[2].list;
+            $scope.filterlist4 = response.data.data[3].list;
         }, function errorCallback(response) {
             
-    });  
+    });
+    //显示filter1的area
+    $scope.show_Area=false;
+    $scope.showArea=function(){
+            $scope.show_Area=!$scope.show_Area;
+            console.log($scope.show_Area);
+        } 
+     
 });
 //初次加载列表
 app.controller('listCtrl',function($scope,$http){
@@ -49,7 +55,6 @@ app.controller('listCtrl',function($scope,$http){
                     resdata[i].pay='暂无权限查看';
                 }          
             }
-            var houselist='';
             $scope.houselist=response.data.data.list;
         },function errorCallback(response){
 

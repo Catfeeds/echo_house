@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<link rel="stylesheet" type="text/css" href="css/list2.css">
 	<meta name="description" content="请登录经纪圈查看项目详情"/>
 	<script src="http://api.map.baidu.com/api?v=2.0&ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das" type="text/javascript"></script>
 </head>
@@ -29,9 +29,9 @@
 		</div>
 
 		<div class="line"></div>
-
+<!-- 筛选栏 -->
 		<ul class="list-filter clearfloat" ng-controller="filterCtrl">
-	            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" onclick="getFilterId(this)">{{item.name}}
+	            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea()">{{item.name}}
 	            <img class="list-filter-slat" src="./img/slatdown.png" />
 	            </li>
 	    </ul>
@@ -42,8 +42,8 @@
 		<div class="line"></div>
 		<div class="filter-filter1">
 			<div class="filter-filter1-left"> 
-				<ul id="areaul" ng-controller="filterCtrl" ng-show="">
-					<li ng-repeat="item in " onclick="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
+				<ul id="areaul" ng-controller="filterCtrl" >
+					<li ng-repeat="item in filterlist1" ng-click="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
 				</ul>
 			</div>
 			<div class="filter-filter1-right"> 
@@ -103,8 +103,9 @@
         <ul id="ul1" ng-controller="listCtrl">
             <li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
 	            <div class="line"></div>
-	            <a href="detail.html?id='+item.id+'" onclick="checkId(this)">
+	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
 		            <img class="house-img" ng-Src="{{ item.image }}"/>
+		            <div class="house-jing">精</div>
 		            <div class="house-text-head">{{item.title}}</div>
 	            </a>
 	            <div class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>

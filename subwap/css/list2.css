@@ -218,7 +218,6 @@ color:#c3c3c3;
 	overflow-y: scroll;
 }
 #filter1{
-	display: none;
 	z-index: 99;
 }
 #filter2{
@@ -408,18 +407,14 @@ color:#c3c3c3;
 	line-height: 1.067rem;
 }
 
-.list-housej{
-	height: 5.333rem;
-	width: 20.0rem;
-	position: relative;
-	background-color: #E8E8E9;
-}
 .list-house{
 	height: 5.333rem;
 	width: 20.0rem;
 	position: relative;
 }
-
+.list-house:hover{
+	background-color: #E8E8E9;
+}
 .house-img{
 	position: relative;
 	top: 0.667rem;
@@ -442,23 +437,13 @@ color:#c3c3c3;
 	color: #fff;
 }
 
-.house-text-headj{
+.house-text-head{
 	font-weight: bold;
 	font-size: 0.747rem;
 	position: relative;
 	top: -3.52rem;
 	left:7.8rem;
 	width: 7rem;
-	height: 1.013rem;
-	overflow: hidden;
-}
-.house-text-head{
-	font-weight: bold;
-	font-size: 0.747rem;
-	position: relative;
-	top: -3.52rem;
-	left:6.8rem;
-	width: 8rem;
 	height: 1.013rem;
 	overflow: hidden;
 }
@@ -494,6 +479,7 @@ color:#c3c3c3;
 	width: 12.0rem;
 	color:#868686;
 }
+
 .house-text-pay-yong{
 	position: absolute;
 	width: 0.8rem;
