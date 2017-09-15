@@ -198,6 +198,7 @@ function ajaxGetList(obj) {
 
             }
         }
+        $('#ul1').empty();
         $('#ul1').append(html);
         $('#num').html(o.num);
         // 加载中消失
