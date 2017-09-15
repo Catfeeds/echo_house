@@ -459,13 +459,12 @@ color:#c3c3c3;
 	top: 0.56rem;
 	left:6.8rem;
 	width: 8rem;
-	height: 1.013rem;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .house-text-company{
 	font-size: 0.64rem;
-	position: relative;
-	top: 3rem;
+	position: absolute;
+	top: 3.9rem;
 	left:6.8rem;
 	width: 12rem;
 	color:#868686;
@@ -480,8 +479,8 @@ color:#c3c3c3;
 }
 .house-text-plot_name-2{
 	font-size: 0.64rem;
-	position: relative;
-	top: 1.6rem;
+	position: absolute;
+	top: 1.7rem;
 	left:6.8rem;
 	width: 12.0rem;
 	color:#868686;
