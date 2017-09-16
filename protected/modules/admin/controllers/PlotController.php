@@ -71,14 +71,16 @@ class PlotController extends AdminController{
         	$company=Yii::app()->user->cid;
         }
         if($company) {
-        	$ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
-        	$idArr = [];
-        	if($ids) {
-        		foreach ($ids as $id) {
-        			$idArr[] = $id['hid'];
-        		}
-        	}
-        	$criteria->addInCondition('id',$idArr);
+        	// $ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
+        	// $idArr = [];
+        	// if($ids) {
+        	// 	foreach ($ids as $id) {
+        	// 		$idArr[] = $id['hid'];
+        	// 	}
+        	// }
+        	// $criteria->addInCondition('id',$idArr);
+        	$criteria->addCondition('company_id=:comid');
+        	$criteria->params[':comid'] = $company;
         }
 		$this->controllerName = '楼盘';
 		$criteria->order = 'sort desc,updated desc,id desc';
@@ -285,7 +287,7 @@ class PlotController extends AdminController{
 				$this->setMessage('保存成功','success');
 				$this->redirect('/admin/plot/list');
 			} else {
-				$this->setMessage('保存失败','error');
+				$this->setMessage(current(current($house->getErrors())),'error');
 			}
 		}
 		$this->render('edit',['plot'=>$house]);
