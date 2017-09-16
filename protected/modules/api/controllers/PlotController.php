@@ -308,7 +308,7 @@ class PlotController extends ApiController{
 			// 	$share_phone = $phone;
 			// }
 		}
-		
+		// var_dump($phone ,$phones);exit;
 		$is_contact_only = 0;
 		// 分享出去 总代或者分销加电话咨询，否则提示下载
 		if($phone && $phones) {
