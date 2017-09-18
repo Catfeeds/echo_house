@@ -34,15 +34,15 @@ class ToolCommand extends CConsoleCommand
     }
     public function actionDo()
     {
-        $infos = PlotExt::model()->normal()->findAll();
-        // var_dump(count($infos));exit;
-        foreach ($infos as $key => $value) {
-            // if(!$value->first_pay && $value->pays) {
-            //     $value->first_pay = $value->pays[0]['price'];
-            // }
-            $value->save();
-            // sleep(1);
-        }
+        // $infos = PlotExt::model()->normal()->findAll();
+        // // var_dump(count($infos));exit;
+        // foreach ($infos as $key => $value) {
+        //     // if(!$value->first_pay && $value->pays) {
+        //     //     $value->first_pay = $value->pays[0]['price'];
+        //     // }
+        //     $value->save();
+        //     // sleep(1);
+        // }
         echo "ok";
     }
 
