@@ -216,8 +216,9 @@ class PlotController extends ApiController{
 		if(!$id || !($info = PlotExt::model()->findByPk($id))) {
 			return $this->returnError('参数错误');
 		}
-		$info->views += 1;
-		$info->save();
+		// $info->views += 1;
+		// $info->save();
+		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
 		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
 		$images = $info->images;
 		if($images) {

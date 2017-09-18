@@ -44,8 +44,10 @@ class CompanyController extends VipController{
 
 	public function actionEdit($id='')
 	{
+		// $id = $this
 		$modelName = $this->modelName;
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		// $info = $this->company;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			// $info->time =  is_numeric($info->time)?$info->time : strtotime($info->time);

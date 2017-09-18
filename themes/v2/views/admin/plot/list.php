@@ -34,6 +34,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
             <th class="text-center">对接人</th>
+            <th class="text-center">点击量</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">操作</th>
         </tr>
@@ -47,6 +48,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $v->title ?></td>
             <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $v->market_user ?></td>
+            <td  class="text-center"><?php echo $v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td  class="text-center">
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>

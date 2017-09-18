@@ -35,7 +35,7 @@ class HangjiaRedisConnection extends CApplicationComponent
      * @var integer
      */
     public $database = 1;
-    public $password;
+    public $password = 'jjqxft2017';
     public $timeout = 0;
 
     public function __construct()

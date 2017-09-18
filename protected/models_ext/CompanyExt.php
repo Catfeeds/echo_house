@@ -15,7 +15,7 @@ class CompanyExt extends Company{
     public function relations()
     {
         return array(
-            // 'news'=>array(self::BELONGS_TO, 'ArticleExt', 'related_id','condition'=>'t.type=1'),
+            'users'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'users.deleted=0 and users.status=1'),
         );
     }
 

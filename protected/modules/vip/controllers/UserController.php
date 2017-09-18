@@ -36,6 +36,10 @@ class UserController extends VipController{
             $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
 
         }
+        if(Yii::app()->user->id>1) {
+            $criteria->addCondition('cid=:cid');
+            $criteria->params[':cid'] = Yii::app()->user->cid;
+        }
         if($cate) {
             $criteria->addCondition('cid=:cid');
             $criteria->params[':cid'] = $cate;

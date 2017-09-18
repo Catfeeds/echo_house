@@ -145,6 +145,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
             <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">案场人员</label>
+                <div class="col-md-10">
+                   <?php echo $form->dropDownList($plot, 'place_user', CHtml::listData($this->company->users,'id','name'), array('class'=>'form-control', 'empty'=>array($plot->sale_status=>'请选择案场人员'))); ?>
+                </div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'place_user'); ?></div>
+            </div>
+            <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
                 <div class="col-md-10">
                     <?php echo $form->textarea($plot, 'peripheral'); ?>

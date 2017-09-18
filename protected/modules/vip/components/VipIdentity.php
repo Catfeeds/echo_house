@@ -13,14 +13,14 @@ class VipIdentity extends CUserIdentity
 	public function authenticate()
 	{
 		//内置帐号
-		if($this->username=='admin' && ($this->password=='admin123'))
-		{
-			$this->errorCode = self::ERROR_NONE;
-			$this->setState('id',1);
-			$this->setState('username','管理员');
-			$this->setState('avatar','');
-			return $this->errorCode;
-		} else{
+		// if($this->username=='admin' && ($this->password=='admin123'))
+		// {
+		// 	$this->errorCode = self::ERROR_NONE;
+		// 	$this->setState('id',1);
+		// 	$this->setState('username','管理员');
+		// 	$this->setState('avatar','');
+		// 	return $this->errorCode;
+		// } else{
 			if($user = UserExt::model()->normal()->find("is_manage=1 and phone='".$this->username."'") ){
 				if($user->pwd == md5($this->password)) {
 					$this->errorCode = self::ERROR_NONE;
@@ -32,7 +32,7 @@ class VipIdentity extends CUserIdentity
 					return $this->errorCode;
 				}
 			}
-		}
+		// }
 
 		$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
 		return $this->errorCode;
