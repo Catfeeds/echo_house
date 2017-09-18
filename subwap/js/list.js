@@ -396,23 +396,22 @@ function getAreas(obj) {
         var html = '';
         for (var i = 0; i < filter.length; i++) {
             var item = filter[i];
-            if (item.name == '区域') {
-                var list = item.list;
-                if (list.length > 0) {
-                    for (var j = 0; j < list.length; j++) {
-                        if (GetQueryString('area')!=null) {
-                            if (GetQueryString('area')==list[j].id) {
-                                html += '<li onclick="showStreet(this)" class="filter1-left-active" data-id="' + list[j].id + '">' + list[j].name + '</li>';
-                            }else{
-                                html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
-                            }
-                        } else {
+            var list = filter[0].list;
+            if (list.length > 0) {
+                for (var j = 0; j < list.length; j++) {
+                    if (GetQueryString('area')!=null) {
+                        if (GetQueryString('area')==list[j].id) {
+                            html += '<li onclick="showStreet(this)" class="filter1-left-active" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                        }else{
                             html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
                         }
+                    } else {
+                        html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
                     }
                 }
-                break;
             }
+            break;
+            
         }
         $('#area0').after(html);
         if (obj.area != '' && obj.area != 'undefined') {
