@@ -7,25 +7,66 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/customerdetail.css">
 </head>
-<body ng-app="cApp">	
-	<div class="customer">
-		<img class="customer-img" src="./img/headimg.png">
-		<div class="customer-name"></div>
-		<div class="customer-phone"></div>
-		<img class="phone-img" src="./img/telimg.png">
-	</div>
-	<div class="line"></div>
-	<div class="house">
-		<div class="buywill"></div>
-		<div class=""></div>
+<body ng-app="cApp">
+	<div ng-controller="customerCtrl">
+		<div class="customer">
+			<img class="customer-img" src="./img/headimg.png">
+			<div class="customer-name">拉拉啊</div>
+			<div class="customer-phone">15161112617</div>
+			<img class="phone-img" src="./img/telimg.png">
+		</div>
+		<div class="line"></div>
+		<div class="house">
+			<div class="buywill">购房意向</div>
+			<ul class="housetype clearfloat">
+				<li class="housetype-text">住宅</li>
+				<li class="shu">|</li>
+				<li class="housetype-text">不限</li>
+				<li class="shu">|</li>
+				<li class="housetype-text">不限</li>
+				<li class="shu">|</li>
+				<li class="housetype-text">0万-不限</li>
+				<li class="shu">|</li>
+				<li class="housetype-text">0㎡-不限</li>
+			</ul>
+		</div>
+		<div class="blank"></div>
+		<div class="company">
+			<img class="companyimg" src="./img/companyimg.png">
+			<div class="company-name">上海市万科海上传奇</div>
+		</div>
+		<div class="line"></div>
+		<div class="process">
+			<ul>
+				<li class="processli" onclick="processOne(this)">报备</li>
+				<div class="heng"></div>
+				<li class="processli" onclick="processTwo(this)">到访</li>
+				<div class="heng"></div>
+				<li class="processli" onclick="processTwo(this)">认筹</li>
+				<div class="heng"></div>
+				<li class="processli" onclick="processTwo(this)">认购</li>
+				<div class="heng"></div>
+				<li class="processli" onclick="processTwo(this)">成交</li>
+				<div class="heng"></div>
+				<li class="processli" onclick="processTwo(this)">结佣</li>
+			</ul>
+			<div class="daikan-time">10:54 发起带看</div>
+		</div>
 	</div>
 	<div class="blank"></div>
-	<div class="company">
-		
-	</div>
-	<div class="line"></div>
-	<div class="process">
-		
+	<div class="state" ng-controller="stateCtrl">
+		<ul>
+			<li>
+				<div class="state-text">宝贝宝贝</div>
+				<div class="state-time">10:54</div>
+				<div class="line"></div>
+			</li>
+			<li>
+				<div class="state-text">宝贝宝贝</div>
+				<div class="state-time">10:54</div>
+				<div class="line"></div>
+			</li>
+		</ul>
 	</div>
 
 
