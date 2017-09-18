@@ -38,11 +38,11 @@
     </div>
 
 <!-- 筛选列表1 -->
-	<div class="filter-filter-bg" id="filter1">
+	<div ng-controller="filterCtrl" class="filter-filter-bg" id="filter1" ng-show="show_Area">
 		<div class="line"></div>
 		<div class="filter-filter1">
 			<div class="filter-filter1-left"> 
-				<ul id="areaul" ng-controller="filterCtrl" >
+				<ul id="areaul">
 					<li ng-repeat="item in filterlist1" ng-click="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
 				</ul>
 			</div>
