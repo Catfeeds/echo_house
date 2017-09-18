@@ -33,7 +33,7 @@ class VipController extends Controller
     public function init()
     {
         parent::init();
-        if(!Yii::app()->user->getIsGuest() && Yii::app()->user->id>1)
+        if(!Yii::app()->user->getIsGuest() && isset(Yii::app()->user->cname))
             $this->company = CompanyExt::model()->findByPk(Yii::app()->user->cid);
     }
 
