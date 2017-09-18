@@ -3,7 +3,9 @@ $this->pageTitle = $plot->title.'报备流水';
 $this->breadcrumbs = array($this->pageTitle);
 $statusArr = SubExt::$status;
 ?>
-<h3>客户信息:<?=$sub->name.''.$sub->phone?></h3>
+<div class="alert alert-info alert-dismissable">
+            <strong>客户信息: </strong><?=$sub->name.''.$sub->phone?>
+        </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
     <tr>
@@ -18,9 +20,9 @@ $statusArr = SubExt::$status;
     <tbody>
     <?php foreach($infos as $k=>$v): ?>
         <tr>
-            <td class="text-center"><?=$v->user->name?></td> 
+            <td class="text-center"><?=$v->user->name.$v->user->phone?></td> 
             <td class="text-center"><?=$v->note?></td> 
-            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
+            <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
         </tr>
     <?php endforeach;?>
     </tbody>

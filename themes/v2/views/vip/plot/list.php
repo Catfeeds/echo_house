@@ -33,7 +33,9 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">id</th>
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
-            <th class="text-center">对接人</th>
+            <th class="text-center">对接人员</th>
+            <th class="text-center">案场人员</th>
+            <th class="text-center">点击量</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">操作</th>
         </tr>
@@ -46,7 +48,35 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><?php echo $v->title ?></td>
             <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
-            <td  class="text-center"><?php echo $v->market_user ?></td>
+            <td  class="text-center">
+                <div class="btn-group">
+                    <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <?=$v->market_user?$v->market_user:'暂无'?> <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                    <?php foreach(Yii::app()->db->createCommand("select id,name,phone from user where status=1 and deleted=0 and cid=".Yii::app()->user->cid)->queryAll() as $key=>$v1){?>
+                        <li>
+                            <?=CHtml::ajaxLink($v1['name'].$v1['phone'],$this->createUrl('changeMarket',['kw'=>$v1['name'].$v1['phone'],'hid'=>$v->id]),['success'=>'function(){location.reload();}'])?>
+                        </li>
+                      <?php  }?>
+                    </ul>
+                </div>
+            </td>
+            <td  class="text-center">
+                <div class="btn-group">
+                    <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <?=$v->place_user?($v->place_user_info->name.$v->place_user_info->phone):'暂无'?> <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                    <?php foreach(Yii::app()->db->createCommand("select id,name,phone from user where status=1 and deleted=0 and cid=".Yii::app()->user->cid)->queryAll() as $key=>$v1){?>
+                        <li>
+                            <?=CHtml::ajaxLink($v1['name'].$v1['phone'],$this->createUrl('changePlace',['uid'=>$v1['id'],'hid'=>$v->id]),['success'=>'function(){location.reload();}'])?>
+                        </li>
+                      <?php  }?>
+                    </ul>
+                </div>
+            </td>
+            <td  class="text-center"><?php echo $v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td  class="text-center">
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>

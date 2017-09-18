@@ -51,6 +51,16 @@ $config1 = array(
 				'enableSlave' => false, //从数据库启用
 				'masterRead' => false, //紧急情况 从数据库无法连接 启用主数据库 读功能
 			),
+			//共享redis组件，只需配置前缀即可
+	        'redis' => array(
+	            'class' => 'application.components.redis.HangjiaRedisConnection',
+	            'redisConfig' => function() {
+	                return Yii::app()->redisConfig;
+	            },
+	            'redisPrefix' => function() {
+	                return 'jjqxft';
+	            }
+	        ),
             //航加统一七牛静态文件服务器配置
             'staticFile' => [
                 'class' => 'application.components.FileComponent',

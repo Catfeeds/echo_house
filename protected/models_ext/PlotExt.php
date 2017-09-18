@@ -137,10 +137,12 @@ class PlotExt extends Plot{
             'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid','condition'=>'hxs.deleted=0','order'=>'hxs.updated desc'),
             'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0','order'=>'images.sort desc'),
             'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0','order'=>'news.updated desc'),
+            'place_user_info'=>array(self::HAS_ONE, 'UserExt', ['id'=>'place_user']),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),
             'areaInfo' => array(self::BELONGS_TO, 'AreaExt', 'area'),//区
             'streetInfo' => array(self::BELONGS_TO, 'AreaExt', 'street'),//街道
+            // 'users'=>array(self::HAS_MANY, 'UserExt', 'uid','condition'=>'users.deleted=0 and users.status=1'),
             // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }

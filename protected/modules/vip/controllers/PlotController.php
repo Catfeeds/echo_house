@@ -432,4 +432,30 @@ class PlotController extends VipController{
 		$this->render('priceedit',['article'=>$info,'hid'=>$hid]);
 	}
 
+	public function actionChangeMarket($hid='',$kw='')
+	{
+		$plot = PlotExt::model()->findByPk($hid);
+		if($plot){
+			$plot->market_user = $kw;
+			if($plot->save()) {
+				$this->setMessage('操作成功');
+			} else {
+				$this->setMessage('操作失败','error');
+			}
+		}
+	}
+
+	public function actionChangePlace($hid='',$uid='')
+	{
+		$plot = PlotExt::model()->findByPk($hid);
+		if($plot){
+			$plot->place_user = $uid;
+			if($plot->save()) {
+				$this->setMessage('操作成功');
+			} else {
+				$this->setMessage('操作失败','error');
+			}
+		}
+	}
+
 }

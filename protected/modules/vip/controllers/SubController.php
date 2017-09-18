@@ -19,7 +19,7 @@ class SubController extends VipController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$hid='',$cj=0)
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
@@ -28,7 +28,7 @@ class SubController extends VipController{
                 $criteria->addSearchCondition('name', $value);
             } 
         if(Yii::app()->user->id>1) {
-        	$hidsarr = Yii::app()->db->createCommand("select id from plot where status=1 and deleted=0 and company_id=".Yii::app()->user->cid)->queryAll();
+        	$hidsarr = Yii::app()->db->createCommand("select id,title from plot where status=1 and deleted=0 and company_id=".Yii::app()->user->cid)->queryAll();
         	$hids = [];
         	if($hidsarr) {
         		foreach ($hidsarr as $h) {
@@ -36,6 +36,10 @@ class SubController extends VipController{
         		}
         	}
         	$criteria->addInCondition('hid',$hids);
+        }
+        if($hid) {
+        	$criteria->addCondition('hid=:hid');
+			$criteria->params[':hid'] = $hid;
         }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
@@ -49,12 +53,16 @@ class SubController extends VipController{
             $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
 
         }
+        if($cj) {
+			$criteria->addCondition('status>=4');
+		}
 		if($cate) {
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		// var_dump($hidsarr);ex
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'plots'=>$hidsarr,'hid'=>$hid]);
 	}
 
 	public function actionEdit($id='')

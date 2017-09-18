@@ -19,11 +19,11 @@ $this->breadcrumbs = array($this->pageTitle);
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
-    <div class="pull-right">
+    <!-- <div class="pull-right">
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
-    </div>
+    </div> -->
 </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
@@ -36,7 +36,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
-        <th class="text-center">操作</th>
+        <!-- <th class="text-center">操作</th> -->
     </tr>
     </thead>
     <tbody>
@@ -52,13 +52,13 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
-            <td style="text-align:center;vertical-align: middle">
+            <!-- <td style="text-align:center;vertical-align: middle">
                 
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
                 <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
 
 
-            </td>
+            </td> -->
         </tr>
     <?php endforeach;?>
     </tbody>

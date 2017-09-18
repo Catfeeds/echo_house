@@ -20,15 +20,18 @@ $statusArr = SubExt::$status;
             <div class="form-group">
                 <?php echo CHtml::dropDownList('cate',$cate,$statusArr,array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
             </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('hid',$hid,CHtml::listData($plots,'id','title'),array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择楼盘--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
-    <div class="pull-right">
+    <!-- <div class="pull-right">
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
-    </div>
+    </div> -->
 </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
