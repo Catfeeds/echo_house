@@ -385,10 +385,10 @@ color:#c3c3c3;
 
 
 .houselist{
-	/*position: absolute;*/
-	top: 4.96rem;
+	position: relative;
 }
 .hose-list-ammount-bg{
+	position: relative;
 	width: 19.36rem;
 	height: 1.333rem;
 	font-size:0.693rem;
@@ -451,7 +451,6 @@ color:#c3c3c3;
 	left:7.8rem;
 	width: 7rem;
 	height: 1.068rem;
-	line-height: 1.068rem;
 	overflow: hidden;
 }
 
@@ -463,7 +462,6 @@ color:#c3c3c3;
 	left:6.8rem;
 	width: 8rem;
 	height: 1.068rem;
-	line-height: 1.068rem;
 	overflow: hidden;
 }
 .house-text-company{
@@ -487,7 +485,7 @@ color:#c3c3c3;
 	position: absolute;
 	top: 1.7rem;
 	left:6.8rem;
-	width: 12.0rem;
+	width: 9rem;
 	color:#868686;
 }
 .house-text-pay-yong{

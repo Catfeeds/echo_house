@@ -69,8 +69,8 @@ function getLocation() {
 $(document).ready(function() {
     init();
     var toptag = '';
-    
-    $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
+    ajaxGetTop();
+    ajaxGetFilter(); 
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
@@ -79,7 +79,17 @@ $(document).ready(function() {
             getLocation();
         }
     });
-        
+    $.get('/api/config/index',function(data) {
+        is_user = data.data.is_user;
+        if (GetQueryString('area') != null) {
+            o.area = GetQueryString('area');
+            $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
+            setArea($('#areaul li[data-id="'+o.area+'"]')[0]); 
+        } else {    
+            $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
+            setArea($('#areaul li')[0]); 
+        } 
+    });    
     if (GetQueryString('kw') != null) {
         o.kw = GetQueryString('kw');
         showkw();
@@ -89,14 +99,7 @@ $(document).ready(function() {
         html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
         $('#companytag').html(html);
         $("title").html(GetQueryString('company')+'-代理项目列表'); 
-    }
-    $.get('/api/config/index',function(data) {
-        is_user = data.data.is_user;
-        ajaxGetTop();
-        ajaxGetFilter();
-        ajaxGetList(o);
-    });
-        
+    }    
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
     // $.get('/api/tag/list?cate=plotFilter', function(data) {
@@ -153,6 +156,7 @@ function ajaxGetList(obj) {
         o.page = data.data.page;
         o.page_count = data.data.page_count;
         o.num = data.data.num;
+        
         if (data.data.length == undefined) {
             var list = data.data.list;
             for (var i = 0; i < list.length; i++) {
@@ -396,7 +400,15 @@ function getAreas(obj) {
                 var list = item.list;
                 if (list.length > 0) {
                     for (var j = 0; j < list.length; j++) {
-                        html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                        if (GetQueryString('area')!=null) {
+                            if (GetQueryString('area')==list[j].id) {
+                                html += '<li onclick="showStreet(this)" class="filter1-left-active" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                            }else{
+                                html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                            }
+                        } else {
+                            html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                        }
                     }
                 }
                 break;
@@ -412,9 +424,8 @@ function getAreas(obj) {
 function showStreet(obj) {
     $('.filter-filter1-left li').removeClass('filter1-left-active');
     $(obj).addClass('filter1-left-active');
-
     $('#streetul').empty();
-    $('#streetul').append('<li id="street0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '">不限<div class="line"></div></li>');
+    $('#streetul').append('<li id="street0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '" data-name="' + $(obj).text() + '">不限<div class="line"></div></li>');
     $('.filter-filter1-right').css('display', 'block');
     var areaid = $(obj).data('id');
     var arealist = filter[0];
@@ -462,15 +473,16 @@ function setArea(obj) {
     //     }
 
     // }
-
     if ($(obj).attr('id') == 'area0') {
         o.area = '';
         o.street = '';
     } else if ($(obj).attr('id') == 'street0') {
         o.street = '';
         o.area = $(obj).data('id');
+        $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
     } else {
         o.street = $(obj).data('id');
+        $('.list-filter li:eq(0) a').html($(obj).text());
     }
     ajaxGetList(o);
 }
@@ -501,6 +513,7 @@ function setPrice(obj) {
     $('.list-filter-slat').attr('src', './img/slatdown.png');
     $('#filter2').css('display', 'none');
     o.aveprice = $(obj).data('id');
+    $('.list-filter li:eq(1) a').html($(obj).text().substring(0,4));
     ajaxGetList(o);
 }
 //显示列表3
@@ -530,6 +543,7 @@ function setFirstPay(obj) {
     $('.list-filter-slat').attr('src', './img/slatdown.png');
     $('#filter3').css('display', 'none');
     o.sfprice = $(obj).data('id');
+    $('.list-filter li:eq(2) a').html($(obj).text().substring(0,4));
     ajaxGetList(o);
 }
 //显示列表4
