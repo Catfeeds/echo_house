@@ -592,6 +592,11 @@ class PlotController extends ApiController{
 				$obj->attributes = $tmp;
 				$obj->status = 0;
 				if($obj->save()) {
+					$pro = new SubProExt;
+					$pro->sid = $obj->id;
+					$pro->uid = $this->staff->id;
+					$pro->note = '新增客户报备';
+					$pro->save();
 					$stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'));
 					if($notice) {
 						$stphones[] = $notice;

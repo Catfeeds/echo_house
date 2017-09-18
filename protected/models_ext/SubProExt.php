@@ -4,7 +4,7 @@
  * @author steven.allen <[<email address>]>
  * @date(2017.2.12)
  */
-class SubExt extends Sub{
+class SubProExt extends SubPro{
     public static $status = [
         '报备',
         '到访',
@@ -21,8 +21,7 @@ class SubExt extends Sub{
     {
         return array(
             'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
-            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
-            'pros'=>array(self::HAS_MANY, 'SubProExt', 'sid','order'=>'pros.created desc'),
+            'sub'=>array(self::BELONGS_TO, 'SubExt', 'sid'),
         );
     }
 
