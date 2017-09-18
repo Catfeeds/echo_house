@@ -29,20 +29,3 @@ function processTwo(obj){
 		$(obj).addClass('processli-active');
 	}
 }
-
-
-
-
-
-
-
-
-// 客户：
-// 姓名
-// 手机号
-
-
-// 中介信息：
-// 姓名
-// 手机号
-// 所在公司

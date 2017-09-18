@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/customerlist.css">
+	<title></title>
+</head>
+<body ng-app="cuslist" ng-controller="cuslistCtrl">
+	<div class="customerlist">
+		<ul>
+			<li ng-repeat="item in cuntomerlist">
+				<div class="cusname">吴文杰</div>
+				<div class="custel">11111111111</div>
+				<div class="inter"></div>
+				<div class="intername">吴文杰</div>
+				<div class="intertel">11111111111</div>
+				<div class="intercom">常州回音网络科技有限公司</div>
+				<div class="line"></div>
+			</li>
+		</ul>
+	</div>
+	<div class="add" onclick="addCustomer()">
+		<img class="addimg" src="./img/addimg.png">
+	</div>
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/customerlist.js"></script>
+</body>
+</html>
