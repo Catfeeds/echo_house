@@ -211,7 +211,6 @@ color:#c3c3c3;
 .filter-filter-bg{
 	position: fixed;
 	width: 20.0rem;
-	height: auto;
 	background-color: #c3c3c3;
 /*	background-color: rgba(127,127,127,0.5);*/
 	z-index: 99;

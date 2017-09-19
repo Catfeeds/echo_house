@@ -10,13 +10,12 @@
 <body ng-app="cuslist" ng-controller="cuslistCtrl">
 	<div class="customerlist">
 		<ul>
-			<li ng-repeat="item in cuntomerlist">
-				<div class="cusname">吴文杰</div>
-				<div class="custel">11111111111</div>
-				<div class="inter"></div>
-				<div class="intername">吴文杰</div>
-				<div class="intertel">11111111111</div>
-				<div class="intercom">常州回音网络科技有限公司</div>
+			<li ng-repeat="item in cuntomerlist" onclick="turn(this)" data-id="{{item.id}}">
+				<div class="cusname">{{item.user_name}}</div>
+				<div class="custel">{{item.user_phone}}</div>
+				<div class="intername">{{item.staff_name}}</div>
+				<div class="intertel">{{item.staff_phone}}</div>
+				<div class="intercom">{{item.staff_company}}</div>
 				<div class="line"></div>
 			</li>
 		</ul>
