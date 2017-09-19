@@ -791,8 +791,11 @@ class PlotController extends ApiController{
     	}
     }
 
-    public function actionCheckSub($code)
+    public function actionCheckSub($code='')
     {
+    	if(!$code) {
+    		return $this->returnError('客户码不能为空');
+    	}
     	$hisplot = PlotExt::model()->normal()->find('place_user='.$this->staff->id);
     	if($hisplot) {
     		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
@@ -807,4 +810,29 @@ class PlotController extends ApiController{
     	}
     	
     }
+
+    public function actionGetSubInfo($id='')
+    {
+    	if(!$id || (!$sub = SubExt::model()->findByPk($id))) {
+    		return $this->returnError('参数错误');
+    	}
+    	$pros = [];
+    	if($ls = $sub->pros) {
+    		foreach ($ls as $key => $value) {
+    			$pros[] = ['note'=>$value->note,'status'=>SubExt::$status[$value->status],'time'=>date('m-d H:i',$sub->time)];
+    		}
+    	}
+    	$data = [
+    		'name'=>$sub->name,
+    		'phone'=>$sub->phone,
+    		'dk_time'=>date('Y-m-d H:i:s',$sub->time),
+    		'plot_name'=>$sub->plot->title,
+    		'note'=>$sub->note,
+    		'status'=>SubExt::$status[$sub->status],
+    		'is_del'=>SubExt::$status[$sub->status]=='失效'?1:0,
+    		'list'=>$pros,
+    	];
+    	$this->frame['data'] = $data;
+    }
+
 }
