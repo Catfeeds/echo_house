@@ -10,5 +10,5 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	});
 });
 function addCustomer(){
-	location.href="addcustomer";
+	location.href="addcustomer.html";
 }
