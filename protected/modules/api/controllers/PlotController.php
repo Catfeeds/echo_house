@@ -774,12 +774,15 @@ class PlotController extends ApiController{
     		$data = [];
     		if($subs) {
     			foreach ($subs as $key => $value) {
+    				
     				$itsstaff = $value->user;
+    				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
+    				$tmp['id'] = $value->id;
     				$tmp['user_name'] = $value->name;
     				$tmp['user_phone'] = $value->phone;
     				$tmp['staff_name'] = $itsstaff->name;
     				$tmp['staff_phone'] = $itsstaff->phone;
-    				$tmp['staff_company'] = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
+    				$tmp['staff_company'] = $cname?$cname:'暂无';
     				$data[] = $tmp;
     			}
     		}
