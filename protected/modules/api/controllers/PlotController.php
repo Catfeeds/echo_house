@@ -835,4 +835,22 @@ class PlotController extends ApiController{
     	$this->frame['data'] = $data;
     }
 
+    public function actionAddSubPro()
+    {
+    	if(Yii::app()->request->getIsPostRequest() && !Yii::app()->user->getIsGuest()) {
+    		$note = $this->cleanXss(Yii::app()->request->getPost('note',''));
+    		$status = $this->cleanXss(Yii::app()->request->getPost('status',''));
+    		$sid = $this->cleanXss(Yii::app()->request->getPost('sid',''));  
+    		if($sid && $status) {
+    			$obj = new SubProExt;
+    			$obj->note = $note;
+    			$obj->sid = $sid;
+    			$obj->uid = $this->staff->id;
+    			if(!$obj->save()){
+    				return $this->returnError('操作失败');
+    			}
+    		}
+    	}
+    }
+
 }
