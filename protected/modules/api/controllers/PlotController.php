@@ -770,7 +770,7 @@ class PlotController extends ApiController{
     	if(Yii::app()->user->getIsGuest() || !($plot = PlotExt::model()->normal()->find('place_user='.$this->staff->id))) {
     		$this->returnError('暂无权限查看');
     	} else {
-    		$subs = $plot->subs;
+    		$subs = $plot->checked_subs;
     		$data = [];
     		if($subs) {
     			foreach ($subs as $key => $value) {
@@ -788,5 +788,22 @@ class PlotController extends ApiController{
     		}
     		$this->frame['data'] = $data;
     	}
+    }
+
+    public function actionCheckSub($code)
+    {
+    	$hisplot = PlotExt::model()->normal()->find('place_user='.$this->staff->id);
+    	if($hisplot) {
+    		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
+    		if(!$obj)
+    			$this->returnError('报备信息错误或已添加');
+    		else {
+    			$obj->is_check = 1;
+    			$obj->save();
+    		}
+    	} else {
+    		$this->returnError('项目不存在');
+    	}
+    	
     }
 }

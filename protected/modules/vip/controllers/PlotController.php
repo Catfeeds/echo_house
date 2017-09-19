@@ -447,6 +447,9 @@ class PlotController extends VipController{
 
 	public function actionChangePlace($hid='',$uid='')
 	{
+		if(Yii::app()->db->createCommand("select id from plot where status=1 and deleted=0 and place_user=".$uid)->queryScalar()) {
+			return $this->setMessage('案场不能重复','error');;
+		}
 		$plot = PlotExt::model()->findByPk($hid);
 		if($plot){
 			$plot->place_user = $uid;
