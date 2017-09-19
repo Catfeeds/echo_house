@@ -16,7 +16,8 @@ body{
 .house{
 	position: relative;
 	width: 20rem;
-	height: 4.7rem;
+	min-height: 4.7rem;
+	height: auto;
 	background-color: #fff;
 }
 .blank{
@@ -33,7 +34,7 @@ body{
 .process{
 	position: relative;
 	width: 20rem;
-	height: 4.5rem;
+	height: 3rem;
 	background-color: #fff;
 }
 .customer-img{
@@ -70,23 +71,24 @@ body{
 	left: 0.8rem;
 	top: 0.8rem;
 }
-.housetype{
+.dktime{
 	position: absolute;
 	left: 0.8rem;
 	top: 2.6rem;
 	font-size: 0.747rem;
 	color: #868686;
 }
-.housetype-text{
-	position: relative;
-	float: left;
-}
-.shu{
-	position: relative;
-	float: left;
+.note{
+	width: 18.4rem;
+	height: auto;
+	left: 0.8rem;
+	top: 3.6rem;
+	font-size: 0.747rem;
 	color: #868686;
-	margin: 0rem 0.3rem;
+	padding: 4rem 0.8rem 0.7rem 0.8rem;
+	overflow:hidden;
 }
+
 .companyimg{
 	position: absolute;
 	height: 1.6rem;
@@ -95,10 +97,19 @@ body{
 	top: 0.4rem;
 }
 .company-name{
-	position: absolute;
+	position: relative;
 	font-size: 0.9rem;
 	left: 2.6rem;
 	line-height: 2.4rem;
+	float: left;
+}
+.del{
+	position: relative;
+	line-height: 2.4rem;
+	color: #868686;
+	font-size: 0.747rem;
+	left: 3rem;
+	float: left;
 }
 .process ul{
 	position: absolute;
@@ -132,13 +143,6 @@ body{
 	background-color: #D7D7D7;
 	top: 0.55rem;
 }
-.daikan-time{
-	position: absolute;
-	color: #868686;
-	font-size: 0.267rem;
-	left: 1.5rem;
-	top: 3rem;
-}
 .state{
 	position: relative;
 	width: 20rem;
@@ -157,10 +161,46 @@ body{
 	line-height: 1.88rem;
 	left: 0.8rem;
 }
-.state-time{
+.state-status{
 	position: absolute;
-	left: 17rem;
+	left: 13rem;
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
+}
+.state-time{
+	position: absolute;
+	left: 15rem;
+	color: #868686;
+	font-size: 0.747rem;
+	line-height: 1.88rem;
+}
+.remark{
+	position: relative;
+	width: 20rem;
+	height: 7.2rem;
+	min-height: 3rem;
+	background-color: #fff;
+}
+.remark-textarea{
+	position: relative;
+	height: 3rem;
+	width: 19rem;
+	top: 0.5rem;
+	left: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+.remark-submit{
+	position: relative;
+	bottom: 0.7rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.8rem;
+	line-height: 2.347rem;
+	border:none; 
 }
