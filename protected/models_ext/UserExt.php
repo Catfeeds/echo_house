@@ -38,6 +38,7 @@ class UserExt extends User{
             // 'houseInfo'=>array(self::BELONGS_TO, 'HouseExt', 'house'),
             'news'=>array(self::HAS_MANY, 'ArticleExt', 'uid'),
             'comments'=>array(self::HAS_MANY, 'CommentExt', 'uid'),
+            'company'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
         );
     }
 

@@ -592,12 +592,20 @@ class PlotController extends ApiController{
 				$obj = new SubExt;
 				$obj->attributes = $tmp;
 				$obj->status = 0;
+				// 新增6位客户码 不重复
+				$code = 700000+rand(0,99999);
+				// var_dump($code);exit;
+				while (SubExt::model()->find('code='.$code)) {
+					$obj->code = $code = 700000+rand(0,99999);
+				}
 				if($obj->save()) {
 					$pro = new SubProExt;
 					$pro->sid = $obj->id;
 					$pro->uid = $this->staff->id;
 					$pro->note = '新增客户报备';
 					$pro->save();
+					SmsExt::sendMsg('客户通知',$this->staff->phone,['pro'=>$plot->title,'pho'=>substr($tmp['phone'], -4,4),'code'=>$code]);
+
 					$stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'));
 					if($notice) {
 						$stphones[] = $notice;
@@ -755,5 +763,30 @@ class PlotController extends ApiController{
 			}
 		}
 		return $this->returnError('操作失败');
+    }
+
+    public function actionCheckIsZc()
+    {
+    	if(Yii::app()->user->getIsGuest() || !($plot = PlotExt::model()->normal()->find('place_user='.$this->staff->id))) {
+    		$this->returnError('暂无权限查看');
+    	} else {
+    		$subs = $plot->subs;
+    		$data = [];
+    		if($subs) {
+    			foreach ($subs as $key => $value) {
+    				
+    				$itsstaff = $value->user;
+    				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
+    				$tmp['id'] = $value->id;
+    				$tmp['user_name'] = $value->name;
+    				$tmp['user_phone'] = $value->phone;
+    				$tmp['staff_name'] = $itsstaff->name;
+    				$tmp['staff_phone'] = $itsstaff->phone;
+    				$tmp['staff_company'] = $cname?$cname:'暂无';
+    				$data[] = $tmp;
+    			}
+    		}
+    		$this->frame['data'] = $data;
+    	}
     }
 }
