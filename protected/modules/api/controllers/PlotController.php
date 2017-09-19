@@ -596,8 +596,9 @@ class PlotController extends ApiController{
 				$code = 700000+rand(0,99999);
 				// var_dump($code);exit;
 				while (SubExt::model()->find('code='.$code)) {
-					$obj->code = $code = 700000+rand(0,99999);
+					$code = 700000+rand(0,99999);
 				}
+				$obj->code = $code;
 				if($obj->save()) {
 					$pro = new SubProExt;
 					$pro->sid = $obj->id;
