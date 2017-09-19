@@ -11,77 +11,79 @@
 </head>
 <body>
 	<div class="list-head-bg"></div>
-	<div class="list-head-container">
-		<div class="list-head">
-			<!-- <div class="gradientcolor"></div> -->
-			<a href="search.html">
-			<img class="list-head-img" src="./img/search.png">
-			</a>
-			<div class="list-head-window">
-				<div class="list-head-list">
-					<ul ng-controller="topCtrl">
-						<li id="alltop" data-id="0" class="list-head-item list-head-text list-head-item-active" onclick="getTopId(this)">全部</li>
-						<li ng-repeat="item in toplist" class="list-head-item list-head-text" data-id="{{item.id}}" onclick="getTopId(this)">{{item.name}}</li>
+	<div ng-controller="filterCtrl">
+		<div class="list-head-container">
+			<div class="list-head">
+				<!-- <div class="gradientcolor"></div> -->
+				<a href="search.html">
+				<img class="list-head-img" src="./img/search.png">
+				</a>
+				<div class="list-head-window">
+					<div class="list-head-list">
+						<ul>
+							<li id="alltop" data-id="0" class="list-head-item list-head-text list-head-item-active" onclick="getTopId(this)">全部</li>
+							<li ng-repeat="item in toplist" class="list-head-item list-head-text" data-id="{{item.id}}" onclick="getTopId(this)">{{item.name}}</li>
 
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="line"></div>
+		<!-- 筛选栏 -->
+			<ul class="list-filter clearfloat">
+		            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea(this)">{{item.name}}
+		            <img class="list-filter-slat" src="./img/slatdown.png" />
+		            </li>
+		    </ul>
+	    </div>
+
+		<!-- 筛选列表1 -->
+		<div class="filter-filter-bg" ng-show="show_Area">
+			<div class="line"></div>
+			<div class="filter-filter1">
+				<div class="filter-filter1-left"> 
+					<ul id="areaul">
+						<li ng-repeat="item in filterlist1" ng-click="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
+					</ul>
+				</div>
+				<div class="filter-filter1-right"> 
+					<ul id="streetul">
+						<!-- 街道 -->
 					</ul>
 				</div>
 			</div>
 		</div>
-
-		<div class="line"></div>
-<!-- 筛选栏 -->
-		<ul class="list-filter clearfloat" ng-controller="filterCtrl">
-	            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea()">{{item.name}}
-	            <img class="list-filter-slat" src="./img/slatdown.png" />
-	            </li>
-	    </ul>
-    </div>
-
-<!-- 筛选列表1 -->
-	<div ng-controller="filterCtrl" class="filter-filter-bg" id="filter1" ng-show="show_Area">
-		<div class="line"></div>
-		<div class="filter-filter1">
-			<div class="filter-filter1-left"> 
-				<ul id="areaul">
-					<li ng-repeat="item in filterlist1" ng-click="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
-				</ul>
-			</div>
-			<div class="filter-filter1-right"> 
-				<ul id="streetul">
-					<!-- 街道 -->
-				</ul>
-			</div>
-		</div>
-	</div>
-<!-- 筛选列表2 -->
-	<div class="filter-filter-bg" id="filter2">
-		<div class="line"></div>
-		<div class="filter-filter2">
-			<ul id="priceul">
-				<!-- 价格列表 -->
-			</ul>
-		</div>
-	</div>
-<!-- 筛选列表3 -->
-	<div class="filter-filter-bg" id="filter3">
-		<div class="line"></div>
-		<div class="filter-filter3">
-			<ul id="FirstPayul">
-				<!-- 首付列表 -->
-			</ul>
-		</div>
-	</div>
-<!-- 筛选列表4 -->
-	<div class="filter-filter-bg" id="filter4">
-		<div class="line"></div>
-		<div class="filter-filter4">
-			<ul id="filter4-list">	
-			</ul>
-			<div class="list-blank"></div>
+		<!-- 筛选列表2 -->
+		<div class="filter-filter-bg" ng-show="1+1==3">
 			<div class="line"></div>
-			<div class="filter-filter4-buttom">
-				<div class="filter-filter4-buttom-button" id="reset">重置</div>
-				<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure">确定</div>
+			<div class="filter-filter2">
+				<ul id="priceul">
+					<!-- 价格列表 -->
+				</ul>
+			</div>
+		</div>
+		<!-- 筛选列表3 -->
+		<div class="filter-filter-bg" ng-show="1+1==3">
+			<div class="line"></div>
+			<div class="filter-filter3">
+				<ul id="FirstPayul">
+					<!-- 首付列表 -->
+				</ul>
+			</div>
+		</div>
+		<!-- 筛选列表4 -->
+		<div class="filter-filter-bg" ng-show="1+1==3">
+			<div class="line"></div>
+			<div class="filter-filter4">
+				<ul id="filter4-list">	
+				</ul>
+				<div class="list-blank"></div>
+				<div class="line"></div>
+				<div class="filter-filter4-buttom">
+					<div class="filter-filter4-buttom-button" id="reset">重置</div>
+					<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure">确定</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -105,7 +107,7 @@
 	            <div class="line"></div>
 	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
 		            <img class="house-img" ng-Src="{{ item.image }}"/>
-		            <div class="house-jing">精</div>
+		            <!-- <div class="house-jing">顶</div> -->
 		            <div class="house-text-head">{{item.title}}</div>
 	            </a>
 	            <div class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>

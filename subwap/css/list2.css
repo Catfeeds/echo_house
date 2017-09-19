@@ -211,25 +211,10 @@ color:#c3c3c3;
 .filter-filter-bg{
 	position: fixed;
 	width: 20.0rem;
-	height: auto;
 	background-color: #c3c3c3;
 /*	background-color: rgba(127,127,127,0.5);*/
 	z-index: 99;
 	overflow-y: scroll;
-}
-#filter1{
-	z-index: 99;
-}
-#filter2{
-	display: none;
-	z-index: 99;
-}
-#filter3{
-	display: none;
-	z-index: 99;
-}
-#filter4{
-	display: none;
 	z-index: 99;
 }
 .filter1-left-active{
@@ -381,16 +366,13 @@ color:#c3c3c3;
 	top: 0.747rem;
 }
 
-.filter-filter1{
-	height: 8rem;
-	width: 20rem;
-}
+
 
 .houselist{
-	position: absolute;
-	top: 4.96rem;
+	position: relative;
 }
 .hose-list-ammount-bg{
+	position: relative;
 	width: 19.36rem;
 	height: 1.333rem;
 	font-size:0.693rem;
@@ -410,17 +392,20 @@ color:#c3c3c3;
 	line-height: 1.067rem;
 }
 
+.list-housej{
+	height: 5.333rem;
+	width: 20.0rem;
+	position: relative;
+	background-color: rgba(241, 241, 241, 0.5);;
+}
 .list-house{
 	height: 5.333rem;
 	width: 20.0rem;
 	position: relative;
-	background-color: #E8E8E9;
 }
-.list-house:hover{
-	background-color: #E8E8E9;
-}
+
 .house-img{
-	position: relative;
+	position: absolute;
 	top: 0.667rem;
 	left: 0.667rem;
 	height: 4.0rem;
@@ -431,30 +416,42 @@ color:#c3c3c3;
 	position: absolute;
 	width: 0.8rem;
 	height: 0.8rem;
+	margin: 0.14rem 0rem;
 	font-size: 0.64rem;
 	background-color: #FCA61E;
 	border-radius: 0.053rem;
 	text-align: center;
 	line-height: 0.8rem;
-	top: 0.7rem;
+	top: 0.533rem;
 	left: 6.8rem;
 	color: #fff;
 }
 
-.house-text-head{
+.house-text-headj{
 	font-weight: bold;
-	font-size: 0.747rem;
-	position: relative;
-	top: -3.52rem;
+	font-size: 0.8rem;
+	position: absolute;
+	top: 0.533rem;
 	left:7.8rem;
 	width: 7rem;
-	height: 1.013rem;
+	height: 1.068rem;
+	overflow: hidden;
+}
+
+.house-text-head{
+	font-weight: bold;
+	font-size: 0.8rem;
+	position: absolute;
+	top: 0.533rem;
+	left:6.8rem;
+	width: 8rem;
+	height: 1.068rem;
 	overflow: hidden;
 }
 .house-text-company{
 	font-size: 0.64rem;
-	position: relative;
-	top: -2rem;
+	position: absolute;
+	top: 3.9rem;
 	left:6.8rem;
 	width: 12rem;
 	color:#868686;
@@ -467,23 +464,14 @@ color:#c3c3c3;
 	width: 2.667rem;
 	color:#868686;
 }
-.house-text-plot_name{
-	font-size: 0.64rem;
-	position: relative;
-	top: -2.8rem;
-	left:6.8rem;
-	width: 12.0rem;
-	color:#868686;
-}
 .house-text-plot_name-2{
 	font-size: 0.64rem;
-	position: relative;
-	top: -3.3rem;
+	position: absolute;
+	top: 1.7rem;
 	left:6.8rem;
-	width: 12.0rem;
+	width: 9rem;
 	color:#868686;
 }
-
 .house-text-pay-yong{
 	position: absolute;
 	width: 0.8rem;
@@ -500,10 +488,9 @@ color:#c3c3c3;
 .house-text-pay{
 	font-size: 0.64rem;
 	position: absolute;
-	top: -2.8rem;
-	left:6.8rem;
 	width: 12.0rem;
-	height: 1rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
 	color:rgb(223,82,37);
 	top: 2.8rem;
 	left: 7.8rem;

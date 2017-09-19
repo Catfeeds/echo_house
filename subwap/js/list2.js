@@ -1,18 +1,18 @@
+$(document).ready(function(){  
+    $('.filter-filter-bg').css({ "height": $(window).height()-$('.list-head-container').height() + "px" });
+});
 var app=angular.module("list",[]);
-//顶部标签
-app.controller('topCtrl', function($scope, $http) {
+app.controller('filterCtrl', function($scope, $http) {
+    //顶部文字
     $http({
         method: 'GET',
         url: '/api/tag/index?cate=wzlm'
     }).then(function successCallback(response) {
             $scope.toplist = response.data.data;
         }, function errorCallback(response) {
-            // 请求失败执行代码
+
     });
-  
-});
-//筛选列表
-app.controller('filterCtrl', function($scope, $http) {
+    //筛选列表
     $http({
         method: 'GET',
         url: '/api/tag/list?cate=plotFilter'
@@ -27,11 +27,10 @@ app.controller('filterCtrl', function($scope, $http) {
     });
     //显示filter1的area
     $scope.show_Area=false;
-    $scope.showArea=function(){
+    $scope.showArea=function(obj){
+        console.log()
             $scope.show_Area=!$scope.show_Area;
-            console.log($scope.show_Area);
-        } 
-     
+        }     
 });
 //初次加载列表
 app.controller('listCtrl',function($scope,$http){
