@@ -10,17 +10,17 @@
 <body ng-app="cuslist" ng-controller="cuslistCtrl">
 	<div class="customerlist">
 		<ul>
-			<li ng-repeat="item in cuntomerlist" onclick="turn(this)" data-id="{{item.id}}">
-				<div class="cusname">{{item.user_name}}</div>
-				<div class="custel">{{item.user_phone}}</div>
-				<div class="intername">{{item.staff_name}}</div>
-				<div class="intertel">{{item.staff_phone}}</div>
-				<div class="intercom">{{item.staff_company}}</div>
+			<li ng-repeat="item in cuntomerlist" ng-click="turn(item.id)">
+				<div class="cusname" ng-cloak>{{item.user_name}}</div>
+				<div class="custel" ng-cloak>{{item.user_phone}}</div>
+				<div class="intername" ng-cloak>{{item.staff_name}}</div>
+				<div class="intertel" ng-cloak>{{item.staff_phone}}</div>
+				<div class="intercom" ng-cloak>{{item.staff_company}}</div>
 				<div class="line"></div>
 			</li>
 		</ul>
 	</div>
-	<div class="add" onclick="addCustomer()">
+	<div class="add" ng-click="addCustomer()">
 		<img class="addimg" src="./img/addimg.png">
 	</div>
 

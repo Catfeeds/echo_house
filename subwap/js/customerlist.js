@@ -9,12 +9,10 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		alert(response.data.msg);
 		location.href="detail.html";
 	});
-	
+	$scope.turn=function(obj){
+		location.href="customerdetail.html?id="+obj;
+	}
+	$scope.addCustomer=function(){
+		location.href="addcustomer.html";
+	}
 });
-function addCustomer(){
-	location.href="addcustomer.html";
-}
-function turn(obj){
-	var id=$(obj).attr("data-id");
-	location.href="customerdetail.html?id="+id;
-}
