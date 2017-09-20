@@ -560,9 +560,6 @@ class PlotController extends ApiController{
 					
 					if(!$obj->save())
 						$this->returnError(current(current($obj->getErrors())));
-					else {
-						Yii::app()->db->createCommand("delete from plot_makert_user where expire=0")->execute();
-					}
 				} else {
 					$this->returnError('您已经提交申请，请勿重复提交');
 				}

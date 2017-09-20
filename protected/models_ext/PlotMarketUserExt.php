@@ -98,7 +98,14 @@ class PlotMarketUserExt extends PlotMakertUser{
             if($this->status==1) {
                 if(!in_array($phone, $pharr)) {
                     $pharr[] = $this->user->name.$phone;
+                    foreach ($pharr as $key => $value) {
+                        preg_match('/[0-9]+/', $value,$tmp);
+                        if(!Yii::app()->db->createCommand("select id from plot_makert_user where hid=".$this->plot->id." and phone='$tmp' and expire>".time())->queryScalar()) {
+                            unset($pharr[$key]);
+                        }
+                    }
                     $this->plot->market_users = implode(' ', $pharr);
+
                     $this->plot->save();
                 }
             } else {
