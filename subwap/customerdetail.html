@@ -29,23 +29,23 @@
 	<div class="line"></div>
 	<div class="process">
 		<ul>
-			<li class="processli" onclick="processOne(this)">报备</li>
+			<li class="processli-active">报备</li>
 			<div class="heng"></div>
-			<li class="processli" onclick="processTwo(this)">到访</li>
+			<li class="processli" onclick="process(this)">到访</li>
 			<div class="heng"></div>
-			<li class="processli" onclick="processTwo(this)">认筹</li>
+			<li class="processli" onclick="process(this)">认筹</li>
 			<div class="heng"></div>
-			<li class="processli" onclick="processTwo(this)">认购</li>
+			<li class="processli" onclick="process(this)">认购</li>
 			<div class="heng"></div>
-			<li class="processli" onclick="processTwo(this)">成交</li>
+			<li class="processli" onclick="process(this)">成交</li>
 			<div class="heng"></div>
-			<li class="processli" onclick="processTwo(this)">结佣</li>
+			<li class="processli" onclick="process(this)">结佣</li>
 		</ul>
 	</div>
 	<div class="blank"></div>
 	<div class="remark">
 		<textarea class="remark-textarea"></textarea>
-		<button class="remark-submit" type="submit">提 交</button>
+		<button class="remark-submit" type="submit" ng-click="postmsg()">提 交</button>
 	</div>
 	<div class="blank"></div>
 	<div class="state">

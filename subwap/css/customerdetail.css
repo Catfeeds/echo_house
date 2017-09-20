@@ -181,6 +181,7 @@ body{
 	height: 7.2rem;
 	min-height: 3rem;
 	background-color: #fff;
+	display: none;
 }
 .remark-textarea{
 	position: relative;

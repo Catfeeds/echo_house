@@ -1,4 +1,5 @@
 var hid='';
+var remark=false;
 $(document).ready(function(){
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined){
 		hid=GetQueryString('id');
@@ -9,35 +10,44 @@ capp.controller("customerCtrl",function($scope,$http) {
 	$http({
 		method:'GET',
 		url:'/api/plot/getSubInfo',
-		params:{'id':hid}
+		params:{'id':GetQueryString('id')}
 	}).then(function successCallback(response){
 		$scope.cusmessage=response.data.data;
 		$scope.notelist=response.data.data.list;
+		var status = response.data.data.status;
+		for (var i = 0; i < $('.processli').length; i++) {
+			var a = $('.processli')[i];
+			$(a).attr('css','processli-active');
+			if($(a).html()==status) {
+				break;
+			}
+		}
 	},function errorCallback(response){
 
-	});
-});
-capp.controller("postCtrl",function($scope,$http) {
-	var note=$('.remark-textarea').val();
-	$http({
-		method:'POST',
-		url:'/api/plot/addSubPro',
-		data:{note:note,status:20,sid:hid},
-	}).then(function successCallback(response){
-		$scope.cusmessage=response.data.data;
-		$scope.notelist=response.data.data.list;
-	},function errorCallback(response){
+	});	
+	$scope.postmsg=function(){
+		var note=$('.remark-textarea').val();
+		var status=$('.processli-active').length-1;
+		$http({
+			method:'POST',
+			url:'/api/plot/addSubPro',
+			data:{note:note,status:status,sid:hid},
+		}).then(function successCallback(response){
+			if(response.status=='success'){
+				alert("提交成功！");
+				location.reload();
+			}
+		},function errorCallback(response){
 
-	});
+		});
+	}
 });
-function processOne(obj){
-	$(obj).removeClass('processli-active');
-	$(obj).addClass('processli-active');
-}
-function processTwo(obj){
+function process(obj){
 	if ($(obj).prev().prev().hasClass('processli-active')) {
 		$(obj).removeClass('processli-active');
 		$(obj).addClass('processli-active');
+		$('.remark-textarea').empty();
+		$('.remark').css('display','block');
 	}
 }
 function GetQueryString(name) {
