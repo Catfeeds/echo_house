@@ -269,7 +269,15 @@ class PlotController extends ApiController{
 				$hxarr[] = $tmp;
 			}
 		}
-		$phones = array_filter(explode(' ', $info->market_users));
+		if($sfs = $info->sfMarkets) {
+			foreach ($sfs as $key => $value) {
+				$thisstaff = UserExt::model()->find("phone='".$value->phone."'");
+				$phones[] = $thisstaff->name.$thisstaff->phone;
+			}
+			// $phones = [];
+		} else {
+			$phones = array_filter(explode(' ', $info->market_users));
+		}
 		$info->market_user && array_unshift($phones, $info->market_user);
 
 		$phones = array_keys(array_flip($phones));
@@ -281,6 +289,7 @@ class PlotController extends ApiController{
 				$phonesnum = array_merge($phonesnum,$tmp);
 			}
 		}
+			
 		$major_phone = '';
 		if($info->market_user) {
 			preg_match('/[0-9]+/', $info->market_user,$major_phone);
@@ -547,8 +556,13 @@ class PlotController extends ApiController{
 				}
 				$uid = $this->staff->id;
 				// var_dump($uid,$hid);exit;
-				if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
+				$criteria = new CDbCriteria;
+				$criteria->addCondition("uid=$uid and hid=$hid and deleted=0 and expire>".time());
+				$obj = PlotMarketUserExt::model()->find($criteria);
+				if(!$obj)
 					$obj = new PlotMarketUserExt;
+				// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
+					// $obj = new PlotMarketUserExt;
 					$obj->status = 1;
 					$obj->uid = $uid;
 					$obj->hid = $hid;
@@ -560,9 +574,9 @@ class PlotController extends ApiController{
 					
 					if(!$obj->save())
 						$this->returnError(current(current($obj->getErrors())));
-				} else {
-					$this->returnError('您已经提交申请，请勿重复提交');
-				}
+				// } else {
+				// 	$this->returnError('您已经提交申请，请勿重复提交');
+				// }
 			}
 		} else{
 			$this->returnError('操作失败');
