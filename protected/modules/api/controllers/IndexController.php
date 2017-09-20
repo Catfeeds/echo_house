@@ -13,10 +13,6 @@ class IndexController extends ApiController
         $this->redirect('/subwap/customerlist.html');
     }
 
-    public function actionInitThis()
-    {
-        $this->showUser();
-    }
 
     public function showUser()
     {
@@ -119,5 +115,15 @@ class IndexController extends ApiController
         $status = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
         curl_close($curlHandle);    
         return $data;
+    }
+
+    public function actionGetQfUid()
+    {
+        $this->showUser();
+        if(!empty($_COOKIE['qf_uid'])) {
+            $this->frame['data'] = ['uid'=>$_COOKIE['qf_uid'],'phone'=>$_COOKIE['phone']];
+        } else {
+            $this->returnError('UID错误');
+        }
     }
 }

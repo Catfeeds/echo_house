@@ -82,10 +82,6 @@ $(document).ready(function() {
     });
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
-        if(is_user==false) {
-            $.get('/api/index/initThis', function(data) {
-            });
-        }
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -618,21 +614,23 @@ function showkw() {
 function checkId(obj) {
 
     if(is_user == false) {
+
         $(obj).attr('href','#');
-        $.get('/api/config/getQfUid',function(data) {
-            if(data.status=='error') {
-                QFH5.jumpLogin(function(state,data){
-                  //未登陆状态跳登陆会刷新页面，无回调
-                  //已登陆状态跳登陆会回调通知已登录
-                  //用户取消登陆无回调
-                  if(state==2){
-                      alert("您已登陆");
-                  }
-              })
-            } else {
-                location.href = 'register.html?phone='+data.data.phone;
-            }
-        });
+        $.get('/api/index/getQfUid',function(data) {
+                if(data.status=='error') {
+                    QFH5.jumpLogin(function(state,data){
+                      //未登陆状态跳登陆会刷新页面，无回调
+                      //已登陆状态跳登陆会回调通知已登录
+                      //用户取消登陆无回调
+                      if(state==2){
+                          alert("您已登陆");
+                      }
+                  })
+                } else {
+                    location.href = 'register.html?phone='+data.data.phone;
+                }
+            });
+            
         // $(obj).attr('href','login.html')
         // location.href = '';
     }
