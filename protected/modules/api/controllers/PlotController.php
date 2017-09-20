@@ -802,7 +802,9 @@ class PlotController extends ApiController{
     	if(!$code) {
     		return $this->returnError('客户码不能为空');
     	}
-    	$hisplot = PlotExt::model()->normal()->find('place_user='.$this->staff->id);
+    	$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id)->queryScalar();
+    	$hisplot = PlotExt::model()->normal()->findByPk($hid);
+
     	if($hisplot) {
     		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
     		if(!$obj)
