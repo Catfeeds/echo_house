@@ -69,6 +69,9 @@ class UserExt extends User{
     }
 
     public function beforeValidate() {
+        if($this->deleted==1) {
+            $this->status = 1;
+        }
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
         else
