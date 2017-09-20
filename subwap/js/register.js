@@ -150,7 +150,7 @@ function regisInfo() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
             'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
-            'UserExt[pwd]': $('#password').val(),
+            // 'UserExt[pwd]': $('#password').val(),
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
             'UserExt[companycode]': $('#companycode').val(),

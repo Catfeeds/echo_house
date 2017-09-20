@@ -71,7 +71,7 @@ class UserController extends ApiController{
 					$this->returnError(current(current($user->getErrors())));
 				} else {
 					if($company && $company->phone) {
-						SmsExt::sendMsg('门店新增员工',$company->phone,['staff'=>$user->name.$staff->phone,'code'=>$code,'tel'=>SiteExt::getAttr('qjpz','site_phone')]);
+						SmsExt::sendMsg('门店新增员工',$company->phone,['staff'=>$user->name.$user->phone,'code'=>$code,'tel'=>SiteExt::getAttr('qjpz','site_phone')]);
 					}
 				}
 			}
