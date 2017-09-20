@@ -10,26 +10,26 @@
 <body ng-app="cApp" ng-controller="customerCtrl">
 	<div class="customer">
 		<img class="customer-img" src="./img/headimg.png">
-		<div class="customer-name">{{cusmessage.name}}</div>
-		<div class="customer-phone">{{cusmessage.phone}}</div>
-		<img class="phone-img" src="./img/telimg.png">
+		<div class="customer-name" ng-cloak>{{cusmessage.name}}</div>
+		<div class="customer-phone" ng-cloak>{{cusmessage.phone}}</div>
+		<a id="phone"><img class="phone-img" src="./img/telimg.png"></a>
 	</div>
 	<div class="line"></div>
 	<div class="house">
 		<div class="buywill">客户信息</div>
-		<div class="dktime">带看时间：{{cusmessage.dk_time}}</div>
-		<div class="note">{{cusmessage.note}}</div>
+		<div class="dktime" ng-cloak>带看时间：{{cusmessage.dk_time}}</div>
+		<div class="note" ng-cloak>{{cusmessage.note}}</div>
 	</div>
 	<div class="blank"></div>
 	<div class="company clearfloat">
 		<img class="companyimg" src="./img/companyimg.png">
-		<div class="company-name">{{cusmessage.plot_name}}</div>
+		<div class="company-name" ng-cloak>{{cusmessage.plot_name}}</div>
 		<div class="del">失效</div>
 	</div>
 	<div class="line"></div>
 	<div class="process">
 		<ul>
-			<li class="processli-active">报备</li>
+			<li class="processli">报备</li>
 			<div class="heng"></div>
 			<li class="processli" onclick="process(this)">到访</li>
 			<div class="heng"></div>
@@ -51,9 +51,9 @@
 	<div class="state">
 		<ul>
 			<li ng-repeat="note in notelist">
-				<div class="state-text">{{note.note}}</div>
-				<div class="state-status">{{note.status}}</div>
-				<div class="state-time">{{note.time}}</div>
+				<div class="state-text" ng-cloak>{{note.note}}</div>
+				<div class="state-status" ng-cloak>{{note.status}}</div>
+				<div class="state-time" ng-cloak>{{note.time}}</div>
 				<div class="line"></div>
 			</li>
 		</ul>

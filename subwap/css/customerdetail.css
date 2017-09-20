@@ -1,6 +1,8 @@
 body{
 	background-color: #f5f5f5;
 }
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
 .line{
 	width: 20.0rem;
 	height: 0.054rem;
@@ -110,6 +112,7 @@ body{
 	font-size: 0.747rem;
 	left: 3rem;
 	float: left;
+	display: block;
 }
 .process ul{
 	position: absolute;
@@ -129,11 +132,11 @@ body{
 	position: relative;
 	float: left;
 	padding: 0.1rem 0.3rem;
-	border: #FF6804 0.054rem solid;
+	border: #00b7ee 0.054rem solid;
 	border-radius: 0.133rem;
 	font-size: 0.267rem;
-	color: #FF6804;
-	background-color: #FFE4CA;
+	color: #00b7ee;
+	background-color: #b5ebfb;
 }
 .heng{
 	position: relative;

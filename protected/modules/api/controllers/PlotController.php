@@ -819,7 +819,7 @@ class PlotController extends ApiController{
     	$pros = [];
     	if($ls = $sub->pros) {
     		foreach ($ls as $key => $value) {
-    			$pros[] = ['note'=>$value->note,'status'=>SubExt::$status[$value->status],'time'=>date('m-d H:i',$sub->time)];
+    			$pros[] = ['note'=>$value->note,'status'=>SubExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
     		}
     	}
     	$data = [
@@ -837,14 +837,20 @@ class PlotController extends ApiController{
 
     public function actionAddSubPro()
     {
+    	// var_dump($_POST);exit;
     	if(Yii::app()->request->getIsPostRequest() && !Yii::app()->user->getIsGuest()) {
     		$note = $this->cleanXss(Yii::app()->request->getPost('note',''));
     		$status = $this->cleanXss(Yii::app()->request->getPost('status',''));
     		$sid = $this->cleanXss(Yii::app()->request->getPost('sid',''));  
-    		if($sid && $status) {
+    		$sub = SubExt::model()->findByPk($sid);
+    			
+    		if($sub && $status) {
+    			$sub->status = $status;
+    			$sub->save();
     			$obj = new SubProExt;
     			$obj->note = $note;
     			$obj->sid = $sid;
+    			$obj->status = $status;
     			$obj->uid = $this->staff->id;
     			if(!$obj->save()){
     				return $this->returnError('操作失败');

@@ -13,14 +13,25 @@ capp.controller("customerCtrl",function($scope,$http) {
 		params:{'id':GetQueryString('id')}
 	}).then(function successCallback(response){
 		$scope.cusmessage=response.data.data;
+		// response.data.data.phone = '11';
+		if(response.data.data.phone.indexOf('*')>-1){
+			$('#phone').css('display','none');
+		}else{
+			$('#phone').attr('href','tel:'+response.data.data.phone);
+		}
 		$scope.notelist=response.data.data.list;
 		var status = response.data.data.status;
 		for (var i = 0; i < $('.processli').length; i++) {
 			var a = $('.processli')[i];
-			$(a).attr('css','processli-active');
+			$(a).attr('class','processli processli-active');
 			if($(a).html()==status) {
 				break;
 			}
+		}
+		if(response.data.data.is_del=='1'){
+			$('.remark').css('display','block');
+		}else{
+			$('.del').css('display','none');
 		}
 	},function errorCallback(response){
 
@@ -31,9 +42,10 @@ capp.controller("customerCtrl",function($scope,$http) {
 		$http({
 			method:'POST',
 			url:'/api/plot/addSubPro',
-			data:{note:note,status:status,sid:hid},
+			data:$.param({note:note,status:status,sid:hid})  ,
+			headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
 		}).then(function successCallback(response){
-			if(response.status=='success'){
+			if(response.data.status=='success'){
 				alert("提交成功！");
 				location.reload();
 			}
@@ -46,8 +58,10 @@ function process(obj){
 	if ($(obj).prev().prev().hasClass('processli-active')) {
 		$(obj).removeClass('processli-active');
 		$(obj).addClass('processli-active');
-		$('.remark-textarea').empty();
-		$('.remark').css('display','block');
+		$('.process ul li').removeAttr("onclick");
+		if($(obj).hasClass('processli')){
+			$('.remark').css('display','block');
+		}	
 	}
 }
 function GetQueryString(name) {
