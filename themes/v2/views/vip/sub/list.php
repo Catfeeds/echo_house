@@ -36,14 +36,11 @@ $statusArr = SubExt::$status;
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
     <tr>
-        <th class="text-center">排序</th>
-        <th class="text-center">ID</th>
         <th class="text-center">项目信息</th>
         <th class="text-center">对接人信息</th>
         <th class="text-center">客户信息</th>
         <th class="text-center">客户码</th>
         <th class="text-center">添加时间</th>
-        <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
         <th class="text-center">操作</th>
     </tr>
@@ -51,16 +48,12 @@ $statusArr = SubExt::$status;
     <tbody>
     <?php foreach($infos as $k=>$v): ?>
         <tr>
-            <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
-                data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
-            <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->plot->title?></td>
             <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
 
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
-            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
+            <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center" style="text-align:center;vertical-align: middle">
                 <!-- <div class="btn-group">
                     <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -78,10 +71,6 @@ $statusArr = SubExt::$status;
             </td>
             <td style="text-align:center;vertical-align: middle">
             <a href="<?php echo $this->createUrl('pro',array('id'=>$v->id)); ?>" class="btn default btn-xs blue">查看流水 </a>
-                <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id)); ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 修改 </a>
-                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
-
-
             </td>
         </tr>
     <?php endforeach;?>
