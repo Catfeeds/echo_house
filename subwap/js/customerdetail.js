@@ -21,9 +21,9 @@ capp.controller("customerCtrl",function($scope,$http) {
 		}
 		$scope.notelist=response.data.data.list;
 		var status = response.data.data.status;
-		for (var i = 0; i < $('.processli').length; i++) {
-			var a = $('.processli')[i];
-			$(a).attr('class','processli processli-active');
+		for (var i = 0; i < $('.process li').length; i++) {
+			var a = $('.process li')[i];
+			$(a).attr('class','processli-active');
 			if($(a).html()==status) {
 				break;
 			}
@@ -56,12 +56,12 @@ capp.controller("customerCtrl",function($scope,$http) {
 });
 function process(obj){
 	if ($(obj).prev().prev().hasClass('processli-active')) {
-		$(obj).removeClass('processli-active');
-		$(obj).addClass('processli-active');
-		$('.process ul li').removeAttr("onclick");
 		if($(obj).hasClass('processli')){
 			$('.remark').css('display','block');
-		}	
+		}
+		$(obj).removeClass('processli');
+		$(obj).addClass('processli-active');
+		$('.process ul li').removeAttr("onclick");		
 	}
 }
 function GetQueryString(name) {

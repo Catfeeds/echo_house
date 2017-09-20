@@ -90,6 +90,17 @@ body{
 	padding: 4rem 0.8rem 0.7rem 0.8rem;
 	overflow:hidden;
 }
+.tuiding{
+	position: absolute;
+	left: 17rem;
+	top: 0.6rem;
+	padding: 0.1rem 0.3rem;
+	border: #00b7ee 0.054rem solid;
+	border-radius: 0.133rem;
+	font-size: 0.267rem;
+	color: #fff;
+	background-color: #00b7ee;
+}
 
 .companyimg{
 	position: absolute;
