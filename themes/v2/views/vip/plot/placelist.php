@@ -1,35 +1,39 @@
 <?php
-$this->pageTitle = $plot->title.'报备流水';
-$this->breadcrumbs = array($this->pageTitle);
-$statusArr = SubExt::$status;
-?>
-<div class="alert alert-info alert-dismissable">
-            <strong>客户信息: </strong><?=$sub->name.''.$sub->phone?>
-        </div>
-   <table class="table table-bordered table-striped table-condensed flip-content table-hover">
+	$this->pageTitle=$house->title.'案场助理';
+	?>
+    <div class="table-toolbar">
+    <div class="pull-right">
+        <a href="<?php echo $this->createAbsoluteUrl('editplace',['hid'=>$_GET['hid']]) ?>" class="btn blue">
+            添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
+        </a>
+        <a href="<?php echo $this->createAbsoluteUrl('list') ?>" class="btn yellow">
+            返回楼盘列表
+        </a>
+    </div></div>
+<table class="table table-bordered table-striped table-condensed flip-content">
     <thead class="flip-content">
-    <tr>
-        <th class="text-center">流水添加者</th>
-        <th class="text-center">流水备注</th>
-        <th class="text-center">添加时间</th>
-        <!-- <th class="text-center">修改时间</th> -->
-        <th class="text-center">状态</th>
-        <!-- <th class="text-center">操作</th> -->
-    </tr>
+        <tr>
+            <th class="text-center">id</th>
+            <th class="text-center">姓名/手机号</th>
+            <th class="text-center">操作</th>
+            <!-- <th class="text-center">面积</th> -->
+        </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $k=>$v): ?>
+    <?php foreach($infos as $v): ?>
         <tr>
-            <td class="text-center"><?=$v->user->name.$v->user->phone?></td> 
-            <td class="text-center"><?=$v->note?></td> 
-            <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
-            <td class="text-center"><?=SubExt::$status[$v->status]?></td>
+            <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->id ?></td>
+            <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->user->name.'/'.$v->user->phone ?></td>
+            
+            <td style="text-align:center;vertical-align: middle">
+                
+                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
+            </td>
         </tr>
-    <?php endforeach;?>
+    <?php endforeach; ?>
     </tbody>
 </table>
-<?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>
-
+<?php $this->widget('VipLinkPager', array('pages'=>$pager)) ?>
 <script>
 <?php Tools::startJs(); ?>
     setInterval(function(){
@@ -46,7 +50,7 @@ $statusArr = SubExt::$status;
         });
     }
     function set_sort(_this, id, sort){
-            $.getJSON('<?php echo $this->createUrl('/admin/league/setSort')?>',{id:id,sort:sort,class:'<?=isset($infos[0])?get_class($infos[0]):''?>'},function(dt){
+            $.getJSON('<?php echo $this->createUrl('/admin/user/setSort')?>',{id:id,sort:sort,class:'<?=isset($infos[0])?get_class($infos[0]):''?>'},function(dt){
                 location.reload();
             });
         }

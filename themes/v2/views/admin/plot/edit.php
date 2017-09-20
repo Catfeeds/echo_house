@@ -441,14 +441,6 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot,'build_year')?></div>
             </div>
-
-            <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">建造年代</label>
-                <div class="col-md-10">
-                    <?php echo $form->textField($plot,'build_year',array('class'=>'form-control input-inline'))?>
-                </div>
-                <div class="col-md-12"><?php echo $form->error($plot,'build_year')?></div>
-            </div>
             <div class="form-group">
                 <div class="form-group">
                     <label class="col-md-2 control-label text-nowrap">楼盘排序</label>

@@ -99,9 +99,9 @@ class VipController extends Controller
                     ['label' => '新建项目', 'url' => ['/vip/plot/edit'],'active'=>$this->route=='vip/plot/edit'],
                 ]],
                 ['label'=>'报备管理','icon'=>'icon-speedometer','url'=>['/vip/sub/list'],'active'=>$this->route=='vip/sub/edit'],
-                ['label' => '门店管理', 'icon' => 'icon-speedometer', 'items' => [
+                ['label' => '公司管理', 'icon' => 'icon-speedometer', 'items' => [
                     ['label' => '人员管理', 'url' => ['/vip/user/list']],
-                    ['label' => '门店管理', 'url' => ['/vip/company/edit?id='.Yii::app()->user->cid],'active'=>$this->route=='vip/company/edit'],
+                    ['label' => '公司管理', 'url' => ['/vip/company/edit?id='.Yii::app()->user->cid],'active'=>$this->route=='vip/company/edit'],
                 ]],
             ]; 
     } 

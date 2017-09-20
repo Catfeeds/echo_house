@@ -1,44 +1,19 @@
 <?php 
 /**
- * 用户类
+ * 球员类
  * @author steven.allen <[<email address>]>
  * @date(2017.2.12)
  */
-class UserExt extends User{
-    /**
-     * @var array 状态
-     */
-    static $status = array(
-        0 => '禁用',
-        1 => '启用',
-        2 => '回收站',
-    );
-    /**
-     * @var array 状态按钮样式
-     */
-    static $statusStyle = array(
-        0 => 'btn btn-sm btn-warning',
-        1 => 'btn btn-sm btn-primary',
-        2 => 'btn btn-sm btn-danger'
-    );
-    public static $ids = [
-        '1'=>'总代公司',
-        '2'=>'分销公司',
-        '3'=>'独立中介',
-    ];
-    public static $sex = [
-    '未知','男','女'
-    ];
+class PlotPlaceExt extends PlotPlace{
 	/**
      * 定义关系
      */
     public function relations()
     {
         return array(
-            // 'houseInfo'=>array(self::BELONGS_TO, 'HouseExt', 'house'),
-            'news'=>array(self::HAS_MANY, 'ArticleExt', 'uid'),
-            'comments'=>array(self::HAS_MANY, 'CommentExt', 'uid'),
-            'company'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
+            'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
+            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
+            // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
 
@@ -48,7 +23,7 @@ class UserExt extends User{
     public function rules() {
         $rules = parent::rules();
         return array_merge($rules, array(
-            array('phone', 'unique', 'message'=>'{attribute}已存在')
+            // array('name', 'unique', 'message'=>'{attribute}已存在')
         ));
     }
 
@@ -63,14 +38,16 @@ class UserExt extends User{
 
     public function afterFind() {
         parent::afterFind();
-        if(!$this->image){
-            $this->image = SiteExt::getAttr('qjpz','userImg');
-        }
+        // if(!$this->image){
+        //     $this->image = SiteExt::getAttr('qjpz','productNoPic');
+        // }
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()){
+            $this->status = 1;
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

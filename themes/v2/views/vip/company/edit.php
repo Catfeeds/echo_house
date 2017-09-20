@@ -18,7 +18,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">门店名</label>
+    <label class="col-md-2 control-label">公司名</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'name', array('class' => 'form-control')); ?>
     </div>
@@ -45,39 +45,39 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
     </div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">门店地址</label>
+    <label class="col-md-2 control-label">公司地址</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'address', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'address') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">店长姓名</label>
+    <label class="col-md-2 control-label">负责人姓名</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'manager', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'manager') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">门店联系方式</label>
+    <label class="col-md-2 control-label">公司联系方式</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'phone', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label text-nowrap">门店认证材料</label>
+    <label class="col-md-2 control-label text-nowrap">公司认证材料</label>
     <div class="col-md-8">
         <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'image','inputName'=>'img','width'=>400,'height'=>300)); ?>
     </div>
 </div>
-<div class="form-group">
-    <label class="col-md-2 control-label">门店类型</label>
+<!-- <div class="form-group">
+    <label class="col-md-2 control-label">公司类型</label>
     <div class="col-md-4">
         <?php echo $form->radioButtonList($article, 'type', CompanyExt::$type, array('separator' => '')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'type') ?></div>
-</div>
+</div> -->
 <div class="form-group">
     <label class="col-md-2 control-label">状态</label>
     <div class="col-md-4">
