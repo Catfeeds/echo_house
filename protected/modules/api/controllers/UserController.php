@@ -68,7 +68,7 @@ class UserController extends ApiController{
 				!$user->pwd && $user->pwd = 'jjqxftv587';
 				$user->pwd = md5($user->pwd);
 				if(!$user->save()) {
-					$this->returnError('操作失败');
+					$this->returnError(current(current($user->getErrors())));
 				} else {
 					if($company && $company->phone) {
 						SmsExt::sendMsg('门店新增员工',$company->phone,['staff'=>$user->name.$staff->phone,'code'=>$code,'tel'=>SiteExt::getAttr('qjpz','site_phone')]);

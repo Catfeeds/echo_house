@@ -79,7 +79,7 @@ $('.register-register').click(function() {
                 return false;
             }
         }
-        regis();
+        regisInfo();
     } else {
         var username = $('#username').val().trim();
         var phonenumber = $('#writephonenumber').val().trim();
@@ -140,7 +140,27 @@ function regis() {
                 alert("注册成功！");
                 location.href = "login.html";
             } else {
-                alert("注册失败！");
+                alert(data.msg);
+            }
+        }
+    );
+}
+
+function regisInfo() {
+    $.post("/api/user/regis", {
+            'UserExt[name]': $('#username').val(),
+            'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
+            'UserExt[pwd]': $('#password').val(),
+            'UserExt[type]': $('#form-type').val(),
+            'UserExt[image]': $('#img-url').val(),
+            'UserExt[companycode]': $('#companycode').val(),
+        },
+        function(data, status) {
+            if (data.status == "success") {
+                alert("操作成功！");
+                location.href = "list.html";
+            } else {
+                alert(data.msg);
             }
         }
     );
