@@ -146,7 +146,7 @@ body{
 	padding: 0.1rem 0.3rem;
 	border: #D7D7D7 0.054rem solid;
 	border-radius: 0.133rem;
-	font-size: 0.267rem;
+	font-size: 0.64rem;
 	background-color: #fff;
 }
 .processli-active{
@@ -155,7 +155,7 @@ body{
 	padding: 0.1rem 0.3rem;
 	border: #00b7ee 0.054rem solid;
 	border-radius: 0.133rem;
-	font-size: 0.267rem;
+	font-size: 0.64rem;
 	color: #fff;
 	background-color: #00b7ee;
 }
