@@ -55,4 +55,13 @@ class ConfigController extends ApiController{
 		}
 	}
 
+	public function actionGetQfUid()
+	{
+		if(!empty($_COOKIE['qf_uid'])) {
+			$this->frame['data'] = ['uid'=>$_COOKIE['qf_uid'],'phone'=>$_COOKIE['phone']];
+		} else {
+			$this->returnError('UID错误');
+		}
+	}
+
 }

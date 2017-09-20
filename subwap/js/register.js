@@ -2,6 +2,9 @@ $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
     });
+    if(GetQueryString('phone')!=null) {
+        $('.nophone').remove();
+    }
     $('#form').validate();
     // $('.container-big').css('display','none');
 });
@@ -96,7 +99,7 @@ $('.register-register').click(function() {
 function regis() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
-            'UserExt[phone]': $('#writephonenumber').val(),
+            'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
             'UserExt[pwd]': $('#password').val(),
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
@@ -111,4 +114,11 @@ function regis() {
             }
         }
     );
+}
+
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(decodeURI(r[2]));
+    return null;
 }

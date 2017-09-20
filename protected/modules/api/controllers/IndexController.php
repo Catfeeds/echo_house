@@ -23,6 +23,7 @@ class IndexController extends ApiController
             if($res) {
                 $res = json_decode($res,true);
                 $data = $res['data'][$uid];
+                setcookie('phone',$data['user_phone']);
                 if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
                     $model = new ApiLoginForm();
                     $model->isapp = true;
@@ -80,6 +81,7 @@ class IndexController extends ApiController
         $postArr = ['wap_token'=>$token,'secret_key'=>$key];
         $res = $this->get_response($key,$url,[],$postArr);
         $res = json_decode($res,true);
+        setcookie('qf_uid',$res['uid']);
         return $res['uid'];
     }
 

@@ -612,7 +612,22 @@ function showkw() {
 
 function checkId(obj) {
     if(is_user == false) {
-        $(obj).attr('href','login.html')
+        $(obj).attr('href','#');
+        $.get('/api/config/getQfUid',function(data) {
+            if(data.status=='error') {
+                QFH5.jumpLogin(function(state,data){
+                  //未登陆状态跳登陆会刷新页面，无回调
+                  //已登陆状态跳登陆会回调通知已登录
+                  //用户取消登陆无回调
+                  if(state==2){
+                      alert("您已登陆");
+                  }
+              })
+            } else {
+                location.href = 'register.html?phone='+data.data.phone;
+            }
+        });
+        // $(obj).attr('href','login.html')
         // location.href = '';
     }
 }

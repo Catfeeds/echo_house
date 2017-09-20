@@ -16,8 +16,8 @@
 	</div>
 	<div class="line"></div>
 	<div class="house">
-		<div class="buywill">客户信息</div>
-		<div class="dktime" ng-cloak>带看时间：{{cusmessage.dk_time}}</div>
+		<div class="buywill">其他信息</div>
+		<div class="dktime" ng-cloak>预计到访时间：{{cusmessage.dk_time}}</div>
 		<div class="note" ng-cloak>{{cusmessage.note}}</div>
 	</div>
 	<div class="blank"></div>
@@ -25,7 +25,7 @@
 		<img class="companyimg" src="./img/companyimg.png">
 		<div class="company-name" ng-cloak>{{cusmessage.plot_name}}</div>
 		<div class="del">失效</div>
-		<div class="tuiding">退订</div>
+		<div class="tuiding" onclick="disorder()">退定</div>
 	</div>
 	<div class="line"></div>
 	<div class="process">
