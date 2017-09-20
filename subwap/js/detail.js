@@ -148,7 +148,8 @@ $(document).ready(function(){
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
-    	    	if (detail.phones[i].indexOf(detail.phone)>-1) {
+                // console.log(detail.phones[i].indexOf(detail.phone));
+    	    	if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
                     tmp  = detail.phones[i];
                     phone=detail.phone;
                     $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
