@@ -36,6 +36,7 @@ capp.controller("customerCtrl",function($scope,$http) {
 	},function errorCallback(response){
 
 	});	
+	//提交备注
 	$scope.postmsg=function(){
 		var note=$('.remark-textarea').val();
 		var status=$('.processli-active').length-1;

@@ -181,17 +181,24 @@ body{
 	left: 0.747rem;
 }
 
+.detail-tip-off-small-tag{
+	position: relative;
+	width: 20.0rem;
+	height: 3rem;
+	background-color: #fff;
+}
+
 .detail-tip-off-img{
 	position: absolute;
 	left: 0.747rem;
-	top: 0.6rem;
+	top: 0.9rem;
 	width: 1.2rem;
 	height: 1.2rem;
 }
 
 .detail-tip-off-text{
 	position: absolute;
-	line-height: 2.347rem;
+	line-height: 3rem;
 	color: #333333;
 	font-size: 0.8rem;
 	top: 0rem;
@@ -200,7 +207,7 @@ body{
 
 .detail-tip-off-text-small{
 	position: absolute;
-	line-height: 2.347rem;
+	line-height: 3rem;
 	color: #868686;
 	font-size: 0.64rem;
 	padding-top: 0.05rem;
@@ -211,8 +218,8 @@ body{
 	position: absolute;
 	width: 0.053rem;
 	height: 1.747rem;
-	top: 0.3rem;
-	background-color: #868686;
+	top: 0.6rem;
+	background-color: #c3c3c3;
 	left: 16.5rem;
 }
 
@@ -220,12 +227,12 @@ body{
 	position: absolute;
 	left: 16.8rem;
 	width: 2.9rem;
-	height: 2.347rem;
+	height: 3rem;
 }
 
 .detail-mail-img{
 	position: absolute;
-	top: 0.2rem;
+	top: 0.5rem;
 	left: 0.85rem;
 	width: 1.2rem;
 	height: 1.2rem;
@@ -237,7 +244,7 @@ body{
 	text-align: center;
 	color: #868686;
 	font-size: 0.64rem;
-	top: 1.4rem;
+	top: 1.7rem;
 }
 
 .detail-laststate-edit{
