@@ -14,6 +14,7 @@ function init() {
     o.num = '';
 }
 var filter = new Object();
+var user_status = 0;
 var is_user = false;
 //==============核心代码=============  
 var winH = $(window).height(); //页面可视区域高度   
@@ -82,6 +83,7 @@ $(document).ready(function() {
     });
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
+        user_status = data.data.user_status;
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -627,7 +629,10 @@ function checkId(obj) {
                       }
                   })
                 } else {
-                    location.href = 'register.html?phone='+data.data.phone;
+                    if(user_status==0) {
+                        alert('您的账户已禁用，请联系客服');
+                    }else
+                        location.href = 'register.html?phone='+data.data.phone;
                 }
             });
             
