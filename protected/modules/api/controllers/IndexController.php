@@ -7,6 +7,12 @@ class IndexController extends ApiController
         $this->redirect('/subwap/list.html');
     }
 
+    public function actionPlace()
+    {
+        $this->showUser();
+        $this->redirect('/subwap/customerlist.html');
+    }
+
     public function showUser()
     {
         $key = '495e6105d4146af1d36053c1034bc819';
