@@ -301,6 +301,7 @@ $('.tip-off-select-window li').click(function(){
         $('.tip-off-detail').css('display','block');
         $('.tip-off-detail').focus();
         reason='';
+        $('.tip-off-select-window ul').scrollTo(0,0);
     }else{
         $('.tip-off-detail').css('display','none');
         reason=$(this).find('div').html();

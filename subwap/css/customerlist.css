@@ -71,3 +71,27 @@ body{
 	left: 9.25rem;
 	top: 0.58rem;
 }
+
+.list-search-frame{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;	
+}
+.list-search-search{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #414141;
+	top: 0.7rem;
+	left: 17.947rem;
+}
+.list-search-frame-text{
+	position: absolute;
+	width: 16.213rem;
+	height: 1.547rem;
+	top: 0.4rem;
+	left: 0.64rem;
+	background-color: #fff;
+	border: none;
+	font-size: 0.693rem;
+	padding-left: 0.533rem;
+}

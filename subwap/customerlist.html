@@ -8,6 +8,12 @@
 	<title></title>
 </head>
 <body ng-app="cuslist" ng-controller="cuslistCtrl">
+
+	<div class="list-search-frame">
+		<div class="list-search-search" ng-click="search()">搜索</div>
+		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入客户姓名">
+	</div>
+
 	<div class="customerlist">
 		<ul>
 			<li ng-repeat="item in cuntomerlist" ng-click="turn(item.id)">
