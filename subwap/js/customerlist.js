@@ -4,10 +4,12 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		method:'GET',
 		url:'/api/plot/checkIsZc'
 	}).then(function successCallback(response){
-		$scope.cuntomerlist=response.data.data;
+		if(response.data.status=='error') {
+			alert('暂无权限，请联系管理员开通');
+		}else
+			$scope.cuntomerlist=response.data.data;
+		
 	},function errorCallback(response){
-		alert(response.data.msg);
-		location.href="list.html";
 	});
 	$scope.search=function(){
 		var search=$('.list-search-frame-text').val();
