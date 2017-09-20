@@ -23,10 +23,10 @@ class DelAction extends CAction{
 				$ids = [$id];
 			}
 		foreach ($ids as $key => $id) {
-			$model = $class::model()->findByPk($id);
-			$model->deleted = 1;
-			if(!$model->save())
-				$this->controller->setMessage(current(current($model->getErrors())),'error');
+			$model = $class::model()->deleteAllByAttributes(['id'=>$id]);
+			// $model->deleted = 1;
+			// if(!$model->save())
+			// 	$this->controller->setMessage(current(current($model->getErrors())),'error');
 		}
 		$this->controller->setMessage('操作成功','success');	
 	}
