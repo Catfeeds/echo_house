@@ -27,7 +27,7 @@ function subthis() {
 	qftype.num=$('#housenum').val();
 	qftype.gold_cost=0;
 
-	qftype.cash_cost=qftype.title=='1个月'?59:169;
+	qftype.cash_cost=qftype.title=='1个月'?99:268;
 	var qfarray=new Array();
 	qfarray[0]=qftype;
 	var address=new Object();
