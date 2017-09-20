@@ -777,7 +777,7 @@ class PlotController extends ApiController{
     		} else {
     			$plot = PlotExt::model()->findByPk($hid);
     		}
-    		$subs = $plot->checked_subs;
+    		$subs = $plot->subs;
     		$data = [];
     		if($subs) {
     			foreach ($subs as $key => $value) {
@@ -819,6 +819,7 @@ class PlotController extends ApiController{
     			$pro->uid = $this->staff->id;
     			$pro->save();
     			$obj->save();
+    			$this->frame['data'] = $obj->id;
     		}
     	} else {
     		$this->returnError('项目不存在');

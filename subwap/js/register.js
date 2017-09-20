@@ -157,7 +157,7 @@ function regisInfo() {
         },
         function(data, status) {
             if (data.status == "success") {
-                alert("注册成功！");
+                alert("提交成功！请等待管理员审核");
                 location.href = 'http://'+window.location.host;
             } else {
                 alert(data.msg);

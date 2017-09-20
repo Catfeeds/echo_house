@@ -41,6 +41,7 @@ $statusArr = SubExt::$status;
         <th class="text-center">项目信息</th>
         <th class="text-center">对接人信息</th>
         <th class="text-center">客户信息</th>
+        <th class="text-center">客户码</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -55,7 +56,9 @@ $statusArr = SubExt::$status;
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->plot->title?></td>
             <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
+
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
+            <td class="text-center"><?=$v->code?></td> 
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
             <td class="text-center" style="text-align:center;vertical-align: middle">
