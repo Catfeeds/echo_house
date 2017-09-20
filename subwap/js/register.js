@@ -157,8 +157,8 @@ function regisInfo() {
         },
         function(data, status) {
             if (data.status == "success") {
-                alert("操作成功！");
-                location.href = "list.html";
+                alert("注册成功！");
+                location.href = 'http://'+window.location.host;
             } else {
                 alert(data.msg);
             }
