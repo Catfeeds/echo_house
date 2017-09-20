@@ -85,7 +85,7 @@ $(document).ready(function() {
         is_user = data.data.is_user;
         is_jy = data.data.is_jy;
         if(is_user==false) {
-            location.href = 'http://'+window.location.host;
+            $.get('/api/index/getQfUid',function(data) {});
         }
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
