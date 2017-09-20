@@ -360,10 +360,27 @@ color:#c3c3c3;
 	background-color: #00b7ee;
 	color: #fff;
 }
+.list-headimg{
+	position: fixed;
+	top: 78%;
+	left: 17.067rem;
+	height: 2.293rem;
+	width: 2.293rem;
+	background-color: #00b7ee;
+	border-radius: 1.147rem;
+	z-index: 999;
+}
+
+.headimg{
+	position: absolute;
+	width: 1.2rem;
+	height: 1.2rem;
+	left: 0.55rem;
+	top: 0.5rem;
+}
 
 .list-stick{
 	position: fixed;
-	top: 30.613rem;
 	top: 86%;
 	left: 17.067rem;
 	height: 2.293rem;
