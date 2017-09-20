@@ -13,6 +13,11 @@ class IndexController extends ApiController
         $this->redirect('/subwap/customerlist.html');
     }
 
+    public function actionInitThis()
+    {
+        $this->showUser();
+    }
+
     public function showUser()
     {
         $key = '495e6105d4146af1d36053c1034bc819';

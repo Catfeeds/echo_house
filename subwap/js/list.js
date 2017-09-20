@@ -74,6 +74,7 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
+
     $.get('/api/plot/getHasCoo', function(data) {
         if(data.status == 'error') {
             getLocation();
@@ -81,6 +82,10 @@ $(document).ready(function() {
     });
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
+        if(is_user==false) {
+            $.get('/api/index/initThis', function(data) {
+            });
+        }
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -611,7 +616,7 @@ function showkw() {
 }
 
 function checkId(obj) {
-    
+
     if(is_user == false) {
         $(obj).attr('href','#');
         $.get('/api/config/getQfUid',function(data) {
