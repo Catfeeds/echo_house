@@ -17,6 +17,7 @@ $(document).ready(function() {
 			url=detail.images[0].url;
 			$('.qrcode-head-img').attr('src',url);
 		}
+		$('title').html(detail.title+'-诚邀分销');
 		$('.qrcode-head-title').append(detail.title+'-'+detail.area+'-'+detail.street);
 		//价格
 		$('.qrcode-head-price').append(detail.price,detail.unit);
