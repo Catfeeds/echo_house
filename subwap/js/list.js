@@ -611,7 +611,7 @@ function showkw() {
 }
 
 function checkId(obj) {
-    QFH5.refresh(0);
+    
     if(is_user == false) {
         $(obj).attr('href','#');
         $.get('/api/config/getQfUid',function(data) {
