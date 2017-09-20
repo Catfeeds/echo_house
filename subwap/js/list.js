@@ -84,6 +84,9 @@ $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
         is_jy = data.data.is_jy;
+        if(is_user==false) {
+            location.href = 'http://'+window.location.host;
+        }
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
