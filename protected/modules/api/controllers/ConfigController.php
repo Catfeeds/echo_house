@@ -12,11 +12,11 @@ class ConfigController extends ApiController{
 				];
 		            return $tmp;
 		        });
-		
+		$userinfo = Yii::app()->db->createCommand("select id,status from user where  phone='".$_COOKIE['phone']."'")->queryRow();
 		$data = [
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
-			'is_jy'=>!Yii::app()->db->createCommand("select status from user where  phone='".$_COOKIE['phone']."'")->queryScalar(),
+			'is_jy'=>$userinfo['id']&&$userinfo['status']==0?1:0,
 		];
 		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
