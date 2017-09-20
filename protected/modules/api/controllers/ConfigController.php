@@ -16,7 +16,7 @@ class ConfigController extends ApiController{
 		$data = [
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
-			'is_jy'=>$this->staff&&$this->staff->status==0?1:0,
+			'is_jy'=>!Yii::app()->db->createCommand("select status from user where status=0 and phone='".$_COOKIE['phone']."'")->querySarlar(),
 		];
 		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
