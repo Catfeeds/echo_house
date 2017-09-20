@@ -626,9 +626,9 @@ function checkId(obj) {
                       //用户取消登陆无回调
                       if(state==2){
                           alert("您已登陆");
-                          location.reload();
+                          location.href = 'http://'+window.location.host;
                       }
-                      location.reload();
+                      location.href = 'http://'+window.location.host;
                   })
                 } else {
                     if(is_jy==1) {
