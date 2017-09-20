@@ -5,7 +5,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		url:'/api/plot/checkIsZc'
 	}).then(function successCallback(response){
 		if(response.data.status=='error') {
-			alert('暂无权限，请联系客服开通');
+			alert('暂无权限，请联系管理员开通');
 		}else
 			$scope.cuntomerlist=response.data.data;
 		
