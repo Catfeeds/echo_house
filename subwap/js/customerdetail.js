@@ -21,13 +21,20 @@ capp.controller("customerCtrl",function($scope,$http) {
 		}
 		$scope.notelist=response.data.data.list;
 		var status = response.data.data.status;
-		for (var i = 0; i < $('.process li').length; i++) {
-			var a = $('.process li')[i];
-			$(a).attr('class','processli-active');
-			if($(a).html()==status) {
-				break;
+		if (status!='退定') {
+			for (var i = 0; i < $('.process li').length; i++) {
+				var a = $('.process li')[i];
+				$(a).attr('class','processli-active');
+				if($(a).html()==status) {
+					break;
+				}
 			}
-		}
+		}else{
+			$('#tuidi').removeClass('tuiding');
+			$('#tuidi').addClass('tuiding-active');
+			$('.process ul li').removeAttr("onclick");
+			$('#tuidi').removeAttr("onclick");	
+		}	
 		if(response.data.data.is_del=='1'){
 			$('.remark').css('display','block');
 		}else{
@@ -39,7 +46,12 @@ capp.controller("customerCtrl",function($scope,$http) {
 	//提交备注
 	$scope.postmsg=function(){
 		var note=$('.remark-textarea').val();
-		var status=$('.processli-active').length-1;
+		var status='';
+		if($('#tuidi').hasClass('tuiding-active')){
+			status=6;
+		}else{
+			status=$('.processli-active').length-1;
+		}	
 		$http({
 			method:'POST',
 			url:'/api/plot/addSubPro',
@@ -62,8 +74,16 @@ function process(obj){
 		}
 		$(obj).removeClass('processli');
 		$(obj).addClass('processli-active');
-		$('.process ul li').removeAttr("onclick");		
+		$('.process ul li').removeAttr("onclick");
+		$('#tuidi').removeAttr("onclick");	
 	}
+}
+function tuiding(){
+	$('.remark').css('display','block');
+	$('#tuidi').removeClass('tuiding');
+	$('#tuidi').addClass('tuiding-active');
+	$('#tuidi').removeAttr("onclick");	
+	$('.process ul li').removeAttr("onclick");
 }
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
