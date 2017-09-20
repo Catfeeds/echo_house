@@ -558,7 +558,7 @@ class PlotController extends ApiController{
 				// var_dump($uid,$hid);exit;
 				$criteria = new CDbCriteria;
 				$criteria->addCondition("uid=$uid and hid=$hid and deleted=0 and expire>".time());
-				$obj = PlotMarketUserExt::model()->find($criteria);
+				$obj = PlotMarketUserExt::model()->normal()->find($criteria);
 				if(!$obj)
 					$obj = new PlotMarketUserExt;
 				// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
