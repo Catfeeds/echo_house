@@ -10,7 +10,7 @@ class CompanyController extends VipController{
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '门店';
+		$this->controllerName = '公司';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
@@ -66,7 +66,7 @@ class CompanyController extends VipController{
 					$this->setMessage('公司名已存在','error');
 				} else {
 					if($info->save()) {
-						$this->setMessage('操作成功','success',['list']);
+						$this->setMessage('操作成功','success');
 					} else {
 						$this->setMessage(array_values($info->errors)[0][0],'error');
 					}

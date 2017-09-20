@@ -143,7 +143,8 @@ class PlotExt extends Plot{
             'areaInfo' => array(self::BELONGS_TO, 'AreaExt', 'area'),//区
             'streetInfo' => array(self::BELONGS_TO, 'AreaExt', 'street'),//街道
             'subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'subs.deleted=0'),
-            'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1'),
+            'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1','order'=>'checked_subs.created desc'),
+            'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
             // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }

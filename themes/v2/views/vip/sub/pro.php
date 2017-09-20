@@ -12,9 +12,9 @@ $statusArr = SubExt::$status;
         <th class="text-center">流水添加者</th>
         <th class="text-center">流水备注</th>
         <th class="text-center">添加时间</th>
-        <!-- <th class="text-center">修改时间</th>
+        <!-- <th class="text-center">修改时间</th> -->
         <th class="text-center">状态</th>
-        <th class="text-center">操作</th> -->
+        <!-- <th class="text-center">操作</th> -->
     </tr>
     </thead>
     <tbody>
@@ -23,6 +23,7 @@ $statusArr = SubExt::$status;
             <td class="text-center"><?=$v->user->name.$v->user->phone?></td> 
             <td class="text-center"><?=$v->note?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
+            <td class="text-center"><?=SubExt::$status[$v->status]?></td>
         </tr>
     <?php endforeach;?>
     </tbody>

@@ -768,9 +768,15 @@ class PlotController extends ApiController{
 
     public function actionCheckIsZc()
     {
-    	if(Yii::app()->user->getIsGuest() || !($plot = PlotExt::model()->normal()->find('place_user='.$this->staff->id))) {
-    		$this->returnError('暂无权限查看');
+    	if(Yii::app()->user->getIsGuest()) {
+    		return $this->returnError('暂无权限查看');
     	} else {
+    		$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id)->queryScalar();
+    		if(!$hid) {
+    			return $this->returnError('暂无权限查看');
+    		} else {
+    			$plot = PlotExt::model()->findByPk($hid);
+    		}
     		$subs = $plot->checked_subs;
     		$data = [];
     		if($subs) {
@@ -803,6 +809,13 @@ class PlotController extends ApiController{
     			$this->returnError('报备信息错误或已添加');
     		else {
     			$obj->is_check = 1;
+    			$obj->status = 1;
+    			$pro = new SubProExt;
+    			$pro->note = '客户已到访';
+    			$pro->sid = $obj->id;
+    			$pro->status = 1;
+    			$pro->uid = $this->staff->id;
+    			$pro->save();
     			$obj->save();
     		}
     	} else {

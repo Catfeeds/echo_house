@@ -48,7 +48,7 @@ class UserExt extends User{
     public function rules() {
         $rules = parent::rules();
         return array_merge($rules, array(
-            // array('name', 'unique', 'message'=>'{attribute}已存在')
+            array('phone', 'unique', 'message'=>'{attribute}已存在')
         ));
     }
 

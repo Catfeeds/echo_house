@@ -55,6 +55,8 @@ class UserController extends VipController{
         if(Yii::app()->request->getIsPostRequest()) {
             $info->attributes = Yii::app()->request->getPost($modelName,[]);
             !$info->pwd && $info->pwd = md5('jjqxftv587');
+            $info->cid = Yii::app()->user->cid;
+            $info->getIsNewRecord() && $info->status = 1;
             // $info->pwd = md5($info->pwd);
             if($info->save()) {
                 $this->setMessage('操作成功','success',['list']);

@@ -8,8 +8,8 @@ function sub(){
 			if(data.status=='error') {
 				alert(data.msg);
 			} else {
-				alert('添加成功');
-				location.href = 'addcustomer.html';
+				alert('确认到访客户');
+				location.href = 'customerlist.html';
 			}
 		});
 	}

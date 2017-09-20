@@ -15,7 +15,7 @@ class SubController extends VipController{
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '快速报备';
+		$this->controllerName = '报备';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}

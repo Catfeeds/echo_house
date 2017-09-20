@@ -98,7 +98,7 @@ class PlotController extends VipController{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
 		$house = PlotExt::model()->findByPk($hid);
 		if(!$house){
-			$this->redirect('/admin');
+			$this->redirect('/vip');
 		}
 		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
@@ -106,6 +106,27 @@ class PlotController extends VipController{
 		$criteria->params[':hid'] = $hid;
 		$houses = PlotHxExt::model()->undeleted()->getList($criteria,20);
 		$this->render('hxlist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 户型列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionPlacelist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/vip');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotPlaceExt::model()->undeleted()->getList($criteria,20);
+		// var_dump($houses->data);exit;
+		$this->render('placelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 
 	/**
@@ -118,7 +139,7 @@ class PlotController extends VipController{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
 		$house = PlotExt::model()->findByPk($hid);
 		if(!$house){
-			$this->redirect('/admin');
+			$this->redirect('/vip');
 		}
 		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
@@ -138,7 +159,7 @@ class PlotController extends VipController{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
 		$house = PlotExt::model()->findByPk($hid);
 		if(!$house){
-			$this->redirect('/admin');
+			$this->redirect('/vip');
 		}
 		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
@@ -158,7 +179,7 @@ class PlotController extends VipController{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
 		$house = PlotExt::model()->findByPk($hid);
 		if(!$house){
-			$this->redirect('/admin');
+			$this->redirect('/vip');
 		}
 		if(Yii::app()->request->getIsPostRequest()) {
 			PlotImageExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
@@ -197,7 +218,7 @@ class PlotController extends VipController{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
 		$house = PlotExt::model()->findByPk($hid);
 		if(!$house){
-			$this->redirect('/admin');
+			$this->redirect('/vip');
 		}
 		$criteria = new CDbCriteria;
 		$criteria->order = 'updated desc,id desc';
@@ -285,7 +306,7 @@ class PlotController extends VipController{
 						$obj->save();
 					}
 				$this->setMessage('保存成功','success');
-				$this->redirect('/admin/plot/list');
+				$this->redirect('/vip/plot/list');
 			} else {
 				$this->setMessage(current(current($house->getErrors())),'error');
 			}
@@ -301,13 +322,13 @@ class PlotController extends VipController{
 		if($hxs){
 			if(!strstr($hxs[0]['image'],'http')) {
 				$this->setMessage('已处理','success');
-				$this->redirect('/admin/plot/list');
+				$this->redirect('/vip/plot/list');
 			}
 				
 		}elseif($imgs){
 			if(!strstr($imgs[0]['url'],'http')) {
 				$this->setMessage('已处理','success');
-				$this->redirect('/admin/plot/list');
+				$this->redirect('/vip/plot/list');
 			}
 				
 		}
@@ -326,7 +347,7 @@ class PlotController extends VipController{
             }
         }
         $this->setMessage('处理完毕','success');
-        $this->redirect('/admin/plot/list');
+        $this->redirect('/vip/plot/list');
 	}
 
 	public function actionDelNews($id='')
@@ -410,6 +431,27 @@ class PlotController extends VipController{
 			}
 		} 
 		$this->render('newsedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionEditPlace()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotPlaceExt';
+		$this->controllerName = '案场助理';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->hid = $hid;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['placelist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('placeedit',['article'=>$info,'hid'=>$hid]);
 	}
 
 	public function actionEditPrice()
