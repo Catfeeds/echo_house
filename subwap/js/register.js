@@ -54,6 +54,7 @@ function send_msg(phonenumber) {
 }
 $('.register-register').click(function() {
     if(GetQueryString('phone')!=null) {
+        var username = $('#username').val().trim();
         if(!/^[\u0391-\uFFE5]+$/.test(username)) {
             alert("姓名仅限中文");
             return false;
