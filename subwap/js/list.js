@@ -84,9 +84,6 @@ $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;
         is_jy = data.data.is_jy;
-        if(is_user==false) {
-            $.get('/api/index/getQfUid',function(data) {});
-        }
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -629,7 +626,9 @@ function checkId(obj) {
                       //用户取消登陆无回调
                       if(state==2){
                           alert("您已登陆");
+                          location.reload();
                       }
+                      location.reload();
                   })
                 } else {
                     if(is_jy==1) {
