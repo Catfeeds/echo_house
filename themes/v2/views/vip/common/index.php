@@ -2,7 +2,7 @@
 $this->pageTitle = '经纪圈新房通后台欢迎您';
 ?>
 <?php 
-	$thishits = $allhits = $thissubs = $allsubs = $thism = $allm = 0;
+	$thishits = $allhits = $thissubs = $allsubs = $thism = $allm = $thiscomes = $allcomes = 0;
 	$hids = [];
 	$hidsa = Yii::app()->db->createCommand("select id from plot where company_id=".Yii::app()->user->cid)->queryAll();
 	if($hidsa) {
@@ -23,16 +23,25 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
 
 	$criteria = new CDbCriteria;
 	$criteria->addInCondition('hid',$hids);
-	$criteria->addCondition('status>=4');
+	$criteria->addCondition('status>=3 and status<6');
 	$allm = SubExt::model()->undeleted()->count($criteria);
 	$criteria->addCondition('created>=:begin and created<=:end');
 	$criteria->params[':begin'] = TimeTools::getDayBeginTime();
 	$criteria->params[':end'] = TimeTools::getDayEndTime();
 	$thism = SubExt::model()->undeleted()->count($criteria);
 
+    $criteria = new CDbCriteria;
+    $criteria->addInCondition('hid',$hids);
+    $criteria->addCondition('status>=1');
+    $allcomes = SubExt::model()->undeleted()->count($criteria);
+    $criteria->addCondition('created>=:begin and created<=:end');
+    $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+    $criteria->params[':end'] = TimeTools::getDayEndTime();
+    $thiscomes = SubExt::model()->undeleted()->count($criteria);
+
 ?>
 <div class="row">
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
                 <i class="fa fa-comments"></i>
@@ -50,7 +59,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
             </a>
         </div>
     </div>
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
         <div class="dashboard-stat red-intense">
             <div class="visual">
                 <i class="fa fa-bar-chart-o"></i>
@@ -68,8 +77,25 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
             </a>
         </div>
     </div>
-    
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-3 col-md-3">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <?php echo $thiscomes.'/'.$allcomes ?>
+                </div>
+                <div class="desc">
+                    今日新增来访数/总数
+                </div>
+            </div>
+            <a class="more" href="<?php echo $this->createUrl('sub/list',['cate'=>1])?>">
+                查看更多 <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3">
         <div class="dashboard-stat purple-plum">
             <div class="visual">
                 <i class="fa fa-globe"></i>
