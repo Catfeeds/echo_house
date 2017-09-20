@@ -53,47 +53,76 @@ function send_msg(phonenumber) {
         });
 }
 $('.register-register').click(function() {
-    var username = $('#username').val().trim();
-    var phonenumber = $('#writephonenumber').val().trim();
-    var password = $('#password').val().trim();
-
-    if(!/^[\u0391-\uFFE5]+$/.test(username)) {
-        alert("姓名仅限中文");
-        return false;
-    }
-    var formtype = $('#form-type').val();
-    if (formtype == "") {
-        alert("请至少选择一种用户类型");
-    } else {
-        var code = $('#code').val();
-        var phonenumber = $('#writephonenumber').val();
-        $.get('/api/user/checkCode?phone=' + phonenumber + '&code=' + code, function(data) {
-            if (data.status == "error") {
-                alert("请输入正确的验证码");
-            } else {
-                var companycode = $('#companycode').val();
-                var type = $('#form-type').val();
-                if (type < 3) {
-                    $.get('/api/user/checkCompanyCode?code=' + companycode, function(data) {
-                        if (data.status == "error") {
-                            alert("请输入正确的门店码");
-                            return false;
-                        } else {
-                            regis();
-                        }
-                    });
-                } else {
-                    if($('#img-url').val() == '') {
-                        alert('请上传证件');
-                    } else 
-                        regis();
+    if(GetQueryString(phone)!=null) {
+        if(!/^[\u0391-\uFFE5]+$/.test(username)) {
+            alert("姓名仅限中文");
+            return false;
+        }
+        var formtype = $('#form-type').val();
+        if (formtype == "") {
+            alert("请至少选择一种用户类型");
+            return false;
+        } 
+        var companycode = $('#companycode').val();
+        var type = $('#form-type').val();
+        if (type < 3) {
+            $.get('/api/user/checkCompanyCode?code=' + companycode, function(data) {
+                if (data.status == "error") {
+                    alert("请输入正确的门店码");
+                    return false;
                 }
-
-
-                    
+            });
+        } else {
+            if($('#img-url').val() == '') {
+                alert('请上传证件');
+                return false;
             }
-        });
+        }
+        regis();
+    } else {
+        var username = $('#username').val().trim();
+        var phonenumber = $('#writephonenumber').val().trim();
+        var password = $('#password').val().trim();
+
+        if(!/^[\u0391-\uFFE5]+$/.test(username)) {
+            alert("姓名仅限中文");
+            return false;
+        }
+        var formtype = $('#form-type').val();
+        if (formtype == "") {
+            alert("请至少选择一种用户类型");
+        } else {
+            var code = $('#code').val();
+            var phonenumber = $('#writephonenumber').val();
+            $.get('/api/user/checkCode?phone=' + phonenumber + '&code=' + code, function(data) {
+                if (data.status == "error") {
+                    alert("请输入正确的验证码");
+                } else {
+                    var companycode = $('#companycode').val();
+                    var type = $('#form-type').val();
+                    if (type < 3) {
+                        $.get('/api/user/checkCompanyCode?code=' + companycode, function(data) {
+                            if (data.status == "error") {
+                                alert("请输入正确的门店码");
+                                return false;
+                            } else {
+                                regis();
+                            }
+                        });
+                    } else {
+                        if($('#img-url').val() == '') {
+                            alert('请上传证件');
+                        } else 
+                            regis();
+                    }
+
+
+                        
+                }
+            });
+        }
     }
+        
 });
 
 function regis() {
