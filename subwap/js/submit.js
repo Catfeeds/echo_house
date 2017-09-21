@@ -1,4 +1,3 @@
-var kf_id = '';
 $(document).ready(function(){
 //获取下拉框数据
 	$.get("/api/tag/area",function(data){
@@ -6,11 +5,6 @@ $(document).ready(function(){
 			for (var i = 0; i < data.data.length; i++) {
 			$('.submit-select').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');			
 			}
-		}
-	});
-	$.get("/api/config/index",function(data){
-		if(data.status=='success'){
-			kf_id = data.data.kf_id;
 		}
 	});
 
@@ -84,6 +78,3 @@ function submit() {
     );
 }
 
-function callkf() {
-	 QFH5.jumpTalk(kf_id,'username','');
-}

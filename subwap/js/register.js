@@ -1,8 +1,10 @@
+var kf_id = '';
 var our_uids = '';
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
         our_uids = data.data.our_uids;
+        kf_id = data.data.kf_id;
     });
     if(GetQueryString('phone')!=null) {
         $('.nophone').remove();
@@ -185,4 +187,8 @@ function GetQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(decodeURI(r[2]));
     return null;
+}
+
+function callkf() {
+     QFH5.jumpTalk(kf_id,'username','');
 }
