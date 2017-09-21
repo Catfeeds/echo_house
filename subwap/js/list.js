@@ -92,7 +92,24 @@ $(document).ready(function() {
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
             setArea($('#areaul li')[0]); 
         } 
+        if(is_user==1) {
+            QFH5.getUserInfo(function(state,data){
+              if(state==1){
+                $('.headimg').attr('src',data.face);
+                //登陆状态，有数据
+                // var uid = data.uid;//用户UID int
+                // var username = data.username;//用户名称 string
+                // var face = data.face;//用户头像地址 string
+                // var deviceid = data.deviceid;//用户设备唯一ID并MD5加密 string
+                // var phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
+              }else{
+                //未登录
+                alert(data.error);//data.error string
+              }
+            })
+        }
     });    
+    $.get('/api/index/getQfUid',function(data) {});
     if (GetQueryString('kw') != null) {
         o.kw = GetQueryString('kw');
         showkw();
@@ -649,22 +666,19 @@ $('.list-stick').click(function(){
 });
 
 function toUser() {
-        $.get('/api/index/getQfUid',function(data) {
-                if(data.status=='error') {
-                    alert('登录成功后请关闭本页面重新进入');
-                    QFH5.jumpLogin(function(state,data){
-                      //未登陆状态跳登陆会刷新页面，无回调
-                      //已登陆状态跳登陆会回调通知已登录
-                      //用户取消登陆无回调
-                      if(state==2){
-                      alert("您已登陆");
-                      }
-                  })
-                } else {
-                    QFH5.jumpUser(data.data.uid)
-                }
-                QFH5.refresh(1);
-            });
-            
-        // $(obj).attr('href','l
+    $.get('/api/index/getQfUid',function(data) {
+            if(data.status=='error') {
+                alert('登录成功后请关闭本页面重新进入');
+                QFH5.jumpLogin(function(state,data){
+                  //未登陆状态跳登陆会刷新页面，无回调
+                  //已登陆状态跳登陆会回调通知已登录
+                  //用户取消登陆无回调
+                  if(state==2){
+                  alert("您已登陆");
+                  }
+              })
+            } else {
+                QFH5.jumpUser(data.data.uid);
+            }
+        });
 }

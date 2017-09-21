@@ -7,7 +7,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		if(response.data.status=='error') {
 			alert('暂无权限，请联系管理员开通');
 		}else
-			$scope.cuntomerlist=response.data.data;
+			$scope.cuntomerlist=response.data.data.list;
 		
 	},function errorCallback(response){
 
@@ -15,15 +15,15 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	$scope.search=function(){
 		var search=$('.list-search-frame-text').val();
 		$http({
-			method:'POST',
-			url:'',
-			data:$.param({search:search})  ,
-			headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
+			method:'GET',
+			url:'/api/plot/checkIsZc?kw='+search,
+			// data:$.param({search:search})  ,
+			// headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
 				$('.customerlist ul').empty();
 				$scope.cuntomerlist='';
-				$scope.searchlist=response.data.data;
+				$scope.searchlist=response.data.data.list;
 			}
 		},function errorCallback(response){
 			

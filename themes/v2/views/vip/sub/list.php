@@ -49,7 +49,7 @@ $statusArr = SubExt::$status;
     <?php foreach($infos as $k=>$v): ?>
         <tr>
             <td class="text-center"><?=$v->plot->title?></td>
-            <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
+            <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
 
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
