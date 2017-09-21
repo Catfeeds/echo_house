@@ -661,6 +661,8 @@ class PlotController extends ApiController{
 					$obj->status = 0;
 					if($obj->save()) {
 						SmsExt::sendMsg('分销',$tmp['com_phone'],['staff'=>$company.$this->staff->name.$this->staff->phone,'plot'=>$plot->title]);
+						$noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='".$tmp['com_phone']."'")->queryScalar();
+						$noticeuid && Yii::app()->controller->sendNotice('分销合同签约申请：'.$company.$this->staff->name.$this->staff->phone.'，正在经纪圈APP中申请合作（'.$plot->title.'）项目，请尽快联系哦！',$noticeuid);
 					}
 				} elseif($this->staff->type<=1) {
 					$this->returnError('您的账户类型为总代公司，不支持申请分销签约');
