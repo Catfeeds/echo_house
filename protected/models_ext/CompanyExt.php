@@ -51,7 +51,7 @@ class CompanyExt extends Company{
                 $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             }
             $this->code = $code;
-            Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code,$this->adduid);
+            Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，请使用此本门店码加入新房通系统',$this->adduid);
         }
         if($this->getIsNewRecord()) {
             
