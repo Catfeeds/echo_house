@@ -60,4 +60,20 @@ class UserController extends AdminController{
         } 
         $this->render('edit',['cates'=>$this->cates,'article'=>$info]);
     }
+
+    public function actionRecall($msg='',$id='')
+    {
+        if($id) {
+            $info = UserExt::model()->findByPk($id);
+            if($msg && $info && $info->qf_uid) {
+                Yii::app()->controller->sendNotice($msg,$info->qf_uid);
+                UserExt::model()->deleteAllByAttributes(['id'=>$id]);
+                $this->setMessage('操作成功');
+            } else {
+                $this->setMessage('操作失败');
+            }
+            $this->redirect('list');
+            
+        }
+    }
 }
