@@ -70,7 +70,7 @@ function submit() {
         function(data, status) {
             if (data.status == "success") {
                 alert("提交成功！");
-                location.href = "login.html";
+                location.href = "list.html";
             } else {
                 alert("提交失败！");
             }
