@@ -10,6 +10,7 @@ class ConfigController extends ApiController{
 					'coo_words'=>SiteExt::getAttr('qjpz','coo_words'),
 					'add_market_words'=>SiteExt::getAttr('qjpz','add_market_words'),
 					'our_uids'=>SiteExt::getAttr('qjpz','ouruids'),
+					'kf_id'=>SiteExt::getAttr('qjpz','kfuid'),
 				];
 		            return $tmp;
 		        });
