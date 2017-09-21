@@ -38,6 +38,7 @@ class CompanyController extends AdminController{
 			$criteria->addCondition('type=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		$criteria->order = 'sort desc,updated desc';
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
 		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
 	}
