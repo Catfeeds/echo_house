@@ -73,7 +73,7 @@ class UserExt extends User{
             $this->status = 1;
         }
         if($this->getIsNewRecord()) {
-            if($this->type==3&&$this->status=0) {
+            if($this->type==3&&$this->status==0) {
                 $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
             }
             $this->created = $this->updated = time();
