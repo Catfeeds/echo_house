@@ -1,7 +1,9 @@
 var hid = '';
+var kf_id = '';
 $(document).ready(function(){
 	$.get("/api/config/index",function(data){
 		if (data.status=='success') {
+			kf_id = data.data.kf_id;
 			// for (var i = 0; i < data.data.length; i++) {
 			// 	$('#housename').append('<option value="'++'">'++'</option>');
 			// }
@@ -94,3 +96,6 @@ function GetQueryString(name) {
 // 		    }
 // 		});
 // });
+function callkf() {
+     QFH5.jumpTalk(kf_id,'','');
+}
