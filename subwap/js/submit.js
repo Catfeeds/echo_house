@@ -72,7 +72,7 @@ function submit() {
                 alert("提交成功！");
                 location.href = "list.html";
             } else {
-                alert("提交失败！");
+                alert(data.msg);
             }
         }
     );

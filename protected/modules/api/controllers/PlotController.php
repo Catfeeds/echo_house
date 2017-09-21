@@ -693,6 +693,9 @@ class PlotController extends ApiController{
     {
     	if(Yii::app()->request->getIsPostRequest()) {
 			$values = Yii::app()->request->getPost('CompanyExt',[]);
+			if(CompanyExt::model()->undeleted()->find("name='".$values['name']."'")) {
+				return $this->returnError('公司名已存在');
+			}
 			$obj = new CompanyExt;
 			$obj->attributes = $values;
 			$obj->status = 0;
