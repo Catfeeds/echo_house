@@ -57,29 +57,35 @@ $('.register-register').click(function() {
         var username = $('#username').val().trim();
         if(!/^[\u0391-\uFFE5]+$/.test(username)) {
             alert("姓名仅限中文");
-            return false;
-        }
-        var formtype = $('#form-type').val();
-        if (formtype == "") {
-            alert("请至少选择一种用户类型");
-            return false;
-        } 
-        var companycode = $('#companycode').val();
-        var type = $('#form-type').val();
-        if (type < 3) {
-            $.get('/api/user/checkCompanyCode?code=' + companycode, function(data) {
-                if (data.status == "error") {
-                    alert("请输入正确的门店码");
-                    return false;
-                }
-            });
+            
         } else {
-            if($('#img-url').val() == '') {
-                alert('请上传证件');
-                return false;
+            var formtype = $('#form-type').val();
+            if (formtype == "") {
+                alert("请至少选择一种用户类型");
+                
+            } else {
+                var companycode = $('#companycode').val();
+                var type = $('#form-type').val();
+                if (type < 3) {
+                    $.get('/api/user/checkCompanyCode?code=' + companycode, function(data) {
+                        if (data.status == "error") {
+                            alert("请输入正确的门店码");
+                            
+                        } else {
+                            regisInfo();
+                        }
+                    });
+                } else {
+                    if($('#img-url').val() == '') {
+                        alert('请上传证件');
+                        
+                    } else {
+                        regisInfo();
+                    }
+                }
             }
+                
         }
-        regisInfo();
     } else {
         var username = $('#username').val().trim();
         var phonenumber = $('#writephonenumber').val().trim();
