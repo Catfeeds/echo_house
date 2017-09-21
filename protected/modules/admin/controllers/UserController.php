@@ -23,7 +23,9 @@ class UserController extends AdminController{
         if($value = trim($value))
             if ($type=='title') {
                 $criteria->addSearchCondition('name', $value);
-            } 
+            } elseif($type=='phone') {
+                $criteria->addSearchCondition('phone', $value);
+            }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
         {
