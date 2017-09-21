@@ -663,6 +663,7 @@ function toUser() {
                 } else {
                     QFH5.jumpUser(data.data.uid)
                 }
+                QFH5.refresh(1);
             });
             
         // $(obj).attr('href','l
