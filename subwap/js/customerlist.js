@@ -6,6 +6,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	}).then(function successCallback(response){
 		if(response.data.status=='error') {
 			alert('暂无权限，请联系管理员开通');
+			location.href = 'list.html';
 		}else{
 			$('.count b').html(response.data.data.num);
 			$scope.cuntomerlist=response.data.data.list;
