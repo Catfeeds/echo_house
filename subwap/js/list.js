@@ -647,3 +647,23 @@ function checkId(obj) {
 $('.list-stick').click(function(){
     window.scrollTo(0,0);
 });
+
+function toUser() {
+        $.get('/api/index/getQfUid',function(data) {
+                if(data.status=='error') {
+                    alert('登录成功后请关闭本页面重新进入');
+                    QFH5.jumpLogin(function(state,data){
+                      //未登陆状态跳登陆会刷新页面，无回调
+                      //已登陆状态跳登陆会回调通知已登录
+                      //用户取消登陆无回调
+                      if(state==2){
+                      alert("您已登陆");
+                      }
+                  })
+                } else {
+                    QFH5.jumpUser(data.data.uid)
+                }
+            });
+            
+        // $(obj).attr('href','l
+}
