@@ -259,6 +259,9 @@ color:#c3c3c3;
 	overflow: hidden;
 	display: none;
 }
+.filter-filter1-right ul{
+	overflow: hidden;
+}
 .filter-filter1-right li{
 	position: relative;
 	font-size: 0.747rem;
