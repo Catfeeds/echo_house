@@ -724,7 +724,7 @@ class PlotController extends ApiController{
     			if($sfs = $info->sfMarkets) {
 					foreach ($sfs as $key => $value) {
 						$thisstaff = UserExt::model()->findByPk($value->uid);
-						$phones[] = $thisstaff->name.$thisstaff->phone;
+						$thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
 					}
 					// $phones = [];
 				} else {
@@ -732,7 +732,7 @@ class PlotController extends ApiController{
 				}
 				$info->market_user && array_unshift($phones, $info->market_user);
 
-				$phones = array_keys(array_flip($phones));
+				$phones && $phones = array_keys(array_flip($phones));
 
 				$phonesnum = [];
 				if($phones) {
