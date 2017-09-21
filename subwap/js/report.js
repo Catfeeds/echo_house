@@ -90,7 +90,7 @@ function sub() {
 	}else
 		$.post('/api/plot/addSub',o,function(data) {
 			if(data.status == 'success') {
-				alert('报备成功，项目负责人将会收到您的报备信息');
+				alert('报备成功，项目负责人将会收到您的报备信息，客户到访时请主动出示客户码。');
 				location.href = 'detail.html?id='+o.hid;
 			}
 			else
