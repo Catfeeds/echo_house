@@ -37,7 +37,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">类型</th>
         <th class="text-center">地址</th>
         <th class="text-center">公司联系</th>
-        <th class="text-center">公司码</th>
+        <th class="text-center">门店码</th>
         <th class="text-center">添加时间</th>
         <!-- <th class="text-center">修改时间</th> -->
         <th class="text-center">状态</th>
@@ -60,7 +60,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
             <td style="text-align:center;vertical-align: middle">
-                <?php echo CHtml::ajaxLink('生成公司码',$this->createUrl('setCode'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm red'.UserExt::$statusStyle[$v->status])); ?>
+                <?php echo CHtml::ajaxLink('生成门店码',$this->createUrl('setCode'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm red'.UserExt::$statusStyle[$v->status])); ?>
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id)); ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 修改 </a>
                 <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
 

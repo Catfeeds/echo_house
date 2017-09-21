@@ -15,7 +15,7 @@ class CooperateController extends AdminController{
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '申请分销';
+		$this->controllerName = '分销签约';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}

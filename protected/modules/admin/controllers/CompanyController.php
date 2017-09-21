@@ -10,7 +10,7 @@ class CompanyController extends AdminController{
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '门店';
+		$this->controllerName = '公司';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
