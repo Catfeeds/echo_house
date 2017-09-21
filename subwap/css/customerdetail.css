@@ -80,6 +80,13 @@ body{
 	font-size: 0.747rem;
 	color: #868686;
 }
+.zjphone{
+	position: absolute;
+	left: 8rem;
+	top: 2.6rem;
+	font-size: 0.747rem;
+	color: #868686;
+}
 .note{
 	width: 18.4rem;
 	height: auto;
@@ -93,10 +100,10 @@ body{
 
 .companyimg{
 	position: absolute;
-	height: 1.6rem;
-	width: 1.6rem;
+	height: 1.2rem;
+	width: 1.2rem;
 	left: 0.8rem;
-	top: 0.4rem;
+	top: 0.6rem;
 }
 .company-name{
 	position: relative;
