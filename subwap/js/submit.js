@@ -1,4 +1,5 @@
 var value = '';
+var uid = '';
 $(document).ready(function(){
 //获取下拉框数据
 	$.get("/api/tag/area",function(data){
@@ -6,6 +7,11 @@ $(document).ready(function(){
 			for (var i = 0; i < data.data.length; i++) {
 			$('.submit-select').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');			
 			}
+		}
+	});
+	$.get("/api/index/getQfUid",function(data){
+		if(data.status=='success') {
+			uid = data.data.qf_uid;
 		}
 	});
 
@@ -66,6 +72,7 @@ function submit() {
             'CompanyExt[type]': $('#type').val(),
             'CompanyExt[area]': value,
             'CompanyExt[image]': $('#img-url').val(),
+            'CompanyExt[adduid]': uid,
         },
         function(data, status) {
             if (data.status == "success") {

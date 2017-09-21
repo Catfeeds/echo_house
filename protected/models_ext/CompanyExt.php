@@ -44,14 +44,14 @@ class CompanyExt extends Company{
     }
 
     public function beforeValidate() {
-        if($this->status==1 && !$this->code && !empty($_COOKIE['qf_uid'])) {
+        if($this->status==1 && !$this->code && !$this->adduid) {
             $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             // var_dump($code);exit;
             while (CompanyExt::model()->find('code='.$code)) {
                 $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             }
             $this->code = $code;
-            Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code,$_COOKIE['qf_uid']);
+            Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code,$this->adduid);
         }
         if($this->getIsNewRecord()) {
             

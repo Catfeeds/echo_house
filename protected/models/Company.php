@@ -13,6 +13,7 @@
  * @property string $phone
  * @property string $code
  * @property string $image
+ * @property integer $adduid
  * @property integer $type
  * @property integer $status
  * @property integer $sort
@@ -39,14 +40,14 @@ class Company extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('street, area, type, status, sort, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('street, area, adduid, type, status, sort, deleted, created, updated', 'numerical', 'integerOnly'=>true),
 			array('name, address, image', 'length', 'max'=>255),
 			array('manager', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>30),
 			array('code', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, address, manager, street, area, phone, code, image, type, status, sort, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, name, address, manager, street, area, phone, code, image, adduid, type, status, sort, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +77,7 @@ class Company extends CActiveRecord
 			'phone' => 'Phone',
 			'code' => 'Code',
 			'image' => 'Image',
+			'adduid' => 'Adduid',
 			'type' => 'Type',
 			'status' => 'Status',
 			'sort' => 'Sort',
@@ -112,6 +114,7 @@ class Company extends CActiveRecord
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('image',$this->image,true);
+		$criteria->compare('adduid',$this->adduid);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('sort',$this->sort);
