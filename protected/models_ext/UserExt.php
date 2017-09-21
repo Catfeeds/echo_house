@@ -73,6 +73,9 @@ class UserExt extends User{
             $this->status = 1;
         }
         if($this->getIsNewRecord()) {
+            if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {
+                $this->qf_uid = $_COOKIE['qf_uid'];
+            }
             if($this->type==3&&$this->status==0) {
                 $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
             }
