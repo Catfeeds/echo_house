@@ -59,6 +59,12 @@ class SubExt extends Sub{
         }
         else
             $this->updated = time();
+        if($this->status==2) {
+            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台审核','',1);
+        }
+        if($this->status==3) {
+            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台审核','',1);
+        }
         return parent::beforeValidate();
     }
 
