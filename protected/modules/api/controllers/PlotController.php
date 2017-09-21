@@ -261,7 +261,7 @@ class PlotController extends ApiController{
 		} else {
 			$news_time = $news = '';
 		}
-		$hxarr = [];
+		$hxarr = $phones = [];
 		if($hxs = $info->hxs) {
 			foreach ($hxs as $key => $value) {
 				$tmp = $value->attributes;
