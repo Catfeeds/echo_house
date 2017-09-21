@@ -122,7 +122,7 @@ $(document).ready(function() {
         o.company = GetQueryString('zd_company');
         html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
         $('#companytag').html(html);
-        $("title").html(GetQueryString('company')+'-代理项目列表'); 
+        $("title").html(GetQueryString('company')+'-'+$('#num').html().'盘联动-诚邀分销'); 
     }    
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
@@ -176,7 +176,7 @@ function ajaxGetList(obj) {
 
     $.get('/api/plot/list' + params, function(data) {
         var html = '';
-        $('#num').html('-');
+        $('#num').html('0');
         o.page = data.data.page;
         o.page_count = data.data.page_count;
         o.num = data.data.num;
