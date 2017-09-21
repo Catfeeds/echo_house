@@ -100,7 +100,7 @@ body{
 }
 .list-search-frame-text{
 	position: absolute;
-	width: 16.213rem;
+	width: 12rem;
 	height: 1.547rem;
 	top: 0.4rem;
 	left: 0.64rem;
@@ -108,4 +108,15 @@ body{
 	border: none;
 	font-size: 0.693rem;
 	padding-left: 0.533rem;
+}
+.statusselect{
+	position: absolute;
+	width: 3rem;
+	top: 0.25rem;
+	left: 15rem;
+	height: 1.5rem;
+	font-size: 0.693rem;
+	color: #868686;
+	text-align: right;
+	border:solid 0.027rem #c3c3c3;
 }
