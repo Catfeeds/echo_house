@@ -60,7 +60,7 @@ class SubExt extends Sub{
         else
             $this->updated = time();
         if($this->status==2) {
-            $company = companyExt::model()->findByPk($this->plot->company_id);
+            $company = CompanyExt::model()->findByPk($this->plot->company_id);
             $managers = $company->managers;
             if($managers) {
                 $uidss = '';
@@ -73,7 +73,7 @@ class SubExt extends Sub{
             Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台审核','',1);
         }
         if($this->status==3) {
-            $company = companyExt::model()->findByPk($this->plot->company_id);
+            $company = CompanyExt::model()->findByPk($this->plot->company_id);
             $managers = $company->managers;
             if($managers) {
                 $uidss = '';
