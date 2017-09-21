@@ -649,6 +649,10 @@ $('.list-stick').click(function(){
 });
 
 function toUser() {
+    QFH5.refresh(1);
+    if(is_user==true) {
+        QFH5.jumpUser(data.data.uid);
+    } else {
         $.get('/api/index/getQfUid',function(data) {
                 if(data.status=='error') {
                     alert('登录成功后请关闭本页面重新进入');
@@ -660,11 +664,7 @@ function toUser() {
                       alert("您已登陆");
                       }
                   })
-                } else {
-                    QFH5.jumpUser(data.data.uid)
                 }
-                QFH5.refresh(1);
             });
-            
-        // $(obj).attr('href','l
+    }
 }
