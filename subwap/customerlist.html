@@ -22,8 +22,8 @@
 				<div class="intername" ng-cloak>{{item.staff_name}}</div>
 				<div class="intertel" ng-cloak>{{item.staff_phone}}</div>
 				<div class="intercom" ng-cloak>{{item.staff_company}}</div>
-				<div class="time" ng-cloak>10:54</div>
-				<div class="status" ng-cloak>状态</div>
+				<div class="time" ng-cloak>{{item.time}}</div>
+				<div class="status" ng-cloak>{{item.status}}</div>
 				<div class="line"></div>
 			</li>
 			<li ng-repeat="item in searchlist" ng-click="turn(item.id)">

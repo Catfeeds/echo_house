@@ -803,6 +803,8 @@ class PlotController extends ApiController{
     				$tmp['user_phone'] = $value->phone;
     				$tmp['staff_name'] = $itsstaff->name;
     				$tmp['staff_phone'] = $itsstaff->phone;
+    				$tmp['time'] = date('m-d H:i',$value->updated);
+    				$tmp['status'] = SubExt::$status[$value->status];
     				$tmp['staff_company'] = $cname?$cname:'暂无';
     				$data[] = $tmp;
     			}
