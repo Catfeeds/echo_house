@@ -46,8 +46,10 @@ class PlotMarketUserExt extends PlotMakertUser{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()) {
+            $res = Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的对接人'.($this->user?($this->user->name.$this->user->phone):'').'支付，请登陆后台审核','',1);
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

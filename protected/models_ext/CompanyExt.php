@@ -16,6 +16,7 @@ class CompanyExt extends Company{
     {
         return array(
             'users'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'users.deleted=0 and users.status=1'),
+            'managers'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'managers.deleted=0 and managers.status=1 and managers.is_manage=1'),
         );
     }
 
@@ -43,8 +44,12 @@ class CompanyExt extends Company{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord()) 
+        if($this->getIsNewRecord()) {
+            if($this->status==0) {
+                $res = Yii::app()->controller->sendNotice('有新的公司提交合作申请，请登陆后台审核','',1);
+            }
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

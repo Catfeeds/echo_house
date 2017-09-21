@@ -83,7 +83,7 @@ class IndexController extends ApiController
         $res = $this->get_response($key,$url,[],$postArr);
         $res = json_decode($res,true);
         setcookie('qf_uid',$res['uid']);
-        if(!$this->staff->qf_uid) {
+        if($this->staff && !$this->staff->qf_uid) {
             $this->staff->qf_uid = $res['uid'];
             $this->staff->save();
         }

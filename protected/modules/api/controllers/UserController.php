@@ -70,8 +70,16 @@ class UserController extends ApiController{
 				if(!$user->save()) {
 					$this->returnError(current(current($user->getErrors())));
 				} else {
-					if($company && $company->phone) {
-						SmsExt::sendMsg('门店新增员工',$company->phone,['staff'=>$user->name.$user->phone,'code'=>$code,'tel'=>SiteExt::getAttr('qjpz','site_phone')]);
+					if($company) {
+						$managers = $company->managers;
+						if($managers) {
+							$uidss = '';
+							foreach ($managers as $key => $value) {
+								$value->qf_uid && $uidss .= $value->qf_uid.',';
+							}
+							$uidss = trim($uidss,',');
+							Yii::app()->controller->sendNotice('您好，经纪人'.$user->name.$user->phone.'通过门店码'.$code.'成功加入贵公司，请知悉。如有疑问请致电'.SiteExt::getAttr('qjpz','site_phone'),$uidss);
+						}
 					}
 				}
 			}
