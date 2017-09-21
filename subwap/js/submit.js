@@ -9,11 +9,14 @@ $(document).ready(function(){
 			}
 		}
 	});
-	$.get("/api/index/getQfUid",function(data){
-		if(data.status=='success') {
-			uid = data.data.qf_uid;
-		}
-	});
+	QFH5.getUserInfo(function(state,data){
+	  if(state==1){
+	  	uid = data.uid;
+	  }else{
+	    //未登录
+	    alert(data.error);//data.error string
+	  }
+	})
 
 //validate
 	$('#form').validate();
