@@ -53,8 +53,10 @@ class SubExt extends Sub{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()) {
+            $res = Yii::app()->controller->sendNotice(($this->plot?$this->plot->name:'').'有新的报备，请登陆后台审核','',1);
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

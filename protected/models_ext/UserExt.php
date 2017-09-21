@@ -72,14 +72,17 @@ class UserExt extends User{
         if($this->deleted==1) {
             $this->status = 1;
         }
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()) {
+            if($this->type==3&&$this->status=0) {
+                $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
+            }
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         if($this->status==1 && $this->qf_uid && Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar()==0) {
             $res = Yii::app()->controller->sendNotice('您的账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
             // HttpHelper::get('http://fang.jj58.com.cn/api/index/sendNotice?uid='.$this->qf_uid.'&words=您的账号已通过审核，欢迎访问经纪圈新房通');
-            var_dump($res);exit;
         }
         return parent::beforeValidate();
     }

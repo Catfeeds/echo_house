@@ -404,14 +404,16 @@ class Controller extends CController
 	     }
 	}
 
-	public function sendNotice($words='',$uid='')
+	public function sendNotice($words='',$uid='',$is_mak=0)
     {
+    	if($is_mak) {
+    		$uidsarr = SiteExt::getAttr('qjpz','ouruids');
+    		$uid = str_replace(' ', ',', $uidsarr);
+    	}
         $url = 'http://jj58.qianfanapi.com/api1_2/easemob/send-message';
         $key = '495e6105d4146af1d36053c1034bc819';
-        $postArr = ['sender'=>'14','receiver'=>$uid,'message'=>$words];
-        $res = $this->get_response($key,$url,$postArr,[]);
-        // $res = json_decode($res,true);
-        // // setcookie('qf_uid',$res['uid']);
+        $arr = ['sender'=>SiteExt::getAttr('qjpz','kfuid'),'receiver'=>$uid,'message'=>$words];
+        $res = $this->get_response($key,$url,[],$arr);
         return $res;
     }
 

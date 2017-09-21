@@ -29,6 +29,7 @@ class SiteExt extends Site{
         'mzsm'=>'',
         'vipNotice'=>'',
         'ouruids'=>'',
+        'kfuid'=>'',
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -46,6 +47,7 @@ class SiteExt extends Site{
             'add_market_words'=>['type'=>'text','name'=>'对接人申请备注'],
             'bussiness_tel'=>['type'=>'text','name'=>'业务部联系方式'],
             'ouruids'=>['type'=>'text','name'=>'业务部uid'],
+            'kfuid'=>['type'=>'text','name'=>'客服uid'],
             'site_phone'=>['type'=>'text','name'=>'站点客服'],
             'siteqq'=>['type'=>'text','name'=>'站点qq'],
             'map_lng'=>['type'=>'text','name'=>'默认经度'],

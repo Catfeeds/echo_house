@@ -701,7 +701,7 @@ class PlotController extends ApiController{
         // }
         // echo "ok";
         // phpinfo();
-        var_dump(Yii::app()->redis->getClient()->hGetAll('test'));
+        var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
     }

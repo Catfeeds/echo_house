@@ -43,8 +43,12 @@ class CompanyExt extends Company{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord()) 
+        if($this->getIsNewRecord()) {
+            if($this->status==0) {
+                $res = Yii::app()->controller->sendNotice('有新的公司提交合作申请，请登陆后台审核','',1);
+            }
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();
