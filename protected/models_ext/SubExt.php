@@ -68,9 +68,9 @@ class SubExt extends Sub{
                     $value->qf_uid && $uidss .= $value->qf_uid.',';
                 }
                 $uidss = trim($uidss,',');
-                Yii::app()->controller->sendNotice('您好，您的项目'.($this->plot?$this->plot->title:'').'有新的认购',$uidss);
+                Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认筹。',$uidss);
             }
-            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台审核','',1);
+            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台查看','',1);
         }
         if($this->status==3) {
             $company = CompanyExt::model()->findByPk($this->plot->company_id);
@@ -81,9 +81,9 @@ class SubExt extends Sub{
                     $value->qf_uid && $uidss .= $value->qf_uid.',';
                 }
                 $uidss = trim($uidss,',');
-                Yii::app()->controller->sendNotice('您好，您的项目'.($this->plot?$this->plot->title:'').'有新的认购',$uidss);
+                Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认购。',$uidss);
             }
-            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台审核','',1);
+            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台查看','',1);
         }
         return parent::beforeValidate();
     }
