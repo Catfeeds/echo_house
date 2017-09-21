@@ -25,7 +25,7 @@ $(document).ready(function(){
             $('.detail-buttom0').css('display','none');
             $('.detail-buttom1').css('display','block');
         }
-        if (detail.is_contact_only==2 || is_user==false){
+        else if (detail.is_contact_only==2 || is_user==false){
             $('.detail-buttom0').css('display','none');
             $('.detail-buttom2').css('display','block');
         }
@@ -148,7 +148,8 @@ $(document).ready(function(){
     	// 插入查询电话
     	if(detail.phones.length > 0) {
     		for (var i = 0; i < detail.phones.length; i++) {
-    	    	if (detail.phones[i].indexOf(detail.phone)>-1) {
+                // console.log(detail.phones[i].indexOf(detail.phone));
+    	    	if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
                     tmp  = detail.phones[i];
                     phone=detail.phone;
                     $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
@@ -176,9 +177,9 @@ function sameArea(){
             }
             if (hid!=samearea[i].id) {
             if(samearea[i].price!=''&&samearea[i].price!=undefined)
-              {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><a href="'+samearea[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div></a><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].wylx+'</div><div class="detail-samearea-price">'+samearea[i].price+samearea[i].unit+'</div></li>');}
+              {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].wylx+'</div><div class="detail-samearea-price">'+samearea[i].price+samearea[i].unit+'</div></li>');}
             else
-                {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><a href="'+samearea[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div></a><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].wylx+'</div><div class="detail-mainstyle-room"></div></li>');}
+                {$('#samearea ul').append('<li onclick="turnDetail('+samearea[i].id+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+samearea[i].image+'"></div><div class="detail-mainstyle-style">'+samearea[i].title+'</div><div class="detail-mainstyle-area">'+samearea[i].wylx+'</div><div class="detail-mainstyle-room"></div></li>');}
             }
         }
     }else{

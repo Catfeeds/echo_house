@@ -1,5 +1,6 @@
 var hid='';
 var remark=false;
+var id = '';
 $(document).ready(function(){
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined){
 		hid=GetQueryString('id');
@@ -50,7 +51,8 @@ capp.controller("customerCtrl",function($scope,$http) {
 		if($('#tuidi').hasClass('tuiding-active')){
 			status=6;
 		}else{
-			status=$('.processli-active').length-1;
+
+			status=id;
 		}	
 		$http({
 			method:'POST',
@@ -68,15 +70,17 @@ capp.controller("customerCtrl",function($scope,$http) {
 	}
 });
 function process(obj){
-	if ($(obj).prev().prev().hasClass('processli-active')) {
+	// if ($(obj).prev().prev().hasClass('processli-active')) {
 		if($(obj).hasClass('processli')){
 			$('.remark').css('display','block');
 		}
 		$(obj).removeClass('processli');
 		$(obj).addClass('processli-active');
-		$('.process ul li').removeAttr("onclick");
+		// $('.process ul li').removeAttr("onclick");
 		$('#tuidi').removeAttr("onclick");	
-	}
+		$(obj).nextAll('li').attr('class','processli');
+		id = $(obj).data('id');
+	// }
 }
 function tuiding(){
 	$('.remark').css('display','block');

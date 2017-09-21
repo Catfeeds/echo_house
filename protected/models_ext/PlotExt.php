@@ -142,9 +142,10 @@ class PlotExt extends Plot{
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),
             'areaInfo' => array(self::BELONGS_TO, 'AreaExt', 'area'),//区
             'streetInfo' => array(self::BELONGS_TO, 'AreaExt', 'street'),//街道
-            'subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'subs.deleted=0'),
+            'subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'subs.deleted=0','order'=>'subs.created desc'),
             'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1','order'=>'checked_subs.created desc'),
             'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
+            'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.created desc'),
             // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }

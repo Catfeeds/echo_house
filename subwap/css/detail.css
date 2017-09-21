@@ -520,14 +520,14 @@ body{
 	position: fixed;
 	width: 20.0rem;
 	height: 2.613rem;
-	background-color: #ccc;
+	background-color: #00b7ee;
 	z-index: 99;
 	bottom: 0rem;
 	display: none;
 	font-size: 0.853rem;
 	line-height: 2.613rem;
 	text-align: center;
-	color: #fff;
+	color: white;
 }
 
 .detail-button-phone{
@@ -656,7 +656,7 @@ body{
 
 .consult-user-img{
 	position: absolute;
-	width: 0.72rem;
+	width: 0.8rem;
 	height: 0.8rem;
 	left: 0.747rem;
 	top: 0.773rem;

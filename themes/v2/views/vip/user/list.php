@@ -28,11 +28,9 @@ $this->breadcrumbs = array($this->pageTitle);
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
     <tr>
-        <th class="text-center">排序</th>
         <th class="text-center">ID</th>
         <th class="text-center">用户名</th>
         <th class="text-center">电话</th>
-        <th class="text-center">微信</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -42,12 +40,9 @@ $this->breadcrumbs = array($this->pageTitle);
     <tbody>
     <?php foreach($infos as $k=>$v): ?>
         <tr>
-            <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
-                data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=$v->phone?></td>
-             <td class="text-center"><?=$v->wx?></td>         
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>

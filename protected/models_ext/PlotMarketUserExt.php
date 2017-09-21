@@ -66,7 +66,6 @@ class PlotMarketUserExt extends PlotMakertUser{
             ),
             'normal' => array(
                 'condition' => "{$alias}.status=1 and {$alias}.deleted=0",
-                'order'=>"{$alias}.sort desc,{$alias}.updated desc",
             ),
             'undeleted' => array(
                 'condition' => "{$alias}.deleted=0",
@@ -92,27 +91,34 @@ class PlotMarketUserExt extends PlotMakertUser{
     public function afterSave()
     {
         parent::afterSave();
-        if($phone = $this->user->phone) {
-            $market_users = $this->plot->market_users;
-            $pharr = array_filter(explode(' ', $market_users));
-            if($this->status==1) {
-                if(!in_array($phone, $pharr)) {
-                    $pharr[] = $this->user->name.$phone;
-                    $this->plot->market_users = implode(' ', $pharr);
-                    $this->plot->save();
-                }
-            } else {
-                if(in_array($this->user->name.$phone, $pharr)) {
-                    $market_users = str_replace($this->user->name.$phone, '', $market_users);
-                    $newarr = array_filter(explode(' ', $market_users));
-                    $this->plot->market_users = implode(' ', $newarr);
-                    $this->plot->save();
-                }
-            }
-            // var_dump($pharr,$phone);exit;
+        // if($phone = $this->user->phone) {
+        //     $market_users = $this->plot->market_users;
+        //     $pharr = array_filter(explode(' ', $market_users));
+        //     if($this->status==1) {
+        //         if(!in_array($phone, $pharr)) {
+        //             $pharr[] = $this->user->name.$phone;
+        //             foreach ($pharr as $key => $value) {
+        //                 preg_match('/[0-9]+/', $value,$tmp);
+        //                 if(!Yii::app()->db->createCommand("select id from plot_makert_user where hid=".$this->plot->id." and phone='$tmp' and expire>".time())->queryScalar()) {
+        //                     unset($pharr[$key]);
+        //                 }
+        //             }
+        //             $this->plot->market_users = implode(' ', $pharr);
+
+        //             $this->plot->save();
+        //         }
+        //     } else {
+        //         if(in_array($this->user->name.$phone, $pharr)) {
+        //             $market_users = str_replace($this->user->name.$phone, '', $market_users);
+        //             $newarr = array_filter(explode(' ', $market_users));
+        //             $this->plot->market_users = implode(' ', $newarr);
+        //             $this->plot->save();
+        //         }
+        //     }
+        //     // var_dump($pharr,$phone);exit;
                 
 
-        }
+        // }
     }
 
 }

@@ -15,7 +15,7 @@ class SubController extends VipController{
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '报备';
+		$this->controllerName = '客户';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
@@ -54,9 +54,12 @@ class SubController extends VipController{
 
         }
         if($cj) {
-			$criteria->addCondition('status>=4');
+			$criteria->addCondition('status>=3 and status<=5');
 		}
 		if($cate) {
+			if($cate==1) {
+				$criteria->addCondition('status>=:cid');
+			}else
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
