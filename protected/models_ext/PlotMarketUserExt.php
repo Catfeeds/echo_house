@@ -46,6 +46,9 @@ class PlotMarketUserExt extends PlotMakertUser{
     }
 
     public function beforeValidate() {
+        if(strstr($this->expire,'-')) {
+            $this->expire = strtotime($this->expire);
+        }
         if($this->getIsNewRecord()) {
             $res = Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的对接人'.($this->user?($this->user->name.$this->user->phone):'').'支付成功，请知晓','',1);
             $this->created = $this->updated = time();
