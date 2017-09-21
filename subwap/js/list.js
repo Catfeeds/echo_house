@@ -82,7 +82,7 @@ $(document).ready(function() {
         }
     });
     $.get('/api/config/index',function(data) {
-        is_user = data.data.is_user;
+        is_user = data.data.is_user;      
         is_jy = data.data.is_jy;
         if (GetQueryString('area') != null) {
             o.area = GetQueryString('area');
@@ -99,9 +99,13 @@ $(document).ready(function() {
                 //登陆状态，有数据
                 // var uid = data.uid;//用户UID int
                 // var username = data.username;//用户名称 string
-                // var face = data.face;//用户头像地址 string
                 // var deviceid = data.deviceid;//用户设备唯一ID并MD5加密 string
                 // var phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
+                var face = data.face;//用户头像地址 string
+                //替换用户头像
+                $('.list-headimg1').css('display','none');
+                $('.list-headimg2').css('display','block');
+                $('.headimg2').attr('src',face);
               }else{
                 //未登录
                 alert(data.error);//data.error string
