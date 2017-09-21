@@ -60,7 +60,7 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo" style="width:500px">
-			<a href="<?php echo $this->createUrl('/admin/common/index') ?>"  class="logo-name">
+			<a href="<?php echo $this->createUrl('/vip/common/index') ?>"  class="logo-name">
 			经纪圈新房通管理后台-<?=Yii::app()->user->cname?>
 			<!-- <img src="/static/admin/layout/img/logo.png" alt="logo" class="logo-default"/> -->
 			</a>
@@ -93,7 +93,7 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="<?php echo $this->createUrl('/admin/common/logout') ?>">
+							<a href="<?php echo $this->createUrl('/vip/common/logout') ?>">
 							<i class="icon-key"></i> 退出系统 </a>
 						</li>
 					</ul>
@@ -163,7 +163,7 @@
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN:单页正文-->
 			<div class="row">
-				<div class="col-md-12 <?php if($this->route=='admin/common/error') echo 'page-500' ?>">
+				<div class="col-md-12 <?php if($this->route=='vip/common/error') echo 'page-500' ?>">
 					<?php echo $content ?>
 				</div>
 			</div>
