@@ -6,8 +6,10 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	}).then(function successCallback(response){
 		if(response.data.status=='error') {
 			alert('暂无权限，请联系管理员开通');
-		}else
+		}else{
+			$('.count b').html(response.data.data.num);
 			$scope.cuntomerlist=response.data.data.list;
+		}
 		
 	},function errorCallback(response){
 
@@ -20,10 +22,13 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 			url:'/api/plot/checkIsZc?kw='+search1+'&status='+status1,
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
+				$('.count b').html(response.data.data.num);
 				$('#ul1').css('display','none');
 				$('#ul2').css('display','block');
 				$scope.searchlist=response.data.data.list;	
 			}
+			$('.list-search-frame-text').val('');
+			$('.list-search-frame-text').attr('placeholder',search1?search1:"请输入客户姓名/手机号");
 		},function errorCallback(response){
 			
 		});

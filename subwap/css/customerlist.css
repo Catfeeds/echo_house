@@ -66,10 +66,10 @@ body{
 }
 .status{
 	position: absolute;
-	font-size: 0.64rem;
+	font-size: 0.8rem;
 	top: 0.7rem;
-	color: #868686;
-	left: 18rem;
+	left: 17rem;
+	color: #00b7ee;
 }
 .add{
 	position: fixed;
@@ -119,4 +119,12 @@ body{
 	color: #868686;
 	text-align: right;
 	border:solid 0.027rem #c3c3c3;
+}
+.count{
+	position: relative;
+	height: 1.2rem;
+	width: 18.72rem;
+	font-size: 0.8rem;
+	padding: 0rem 0.64rem;
+	color: #868686;
 }
