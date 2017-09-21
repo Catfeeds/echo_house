@@ -95,7 +95,7 @@ $(document).ready(function() {
         if(is_user==1) {
             QFH5.getUserInfo(function(state,data){
               if(state==1){
-                $('.list-stick-img').attr('src',data.face);
+                $('.headimg').attr('src',data.face);
                 //登陆状态，有数据
                 // var uid = data.uid;//用户UID int
                 // var username = data.username;//用户名称 string
