@@ -10,6 +10,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 			$scope.cuntomerlist=response.data.data;
 		
 	},function errorCallback(response){
+
 	});
 	$scope.search=function(){
 		var search=$('.list-search-frame-text').val();
@@ -20,11 +21,12 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 			headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
-				alert("提交成功！");
-				location.reload();
+				$('.customerlist ul').empty();
+				$scope.cuntomerlist='';
+				$scope.searchlist=response.data.data;
 			}
 		},function errorCallback(response){
-
+			
 		});
 	}
 	$scope.turn=function(obj){

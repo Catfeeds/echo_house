@@ -5,7 +5,7 @@ body{
 @charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
 .line{
 	position: absolute;
-	top: 3.946rem;
+	top: 4.446rem;
 	width: 20rem;
 	height: 0.054rem;
 	background-color: #F5F5F5;
@@ -19,7 +19,7 @@ body{
 .customerlist li{
 	position: relative;
 	width: 20rem;
-	height: 4rem;
+	height: 4.5rem;
 }
 .cusname{
 	position: absolute;
@@ -56,6 +56,20 @@ body{
 	overflow: hidden;
 	height: 0.853rem;
 	width: 8.5rem;
+}
+.time{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 3.2rem;
+	color: #868686;
+	left: 0.5rem;
+}
+.status{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 0.7rem;
+	color: #868686;
+	left: 18rem;
 }
 .add{
 	position: fixed;
