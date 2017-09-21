@@ -280,7 +280,7 @@ class PlotController extends ApiController{
 		}
 		$info->market_user && array_unshift($phones, $info->market_user);
 
-		$phones = array_keys(array_flip($phones));
+		$phones && $phones = array_keys(array_flip($phones));
 
 		$phonesnum = [];
 		if($phones) {
