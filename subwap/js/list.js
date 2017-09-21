@@ -92,6 +92,22 @@ $(document).ready(function() {
             $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
             setArea($('#areaul li')[0]); 
         } 
+        if(is_user==1) {
+            QFH5.getUserInfo(function(state,data){
+              if(state==1){
+                $('.list-stick-img').attr('src',data.face);
+                //登陆状态，有数据
+                // var uid = data.uid;//用户UID int
+                // var username = data.username;//用户名称 string
+                // var face = data.face;//用户头像地址 string
+                // var deviceid = data.deviceid;//用户设备唯一ID并MD5加密 string
+                // var phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
+              }else{
+                //未登录
+                alert(data.error);//data.error string
+              }
+            })
+        }
     });    
     $.get('/api/index/getQfUid',function(data) {});
     if (GetQueryString('kw') != null) {
