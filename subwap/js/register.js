@@ -1,6 +1,8 @@
+var our_uids = '';
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
+        our_uids = data.data.our_uids;
     });
     if(GetQueryString('phone')!=null) {
         $('.nophone').remove();
@@ -167,6 +169,7 @@ function regisInfo() {
                     alert("提交成功！欢迎访问经纪圈新房通");
                 } else {
                     alert("提交成功！请等待管理员审核");
+                    $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
                 }
                 
                 location.href = 'http://'+window.location.host;

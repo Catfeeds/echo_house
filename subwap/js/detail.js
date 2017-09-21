@@ -4,6 +4,7 @@ var title='';
 var phone='';
 var areaid='';
 var url='';
+var our_uids = '';
 var thisphone = '';
 var is_user = false;
 var detail=new Object();
@@ -18,6 +19,7 @@ $(document).ready(function(){
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
             is_user = true;
+            our_uids = data.data.our_uids;
             thisphone = data.data.user.phone;
         }
          //底部按钮变化

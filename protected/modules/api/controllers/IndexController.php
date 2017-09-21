@@ -83,7 +83,24 @@ class IndexController extends ApiController
         $res = $this->get_response($key,$url,[],$postArr);
         $res = json_decode($res,true);
         setcookie('qf_uid',$res['uid']);
+        if(!$this->staff->qf_uid) {
+            $this->staff->qf_uid = $res['uid'];
+            $this->staff->save();
+        }
+        // !$this->staff->qf_uid && $this->staff->qf_uid = $res['uid'];
+
         return $res['uid'];
+    }
+
+    public function actionSendNotice($words='',$uid='')
+    {
+        $url = 'http://jj58.qianfanapi.com/api1_2/easemob/send-message';
+        $key = '495e6105d4146af1d36053c1034bc819';
+        $postArr = ['sender'=>'14','receiver'=>$uid,'message'=>$words];
+        $res = $this->get_response($key,$url,$postArr,[]);
+        // $res = json_decode($res,true);
+        // // setcookie('qf_uid',$res['uid']);
+        // return $res['uid'];
     }
 
     public function get_response($secret_key, $url, $get_params, $post_data = array())

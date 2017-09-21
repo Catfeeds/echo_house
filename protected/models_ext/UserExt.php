@@ -76,6 +76,9 @@ class UserExt extends User{
             $this->created = $this->updated = time();
         else
             $this->updated = time();
+        if($this->status==1 && $this->qf_uid && Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar()==0) {
+            HttpHelper::get(Yii::app()->request->getHostInfo().'/api/index/sendNotice?uid='.$this->qf_uid.'&words=您的账号已通过审核，欢迎访问经纪圈新房通');
+        }
         return parent::beforeValidate();
     }
 

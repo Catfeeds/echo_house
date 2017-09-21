@@ -28,6 +28,7 @@ class SiteExt extends Site{
         'siteqq'=>'',
         'mzsm'=>'',
         'vipNotice'=>'',
+        'ouruids'=>'',
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -44,6 +45,7 @@ class SiteExt extends Site{
             'coo_words'=>['type'=>'text','name'=>'分销页备注'],
             'add_market_words'=>['type'=>'text','name'=>'对接人申请备注'],
             'bussiness_tel'=>['type'=>'text','name'=>'业务部联系方式'],
+            'ouruids'=>['type'=>'text','name'=>'业务部uid'],
             'site_phone'=>['type'=>'text','name'=>'站点客服'],
             'siteqq'=>['type'=>'text','name'=>'站点qq'],
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
@@ -55,6 +57,7 @@ class SiteExt extends Site{
             'info_no_pic'=>['type'=>'image','max'=>1,'name'=>'房源默认图'],
             'mzsm'=>['type'=>'text','name'=>'免责声明'],
             'vipNotice'=>['type'=>'text','name'=>'后台须知'],
+
 
             // 'wxgzh'=>['type'=>'text','name'=>'微信公众号'],
             // 'xmgs'=>['type'=>'text','name'=>'项目个数'],
