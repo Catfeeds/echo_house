@@ -60,9 +60,29 @@ class SubExt extends Sub{
         else
             $this->updated = time();
         if($this->status==2) {
+            $company = companyExt::model()->findByPk($this->plot->company_id);
+            $managers = $company->managers;
+            if($managers) {
+                $uidss = '';
+                foreach ($managers as $key => $value) {
+                    $value->qf_uid && $uidss .= $value->qf_uid.',';
+                }
+                $uidss = trim($uidss,',');
+                Yii::app()->controller->sendNotice('您好，您的项目'.($this->plot?$this->plot->title:'').'有新的认购',$uidss);
+            }
             Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台审核','',1);
         }
         if($this->status==3) {
+            $company = companyExt::model()->findByPk($this->plot->company_id);
+            $managers = $company->managers;
+            if($managers) {
+                $uidss = '';
+                foreach ($managers as $key => $value) {
+                    $value->qf_uid && $uidss .= $value->qf_uid.',';
+                }
+                $uidss = trim($uidss,',');
+                Yii::app()->controller->sendNotice('您好，您的项目'.($this->plot?$this->plot->title:'').'有新的认购',$uidss);
+            }
             Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台审核','',1);
         }
         return parent::beforeValidate();
