@@ -1,3 +1,4 @@
+var value = '';
 $(document).ready(function(){
 //获取下拉框数据
 	$.get("/api/tag/area",function(data){
@@ -14,7 +15,6 @@ $(document).ready(function(){
 //下拉框事件
 function selectChange(){
 	value=$('.submit-select').val();
-	console.log(value);
 }
 //单选框的点击事件
 $('.radio1').click(function(){
