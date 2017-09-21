@@ -391,6 +391,7 @@ color:#c3c3c3;
 	border-radius: 1.147rem;
 	z-index: 999;
 	display: none;
+	overflow: hidden;
 }
 
 .headimg2{

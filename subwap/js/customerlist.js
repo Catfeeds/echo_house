@@ -13,18 +13,16 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 
 	});
 	$scope.search=function(){
-		var search=$('.list-search-frame-text').val();
+		var search1=$('.list-search-frame-text').val();
+		var status1=$('.statusselect').val();
 		$http({
 			method:'GET',
-			url:'/api/plot/checkIsZc?kw='+search,
-			// data:$.param({search:search})  ,
-			// headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
+			url:'/api/plot/checkIsZc?kw='+search1+'&status='+status1,
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
-				$('.customerlist ul').empty();
-				$scope.cuntomerlist='';
-				$scope.searchlist=response.data.data.list;
-				console.log($scope.searchlist);
+				$('#ul1').css('display','none');
+				$('#ul2').css('display','block');
+				$scope.searchlist=response.data.data.list;	
 			}
 		},function errorCallback(response){
 			
@@ -36,4 +34,6 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	$scope.addCustomer=function(){
 		location.href="addcustomer.html";
 	}
+
+
 });

@@ -824,7 +824,7 @@ class PlotController extends ApiController{
     				$criteria->addSearchCondition('name',$kw);
     			}
     		}
-    		if($status) {
+    		if(is_numeric($status)) {
     			$criteria->addCondition('status=:status');
     			$criteria->params[':status'] = $status;
     		}
