@@ -16,6 +16,7 @@ function init() {
 var filter = new Object();
 var is_jy = 0;
 var is_user = false;
+var uid = '';
 //==============核心代码=============  
 var winH = $(window).height(); //页面可视区域高度   
 
@@ -650,7 +651,7 @@ $('.list-stick').click(function(){
 
 function toUser() {
     if(is_user==true) {
-        QFH5.jumpUser(data.data.uid);
+        QFH5.jumpUser(uid);
     } else {
         $.get('/api/index/getQfUid',function(data) {
                 if(data.status=='error') {
@@ -663,8 +664,9 @@ function toUser() {
                       alert("您已登陆");
                       }
                   })
+                } else {
+                    uid = data.data.uid;
                 }
-                QFH5.refresh(1);
             });
     }
 }
