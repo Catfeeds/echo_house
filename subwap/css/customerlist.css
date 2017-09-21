@@ -96,7 +96,7 @@ body{
 	font-size: 0.8rem;
 	color: #414141;
 	top: 0.7rem;
-	left: 17.947rem;
+	left: 14rem;
 }
 .list-search-frame-text{
 	position: absolute;
@@ -112,8 +112,8 @@ body{
 .statusselect{
 	position: absolute;
 	width: 3rem;
-	top: 0.25rem;
-	left: 15rem;
+	top: 0.4rem;
+	left: 16.3rem;
 	height: 1.5rem;
 	font-size: 0.693rem;
 	color: #868686;

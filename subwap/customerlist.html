@@ -12,9 +12,9 @@
 	<div class="list-search-frame">
 		<div class="list-search-search" ng-click="search()">搜索</div>
 		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入客户姓名/手机号">
-		<select class="statusselect">
+		<!-- <select class="statusselect">
 			<option ng-repeat="" value="{{}}" ng-cloak>{{}}</option>
-		</select>
+		</select> -->
 	</div>
 
 	<div class="customerlist">
@@ -29,14 +29,14 @@
 				<div class="status" ng-cloak>{{item.status}}</div>
 				<div class="line"></div>
 			</li>
-			<li ng-repeat="item in searchlist" ng-click="turn(item.id)">
-				<div class="cusname" ng-cloak>{{item.user_name}}</div>
-				<div class="custel" ng-cloak>{{item.user_phone}}</div>
-				<div class="intername" ng-cloak>{{item.staff_name}}</div>
-				<div class="intertel" ng-cloak>{{item.staff_phone}}</div>
-				<div class="intercom" ng-cloak>{{item.staff_company}}</div>
-				<div class="time" ng-cloak>{{item.time}}</div>
-				<div class="status" ng-cloak>{{item.status}}</div>
+			<li ng-repeat="search in searchlist" ng-click="turn(search.id)">
+				<div class="cusname" ng-cloak>{{search.user_name}}</div>
+				<div class="custel" ng-cloak>{{search.user_phone}}</div>
+				<div class="intername" ng-cloak>{{search.staff_name}}</div>
+				<div class="intertel" ng-cloak>{{search.staff_phone}}</div>
+				<div class="intercom" ng-cloak>{{search.staff_company}}</div>
+				<div class="time" ng-cloak>{{search.time}}</div>
+				<div class="status" ng-cloak>{{search.status}}</div>
 				<div class="line"></div>
 			</li>
 		</ul>

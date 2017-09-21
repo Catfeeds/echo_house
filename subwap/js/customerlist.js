@@ -24,6 +24,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 				$('.customerlist ul').empty();
 				$scope.cuntomerlist='';
 				$scope.searchlist=response.data.data.list;
+				console.log($scope.searchlist);
 			}
 		},function errorCallback(response){
 			
