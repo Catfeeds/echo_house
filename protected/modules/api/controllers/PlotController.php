@@ -791,6 +791,7 @@ class PlotController extends ApiController{
     		} else {
     			$plot = PlotExt::model()->findByPk($hid);
     		}
+    		// var_dump($hid);exit;
     		// $subs = $plot->subs;
     		$criteria = new CDbCriteria;
     		$criteria->addCondition('hid='.$hid);
@@ -808,8 +809,9 @@ class PlotController extends ApiController{
     			$criteria->params[':status'] = $status;
     		}
     		$criteria->order = 'created desc';
-    		$subs = SubExt::model()->normal()->getList($criteria);
-    		$data = [];
+    		$subs = SubExt::model()->undeleted()->getList($criteria);
+
+    		$data = $data['list'] = [];
     		if($subs->data) {
 
     			foreach ($subs->data as $key => $value) {

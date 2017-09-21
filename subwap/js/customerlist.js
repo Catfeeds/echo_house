@@ -15,10 +15,10 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	$scope.search=function(){
 		var search=$('.list-search-frame-text').val();
 		$http({
-			method:'POST',
-			url:'',
-			data:$.param({search:search})  ,
-			headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
+			method:'GET',
+			url:'/api/plot/checkIsZc?kw='+search,
+			// data:$.param({search:search})  ,
+			// headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
 				$('.customerlist ul').empty();
