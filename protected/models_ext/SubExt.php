@@ -59,6 +59,10 @@ class SubExt extends Sub{
         }
         else
             $this->updated = time();
+        if($this->status!=Yii::app()->db->createCommand("select status from sub where id=".$this->id)->queryScalar()) {
+            $user = $this->user;
+            $user->qf_uid && Yii::app()->controller->sendNotice('经纪人'.$user->name.'您好，尾号为：'.substr($this->phone,-4, 4).'的客户，已被'.($this->plot?$this->plot->title:'').'案场助理确认'.SubExt::$status[$this->status].'。',$user->qf_uid);
+        }
         if($this->status==2) {
             $company = CompanyExt::model()->findByPk($this->plot->company_id);
             $managers = $company->managers;
