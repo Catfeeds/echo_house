@@ -95,4 +95,20 @@ class CompanyController extends AdminController{
 			$this->setMessage('操作成功','success');
 		}
 	}
+
+	public function actionRecall($msg='',$id='')
+	{
+		if($id) {
+			$info = CompanyExt::model()->findByPk($id);
+			if($msg && $info && $info->adduid) {
+				Yii::app()->controller->sendNotice($msg,$info->adduid);
+				CompanyExt::model()->deleteAllByAttributes(['id'=>$id]);
+				$this->setMessage('操作成功');
+			} else {
+				$this->setMessage('操作失败');
+			}
+			$this->redirect('list');
+			
+		}
+	}
 }
