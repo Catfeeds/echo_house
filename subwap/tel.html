@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/addcustomer.css">
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$.get("/api/config/index",function(data){
+			if (data.status=='success') {
+				kf_id = data.data.kf_id;
+				QFH5.jumpTalk(kf_id,'','');		
+			}
+		});
+		if(GetQueryString('hid')!=undefined) {
+			hid = GetQueryString('hid');
+		}
+	});
+</script>
+</body>
+</html>
