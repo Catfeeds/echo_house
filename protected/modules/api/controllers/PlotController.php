@@ -620,33 +620,15 @@ class PlotController extends ApiController{
 					$pro->note = '新增客户报备';
 					$pro->save();
 					SmsExt::sendMsg('客户通知',$this->staff->phone,['pro'=>$plot->title,'pho'=>substr($tmp['phone'], -4,4),'code'=>$code]);
+					
+					$this->staff->qf_uid && Yii::app()->controller->sendNotice('您好，你对'.$plot->title.'的报备已经成功，客户的尾号是'.substr($tmp['phone'], -4,4).'，客户码为'.$code.'，请牢记您的客户码。',$this->staff->qf_uid);
 
-					$stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'));
 					if($notice) {
-						$stphones[] = $notice;
+						SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车')]);
+
+						$noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='$notice'")->queryScalar();
+						$noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice('项目名称：'.$plot->title.'；客户：'.$tmp['name'].$tmp['phone'].'；来访时间：'.$_POST['time'].'；来访方式：'.($obj->visit_way==1?'自驾':'班车').'；业务员：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,$noticeuid);
 					}
-					foreach ($stphones as $key => $value) {
-								// $note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
-								// var_dump($note);exit;
-						SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
-						// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
-					}
-					// if($this->staff->type==3) {
-					// 	if($stphones = explode(' ',SiteExt::getAttr('qjpz','bussiness_tel'))) {
-					// 		foreach ($stphones as $key => $value) {
-					// 			// $note = '【经纪人】'.$this->staff->name.'('.$this->staff->phone.')快速报备【客户】'.$tmp['name'].'('.$tmp['phone'].'),楼盘为'.$plot->title;
-					// 			// var_dump($note);exit;
-					// 			SmsExt::sendMsg('报备',$value,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
-					// 			// Yii::app()->mns->run((string)$value,$tmp['phone'].'新增报备');
-					// 		}
-					// 	}
-					// } elseif ($this->staff->type==2) {
-					// 	if($plot->market_user) {
-					// 		preg_match('/[0-9]+/', $plot->market_user,$phone);
-					// 		SmsExt::sendMsg('报备',$phone,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车').($obj->is_only_sub==1?'仅报备':'')]);
-					// 	}
-						
-					// }
 						
 					
 				} else {
