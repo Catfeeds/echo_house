@@ -791,10 +791,28 @@ class PlotController extends ApiController{
     		} else {
     			$plot = PlotExt::model()->findByPk($hid);
     		}
-    		$subs = $plot->subs;
+    		// $subs = $plot->subs;
+    		$criteria = new CDbCriteria;
+    		$criteria->addCondition('hid='.$hid);
+    		$kw = Yii::app()->request->getQuery('kw','');
+    		$status = Yii::app()->request->getQuery('status','');
+    		if($kw) {
+    			if(is_numeric($kw)) {
+    				$criteria->addSearchCondition('phone',$kw);
+    			} else {
+    				$criteria->addSearchCondition('name',$kw);
+    			}
+    		}
+    		if($status) {
+    			$criteria->addCondition('status=:status');
+    			$criteria->params[':status'] = $status;
+    		}
+    		$criteria->order = 'created desc';
+    		$subs = SubExt::model()->normal()->getList($criteria);
     		$data = [];
-    		if($subs) {
-    			foreach ($subs as $key => $value) {
+    		if($subs->data) {
+
+    			foreach ($subs->data as $key => $value) {
     				
     				$itsstaff = $value->user;
     				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
@@ -806,9 +824,10 @@ class PlotController extends ApiController{
     				$tmp['time'] = date('m-d H:i',$value->updated);
     				$tmp['status'] = SubExt::$status[$value->status];
     				$tmp['staff_company'] = $cname?$cname:'暂无';
-    				$data[] = $tmp;
+    				$data['list'][] = $tmp;
     			}
     		}
+    		$data['num'] = $subs->pagination->itemCount;
     		$this->frame['data'] = $data;
     	}
     }
