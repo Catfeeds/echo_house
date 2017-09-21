@@ -190,5 +190,5 @@ function GetQueryString(name) {
 }
 
 function callkf() {
-     QFH5.jumpTalk(kf_id,'username','');
+     QFH5.jumpTalk(kf_id,'','');
 }
