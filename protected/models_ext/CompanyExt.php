@@ -44,7 +44,7 @@ class CompanyExt extends Company{
     }
 
     public function beforeValidate() {
-        if($this->status==1 && !$this->code && !$this->adduid) {
+        if($this->status==1 && !$this->code && $this->adduid) {
             $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             // var_dump($code);exit;
             while (CompanyExt::model()->find('code='.$code)) {
