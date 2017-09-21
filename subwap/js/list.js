@@ -649,7 +649,6 @@ $('.list-stick').click(function(){
 });
 
 function toUser() {
-    QFH5.refresh(1);
     if(is_user==true) {
         QFH5.jumpUser(data.data.uid);
     } else {
@@ -665,6 +664,7 @@ function toUser() {
                       }
                   })
                 }
+                QFH5.refresh(1);
             });
     }
 }
