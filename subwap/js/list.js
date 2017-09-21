@@ -93,6 +93,7 @@ $(document).ready(function() {
             setArea($('#areaul li')[0]); 
         } 
     });    
+    $.get('/api/index/getQfUid',function(data) {});
     if (GetQueryString('kw') != null) {
         o.kw = GetQueryString('kw');
         showkw();
