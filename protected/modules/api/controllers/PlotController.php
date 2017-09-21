@@ -721,20 +721,40 @@ class PlotController extends ApiController{
     		$info = PlotExt::model()->findByPk($hid);
     		if($info) {
     			$phones = $tmp = [];
-    			if($info->market_users) {
-    				$phones = explode(' ', $info->market_users);
-    			}
-    			if($info->market_user) {
-    				array_unshift($phones, $info->market_user);
-    			}
-    			$phones = array_flip(array_flip($phones));
-    			if($phones) {
-    				foreach ($phones as $key => $value) {
-    					preg_match('/[0-9]+/', $value,$k);
-    					// var_dump($value,$k);exit;
-    					$tmp[] = ['key'=>$k[0],'value'=>$value];
-    				}
-    			}
+    			if($sfs = $info->sfMarkets) {
+					foreach ($sfs as $key => $value) {
+						$thisstaff = UserExt::model()->findByPk($value->uid);
+						$phones[] = $thisstaff->name.$thisstaff->phone;
+					}
+					// $phones = [];
+				} else {
+					$phones = array_filter(explode(' ', $info->market_users));
+				}
+				$info->market_user && array_unshift($phones, $info->market_user);
+
+				$phones = array_keys(array_flip($phones));
+
+				$phonesnum = [];
+				if($phones) {
+					foreach ($phones as $key => $value) {
+						preg_match('/[0-9]+/', $value,$tmp);
+						$tmp[] = ['key'=>$k[0],'value'=>$value];
+					}
+				}
+    			// if($info->market_users) {
+    			// 	$phones = explode(' ', $info->market_users);
+    			// }
+    			// if($info->market_user) {
+    			// 	array_unshift($phones, $info->market_user);
+    			// }
+    			// $phones = array_flip(array_flip($phones));
+    			// if($phones) {
+    			// 	foreach ($phones as $key => $value) {
+    			// 		preg_match('/[0-9]+/', $value,$k);
+    			// 		// var_dump($value,$k);exit;
+    			// 		$tmp[] = ['key'=>$k[0],'value'=>$value];
+    			// 	}
+    			// }
     			$this->frame['data'] = $tmp;
     		}
     	}
