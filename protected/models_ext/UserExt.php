@@ -77,6 +77,7 @@ class UserExt extends User{
                 $this->qf_uid = $_COOKIE['qf_uid'];
             }
             if($this->type==3&&$this->status==0) {
+                SmsExt::sendMsg('注册通过通知',$this->phone);
                 $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
             }
             $this->created = $this->updated = time();
