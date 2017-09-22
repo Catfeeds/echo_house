@@ -40,6 +40,9 @@ class UserController extends ApiController{
 			if($obj) {
 				$user = new UserExt;
 				$company = '';
+				if(Yii::app()->db->createCommand("select id from user where phone='".$obj['phone']."'")->queryScalar()) {
+					$this->returnError('您已提交申请，请勿重复提交');
+				}
 				if($obj['type']<3) {
 					$code = $obj['companycode'];
 					unset($obj['companycode']);
@@ -80,7 +83,7 @@ class UserController extends ApiController{
 							$uidss = trim($uidss,',');
 							Yii::app()->controller->sendNotice('您好，经纪人'.$user->name.$user->phone.'通过门店码'.$code.'成功加入贵公司，请知悉。如有疑问请致电'.SiteExt::getAttr('qjpz','site_phone'),$uidss);
 						}
-						$this->returnSuccess($company->name);
+						$this->frame['data'] = $company->name;
 					}
 
 				}

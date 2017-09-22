@@ -38,7 +38,7 @@ class UserExt extends User{
             // 'houseInfo'=>array(self::BELONGS_TO, 'HouseExt', 'house'),
             'news'=>array(self::HAS_MANY, 'ArticleExt', 'uid'),
             'comments'=>array(self::HAS_MANY, 'CommentExt', 'uid'),
-            'company'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
+            'companyinfo'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
         );
     }
 
@@ -86,7 +86,7 @@ class UserExt extends User{
             $this->updated = time();
             if($this->status==1 && $this->qf_uid && ((Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0)) {
                 $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
-                // SmsExt::sendMsg('注册通过通知',$this->phone);
+                SmsExt::sendMsg('经纪人注册通过',$this->phone,[]);
                 // HttpHelper::get('http://fang.jj58.com.cn/api/index/sendNotice?uid='.$this->qf_uid.'&words=您的账号已通过审核，欢迎访问经纪圈新房通');
             }
         }

@@ -21,7 +21,10 @@ class CompanyController extends AdminController{
 		if($value = trim($value))
             if ($type=='title') {
                 $criteria->addSearchCondition('name', $value);
-            } 
+            } elseif($type=='code') {
+            	$criteria->addCondition('code=:code');
+				$criteria->params[':code'] = $value;
+            }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
         {
@@ -106,6 +109,7 @@ class CompanyController extends AdminController{
 			$info = CompanyExt::model()->findByPk($id);
 			if($msg && $info && $info->adduid) {
 				Yii::app()->controller->sendNotice($msg,$info->adduid);
+				$info->phone && SmsExt::sendMsg('公司注册未通过',$info->phone,[]);
 				CompanyExt::model()->deleteAllByAttributes(['id'=>$id]);
 				$this->setMessage('操作成功');
 			} else {

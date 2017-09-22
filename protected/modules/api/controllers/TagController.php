@@ -13,11 +13,33 @@ class TagController extends ApiController{
 	}
 	public function actionArea()
 	{
-		$this->frame['data'] =CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
+		$this->frame['data'] = CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
 		            $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
 		            $areas[0]['childArea'] = $areas[0]->childArea;
 		            return $this->addChild($areas);
 		        });
+	}
+	public function actionPublishTags()
+	{
+		$areas = CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
+		            $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
+		            $areas[0]['childArea'] = $areas[0]->childArea;
+		            return $this->addChild($areas);
+		            });
+		$tags = CacheExt::gas('wap_publish_tags','AreaExt',0,'wap发布房源标签',function (){
+					$wylx['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='wylx' order by sort asc")->queryAll();
+					$wylx['name'] = 'wylx';
+
+					$zxzt['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='zxzt' order by sort asc")->queryAll();
+					$zxzt['name'] = 'zxzt';
+					$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice' order by sort asc")->queryAll();
+					$sfprice['name'] = 'sfprice';
+					return [$wylx,$zxzt,$sfprice];
+		});
+		$tags[] = ['name'=>'area','list'=>$areas];
+		$tags[] = ['name'=>'mode','list'=>Yii::app()->params['dllx']];
+		$this->frame['data'] = $tags;
+
 	}
 	public function actionList($cate='')
 	{
@@ -31,8 +53,6 @@ class TagController extends ApiController{
 		            $areas[0]['childArea'] = $areas[0]->childArea;
 		            return $this->addChild($areas);
 		        });
-				// $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
-            	// $areas[0]['childArea'] = $areas[0]->childArea;
             	$area['list'] = $areas;
             	$ots = CacheExt::gas('wap_all_filters','AreaExt',0,'wap筛选标签缓存',function (){
 	            	$aveprice = [];

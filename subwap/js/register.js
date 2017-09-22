@@ -1,6 +1,5 @@
 var kf_id = '';
 var our_uids = '';
-var uid = '';
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
@@ -10,22 +9,6 @@ $(document).ready(function() {
     if(GetQueryString('phone')!=null) {
         $('.nophone').remove();
     }
-    QFH5.getUserInfo(function(state,data){
-      if(state==1){
-        uid = data.uid;
-      }else{
-        //未登录
-        // alert(data.error);//data.error string
-        QFH5.jumpLogin(function(state,data){
-          //未登陆状态跳登陆会刷新页面，无回调
-          //已登陆状态跳登陆会回调通知已登录
-          //用户取消登陆无回调
-          if(state==2){
-              alert("您已登陆");
-          }
-      })
-      }
-    })
     $('#form').validate();
     // $('.container-big').css('display','none');
 });
@@ -174,34 +157,51 @@ function regis() {
 }
 
 function regisInfo() {
-    $.post("/api/user/regis", {
+    QFH5.getUserInfo(function(state,data){
+      if(state==1){
+        uid = data.uid;
+        $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
             'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
             'UserExt[qf_uid]': uid,
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
             'UserExt[companycode]': $('#companycode').val(),
-        },
-        function(data, status) {
-            if (data.status == "success") {
-                if($('#form-type').val()<3) {
-                    if(data.data!='') {
-                        alert("成功绑定到"+data.data+"！欢迎访问经纪圈新房通");
+            },
+            function(data, status) {
+                if (data.status == "success") {
+                    if($('#form-type').val()<3) {
+                        if(data.data!='') {
+                            alert("成功绑定到"+data.data+"！欢迎访问经纪圈新房通");
+                        } else {
+                            alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
+                        }
+                        
                     } else {
-                        alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
+                        alert("提交成功！请等待管理员审核");
+                        // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
                     }
                     
+                    location.href = 'http://'+window.location.host;
                 } else {
-                    alert("提交成功！请等待管理员审核");
-                    // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
+                    alert(data.msg);
                 }
-                
-                location.href = 'http://'+window.location.host;
-            } else {
-                alert(data.msg);
             }
-        }
-    );
+        );
+      }else{
+        //未登录
+        // alert(data.error);//data.error string
+        QFH5.jumpLogin(function(state,data){
+          //未登陆状态跳登陆会刷新页面，无回调
+          //已登陆状态跳登陆会回调通知已登录
+          //用户取消登陆无回调
+          if(state==2){
+              alert("您已登陆");
+          }
+      })
+      }
+    })
+    
 }
 
 function GetQueryString(name) {

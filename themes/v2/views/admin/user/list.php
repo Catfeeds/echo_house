@@ -6,7 +6,7 @@ $this->breadcrumbs = array($this->pageTitle);
     <div class="btn-group pull-left">
         <form class="form-inline">
             <div class="form-group">
-                <?php echo CHtml::dropDownList('type',$type,array('title'=>'标题','phone'=>'手机'),array('class'=>'form-control','encode'=>false)); ?>
+                <?php echo CHtml::dropDownList('type',$type,array('title'=>'标题','phone'=>'手机','com'=>'公司名'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
             <div class="form-group">
                 <?php echo CHtml::textField('value',$value,array('class'=>'form-control chose_text')) ?>
@@ -35,7 +35,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">ID</th>
         <th class="text-center">用户名</th>
         <th class="text-center">电话</th>
-        <th class="text-center">微信</th>
+        <th class="text-center">公司名</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -51,7 +51,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=$v->phone?></td>
-             <td class="text-center"><?=$v->wx?></td>         
+            <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>         
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>

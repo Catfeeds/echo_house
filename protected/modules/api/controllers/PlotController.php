@@ -13,6 +13,7 @@ class PlotController extends ApiController{
 		$limit = (int)Yii::app()->request->getQuery('limit',20);
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
+		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$init = 0;
@@ -35,6 +36,10 @@ class PlotController extends ApiController{
 		if($area) {
 			$criteria->addCondition('area=:area');
 			$criteria->params[':area'] = $area;
+		}
+		if($uid>0) {
+			$criteria->addCondition('uid=:uid');
+			$criteria->params[':uid'] = $this->staff->id;
 		}
 		if($street) {
 			$criteria->addCondition('street=:street');
@@ -926,6 +931,39 @@ class PlotController extends ApiController{
     				return $this->returnError('操作失败');
     			}
     		}
+    	}
+    }
+
+    public function actionAddPlot()
+    {
+    	if(Yii::app()->request->getIsPostRequest() && !Yii::app()->user->getIsGuest()) {
+    		if($this->staff->type!=1) {
+    			return $this->returnError('用户类型错误，只支持总代公司发布房源');
+    		}
+    		if(!($company = $this->staff->company)) {
+    			return $this->returnError('尚未绑定公司');
+    		}
+    		$post = $_POST;
+    		if($post&&is_array($post) ){
+    			foreach ($post as $key => $value) {
+    				$post[$key] = $this->cleanXss($value);
+    			}
+    		}
+    		$obj = new PlotExt;
+    		$obj->attributes = $post;
+    		$obj->pinyin = Pinyin::get($obj->title);
+    		$obj->fcode = substr($obj->pinyin, 0,1);
+    		$obj->status = 1;
+    		$obj->uid = $this->staff->id;
+    		if(!$obj->save()) {
+    			return $this->returnError(current(current($obj->getErrors())));
+    		} else {
+
+    			$this->staff->qf_uid && $res = Yii::app()->controller->sendNotice('您好，您的房源信息已提交，请等待审核。',$this->staff->qf_uid);
+    			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
+    			$this->frame['data'] = '您好，您的房源信息已提交，请等待审核。';
+    		}
+
     	}
     }
 
