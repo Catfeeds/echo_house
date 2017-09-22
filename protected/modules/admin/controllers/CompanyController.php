@@ -21,7 +21,10 @@ class CompanyController extends AdminController{
 		if($value = trim($value))
             if ($type=='title') {
                 $criteria->addSearchCondition('name', $value);
-            } 
+            } elseif($type=='code') {
+            	$criteria->addCondition('code=:code');
+				$criteria->params[':code'] = $value;
+            }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
         {

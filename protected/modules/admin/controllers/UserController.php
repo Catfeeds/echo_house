@@ -25,6 +25,18 @@ class UserController extends AdminController{
                 $criteria->addSearchCondition('name', $value);
             } elseif($type=='phone') {
                 $criteria->addSearchCondition('phone', $value);
+            } elseif($type=='com') {
+                $cre = new CDbCriteria;
+                $cre->addSearchCondition('name', $value);
+                $coms = CompanyExt::model()->undeleted()->findAll($cre);
+                $ids = [];
+                if($coms) {
+                    foreach ($coms as $c) {
+                        $ids[] = $c->id;
+                    }
+                    $criteria->addInCondition('cid', $ids);
+                }
+                
             }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
