@@ -1,5 +1,6 @@
 var kf_id = '';
 var our_uids = '';
+var uid = '';
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
@@ -9,6 +10,22 @@ $(document).ready(function() {
     if(GetQueryString('phone')!=null) {
         $('.nophone').remove();
     }
+    QFH5.getUserInfo(function(state,data){
+      if(state==1){
+        uid = data.uid;
+      }else{
+        //未登录
+        // alert(data.error);//data.error string
+        QFH5.jumpLogin(function(state,data){
+          //未登陆状态跳登陆会刷新页面，无回调
+          //已登陆状态跳登陆会回调通知已登录
+          //用户取消登陆无回调
+          if(state==2){
+              alert("您已登陆");
+          }
+      })
+      }
+    })
     $('#form').validate();
     // $('.container-big').css('display','none');
 });
@@ -160,7 +177,7 @@ function regisInfo() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
             'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
-            // 'UserExt[pwd]': $('#password').val(),
+            'UserExt[qf_uid]': uid,
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
             'UserExt[companycode]': $('#companycode').val(),
