@@ -14,6 +14,7 @@
  * @property integer $is_new
  * @property integer $area
  * @property integer $street
+ * @property integer $uid
  * @property integer $open_time
  * @property integer $delivery_time
  * @property string $address
@@ -59,7 +60,7 @@ class Plot extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, pinyin, area, street, data_conf, created', 'required'),
-			array('sale_status, place_user, tag_id, is_new, area, street, open_time, delivery_time, map_zoom, price, unit, price_mark, status, company_id, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
+			array('sale_status, place_user, tag_id, is_new, area, street, uid, open_time, delivery_time, map_zoom, price, unit, price_mark, status, company_id, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			array('pinyin, sale_tel', 'length', 'max'=>100),
 			array('fcode', 'length', 'max'=>1),
@@ -69,7 +70,7 @@ class Plot extends CActiveRecord
 			array('market_users, first_pay, company_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, pinyin, fcode, sale_status, place_user, tag_id, is_new, area, street, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, first_pay, data_conf, status, company_id, company_name, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
+			array('id, title, pinyin, fcode, sale_status, place_user, tag_id, is_new, area, street, uid, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, image, price, unit, market_user, market_users, price_mark, first_pay, data_conf, status, company_id, company_name, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +101,7 @@ class Plot extends CActiveRecord
 			'is_new' => 'Is New',
 			'area' => 'Area',
 			'street' => 'Street',
+			'uid' => 'Uid',
 			'open_time' => 'Open Time',
 			'delivery_time' => 'Delivery Time',
 			'address' => 'Address',
@@ -156,6 +158,7 @@ class Plot extends CActiveRecord
 		$criteria->compare('is_new',$this->is_new);
 		$criteria->compare('area',$this->area);
 		$criteria->compare('street',$this->street);
+		$criteria->compare('uid',$this->uid);
 		$criteria->compare('open_time',$this->open_time);
 		$criteria->compare('delivery_time',$this->delivery_time);
 		$criteria->compare('address',$this->address,true);
