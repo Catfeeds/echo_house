@@ -52,8 +52,8 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=$v->phone?></td>
              <td class="text-center"><?=$v->wx?></td>         
-            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
+            <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
+            <td class="text-center"><?=date('Y-m-d H:i:s',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
             <td style="text-align:center;vertical-align: middle">
