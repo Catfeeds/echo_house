@@ -1,11 +1,20 @@
-var value = '';
 var uid = '';
+var list='';
 $(document).ready(function(){
 //获取下拉框数据
+setInterval(function(){
+	console.log($('.area-select').val());
+},500);
 	$.get("/api/tag/area",function(data){
 		if(data.status=='success'){
-			for (var i = 0; i < data.data.length; i++) {
-			$('.submit-select').append('<option value="'+data.data[i].id+'">'+data.data[i].name+'</option>');			
+			list=data.data;
+			//一级下拉框
+			for (var i = 0; i < list.length; i++) {
+			$('.submit-select').append('<option value="'+list[i].id+'">'+list[i].name+'</option>');			
+			}
+			//二级下拉框
+			for (var i = 0; i < list[0].childAreas.length; i++) {
+			$('.area-select').append('<option value="'+list[0].childAreas[i].id+'">'+list[0].childAreas[i].name+'</option>');			
 			}
 		}
 	});
@@ -21,9 +30,17 @@ $(document).ready(function(){
 //validate
 	$('#form').validate();
 });
-//下拉框事件
+//下拉框事件、插入二级下拉框
 function selectChange(){
-	value=$('.submit-select').val();
+	$('.area-select').empty();
+	for(var i = 0; i < list.length; i++){
+		if($('.submit-select').val()==list[i].id){
+			for (var j = 0; j < list[i].childAreas.length; j++) {
+			$('.area-select').append('<option value="'+list[i].childAreas[j].id+'">'+list[i].childAreas[j].name+'</option>');			
+			}
+			break;
+		}
+	}
 }
 //单选框的点击事件
 $('.radio1').click(function(){
@@ -73,7 +90,7 @@ function submit() {
             'CompanyExt[address]': $('#address').val(),
             'CompanyExt[phone]': $('#phone').val(),
             'CompanyExt[type]': $('#type').val(),
-            'CompanyExt[area]': value,
+            'CompanyExt[area]': $('.area-select').val(),
             'CompanyExt[image]': $('#img-url').val(),
             'CompanyExt[adduid]': uid,
         },
