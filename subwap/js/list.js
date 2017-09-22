@@ -652,7 +652,7 @@ function checkId(obj) {
                   })
                 } else {
                     if(is_jy==1) {
-                        alert('您的账户已禁用，请联系客服');
+                        alert('您的账户未通过审核或已禁用，请联系客服');
                     }else
                         location.href = 'register.html?phone='+data.data.phone;
                 }

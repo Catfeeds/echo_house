@@ -57,38 +57,41 @@ class SubExt extends Sub{
             $res = Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的报备，请登陆后台审核','',1);
             $this->created = $this->updated = time();
         }
-        else
+        else {
+            if($this->status!=Yii::app()->db->createCommand("select status from sub where id=".$this->id)->queryScalar()) {
+                $user = $this->user;
+                $user->qf_uid && Yii::app()->controller->sendNotice('经纪人'.$user->name.'您好，尾号为：'.substr($this->phone,-4, 4).'的客户，已被'.($this->plot?$this->plot->title:'').'案场助理确认'.SubExt::$status[$this->status].'。',$user->qf_uid);
+            }
+            if($this->status==2) {
+                $company = CompanyExt::model()->findByPk($this->plot->company_id);
+                $managers = $company->managers;
+                if($managers) {
+                    $uidss = '';
+                    foreach ($managers as $key => $value) {
+                        $value->qf_uid && $uidss .= $value->qf_uid.',';
+                    }
+                    $uidss = trim($uidss,',');
+                    Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认筹。',$uidss);
+                }
+                Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台查看','',1);
+            }
+            if($this->status==3) {
+                $company = CompanyExt::model()->findByPk($this->plot->company_id);
+                $managers = $company->managers;
+                if($managers) {
+                    $uidss = '';
+                    foreach ($managers as $key => $value) {
+                        $value->qf_uid && $uidss .= $value->qf_uid.',';
+                    }
+                    $uidss = trim($uidss,',');
+                    Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认购。',$uidss);
+                }
+                Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台查看','',1);
+            }
             $this->updated = time();
-        if($this->status!=Yii::app()->db->createCommand("select status from sub where id=".$this->id)->queryScalar()) {
-            $user = $this->user;
-            $user->qf_uid && Yii::app()->controller->sendNotice('经纪人'.$user->name.'您好，尾号为：'.substr($this->phone,-4, 4).'的客户，已被'.($this->plot?$this->plot->title:'').'案场助理确认'.SubExt::$status[$this->status].'。',$user->qf_uid);
         }
-        if($this->status==2) {
-            $company = CompanyExt::model()->findByPk($this->plot->company_id);
-            $managers = $company->managers;
-            if($managers) {
-                $uidss = '';
-                foreach ($managers as $key => $value) {
-                    $value->qf_uid && $uidss .= $value->qf_uid.',';
-                }
-                $uidss = trim($uidss,',');
-                Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认筹。',$uidss);
-            }
-            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认筹，请登陆后台查看','',1);
-        }
-        if($this->status==3) {
-            $company = CompanyExt::model()->findByPk($this->plot->company_id);
-            $managers = $company->managers;
-            if($managers) {
-                $uidss = '';
-                foreach ($managers as $key => $value) {
-                    $value->qf_uid && $uidss .= $value->qf_uid.',';
-                }
-                $uidss = trim($uidss,',');
-                Yii::app()->controller->sendNotice('恭喜您，您的项目'.($this->plot?$this->plot->title:'').'有新的认购。',$uidss);
-            }
-            Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的认购，请登陆后台查看','',1);
-        }
+        
+            
         return parent::beforeValidate();
     }
 
