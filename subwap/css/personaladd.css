@@ -1,0 +1,149 @@
+body{
+	background-color: #f5f5f5;
+	overflow-x: hidden;
+}
+.line{
+	position: relative;
+	background-color: #f5f5f5;
+	width: 20rem;
+	height: 0.054rem;
+}
+.report-small-tag{
+	position: relative;
+	width: 20.0rem;
+	min-height: 2.027rem;
+	height: auto;
+	background-color: #fff;
+}
+.asterisk-img{
+	position: absolute;
+	height: 1rem;
+	width: 1rem;
+	top: 0.55rem;
+	left: -0.1rem;
+}
+.report-smalltag-title{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.8rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+.report-smalltag-name{
+	position: absolute;	
+	top: 0rem;
+	border:none;
+	width: 11rem;
+	left: 6.5rem;
+	color: #414141;
+	line-height: 2.027rem;
+	font-size: 0.8rem;
+}
+.report-smalltag-textarea{
+	border:none;
+	width: 18.72rem;
+	color: #414141;
+	height: 3rem;
+	margin: 2.027rem 0.64rem 0.2rem 0.64rem;
+	font-size: 0.8rem
+}
+.bottom-blank{
+	position: relative;
+	background-color: rgba(0,0,0,0);
+	height: 5rem;
+	width: 20.0rem;
+}
+.report-report{
+	position: fixed;
+	bottom:0rem;
+	background-color: #fff;
+	height: 3.733rem;
+	width: 20.0rem;
+}
+.report-submit{
+	position: relative;
+	top: 0.7rem;
+	left: 0.613rem;
+	width: 18.72rem;
+	height: 2.347rem;
+	background-color: #00b7ee;
+	border-radius: 0.267rem;
+	text-align: center;
+	color: #fff;
+	font-size: 0.8rem;
+	line-height: 2.347rem;
+	border:none;
+}
+.submit-textarea{
+	position: relative;
+	width: 20rem;
+	height: 2.64rem;
+	background-color: #fff;
+}
+
+.submit-select{
+	position: absolute;
+	width: 5rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 6.5rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
+
+.area-select{
+	position: absolute;
+	width: 5rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 12.5rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
+
+.submit-textname{
+	position: absolute;
+	line-height: 2.64rem;
+	left: 0.88rem;
+	width: 5rem;
+	height: 2.64rem;
+	font-size: 0.8rem;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+color:#c3c3c3;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color:#c3c3c3;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color:#c3c3c3;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color:#c3c3c3;
+}
+.checkbox-ul{
+	width: 18.72rem;
+	color: #414141;
+	height: auto;
+	padding: 2.027rem 0.64rem 0.2rem 0.64rem;
+	font-size: 0.8rem
+}
+.checkbox-ul li{
+	position: relative;
+	float: left;
+	width: 6rem;
+	height: 2rem;
+	top: 0rem;
+	left: 0rem;
+}
+.box{
+	position: absolute;
+	top: 0.25rem;
+	left: 0rem;
+}
+.box-text{
+	position: absolute;
+	top: 0rem;
+	left: 1rem;
+}
