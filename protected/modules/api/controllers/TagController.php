@@ -32,7 +32,9 @@ class TagController extends ApiController{
 
 					$zxzt['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='zxzt' order by sort asc")->queryAll();
 					$zxzt['name'] = 'zxzt';
-					return [$wylx,$zxzt];
+					$sfprice['list'] = Yii::app()->db->createCommand("select id,name from tag where status=1 and cate='sfprice' order by sort asc")->queryAll();
+					$sfprice['name'] = 'sfprice';
+					return [$wylx,$zxzt,$sfprice];
 		});
 		$tags[] = ['name'=>'area','list'=>$areas];
 		$tags[] = ['name'=>'mode','list'=>Yii::app()->params['dllx']];
