@@ -80,7 +80,9 @@ class UserController extends ApiController{
 							$uidss = trim($uidss,',');
 							Yii::app()->controller->sendNotice('您好，经纪人'.$user->name.$user->phone.'通过门店码'.$code.'成功加入贵公司，请知悉。如有疑问请致电'.SiteExt::getAttr('qjpz','site_phone'),$uidss);
 						}
+						$this->returnSuccess($company->name);
 					}
+
 				}
 			}
 		}

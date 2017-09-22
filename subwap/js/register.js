@@ -168,7 +168,12 @@ function regisInfo() {
         function(data, status) {
             if (data.status == "success") {
                 if($('#form-type').val()<3) {
-                    alert("成功绑定公司！欢迎访问经纪圈新房通");
+                    if(data.data!='') {
+                        alert("成功绑定到"+data.data+"！欢迎访问经纪圈新房通");
+                    } else {
+                        alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
+                    }
+                    
                 } else {
                     alert("提交成功！请等待管理员审核");
                     // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
