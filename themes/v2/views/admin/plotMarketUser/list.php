@@ -45,7 +45,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->plot->title?></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):'暂无'?></td> 
             <td class="text-center"><?=$v->expire<time()?'已到期':date('Y-m-d',$v->expire)?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
+            <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(PlotMarketUserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
