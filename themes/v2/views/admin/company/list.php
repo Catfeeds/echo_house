@@ -18,6 +18,9 @@ $this->breadcrumbs = array($this->pageTitle);
             <div class="form-group">
                 <?php echo CHtml::dropDownList('cate',$cate,CompanyExt::$type,array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择公司类型--')); ?>
             </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('status',$status,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>

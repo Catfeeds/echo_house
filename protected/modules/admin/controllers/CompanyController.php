@@ -14,7 +14,7 @@ class CompanyController extends AdminController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='')
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
@@ -38,9 +38,13 @@ class CompanyController extends AdminController{
 			$criteria->addCondition('type=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		if(is_numeric($status)) {
+			$criteria->addCondition('status=:status');
+			$criteria->params[':status'] = $status;
+		}
 		$criteria->order = 'sort desc,updated desc';
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status]);
 	}
 
 	public function actionEdit($id='')
