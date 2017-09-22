@@ -106,6 +106,7 @@ class CompanyController extends AdminController{
 			$info = CompanyExt::model()->findByPk($id);
 			if($msg && $info && $info->adduid) {
 				Yii::app()->controller->sendNotice($msg,$info->adduid);
+				$info->phone && SmsExt::sendMsg('公司注册未通过',$info->phone,[]);
 				CompanyExt::model()->deleteAllByAttributes(['id'=>$id]);
 				$this->setMessage('操作成功');
 			} else {

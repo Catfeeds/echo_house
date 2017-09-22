@@ -35,7 +35,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">区域</th>
             <th class="text-center">楼盘管理员</th>
             <!-- <th class="text-center">案场助理</th> -->
-            <th class="text-center">点击量</th>
+            <th class="text-center">今日点击量/总点击量</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">操作</th>
         </tr>
@@ -61,7 +61,7 @@ $this->breadcrumbs = array($this->pageTitle);
                 </div>
             </td>
             
-            <td  class="text-center"><?php echo $v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)?></td>
+            <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td  class="text-center">
             <a href="<?=$this->createUrl('placelist',['hid'=>$v->id])?>" class="btn btn-xs default">案场助理</a>

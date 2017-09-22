@@ -44,14 +44,15 @@ class CompanyExt extends Company{
     }
 
     public function beforeValidate() {
-        if($this->status==1 && !$this->code && $this->adduid) {
+        if($this->status==1 && !$this->code) {
             $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             // var_dump($code);exit;
             while (CompanyExt::model()->find('code='.$code)) {
                 $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             }
             $this->code = $code;
-            Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，请使用此本门店码加入新房通系统',$this->adduid);
+            $this->adduid && Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，请使用此本门店码加入新房通系统',$this->adduid);
+            $this->phone && SmsExt::sendMsg('公司注册通过',$this->phone,['code'=>$code]);
         }
         if($this->getIsNewRecord()) {
             
