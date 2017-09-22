@@ -13,7 +13,11 @@ class TagController extends ApiController{
 	}
 	public function actionArea()
 	{
-		$this->frame['data'] = Yii::app()->db->createCommand("select id,name from area where status=1 and parent=0 order by sort asc")->queryAll();
+		$this->frame['data'] =CacheExt::gas('wap_all_area','AreaExt',0,'wap区域缓存',function (){
+		            $areas = AreaExt::model()->normal()->findAll(['condition'=>'parent=0','order'=>'sort asc']);
+		            $areas[0]['childArea'] = $areas[0]->childArea;
+		            return $this->addChild($areas);
+		        });
 	}
 	public function actionList($cate='')
 	{
