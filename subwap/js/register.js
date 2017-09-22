@@ -167,27 +167,27 @@ function regisInfo() {
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
             'UserExt[companycode]': $('#companycode').val(),
-        },
-        function(data, status) {
-            if (data.status == "success") {
-                if($('#form-type').val()<3) {
-                    if(data.data!='') {
-                        alert("成功绑定到"+data.data+"！欢迎访问经纪圈新房通");
+            },
+            function(data, status) {
+                if (data.status == "success") {
+                    if($('#form-type').val()<3) {
+                        if(data.data!='') {
+                            alert("成功绑定到"+data.msg+"！欢迎访问经纪圈新房通");
+                        } else {
+                            alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
+                        }
+                        
                     } else {
-                        alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
+                        alert("提交成功！请等待管理员审核");
+                        // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
                     }
                     
+                    location.href = 'http://'+window.location.host;
                 } else {
-                    alert("提交成功！请等待管理员审核");
-                    // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
+                    alert(data.msg);
                 }
-                
-                location.href = 'http://'+window.location.host;
-            } else {
-                alert(data.msg);
             }
-        }
-    );
+        );
       }else{
         //未登录
         // alert(data.error);//data.error string
