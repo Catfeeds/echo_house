@@ -172,7 +172,7 @@ function regisInfo() {
                 if (data.status == "success") {
                     if($('#form-type').val()<3) {
                         if(data.data!='') {
-                            alert("成功绑定到"+data.msg+"！欢迎访问经纪圈新房通");
+                            alert("成功绑定到"+data.data+"！欢迎访问经纪圈新房通");
                         } else {
                             alert("成功绑定到您的公司！欢迎访问经纪圈新房通");
                         }
