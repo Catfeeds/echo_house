@@ -11,20 +11,20 @@
 	<title></title>
 </head>
 <body>
-	<form id="form">
+	<form id="form" onsubmit="return false;">
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">项目名称</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入项目名称" id="housename" required>
+			<input type="text" class="report-smalltag-name" placeholder="请输入项目名称" name="title" id="housename" required onblur="checkName(this)">
 		</div>
 		<div class="line"></div>
 		<div class="submit-textarea">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="submit-textname">项目区域</div>
-			<select id="area1" class="submit-select" onchange="selectChange()">
+			<select id="area1" name="area" class="submit-select" onchange="setStreets()">
 				 <!-- <option value="volvo">Volvo</option> -->
 			</select>
-			<select id="area2" class="area-select">
+			<select id="area2" name="street" class="area-select">
 				 <!-- <option value="volvo">Volvo</option> -->
 			</select>
 		</div>
@@ -32,17 +32,13 @@
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">项目地址</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入项目地址" id="houseaddress" required>
+			<input type="text" name="address" class="report-smalltag-name" placeholder="请输入项目地址" id="houseaddress" required>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">物业类型</div>			
 			<ul id="wylx" class="checkbox-ul clearfloat">
-				<!-- <li>
-					<input class="box" type="checkbox" name="住宅">
-					<div class="box-text">住宅</div>
-				</li> -->
 			</ul>			
 		</div>
 		<div class="line"></div>
@@ -50,76 +46,74 @@
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">装修状况</div>
 			<ul id="zxzt" class="checkbox-ul clearfloat">
-				<!-- <li>
-					<input class="box" type="checkbox" name="住宅">
-					<div class="box-text">住宅</div>
-				</li> -->
 			</ul>
 		</div>
 		<div class="line"></div>
-		<div class="report-small-tag">
+		<div class="report-small-tag" style="height: 2.677rem;">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">均价</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入均价" required>
+			<input type="text" name="price" class="report-smalltag-name" placeholder="请输入均价" required>
+			<select id="unit" name="unit" class="area-select">
+				 <option selected="selected" value="1">元/㎡</option>
+				 <option value="2">万元/套</option>
+			</select>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">户型介绍</div>
-			<textarea class="report-smalltag-textarea" placeholder="请输入户型介绍" required></textarea>
+			<textarea name="hxjs" class="report-smalltag-textarea" placeholder="请输入户型介绍" required></textarea>
 		</div>
 		<div class="line"></div>
-		<div class="report-small-tag">
+		<div class="report-small-tag" style="height: 2.677rem;">
 			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">最低首付金额</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入最低首付金额" required>
+			<div class="report-smalltag-title" >最低首付金额</div>
+			<select id="leastpay" name="sfprice" class="submit-select">
+				 <!-- <option value="volvo">Volvo</option> -->
+			</select>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">代理性质</div>
 			<ul id="mode" class="checkbox-ul clearfloat">
-				<!-- <li>
-					<input class="box" type="radio" name="住宅">
-					<div class="box-text">住宅</div>
-				</li> -->
 			</ul>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">对接人姓名</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入对接人姓名" required>
+			<input type="text" name="market_name" class="report-smalltag-name" placeholder="请输入对接人姓名" required>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">对接人手机号码</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入对接人手机号码" required>
+			<div name="" class="report-smalltag-title">对接人手机号码</div>
+			<input type="text" name="market_phone" class="report-smalltag-name" placeholder="请输入对接人手机号码" required>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">佣金方案</div>
-			<textarea class="report-smalltag-textarea" placeholder="请输入佣金方案" required></textarea>
+			<div name="" class="report-smalltag-title">佣金方案</div>
+			<textarea name="yjfa" class="report-smalltag-textarea" placeholder="请输入佣金方案" required></textarea>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">结佣规则及时间</div>
-			<textarea class="report-smalltag-textarea" placeholder="请输入结佣规则及时间" required></textarea>
+			<textarea name="jy_rule" class="report-smalltag-textarea" placeholder="请输入结佣规则及时间" required></textarea>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">带看奖励及车费报销规则</div>
-			<textarea class="report-smalltag-textarea" placeholder="请输入带看奖励及车费报销规则" required></textarea>
+			<textarea name="dk_rule" class="report-smalltag-textarea" placeholder="请输入带看奖励及车费报销规则" required></textarea>
 		</div>
 		<div class="line"></div>
 		<div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">项目介绍(微信转发的版本)</div>
-			<textarea class="report-smalltag-textarea" placeholder="请输入项目介绍(微信转发的版本)" required></textarea>
+			<textarea name="peripheral" class="report-smalltag-textarea" placeholder="请输入项目介绍(微信转发的版本)" required></textarea>
 		</div>
 		<div class="line"></div>
 
@@ -153,11 +147,12 @@
 		            </div>
 		        </div>
 		    </div>
+		    <input type="hidden" name="image" id="img-url">
 
 
 		<div class="bottom-blank"></div>
 		<div class="report-report">
-			<button type="submit" class="report-submit" onclick="sub()">提 交</button>
+			<button type="submit" onclick="submitBtn()" class="report-submit">提 交</button>
 		</div>
 	</form>
 	

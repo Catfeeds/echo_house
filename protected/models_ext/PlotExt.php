@@ -79,6 +79,7 @@ class PlotExt extends Plot{
         'wx_share_title'=>'',
         'dllx'=>'',
         'hxjs'=>'',
+        'yjfa'=>'',
         // ''
     ];
 
@@ -148,7 +149,7 @@ class PlotExt extends Plot{
             'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
             'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.created desc'),
             'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
-            // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
+            'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }
 
