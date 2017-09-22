@@ -52,7 +52,7 @@ $statusArr = SubExt::$status;
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->plot->title?></td>
-            <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
+            <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->market_staff?></td>     
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
