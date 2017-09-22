@@ -28,7 +28,7 @@ app.controller('filterCtrl', function($scope, $http) {
     //显示filter1的area
     $scope.show_Area=false;
     $scope.showArea=function(obj){
-        console.log()
+            console.log(obj)
             $scope.show_Area=!$scope.show_Area;
         }     
 });

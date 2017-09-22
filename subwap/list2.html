@@ -32,7 +32,7 @@
 			<div class="line"></div>
 		<!-- 筛选栏 -->
 			<ul class="list-filter clearfloat">
-		            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea(this)">{{item.name}}
+		            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea(item.name)">{{item.name}}
 		            <img class="list-filter-slat" src="./img/slatdown.png" />
 		            </li>
 		    </ul>
