@@ -2,9 +2,9 @@ var uid = '';
 var list='';
 $(document).ready(function(){
 //获取下拉框数据
-setInterval(function(){
-	console.log($('.area-select').val());
-},500);
+// setInterval(function(){
+// 	console.log($('.area-select').val());
+// },500);
 	$.get("/api/tag/area",function(data){
 		if(data.status=='success'){
 			list=data.data;
