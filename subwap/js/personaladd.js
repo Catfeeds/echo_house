@@ -1,7 +1,7 @@
 var tags='';
 $(document).ready(function() {
-    $.get('/api/config/index',function(data) {
-      if(data.data.is_user) {
+    $.get('/api/index/getQfUid',function(data) {
+      if(data.status=='success') {
         $.get('/api/plot/checkCanSub',function(data) {
           if(data.status=='error') {
             alert(data.msg);
