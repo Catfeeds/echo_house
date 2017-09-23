@@ -3,7 +3,6 @@ $(document).ready(function() {
 });
 function sub(){
 	var code = $('#cusname').val();
-	$.get('/api/config/index',function(data) {});
 	if(code!=''){
 		$.get('/api/plot/checkSub?code='+code,function(data) {
 			if(data.status=='error') {

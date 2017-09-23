@@ -1,5 +1,6 @@
 var tags='';
 $(document).ready(function() {
+    $.get('/api/config/index',function(data) {});
     $.get('/api/plot/checkCanSub',function(data) {
       if(data.status=='error') {
         alert(data.msg);
