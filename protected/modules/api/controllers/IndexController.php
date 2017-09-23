@@ -96,7 +96,10 @@ class IndexController extends ApiController
     {
         $this->showUser();
         if(!empty($_COOKIE['qf_uid'])) {
-            $this->frame['data'] = ['uid'=>$_COOKIE['qf_uid'],'phone'=>$_COOKIE['phone']];
+            if(!empty($_COOKIE['phone'])) {
+                $this->returnError('请绑定经纪圈手机号');
+            } else
+                $this->frame['data'] = ['uid'=>$_COOKIE['qf_uid'],'phone'=>$_COOKIE['phone']];
         } else {
             $this->returnError('UID错误');
         }

@@ -457,7 +457,7 @@ class PlotController extends ApiController{
 			$res = PlotExt::model()->normal()->findAll($criteria);
 			if($res) {
 				foreach ($res as $key => $value) {
-					$data[] = ['id'=>$value->id,'title'=>$value->title,'area'=>$value->areaInfo->name,'street'=>$value->streetInfo->name];
+					$data[] = ['id'=>$value->id,'title'=>$value->title,'area'=>$value->areaInfo?$value->areaInfo->name:'','street'=>$value->streetInfo?$value->streetInfo->name:''];
 				}
 			}
 			$this->frame['data'] = $data;

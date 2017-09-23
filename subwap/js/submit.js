@@ -1,4 +1,3 @@
-var uid = '';
 var list='';
 $(document).ready(function(){
 //获取下拉框数据
@@ -15,14 +14,7 @@ $(document).ready(function(){
 			}
 		}
 	});
-	QFH5.getUserInfo(function(state,data){
-	  if(state==1){
-	  	uid = data.uid;
-	  }else{
-	    //未登录
-	    alert(data.error);//data.error string
-	  }
-	})
+	
 
 //validate
 	$('#form').validate();
@@ -81,24 +73,33 @@ $('.submit-submit').click(function(){
 });
 //提交数据
 function submit() {
-    $.post("/api/plot/SubCompany", {
-            'CompanyExt[name]': $('#shopname').val(),
-            'CompanyExt[manager]': $('#name').val(),
-            'CompanyExt[address]': $('#address').val(),
-            'CompanyExt[phone]': $('#phone').val(),
-            'CompanyExt[type]': $('#type').val(),
-            'CompanyExt[area]': $('.area-select').val(),
-            'CompanyExt[image]': $('#img-url').val(),
-            'CompanyExt[adduid]': uid,
-        },
-        function(data, status) {
-            if (data.status == "success") {
-                alert("提交成功！");
-                location.href = "list.html";
-            } else {
-                alert(data.msg);
-            }
-        }
-    );
+	QFH5.getUserInfo(function(state,data){
+	  if(state==1){
+	  	uid = data.uid;
+	  	$.post("/api/plot/SubCompany", {
+	            'CompanyExt[name]': $('#shopname').val(),
+	            'CompanyExt[manager]': $('#name').val(),
+	            'CompanyExt[address]': $('#address').val(),
+	            'CompanyExt[phone]': $('#phone').val(),
+	            'CompanyExt[type]': $('#type').val(),
+	            'CompanyExt[area]': $('.area-select').val(),
+	            'CompanyExt[image]': $('#img-url').val(),
+	            'CompanyExt[adduid]': uid,
+	        },
+	        function(data, status) {
+	            if (data.status == "success") {
+	                alert("提交成功！");
+	                location.href = "list.html";
+	            } else {
+	                alert(data.msg);
+	            }
+	        }
+	    );
+	  }else{
+	    //未登录
+	    alert(data.error);//data.error string
+	  }
+	})
+	    
 }
 
