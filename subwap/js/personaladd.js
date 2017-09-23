@@ -1,5 +1,11 @@
 var tags='';
 $(document).ready(function() {
+    $.get('/api/tag/checkCanSub',function(data) {
+      if(data.status=='error') {
+        alert(data.msg);
+        location.href = 'list.html';
+      }
+    })
      //validata
     // $('#form').validate();
     $.get('/api/tag/publishtags',function(data) {

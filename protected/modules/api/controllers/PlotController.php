@@ -1008,4 +1008,11 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionCheckCanSub()
+    {
+    	if(!$this->staff || $this->staff->type!=1 || !$this->staff->companyinfo) {
+    		return $this->returnError('用户类型错误，只支持总代公司发布房源');
+    	}
+    }
+
 }
