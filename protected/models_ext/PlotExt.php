@@ -78,6 +78,7 @@ class PlotExt extends Plot{
         'sfprice'=>'',
         'wx_share_title'=>'',
         'dllx'=>'',
+        'hxjs'=>'',
         // ''
     ];
 
@@ -146,6 +147,7 @@ class PlotExt extends Plot{
             'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1','order'=>'checked_subs.created desc'),
             'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
             'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.created desc'),
+            'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             // 'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
     }
@@ -170,8 +172,9 @@ class PlotExt extends Plot{
         }
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
-        else
+        else {
             $this->updated = time();
+        }
         // if(!$this->first_pay) {
         //     $this->first_pay = Yii::app()->db->createCommand("select price from plot_pay where hid=".$this->id." and deleted=0 and status=1 and price!=''")->queryScalar();
         //     // var_dump($this->first_pay);
@@ -295,5 +298,12 @@ class PlotExt extends Plot{
                     }
 
                 });
+    }
+
+    public function changeS()
+    {
+        if($owner = $this->owner) {
+            $owner->qf_uid && Yii::app()->controller->sendNotice('您好，您的项目'.$this->title.'已上线，请登录经纪圈新房通查看。',$owner->qf_uid);
+        }
     }
 }

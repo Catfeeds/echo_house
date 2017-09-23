@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/personallist.css">
+	<title></title>
+</head>
+<body ng-app="perlist" ng-controller="perlistCtrl">
+
+	<div class="list-search-frame">
+		<div class="list-search-search" ng-click="search()">搜索</div>
+		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入项目名称">
+		<select class="statusselect" ng-change="search()" ng-model="myselect">
+			<option value="">状态</option>
+			<option value="0">报备</option>
+			<option value="1">到访</option>
+			<option value="2">认筹</option>
+			<option value="3">认购</option>
+			<option value="4">签约</option>
+			<option value="5">结佣</option>
+			<option value="6">退定</option>
+		</select>
+	</div>
+	<div class="count">共查找到 <b>-</b> 条</div>
+	<div class="customerlist">
+		<ul id="ul1">
+			<li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
+	            <div class="line"></div>
+	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
+		            <img class="house-img" ng-Src="{{ item.image }}"/>
+		            <!-- <div class="house-jing">顶</div> -->
+		            <div ng-cloak class="house-text-head">{{item.title}}</div>
+	            </a>
+	            <div ng-cloak class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
+	            <div ng-cloak class="house-text-price">{{item.price+ '' +item.unit}}</div>
+	            <div ng-cloak class="list-status">{{item.distance}}</div>
+	            <div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.obj.company_name}}</div>
+            </li>
+		</ul>
+	</div>
+	<div class="bottom-blank"></div>
+	<div class="add" ng-click="addCustomer()">
+		<img class="addimg" src="./img/addimg.png">
+	</div>
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/personallist.js"></script>
+<script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>
+<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>

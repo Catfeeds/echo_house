@@ -1,0 +1,200 @@
+body{
+	background-color: #f5f5f5;
+}
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+#ul1 li a{
+	color: #000000;
+}
+.line{
+	position: absolute;
+	top: 4.446rem;
+	width: 20rem;
+	height: 0.054rem;
+	background-color: #F5F5F5;
+}
+.customerlist{
+	position: relative;
+	width: 20rem;
+	height: auto;
+	background-color: #fff;
+}
+
+.add{
+	position: fixed;
+	width: 20rem;
+	height:2.667rem;
+	background-color: #00b7ee;
+	bottom: 0rem;
+}
+.bottom-blank{
+	position: relative;
+	width: 20rem;
+	height:2.667rem;
+	background-color: #f5f5f5;
+}
+.addimg{
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	left: 9.25rem;
+	top: 0.58rem;
+}
+
+.list-search-frame{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;	
+}
+.list-search-search{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #414141;
+	top: 0.7rem;
+	left: 14rem;
+}
+.list-search-frame-text{
+	position: absolute;
+	width: 12rem;
+	height: 1.547rem;
+	top: 0.4rem;
+	left: 0.64rem;
+	background-color: #fff;
+	border: none;
+	font-size: 0.693rem;
+	padding-left: 0.533rem;
+}
+.statusselect{
+	position: absolute;
+	width: 3rem;
+	top: 0.4rem;
+	left: 16.3rem;
+	height: 1.5rem;
+	font-size: 0.693rem;
+	color: #868686;
+	text-align: right;
+	border:solid 0.027rem #c3c3c3;
+}
+.count{
+	position: relative;
+	height: 1.2rem;
+	width: 18.72rem;
+	font-size: 0.8rem;
+	padding: 0rem 0.64rem;
+	color: #868686;
+}
+.list-house{
+	height: 5.333rem;
+	width: 20.0rem;
+	position: relative;
+}
+
+.house-img{
+	position: absolute;
+	top: 0.667rem;
+	left: 0.667rem;
+	height: 4.0rem;
+	width: 5.333rem;
+}
+
+.house-jing{
+	position: absolute;
+	width: 0.8rem;
+	height: 0.8rem;
+	margin: 0.14rem 0rem;
+	font-size: 0.64rem;
+	background-color: #FCA61E;
+	border-radius: 0.053rem;
+	text-align: center;
+	line-height: 0.8rem;
+	top: 0.533rem;
+	left: 6.8rem;
+	color: #fff;
+}
+
+.house-text-headj{
+	font-weight: bold;
+	font-size: 0.8rem;
+	position: absolute;
+	top: 0.533rem;
+	left:7.8rem;
+	width: 7rem;
+	height: 1.068rem;
+	overflow: hidden;
+}
+
+.house-text-head{
+	font-weight: bold;
+	font-size: 0.8rem;
+	position: absolute;
+	top: 0.533rem;
+	left:6.8rem;
+	width: 8rem;
+	height: 1.068rem;
+	overflow: hidden;
+}
+.house-text-company{
+	font-size: 0.64rem;
+	position: absolute;
+	top: 3.7rem;
+	left:6.8rem;
+	width: 12rem;
+	color:#868686;
+}
+.house-text-size{
+	font-size: 0.64rem;
+	position: relative;
+	top: -4.053rem;
+	left:10.933rem;
+	width: 2.667rem;
+	color:#868686;
+}
+.house-text-plot_name-2{
+	font-size: 0.64rem;
+	position: absolute;
+	top: 2.2rem;
+	left:6.8rem;
+	width: 9rem;
+	color:#868686;
+}
+.house-text-pay-yong{
+	position: absolute;
+	width: 0.8rem;
+	height: 0.8rem;
+	font-size: 0.64rem;
+	background-color: rgb(223,82,37);
+	border-radius: 0.053rem;
+	text-align: center;
+	line-height: 0.8rem;
+	top: 2.8rem;
+	left: 6.8rem;
+	color: #fff;
+}
+.house-text-pay{
+	font-size: 0.64rem;
+	position: absolute;
+	width: 12.0rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	color:rgb(223,82,37);
+	top: 2.8rem;
+	left: 7.8rem;
+	overflow: hidden;
+}
+.house-text-price{
+	font-size: 0.747rem;
+	position: absolute;
+	top: 0.3rem;
+	left:13.2rem;
+	width: 6.0rem;
+	color: rgb(223,82,37);
+	text-align: right;
+}
+.list-status{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 1.64rem;
+	left: 16.7rem;
+	width: 3rem;
+	color:#868686;
+}

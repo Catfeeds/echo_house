@@ -27,8 +27,14 @@ class ChangeStatusAction extends CAction{
 		foreach ($ids as $key => $id) {
 			$model = $class::model()->findByPk($id);
 			$model->status = $model->status == 1 ? 0 : 1;
-			if(!$model->save())
+				
+			if(!$model->save()) {
 				$this->controller->setMessage(current(current($model->getErrors())),'error');
+			} else {
+				if($class == 'PlotExt' && $model->status == 1) {
+					$model->changeS();
+				}
+			}
 		}
 		$this->controller->setMessage('操作成功','success');	
 	}
