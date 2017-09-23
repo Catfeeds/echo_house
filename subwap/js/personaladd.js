@@ -34,10 +34,11 @@ function JqValidate()
 
 function submitBtn()  
 {  
-  // console.log(JqValidate());
-     if( JqValidate().errorList.length<=0 ){    
-         sub();
-     }  
+    $( '#form' ).validate({
+        submitHandler:function() {
+          sub();
+      }
+    });   
 }  
 function sub(){
   var wylx = new Array;
