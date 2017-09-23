@@ -392,10 +392,17 @@ class PlotController extends ApiController{
 			'is_contact_only'=>$is_contact_only,
 			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),
 			'areaid'=>$info->area,
+			'owner_phone'=>$info->owner?$info->owner->phone:'',
 			// 'share_phone'=>$share_phone,
 		];
-		
-		$data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
+		if($this->staff) {
+			if($data['owner_phone']==$this->staff->phone||strstr($info->market_user,$this->staff->phone)) {
+				$data['can_edit'] = 1;
+			} else {
+				$data['can_edit'] = 0;
+			}
+		}
+		// $data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
 		$this->frame['data'] = $data;
 	}
 
@@ -566,6 +573,7 @@ class PlotController extends ApiController{
 	{
 		if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if($hid = $this->cleanXss($_POST['hid'])) {
+				$plot = PlotExt::model()->findByPk($hid);
 				$title = $this->cleanXss($_POST['title']);
 				$num = $this->cleanXss($_POST['num']);
 				if(strstr($title, '1')) {
@@ -582,6 +590,9 @@ class PlotController extends ApiController{
 					$obj = new PlotMarketUserExt;
 				// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
 					// $obj = new PlotMarketUserExt;
+					if($plot->uid&&$plot->uid==$uid) {
+						$obj->is_manager = 1;
+					}
 					$obj->status = 1;
 					$obj->uid = $uid;
 					$obj->hid = $hid;
@@ -963,15 +974,15 @@ class PlotController extends ApiController{
     		// 		$post[$key] = $this->cleanXss($value);
     		// 	}
     		// }
-    		$mak = $post['market_name'].$post['market_phone'];
-    		unset($post['market_name']);
-    		unset($post['market_phone']);
+    		// $mak = $post['market_name'].$post['market_phone'];
+    		// unset($post['market_name']);
+    		// unset($post['market_phone']);
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
-    		$obj->status = 1;
-    		$obj->market_user = $mak;
+    		$obj->status = 0;
+    		// $obj->market_user = $mak;
     		$obj->uid = $this->staff->id;
     		$company = $this->staff->companyinfo;
     		$obj->company_id = $company->id;

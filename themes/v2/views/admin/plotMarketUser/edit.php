@@ -41,6 +41,13 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label">是否发布人</label>
+    <div class="col-md-4">
+        <?php echo $form->radioButtonList($article, 'is_manager', ['否','是'], array('separator' => '')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'is_manager') ?></div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label">状态</label>
     <div class="col-md-4">
         <?php echo $form->radioButtonList($article, 'status', PlotMarketUserExt::$status, array('separator' => '')); ?>

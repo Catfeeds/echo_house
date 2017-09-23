@@ -43,7 +43,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->plot->title?></td>
-            <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):'暂无'?></td> 
+            <td class="text-center"><?=($v->user?($v->user->name.'/'.$v->user->phone):'暂无').($v->is_manager?('<a href="/admin/plot/edit?id='.$v->plot->id.'"> 查看发布项目</a>'):'')?></td> 
             <td class="text-center"><?=$v->expire<time()?'已到期':date('Y-m-d',$v->expire)?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
