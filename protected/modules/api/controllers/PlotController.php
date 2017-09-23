@@ -14,6 +14,7 @@ class PlotController extends ApiController{
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
+		$status = Yii::app()->request->getQuery('status','');
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$init = 0;
@@ -21,6 +22,22 @@ class PlotController extends ApiController{
 			$init = 1;
 		}
 		$criteria = new CDbCriteria;
+		if($uid>0) {
+			if($this->staff && $this->staff->type==1 && $this->staff->companyinfo) {
+				$init = 0;
+				$criteria->addCondition('uid=:uid');
+				$criteria->params[':uid'] = $this->staff->id;
+				if(is_numeric($status)) {
+					$criteria->addCondition('status=:status');
+					$criteria->params[':status'] = $status;
+				}
+			} else {
+				return $this->returnError('用户类型错误，只支持总代公司发布房源');
+			}
+			
+		} else {
+			$criteria->addCondition('status=1');
+		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
 			$criteria1->addSearchCondition('name',$kw);
@@ -37,10 +54,7 @@ class PlotController extends ApiController{
 			$criteria->addCondition('area=:area');
 			$criteria->params[':area'] = $area;
 		}
-		if($uid>0) {
-			$criteria->addCondition('uid=:uid');
-			$criteria->params[':uid'] = $this->staff->id;
-		}
+		
 		if($street) {
 			$criteria->addCondition('street=:street');
 			$criteria->params[':street'] = $street;
@@ -127,7 +141,7 @@ class PlotController extends ApiController{
 			$this->frame['data'] = $dats;
 		} else {
 			// var_dump($criteria);exit;
-			$plots = PlotExt::model()->normal()->getList($criteria,$limit);
+			$plots = PlotExt::model()->undeleted()->getList($criteria,$limit);
 			$lists = [];
 			// if($company) {
 			// 	$companydes = Yii::app()->db->createCommand("select id,name from company where id=$company")->queryRow();
@@ -940,21 +954,29 @@ class PlotController extends ApiController{
     		if($this->staff->type!=1) {
     			return $this->returnError('用户类型错误，只支持总代公司发布房源');
     		}
-    		if(!($company = $this->staff->company)) {
+    		if(!($company = $this->staff->companyinfo)) {
     			return $this->returnError('尚未绑定公司');
     		}
     		$post = $_POST;
-    		if($post&&is_array($post) ){
-    			foreach ($post as $key => $value) {
-    				$post[$key] = $this->cleanXss($value);
-    			}
-    		}
+    		// if($post&&is_array($post) ){
+    		// 	foreach ($post as $key => $value) {
+    		// 		$post[$key] = $this->cleanXss($value);
+    		// 	}
+    		// }
+    		$mak = $post['market_name'].$post['market_phone'];
+    		unset($post['market_name']);
+    		unset($post['market_phone']);
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
     		$obj->status = 1;
+    		$obj->market_user = $mak;
     		$obj->uid = $this->staff->id;
+    		$company = $this->staff->companyinfo;
+    		$obj->company_id = $company->id;
+    		$obj->company_name = $company->name;
+    		// var_dump($obj->attributes);exit;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
@@ -964,6 +986,14 @@ class PlotController extends ApiController{
     			$this->frame['data'] = '您好，您的房源信息已提交，请等待审核。';
     		}
 
+    	}
+    }
+
+    public function actionCheckName($name='') {
+    	if($name) {
+    		if(Yii::app()->db->createCommand("select id from plot where deleted=0 and title='$name'")->queryScalar()) {
+    			$this->returnError('项目名已存在，请勿重复提交');
+    		}
     	}
     }
 

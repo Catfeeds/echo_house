@@ -14,16 +14,11 @@
 		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入项目名称">
 		<select class="statusselect" ng-change="search()" ng-model="myselect">
 			<option value="">状态</option>
-			<option value="0">报备</option>
-			<option value="1">到访</option>
-			<option value="2">认筹</option>
-			<option value="3">认购</option>
-			<option value="4">签约</option>
-			<option value="5">结佣</option>
-			<option value="6">退定</option>
+			<option value="0">禁用</option>
+			<option value="1">启用</option>
 		</select>
 	</div>
-	<div class="count">共查找到 <b>-</b> 条</div>
+	<div class="count">共查找到 <b>0</b> 条</div>
 	<div class="customerlist">
 		<ul id="ul1">
 			<li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">

@@ -454,6 +454,23 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                     <div class="col-md-12"><?php echo $form->error($plot, 'sort'); ?><?php echo $form->error($plot, 'views'); ?></div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="col-md-2 control-label text-nowrap">用户提交户型描述</label>
+                    <div class="col-md-6">
+                        <?php echo $form->textarea($plot,'hxjs',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="col-md-2 control-label text-nowrap">用户提交结佣方案</label>
+                    <div class="col-md-6">
+                        <?php echo $form->textarea($plot,'yjfa',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+            </div>
             
 
         </div>
