@@ -1,12 +1,18 @@
 var tags='';
 $(document).ready(function() {
-    $.get('/api/config/index',function(data) {});
-    $.get('/api/plot/checkCanSub',function(data) {
-      if(data.status=='error') {
-        alert(data.msg);
-        location.href = 'list.html';
+    $.get('/api/config/index',function(data) {
+      if(data.data.is_user) {
+        $.get('/api/plot/checkCanSub',function(data) {
+          if(data.status=='error') {
+            alert(data.msg);
+            location.href = 'list.html';
+          }
+        })
+      } else {
+        alert('用户尚未登录');
       }
-    })
+    });
+      
      //validata
     // $('#form').validate();
     $.get('/api/tag/publishtags',function(data) {
