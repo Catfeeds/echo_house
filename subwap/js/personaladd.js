@@ -1,6 +1,6 @@
 var tags='';
 $(document).ready(function() {
-    $.get('/api/tag/checkCanSub',function(data) {
+    $.get('/api/plot/checkCanSub',function(data) {
       if(data.status=='error') {
         alert(data.msg);
         location.href = 'list.html';
