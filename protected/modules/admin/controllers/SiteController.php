@@ -48,7 +48,7 @@ class SiteController extends AdminController
 	}
 	public function actionDelCache()
 	{
-		foreach (['tag_wzlm','wap_all_area','wap_all_filters','wap_init_plotlist','wap_all_config'] as $key => $value) {
+		foreach (['tag_wzlm','wap_all_area','wap_all_filters','wap_init_plotlist','wap_all_config','wap_init_plotlist'] as $key => $value) {
 			CacheExt::delete($value);
 		}
 		$this->setMessage('操作成功');
