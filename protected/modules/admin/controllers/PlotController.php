@@ -47,7 +47,7 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$cate1='',$company='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='')
 	{
 		$modelName = 'PlotExt';
 		$criteria = new CDbCriteria;
@@ -71,21 +71,23 @@ class PlotController extends AdminController{
         	$company=Yii::app()->user->cid;
         }
         if($company) {
-        	// $ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
-        	// $idArr = [];
-        	// if($ids) {
-        	// 	foreach ($ids as $id) {
-        	// 		$idArr[] = $id['hid'];
-        	// 	}
-        	// }
-        	// $criteria->addInCondition('id',$idArr);
         	$criteria->addCondition('company_id=:comid');
         	$criteria->params[':comid'] = $company;
+        }
+        if(is_numeric($status)) {
+        	$criteria->addCondition('status=:status');
+        	$criteria->params[':status'] = $status;
+        }
+         if(is_numeric($is_uid)) {
+         	if($is_uid)
+        		$criteria->addCondition('uid>0');
+        	else
+        		$criteria->addCondition('uid=0');
         }
 		$this->controllerName = '楼盘';
 		$criteria->order = 'sort desc,updated desc,id desc';
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'cate1'=>$cate1,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
 	}
 
 	/**

@@ -304,7 +304,10 @@ class PlotExt extends Plot{
     public function changeS()
     {
         if($owner = $this->owner) {
-            $owner->qf_uid && Yii::app()->controller->sendNotice('您好，您的项目'.$this->title.'已上线，请登录经纪圈新房通查看。',$owner->qf_uid);
+            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核，点击<a href="'.Yii::app()->request->getHostInfo().'/subwap/duijieren.html?hid="'.$this->id.'>这里</a>付费，完成后房源即可自动展现到新房通前台。
+您是'.$this->title.'的发布人可享有以下特权：
+1.新增楼盘最新动态  
+2.您的联系方式始终在电话列表页面、在线申请签约页面、快速报备页面首位。',$owner->qf_uid);
         }
     }
 }
