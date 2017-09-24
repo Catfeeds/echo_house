@@ -301,6 +301,67 @@ class PlotExt extends Plot{
                 });
     }
 
+    public static function getFirstListFromArea() {
+        return CacheExt::gas('wap_area_plotlist','AreaExt',0,'wap区域数据列表',function (){
+                    $datas = [];
+                    $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
+                    $areas = AreaExt::model()->normal()->findAll('parent=0');
+                    if($areas) {
+                        foreach ($areas as $area) {
+                            $criteria = new CDbCriteria;
+                            $criteria->addCondition('area='.$area->id);
+                            $criteria->limit = 20;
+                            $criteria->order = 'sort desc,updated desc';
+                            $plots = PlotExt::model()->normal()->getList($criteria);
+                            if($datares = $plots->data) {
+                                foreach ($datares as $key => $value) {
+                                    if($area = $value->areaInfo)
+                                        $areaName = $area->name;
+                                    else
+                                        $areaName = '';
+                                    if($street = $value->streetInfo)
+                                        $streetName = $street->name;
+                                    else
+                                        $streetName = '';
+                                    $companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+                                        
+                                    // var_dump(Yii::app()->user->getIsGuest());exit;
+                                    // if(Yii::app()->user->getIsGuest()) {
+                                    //     $pay = '';
+                                    // } elseif($pays = $value->pays) {
+                                    //     $pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+                                    // } else {
+                                    //     $pay = '';
+                                    // }
+                                    $lists[] = [
+                                        'id'=>$value->id,
+                                        'title'=>Tools::u8_title_substr($value->title,18),
+                                        'price'=>$value->price,
+                                        'unit'=>PlotExt::$unit[$value->unit],
+                                        'area'=>$areaName,
+                                        'street'=>$streetName,
+                                        'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+                                        'zd_company'=>$companydes,
+                                        'pay'=>$value->first_pay,
+                                        'sort'=>$value->sort,                        
+                                        'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
+                                        'obj'=>$value,
+                                    ];
+                                }
+                                $pager = $plots->pagination;
+                                $datas[$area->id] = ['list'=>$lists,'page'=>1,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
+                                unset($lists);
+                            }
+
+                        }
+
+                    }
+                    return $datas;
+                            
+
+                });
+    }
+
     public function changeS()
     {
         if($owner = $this->owner) {

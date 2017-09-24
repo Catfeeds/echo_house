@@ -6,17 +6,22 @@ $('.delete-text').click(function(){
 });
 
 document.onkeydown=function(){   
-        $('#search-history-ul').empty();
+    $('#search-history-ul').empty();
+
         var kw= $('.list-search-frame-text').val();
-         $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
-            var data = data.data;
-         	for (var i=0;i<data.length;i++) {
-                // alert(data[i].title);
-	        	house_name = data[i].title;
-	        	house_id = data[i].id;
-	        	$('#search-history-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
-        	} 
-    	});
+        if(kw.length>=4) {
+            $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
+                var data = data.data;
+                for (var i=0;i<data.length;i++) {
+                    // alert(data[i].title);
+                    house_name = data[i].title;
+                    house_id = data[i].id;
+                    $('#search-history-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
+                } 
+            });
+        }
+             
+        
         
 }
 function todetail(obj) {
