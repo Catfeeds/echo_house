@@ -270,6 +270,17 @@ class PlotExt extends Plot{
                             else
                                 $streetName = '';
                             $companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+                            $wyw = '';
+                            $wylx = $value->wylx;
+                            if($wylx) {
+                             if(!is_array($wylx)) 
+                                 $wylx = [$wylx];
+                             foreach ($wylx as $w) {
+                                 $t = TagExt::model()->findByPk($w)->name;
+                                 $t && $wyw .= $t.' ';
+                             }
+                             $wyw = trim($wyw);
+                            }
                                 
                             // var_dump(Yii::app()->user->getIsGuest());exit;
                             // if(Yii::app()->user->getIsGuest()) {
@@ -289,7 +300,8 @@ class PlotExt extends Plot{
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
                                 'zd_company'=>$companydes,
                                 'pay'=>$value->first_pay,
-                                'sort'=>$value->sort,                        
+                                'sort'=>$value->sort,       
+                                'wylx'=>$wyw,          
                                 'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
                                 'obj'=>$value,
                             ];
