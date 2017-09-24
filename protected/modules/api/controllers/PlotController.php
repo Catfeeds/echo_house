@@ -174,16 +174,16 @@ class PlotController extends ApiController{
 					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					// }
 					$wyw = '';
-					$wylx = $value->wylx;
-					if($wylx&&$area) {
-						if(!is_array($wylx)) 
-							$wylx = [$wylx];
-						foreach ($wylx as $w) {
-							$t = TagExt::model()->findByPk($w)->name;
-							$t && $wyw .= $t.' ';
-						}
-						$wyw = trim($wyw);
-					}
+					// $wylx = $value->wylx;
+					// if($wylx) {
+					// 	if(!is_array($wylx)) 
+					// 		$wylx = [$wylx];
+					// 	foreach ($wylx as $w) {
+					// 		$t = TagExt::model()->findByPk($w)->name;
+					// 		$t && $wyw .= $t.' ';
+					// 	}
+					// 	$wyw = trim($wyw);
+					// }
 					
 					
 					// var_dump(Yii::app()->user->getIsGuest());exit;
