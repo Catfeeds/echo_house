@@ -258,7 +258,7 @@ FileProgress.prototype.setComplete = function(up, info) {
         $(img).on('load', function() {
             showImg.attr('src', url);
 
-            linkWrapper.attr('href', url).attr('title', '');
+            // linkWrapper.attr('href', url).attr('title', '');
 
             function initImg(url, key, height) {
                 $('#myModal-img').modal();
