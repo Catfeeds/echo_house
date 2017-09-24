@@ -984,7 +984,7 @@ class PlotController extends ApiController{
     		$obj->status = 0;
     		// $obj->market_user = $mak;
     		$obj->uid = $this->staff->id;
-    		$company = $this->staff->companyinfo;
+    		// $company = $this->staff->companyinfo;
     		$obj->company_id = $company->id;
     		$obj->company_name = $company->name;
     		// var_dump($obj->attributes);exit;
