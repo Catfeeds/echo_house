@@ -228,9 +228,13 @@ class PlotController extends AdminController{
 	 */
 	public function actionEdit($id='')
 	{
+		$change = 0;
 		$house = $id ? PlotExt::model()->findByPk($id) : new PlotExt;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$values = Yii::app()->request->getPost('PlotExt',[]);
+			if($values['status']==1&&$house->status==0) {
+				$change = 1;	
+			}
 			$house->attributes = $values;
 			if(strpos($house->open_time,'-')) {
 				$house->open_time = strtotime($house->open_time);
@@ -267,6 +271,9 @@ class PlotController extends AdminController{
 			}
 			// var_dump($tagArray);exit;
 			if($house->save()) {
+				if($change) {
+					$house->changeS();
+				}
 				// if($zd_company) {
 				// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
 				// 	foreach ($zd_company as $cid) {
