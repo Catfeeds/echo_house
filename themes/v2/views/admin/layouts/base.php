@@ -146,7 +146,7 @@
 	</div>
 	<!-- END SIDEBAR -->
 	<!-- BEGIN CONTENT -->
-	<div class="page-content-wrapper">
+	<div class="page-content-wrapper" style="min-width: 1000px">
 		<div class="page-content">
 			<!-- BEGIN PAGE HEADER-->
 			<?php if(!empty($this->pageTitle)): ?>
