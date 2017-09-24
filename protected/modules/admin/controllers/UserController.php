@@ -16,7 +16,7 @@ class UserController extends AdminController{
         $this->controllerName = '用户';
         // $this->cates = CHtml::listData(ArticleCateExt::model()->normal()->findAll(),'id','name');
     }
-    public function actionList($type='title',$value='',$time_type='created',$time='',$cate='')
+    public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='')
     {
         $modelName = $this->modelName;
         $criteria = new CDbCriteria;
@@ -51,12 +51,15 @@ class UserController extends AdminController{
 
         }
         if(is_numeric($cate)) {
-            $criteria->addCondition('status=:cid');
+            $criteria->addCondition('type=:cid');
             $criteria->params[':cid'] = $cate;
         }
-        $criteria->order = 'sort desc,updated desc';
+        if(is_numeric($status)) {
+            $criteria->addCondition('status=:status');
+            $criteria->params[':status'] = $status;
+        }        $criteria->order = 'sort desc,updated desc';
         $infos = $modelName::model()->undeleted()->getList($criteria,20);
-        $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+        $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status]);
     }
 
     public function actionEdit($id='')

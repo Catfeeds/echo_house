@@ -1015,4 +1015,12 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionCheckCompanyName($name='') {
+    	if($name) {
+    		if(Yii::app()->db->createCommand("select id from company where deleted=0 and name='$name'")->queryScalar()) {
+    			$this->returnError('该公司已注册，请联系客服获取门店码！');
+    		}
+    	}
+    }
+
 }
