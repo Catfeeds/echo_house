@@ -17,6 +17,9 @@ $(document).ready(function(){
 	if(GetQueryString('hid')!=undefined) {
 		hid = GetQueryString('hid');
 	}
+	if(GetQueryString('title')!=undefined) {
+		$('#title').html(GetQueryString('title'));
+	}
 });
 
 function subthis() {

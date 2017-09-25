@@ -204,7 +204,7 @@ function turnDetail(obj){
 function becomeDuijieren(){
     $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
         if(data.status=='success') {
-            location.href="duijieren.html?hid="+hid;
+            location.href="duijieren.html?hid="+hid+'&title='+title;
         } else {
             alert(data.msg);
         }
