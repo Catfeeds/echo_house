@@ -46,9 +46,6 @@ $(document).ready(function(){
         areaid = detail.areaid;
         sameArea();
         $('title').html(detail.title);
-        if(detail.is_show_add==0||detail.is_show_add=='0') {
-            $('#showadd').remove();
-        }
         $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
             $('body').append(data);
         });
@@ -205,18 +202,14 @@ function turnDetail(obj){
 }
 //申请成为对接人
 function becomeDuijieren(){
-    location.href="duijieren.html?hid="+hid;
-	// $.post("/api/plot/addMakert", {
- //            'hid': hid
- //        },
- //        function(data, status) {
- //            if (data.status == "success") {
- //                alert("申请成功！");
- //            } else {
- //                alert(data.msg);
- //            }
- //        }
- //    );
+    $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
+        if(data.status=='success') {
+            location.href="duijieren.html?hid="+hid;
+        } else {
+            alert(data.msg);
+        }
+    })
+    // location.href="duijieren.html?hid="+hid;
 }
 
 //分享页面

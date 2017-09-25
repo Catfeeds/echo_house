@@ -1,17 +1,17 @@
 var tags='';
 $(document).ready(function() {
-    $.get('/api/index/getQfUid',function(data) {
-      if(data.status=='success') {
+    // $.get('/api/index/getQfUid',function(data) {
+    //   if(data.status=='success') {
         $.get('/api/plot/checkCanSub',function(data) {
           if(data.status=='error') {
             alert(data.msg);
             location.href = 'list.html';
           }
         })
-      } else {
-        alert('用户尚未登录');
-      }
-    });
+    //   } else {
+    //     alert('用户尚未登录');
+    //   }
+    // });
       
      //validata
     // $('#form').validate();
@@ -106,8 +106,7 @@ function checkName(obj) {
       $.get('/api/plot/checkName?name='+name,function(data){
         if(data.status=='error') {
           alert(data.msg);
-          $(obj).val('');
-          $(obj).focus();
+          location.href = 'detail.html?id='+data.data;
         }
       });
   } 

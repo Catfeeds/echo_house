@@ -329,29 +329,8 @@ class PlotController extends ApiController{
 			$major_phone = $major_phone[0];
 		}
 
-		// $companys = $info->getItsCompany();
-		$is_show_add = 0;
 		$cids = [];
-		// var_dump($companys);exit;
-		// $share_phone = '';
-		if(!Yii::app()->user->getIsGuest()) {
-			// if($companys) {
-			// 	foreach ($companys as $key => $value) {
-			// 		$cids[] = $value['id'];
-			// 	}
-			// }
-			// var_dump($companys,$cids);exit;
-			// if($companys && in_array($this->staff->cid, $cids)) {
-			// 	$is_show_add = 1;
-			// }
-			if($this->staff->cid==$info->company_id) {
-				$is_show_add = 1;
-			}
-			// if(in_array($this->staff->phone, $phonesnum)) {
-			// 	$share_phone = $phone;
-			// }
-		}
-		// var_dump($phone ,$phones);exit;
+
 		$is_contact_only = 0;
 		// 分享出去 总代或者分销加电话咨询，否则提示下载
 		if($phone && $phones) {
@@ -399,7 +378,6 @@ class PlotController extends ApiController{
 			'dk_rule'=>$info->dk_rule,
 			'is_login'=>$this->staff?'1':'0',
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
-			'is_show_add'=>$is_show_add,
 			'phonesnum'=>$phonesnum,
 			'zd_company'=>['id'=>$info->company_id,'name'=>$info->company_name],
 			'tags'=>$tagName,
@@ -1019,8 +997,9 @@ class PlotController extends ApiController{
 
     public function actionCheckName($name='') {
     	if($name) {
-    		if(Yii::app()->db->createCommand("select id from plot where deleted=0 and title='$name'")->queryScalar()) {
-    			$this->returnError('项目名已存在，请勿重复提交');
+    		if($id = Yii::app()->db->createCommand("select id from plot where deleted=0 and title='$name'")->queryScalar()) {
+    			$this->frame['data'] = $id;
+    			$this->returnError('该项目已经发布，如果您是该项目的对接人，请点击项目详情页底部电话添加您的号码。');
     		}
     	}
     }
@@ -1037,6 +1016,24 @@ class PlotController extends ApiController{
     		if(Yii::app()->db->createCommand("select id from company where deleted=0 and name='$name'")->queryScalar()) {
     			$this->returnError('该公司已注册，请联系客服获取门店码！');
     		}
+    	}
+    }
+
+    public function actionCheckIsMarket($hid='')
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$hid) {
+    		$plot = PlotExt::model()->findByPk($hid);
+    		if($this->staff->type==3) {
+    			return $this->returnError('您的账户为独立经纪人，如果您是'.$plot->company_name.'的员工，请联系客服修改账户归属。');
+    		}
+    		
+    		if($plot&&$plot->company_id==$this->staff->cid) {
+    			$this->returnSuccess('bingo');
+    		} else {
+    			$this->returnError('您的账户不属于'.$plot->company_name.'，不可以成为该项目的对接人哦！');
+    		}
+    	} else {
+    		$this->returnError('账户或楼盘信息错误');
     	}
     }
 
