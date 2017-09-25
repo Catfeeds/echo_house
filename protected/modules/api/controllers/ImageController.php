@@ -32,5 +32,11 @@ class ImageController extends ApiController
         echo CJSON::encode( array('uptoken'=>$token));
         Yii::app()->end();
     }
+
+    public function actionGetKey()
+    {
+        echo CJSON::encode( array('key'=>Yii::app()->file->createQiniuKey()));
+        Yii::app()->end();
+    }
 }
 ?>
