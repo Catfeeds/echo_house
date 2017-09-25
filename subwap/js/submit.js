@@ -103,3 +103,16 @@ function submit() {
 	    
 }
 
+function checkName(obj) {
+  var name = $(obj).val();
+  if(name!='') {
+      $.get('/api/plot/checkCompanyName?name='+name,function(data){
+        if(data.status=='error') {
+          alert(data.msg);
+          $(obj).val('');
+          $(obj).focus();
+        }
+      });
+  } 
+}
+

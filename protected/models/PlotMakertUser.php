@@ -8,6 +8,7 @@
  * @property integer $uid
  * @property integer $hid
  * @property integer $expire
+ * @property integer $is_manager
  * @property integer $status
  * @property integer $deleted
  * @property integer $created
@@ -32,10 +33,10 @@ class PlotMakertUser extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('uid, hid, expire, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('uid, hid, expire, is_manager, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, uid, hid, expire, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, uid, hid, expire, is_manager, status, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +61,7 @@ class PlotMakertUser extends CActiveRecord
 			'uid' => 'Uid',
 			'hid' => 'Hid',
 			'expire' => 'Expire',
+			'is_manager' => 'Is Manager',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
 			'created' => 'Created',
@@ -89,6 +91,7 @@ class PlotMakertUser extends CActiveRecord
 		$criteria->compare('uid',$this->uid);
 		$criteria->compare('hid',$this->hid);
 		$criteria->compare('expire',$this->expire);
+		$criteria->compare('is_manager',$this->is_manager);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('created',$this->created);

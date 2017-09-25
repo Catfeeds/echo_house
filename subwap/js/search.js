@@ -8,6 +8,7 @@ $(document).ready(function() {
             } 
         });
 });
+<<<<<<< HEAD
 //搜索
 $("#search-text").keyup(function () {
     $('#search-ul').empty();
@@ -28,11 +29,30 @@ $("#search-text").keyup(function () {
                 house_name = data[i].title;
                 house_id = data[i].id;
                 $('#search-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
+=======
+var tid = null;
+$("#search-text").keyup(function () {
+
+        $('#search-history-ul').empty();
+
+        clearTimeout(tid);
+        tid = setTimeout(function(){
+            var kw= $('.list-search-frame-text').val();
+    if(kw.length>=4) {
+        $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
+            var data = data.data;
+            for (var i=0;i<data.length;i++) {
+                // alert(data[i].title);
+                house_name = data[i].title;
+                house_id = data[i].id;
+                $('#search-history-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
+>>>>>>> 3a07a4497492037c2565151b786b7a4832c1ae5e
             } 
         });
     }
         },500);         
     });
+<<<<<<< HEAD
 //清空历史搜索记录
 function delCoo() {
     $.get('/api/plot/delSearchCoo', function(data) {
@@ -40,6 +60,32 @@ function delCoo() {
     });
 }
 //跳转到详情页
+=======
+function searchit(){
+    
+        
+}
+
+// document.onkeydown=function(){   
+//     $('#search-history-ul').empty();
+
+//         var kw= $('.list-search-frame-text').val();
+//         if(kw.length>=4) {
+//             $.get('/api/plot/ajaxSearch?kw='+kw, function(data) {
+//                 var data = data.data;
+//                 for (var i=0;i<data.length;i++) {
+//                     // alert(data[i].title);
+//                     house_name = data[i].title;
+//                     house_id = data[i].id;
+//                     $('#search-history-ul').append('<li onclick="todetail(this)" data-id="'+house_id+'">'+house_name+'</li>');
+//                 } 
+//             });
+//         }
+             
+        
+        
+// }
+>>>>>>> 3a07a4497492037c2565151b786b7a4832c1ae5e
 function todetail(obj) {
     location.href = 'detail.html?id='+$(obj).data('id');
 }

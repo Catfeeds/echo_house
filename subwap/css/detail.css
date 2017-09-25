@@ -675,6 +675,19 @@ body{
 	line-height: 0.96rem;
 	border-radius: 0.133rem;
 }
+.fbuser{
+    position: absolute;
+    font-size: 0.64rem;
+    left: 7rem;
+    top: 0.1rem;
+    width: 2.707rem;
+    height: 0.96rem;
+    text-align: center;
+    line-height: 0.96rem;
+    border-radius: 0.133rem;
+    background-color: #fdf0e6;
+    color: #ffab58;
+}
 
 .consult-tel-img{
 	position: absolute;

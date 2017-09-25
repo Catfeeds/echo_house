@@ -112,4 +112,14 @@ class AreaExt extends Area{
         return $this;
     }
 
+    public static function getAll() {
+        return CacheExt::gas('all_area','AreaExt',0,'全部区域',function (){
+            $data = [];
+            foreach (AreaExt::model()->normal()->findAll() as $key => $value) {
+                $data[$value->id] = $value->name;
+            }
+            return $data;
+        });
+    }
+
 }
