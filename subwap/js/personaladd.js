@@ -1,5 +1,5 @@
 var tags='';
-// $(document).ready(function() {
+$(document).ready(function() {
     $.get('/api/index/getQfUid',function(data) {
       if(data.status=='success') {
         $.get('/api/plot/checkCanSub',function(data) {
@@ -11,7 +11,7 @@ var tags='';
       } else {
         alert('用户尚未登录');
       }
-    // });
+    });
       
      //validata
     // $('#form').validate();
