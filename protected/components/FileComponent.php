@@ -17,15 +17,15 @@ class FileComponent extends CApplicationComponent
     /**
      * @var string 云存储AK
      */
-    public $accessKey = '6f3nbctnEWwbqQF42mOgpKk7KGVoP6f8mvSWxH2f';
+    public $accessKey = 'mwmuK9F_Vw2xC3vXJQQvn0DV6rS9yY0iQiIccbqR';
     /**
      * @var string 云存储SK
      */
-    public $secretKey = 'rMBFg1xsoQ6IkxwU2Pb4Iza8iWKXboRmRoDbTCjS';
+    public $secretKey = 'Aho5dwDBlxmpZnCZE63h0bNAVsnRQt3ZE8UcMj4F';
     /**
      * @var string 云存储属主空间(bucket)名
      */
-    public $bucket = 'ztspace';
+    public $bucket = 'lejia';
     /**
      * @var int 授权凭证有效时间（单位：秒），默认300秒
      */
@@ -37,7 +37,7 @@ class FileComponent extends CApplicationComponent
     /**
      * @var string 云存储访问域名主机
      */
-    private $_cloudHost = 'http://okwfe8mj2.bkt.clouddn.com';
+    private $_cloudHost = 'http://oofuaem2b.bkt.clouddn.com';
     /**
      * @var string 本地存储路径根目录，支持Yii路径别名。需要将{@link endableCloudStorage}设置为false。
      */
