@@ -147,7 +147,7 @@ function QiniuJsSDK() {
     if (window.location.protocol === 'https:') {
         qiniuUploadUrl = 'https://up.qbox.me';
     } else {
-        qiniuUploadUrl = 'http://up-z0.qiniu.com';
+        qiniuUploadUrl = 'http://up-z2.qiniu.com';
     }
 
     /**
@@ -156,7 +156,8 @@ function QiniuJsSDK() {
      * @type {Array}
      */
     var qiniuUploadUrls = [
-        "http://up-z0.qiniu.com",
+        "http://up-z2.qiniu.com",
+        "http://up-z2.qiniu.com",
         "http://up-z0.qiniu.com"
     ];
 
