@@ -51,8 +51,14 @@ function submitBtn()
         }
         var wylx = new Array;
         var zxzt = new Array;
+        var imgs = new Array;
         $(".wylx[type='checkbox']:checkbox:checked").each(function(){
           wylx.push($(this).val());
+         //由于复选框一般选中的是多个,所以可以循环输出 
+          // alert($(this).val()); 
+        });
+        $(".img-key").each(function(){
+          imgs.push($(this).html());
          //由于复选框一般选中的是多个,所以可以循环输出 
           // alert($(this).val()); 
         });
@@ -79,7 +85,7 @@ function submitBtn()
             'jy_rule':$('textarea[name="jy_rule"]').val(),
             'dk_rule':$('textarea[name="dk_rule"]').val(),
             'peripheral':$('textarea[name="peripheral"]').val(),
-            'image':$('#img-url').val(),
+            'image[]':imgs,
             'wylx':wylx,
             'zxzt':zxzt,
           },function(data){
