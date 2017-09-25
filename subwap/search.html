@@ -14,19 +14,25 @@
 				<div class="list-search-cancle">取消</div>
 			</a>
 			<form onsubmit="return checkfm()" action="/api/plot/search" method="post">
-				<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入小区名称或关键字">
+				<input id="search-text" type="text" name="kw" class="list-search-frame-text" placeholder="请输入小区名称或关键字">
 			</form>
 		</div>
-		<div class="search-history">
+		<div class="search-history" id="history-container">
 			<div class="search-history-head">
 				<img class="hist-img" src="./img/hist.png">
 				<div class="hist-text">搜索历史</div>
-				<img class="delete-img" src="./img/delet.png">
+				<img class="delete-img" onclick="delCoo()" src="./img/delet.png">
 				<div class="delete-text" onclick="delCoo()">清空</div>
 			</div>
 			<div class="line"></div>
 			<ul id="search-history-ul">
 				<!-- 历史记录 -->
+			</ul>
+		</div>
+		<div class="search-history" id="search-container">
+			<div class="line"></div>
+			<ul id="search-ul">
+				<!-- 搜索结果 -->
 			</ul>
 		</div>
 		

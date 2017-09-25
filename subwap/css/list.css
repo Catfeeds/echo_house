@@ -66,7 +66,17 @@ color:#c3c3c3;
 	font-size: 0.8rem;
 	padding-left: 0.64rem;
 	padding-top: 0.4rem;
-	border-bottom: solid 0.027rem #c3c3c3;
+	border-bottom: solid 0.027rem #f1f1f1;
+}
+#search-ul li{
+	position: relative;
+	width: 19.36rem;
+	height: 1.307rem;
+	color: #c3c3c3;
+	font-size: 0.8rem;
+	padding-left: 0.64rem;
+	padding-top: 0.4rem;
+	border-bottom: solid 0.027rem #f1f1f1;
 }
 .hist-img{
 	position: absolute;
@@ -78,8 +88,8 @@ color:#c3c3c3;
 .hist-text{
 	position: absolute;
 	font-size: 0.64rem;
+	line-height: 1.707rem;
 	left: 1.8rem;
-	top: 0.4rem;
 	font-size: 0.8rem;
 	color: #c3c3c3;
 }
@@ -93,8 +103,8 @@ color:#c3c3c3;
 .delete-text{
 	position: absolute;
 	font-size: 0.8rem;
+	line-height: 1.707rem;
 	left: 18rem;
-	top: 0.4rem;
 	font-size: 0.8rem;
 	color: #c3c3c3;
 }
@@ -508,7 +518,9 @@ color:#c3c3c3;
 	position: absolute;
 	top: 3.9rem;
 	left:6.8rem;
-	width: 12rem;
+	width: 12.2rem;
+	height: 0.853rem;
+	overflow: hidden;
 	color:#868686;
 }
 .house-text-size{
