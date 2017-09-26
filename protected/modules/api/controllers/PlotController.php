@@ -262,7 +262,7 @@ class PlotController extends ApiController{
 		}
 		// $info->views += 1;
 		// $info->save();
-		// Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
+		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
 		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
 		$images = $info->images;
 		if($images) {
