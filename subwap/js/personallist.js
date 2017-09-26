@@ -8,9 +8,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
     		alert(response.data.msg);
     		location.href='list.html';
     	}else{
-            $scope.houselist = response.data.data.list;
+            $scope.houselist = response.data.data.list;  
+            $('.count').find('b').html(response.data.data.num); 
     	}
         }, function errorCallback(response) {
 
     });
+    
 });

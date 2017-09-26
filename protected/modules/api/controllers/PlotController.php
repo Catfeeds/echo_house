@@ -203,6 +203,7 @@ class PlotController extends ApiController{
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 						'wylx'=>$wyw,
+						'status'=>$value->status?'启用':'禁用',
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'sort'=>$value->sort,
