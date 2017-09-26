@@ -185,16 +185,16 @@ body{
 	font-size: 0.747rem;
 	position: absolute;
 	top: 0.3rem;
-	left:13.2rem;
+	right: 1rem;
 	width: 6.0rem;
-	color: rgb(223,82,37);
 	text-align: right;
 }
 .list-status{
 	position: absolute;
 	font-size: 0.64rem;
 	top: 1.64rem;
-	left: 16.7rem;
+	right: 1rem;
 	width: 3rem;
 	color:#868686;
+	text-align: right;
 }
