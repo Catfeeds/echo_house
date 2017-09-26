@@ -11,6 +11,11 @@ class IndexController extends ApiController
         $this->showUser();
         $this->redirect('/subwap/personaladd.html');
     }
+    public function actionPublist()
+    {
+        $this->showUser();
+        $this->redirect('/subwap/personallist.html');
+    }
 
     public function actionPlace()
     {
