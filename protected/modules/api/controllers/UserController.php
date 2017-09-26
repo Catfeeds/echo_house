@@ -37,6 +37,9 @@ class UserController extends ApiController{
 	{
 		if(Yii::app()->request->getIsPostRequest()) {
 			$obj = Yii::app()->request->getPost('UserExt',[]);
+			if(!$obj['phone']) {
+				return $this->returnError('请绑定手机号再进行提交');
+			}
 			if($obj) {
 				$user = new UserExt;
 				$company = '';
