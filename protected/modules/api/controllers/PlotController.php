@@ -257,7 +257,7 @@ class PlotController extends ApiController{
 		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
-				$images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
+				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 			}
 		}
