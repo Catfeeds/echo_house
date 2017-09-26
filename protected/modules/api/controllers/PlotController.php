@@ -658,10 +658,23 @@ class PlotController extends ApiController{
 					$this->staff->qf_uid && Yii::app()->controller->sendNotice('您好，你对'.$plot->title.'的报备已经成功，客户的尾号是'.substr($tmp['phone'], -4,4).'，客户码为'.$code.'，请牢记您的客户码。',$this->staff->qf_uid);
 
 					if($notice) {
+						$noticename = Yii::app()->db->select("select name from user where phone='$notice'")->queryScalar();
 						SmsExt::sendMsg('报备',$notice,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车')]);
 
 						$noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='$notice'")->queryScalar();
-						$noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice('项目名称：'.$plot->title.'；客户：'.$tmp['name'].$tmp['phone'].'；来访时间：'.$_POST['time'].'；来访方式：'.($obj->visit_way==1?'自驾':'班车').'；业务员：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,$noticeuid);
+						// $noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice('项目名称：'.$plot->title.'；客户：'.$tmp['name'].$tmp['phone'].'；来访时间：'.$_POST['time'].'；来访方式：'.($obj->visit_way==1?'自驾':'班车').'；业务员：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,$noticeuid);
+						$noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice(
+							'报备项目：'.$plot->title.'
+客户姓名：'.$tmp['name'].'
+客户电话： '.$tmp['phone'].'
+公司门店：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').'
+业务员姓名：'.$this->staff->name.'
+业务员电话：'.$this->staff->phone.'
+市场对接人：'.$noticename.'
+对接人电话：'.$notice.'
+带看时间：'.$_POST['time'].'
+来访方式：'.($obj->visit_way==1?'自驾':'班车'),$noticeuid);
+
 					}
 						
 					
@@ -719,7 +732,19 @@ class PlotController extends ApiController{
         // }
         // echo "ok";
         // phpinfo();
-        var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
+        Yii::app()->controller->sendNotice(
+							'报备项目；越溪湖畔
+客户姓名：罗姐
+客户电话： 189--7205
+公司门店：轩帆房产
+业务员姓名：孙灵
+业务员电话：18721135750
+市场对接人：刘鹏
+对接人电话：15618921692
+看房人数：4
+带看时间：9/26
+车牌号:皖B wt279','7187');
+        // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
     }
