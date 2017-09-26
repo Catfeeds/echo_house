@@ -45,10 +45,7 @@ function submitBtn()
     $( '#form' ).validate({
       submitHandler:function() {
           
-        if($('#img-url').val()=='') {
-          alert('请上传封面图');
-          return false;
-        }
+        
         var wylx = new Array;
         var zxzt = new Array;
         var imgs = new Array;
@@ -62,6 +59,10 @@ function submitBtn()
          //由于复选框一般选中的是多个,所以可以循环输出 
           // alert($(this).val()); 
         });
+        if(imgs.length<1) {
+          alert('请上传封面图');
+          return false;
+        }
         $(".zxzt[type='checkbox']:checkbox:checked").each(function(){
           zxzt.push($(this).val());
          //由于复选框一般选中的是多个,所以可以循环输出 
