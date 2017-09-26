@@ -17,10 +17,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
 
     });
     $scope.search=function() {
+        $('.count').find('b').html('0'); 
         kw=$('.list-search-frame-text').val();
         status=$('.statusselect').val();
-        console.log(kw);
-        console.log(status);
+        // console.log(kw);
+        // console.log(status);
         $http({
             method: 'GET',
             url: '/api/plot/list?uid=1?kw='+kw+'&status='+status,
