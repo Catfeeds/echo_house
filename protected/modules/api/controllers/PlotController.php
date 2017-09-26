@@ -194,6 +194,15 @@ class PlotController extends ApiController{
 					// } else {
 					// 	$pay = '';
 					// }
+					$expire = '您尚未成为对接人';
+					if($uid) {
+						$expiret = Yii::app()->db->createCommand('select expire from plot_makert_user where uid='.$uid.' and hid='.$value->id)->queryScalar();
+						if($expiret>0 && $expiret<time()) {
+							$expire = '已到期';
+						} elseif($expiret>0) {
+							$expire = '到期时间：'.date('Y-m-d',$expiret);
+						}
+					}
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
@@ -207,6 +216,7 @@ class PlotController extends ApiController{
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'sort'=>$value->sort,
+						'expire'=>$expire,
 						'distance'=>round($this->getDistance($value),2),
 					];
 				}

@@ -189,10 +189,19 @@ body{
 	width: 6.0rem;
 	text-align: right;
 }
-.list-status{
+.list-expire{
 	position: absolute;
 	font-size: 0.64rem;
 	top: 1.64rem;
+	right: 1rem;
+	width: 10rem;
+	color:#868686;
+	text-align: right;
+}
+.list-status{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 2.64rem;
 	right: 1rem;
 	width: 3rem;
 	color:#868686;
