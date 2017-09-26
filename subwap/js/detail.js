@@ -3,6 +3,7 @@ var hid = '';
 var title='';
 var phone='';
 var areaid='';
+var streetid='';
 var url='';
 var our_uids = '';
 var thisphone = '';
@@ -44,6 +45,7 @@ $(document).ready(function(){
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
         areaid = detail.areaid;
+        streetid = detail.streetid;
         sameArea();
         $('title').html(detail.title);
         $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
@@ -176,9 +178,10 @@ $(document).ready(function(){
 });
 function sameArea(){
     //同区域楼盘
-    $.get('/api/plot/list?area='+areaid+'&limit=6',function(data) {
+    $.get('/api/plot/list?street='+streetid+'&limit=6',function(data) {
         samearea=data.data.list;
-        if(samearea.length>0){
+        // console.log(samearea);
+        if(samearea.length>1){
         $('.detail-samearea').css('display','block');
         for(var i=0;i<samearea.length;i++){
             if(samearea[i].size==''||samearea[i].size==undefined){
