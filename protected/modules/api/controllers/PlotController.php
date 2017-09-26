@@ -658,7 +658,7 @@ class PlotController extends ApiController{
 					$this->staff->qf_uid && Yii::app()->controller->sendNotice('您好，你对'.$plot->title.'的报备已经成功，客户的尾号是'.substr($tmp['phone'], -4,4).'，客户码为'.$code.'，请牢记您的客户码。',$this->staff->qf_uid);
 
 					if($notice) {
-						$noticename = Yii::app()->db->select("select name from user where phone='$notice'")->queryScalar();
+						$noticename = Yii::app()->db->createCommand("select name from user where phone='$notice'")->queryScalar();
 						SmsExt::sendMsg('报备',$notice,['staff'=>($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车')]);
 
 						$noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='$notice'")->queryScalar();
