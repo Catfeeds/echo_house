@@ -974,11 +974,16 @@ class PlotController extends ApiController{
     		// $mak = $post['market_name'].$post['market_phone'];
     		// unset($post['market_name']);
     		// unset($post['market_phone']);
+    		$img = '';
+    		$imgs = $post['imgs'];
+    		$imgs && $img = $imgs[0];
+    		unset($post['imgs']);
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
     		$obj->status = 0;
+    		$obj->image = $img;
     		// $obj->market_user = $mak;
     		$obj->uid = $this->staff->id;
     		// $company = $this->staff->companyinfo;
@@ -988,6 +993,16 @@ class PlotController extends ApiController{
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
+    			if($imgs && count($imgs)>1) {
+    				unset($imgs[0]);
+    				foreach ($imgs as $k) {
+    					$im = new PlotImageExt;
+    					$im->url = $k;
+    					$im->hid = $obj->id;
+    					$im->status = 1;
+    					$im->save();
+    				}
+    			}
 
     			$this->staff->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑审核及完善后会在此通知您！如有其它疑问可致电：400-6677-021',$this->staff->qf_uid);
     			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
