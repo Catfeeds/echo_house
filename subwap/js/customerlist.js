@@ -6,7 +6,8 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	}).then(function successCallback(response){
 		if(response.data.status=='error') {
 			alert('案场助理仅对与新房通合作的总代公司开放，请联系管理员开通');
-			location.href = 'list.html';
+			// location.href = 'list.html';
+			QFH5.jumpForum();
 		}else{
 			$('.count b').html(response.data.data.num);
 			$scope.cuntomerlist=response.data.data.list;

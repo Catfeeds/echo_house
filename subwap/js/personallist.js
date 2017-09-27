@@ -8,7 +8,8 @@ myapp.controller('perlistCtrl',function($scope,$http) {
     }).then(function successCallback(response) {
         	if (response.data.status=='error') {
         		alert(response.data.msg);
-        		location.href='list.html';
+        		// location.href='list.html';
+                QFH5.jumpForum();
         	}else{
                 $scope.houselist = response.data.data.list;
                 $('.count').find('b').html(response.data.data.num); 
