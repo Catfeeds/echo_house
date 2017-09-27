@@ -243,8 +243,9 @@ color:#c3c3c3;
 	width: 12.0rem;
 	height: auto;
 	background-color: #fff;
+}
+.filter-filter1-right ul{
 	overflow: hidden;
-	display: none;
 }
 .filter-filter1-right li{
 	position: relative;
@@ -346,6 +347,25 @@ color:#c3c3c3;
 .filter-filter4-button-active{
 	background-color: #00b7ee;
 	color: #fff;
+}
+.list-headimg1{
+	position: fixed;
+	top: 78%;
+	left: 17.067rem;
+	height: 2.293rem;
+	width: 2.293rem;
+	border-radius: 1.147rem;
+	z-index: 999;
+	background-color: #00b7ee;
+	display: block;
+}
+
+.headimg1{
+	position: absolute;
+	width: 1.5rem;
+	height: 1.5rem;
+	left: 0.4rem;
+	top: 0.3rem;
 }
 
 .list-stick{

@@ -1,3 +1,5 @@
+var filter='';
+var filterleft='';
 $(document).ready(function(){  
     $('.filter-filter-bg').css({ "height": $(window).height()-$('.list-head-container').height() + "px" });
 });
@@ -18,7 +20,9 @@ app.controller('filterCtrl', function($scope, $http) {
         url: '/api/tag/list?cate=plotFilter'
     }).then(function successCallback(response) {
             $scope.filterlist = response.data.data;
-            $scope.filterlist1 = response.data.data[0].list;
+            filter = response.data.data;
+            $scope.filterlist1_left = response.data.data[0].list;
+            filterleft = response.data.data[0].list;
             $scope.filterlist2 = response.data.data[1].list;
             $scope.filterlist3 = response.data.data[2].list;
             $scope.filterlist4 = response.data.data[3].list;
@@ -27,10 +31,33 @@ app.controller('filterCtrl', function($scope, $http) {
     });
     //显示filter1的area
     $scope.show_Area=false;
+    $scope.show_Street=false;
     $scope.showArea=function(obj){
-            console.log(obj)
+        console.log(obj)
+        switch(obj){
+            case filter[0].name:
             $scope.show_Area=!$scope.show_Area;
-        }     
+            break;
+            case filter[1].name:
+            $scope.show_Price=!$scope.show_Price;
+            break;
+            case filter[2].name:
+            $scope.show_Firstpay=!$scope.show_Firstpay;
+            break;
+            case filter[3].name:
+            $scope.show_More=!$scope.show_More;
+            break;
+        }    
+    }
+    $scope.showStreet=function(obj){
+        console.log(obj);
+        for (var i = 0; i < filterleft.length; i++) {
+            if (filterleft[i].name==obj) {
+                $scope.filterlist1_right=filterleft[i].childAreas;
+            }
+        }
+        $scope.show_Street=!$scope.show_Street;
+    }   
 });
 //初次加载列表
 app.controller('listCtrl',function($scope,$http){
@@ -45,6 +72,7 @@ app.controller('listCtrl',function($scope,$http){
             method:'GET',
             url:'/api/plot/list'
         }).then(function successCallback(response){
+            $scope.num=response.data.data.num;
             var resdata=response.data.data.list;
             for (var i = 0; i < resdata.length; i++) {
                 if (resdata[i].pay=='') {
