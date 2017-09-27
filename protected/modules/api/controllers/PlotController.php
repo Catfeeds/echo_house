@@ -1041,7 +1041,7 @@ class PlotController extends ApiController{
 
     			$this->staff->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑审核及完善后会在此通知您！如有其它疑问可致电：400-6677-021',$this->staff->qf_uid);
     			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
-    			$this->frame['data'] = '您好，您的房源信息已提交，请等待审核。';
+    			$this->frame['data'] = $obj->id;
     		}
 
     	}
@@ -1086,6 +1086,13 @@ class PlotController extends ApiController{
     		}
     	} else {
     		$this->returnError('账户或楼盘信息错误');
+    	}
+    }
+
+    public function actionGetNameFromId($id='')
+    {
+    	if($id) {
+    		$this->frame['data'] = PlotExt::model()->findByPk($id)->title;
     	}
     }
 

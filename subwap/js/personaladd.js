@@ -91,8 +91,8 @@ function submitBtn()
             'zxzt':zxzt,
           },function(data){
             if(data.status=='success'){
-              alert(data.msg);
-              location.href = 'personallist.html';
+              alert('您好，您的房源信息已提交，请前往成为对接人。');
+              location.href = 'duijieren.html?hid='+data.data;
             } else {
               alert(data.msg);
             }
