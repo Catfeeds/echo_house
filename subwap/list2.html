@@ -81,12 +81,13 @@
 			<div class="line"></div>
 			<div class="filter-filter4">
 				<ul id="filter4-list">
-					<li ng-cloak ng-repeat="item in filterlist4" class="filter4-item">
-						<div class="filter4-item-head"><strong>{{item.name}}</strong></div>
+					<li ng-cloak ng-repeat="items in filterlist4" class="filter4-item">
+						<div class="filter4-item-head"><strong>{{items.name}}</strong></div>
 						<div class="filter4-item-item">
 							<ul class="clearfloat">
 								<div id="filter4-item0">
-									<li ng-cloak ng-repeat="item in filterlist4" class="filter-filter4-button-active" onclick="setFilterItem(this)">不限</li>' + innerhtml + '
+									<li ng-click="" data-id="" class="filter-filter4-button-active">不限</li>
+									<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)">不限</li>
 								</div>
 							</ul>
 						</div>
