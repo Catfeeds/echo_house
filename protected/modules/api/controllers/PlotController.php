@@ -195,8 +195,9 @@ class PlotController extends ApiController{
 					// 	$pay = '';
 					// }
 					$expire = '您尚未成为对接人';
+					// var_dump($uid);exit;
 					if($uid) {
-						$expiret = Yii::app()->db->createCommand('select expire from plot_makert_user where uid='.$uid.' and hid='.$value->id)->queryScalar();
+						$expiret = Yii::app()->db->createCommand('select expire from plot_makert_user where uid='.$this->staff->id.' and hid='.$value->id)->queryScalar();
 						if($expiret>0 && $expiret<time()) {
 							$expire = '已到期';
 						} elseif($expiret>0) {
