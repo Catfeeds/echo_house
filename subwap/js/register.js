@@ -9,6 +9,7 @@ $(document).ready(function() {
     });
     QFH5.getUserInfo(function(state,data){
       if(state==1){
+        $('.nophone').remove();
         phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
         if(phone=='') {
             QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
@@ -18,7 +19,6 @@ $(document).ready(function() {
               }
             });
         }
-        $('.nophone').remove();
     }else{
         alert('请先登录');//data.error string
         QFH5.jumpLogin(function(state,data){
@@ -28,9 +28,9 @@ $(document).ready(function() {
               if(state==2){
                   alert("您已登陆");
               }
-          })
+          });
       }
-    })
+    });
     $('#form').validate();
     // $('.container-big').css('display','none');
 });
