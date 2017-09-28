@@ -667,7 +667,7 @@ function checkId(obj) {
                     if(is_jy==1) {
                         alert('您的账户未通过审核或已禁用，请联系客服');
                     }else
-                        location.href = 'register.html';
+                        location.href = 'http://fang.jj58.com.cn/api/index/register';
                 }
             });
             
