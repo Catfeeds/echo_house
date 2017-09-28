@@ -25,7 +25,12 @@ class PlotMarketUserController extends AdminController{
 		$criteria = new CDbCriteria;
 		if($value = trim($value))
             if ($type=='title') {
-                $criteria->addSearchCondition('name', $value);
+            	$criter = new CDbCriteria;
+            	$criter->addSearchCondition('title',$value);
+            	$plot = PlotExt::model()->find($criter);
+            	if($plot) {
+            		$criteria->addCondition('hid='.$plot->id);
+            	}
             } 
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
@@ -43,6 +48,7 @@ class PlotMarketUserController extends AdminController{
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		$criteria->order = 'updated desc';
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
 		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
 	}

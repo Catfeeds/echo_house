@@ -1040,7 +1040,7 @@ class PlotController extends ApiController{
     				}
     			}
 
-    			$this->staff->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑审核及完善后会在此通知您！如有其它疑问可致电：400-6677-021',$this->staff->qf_uid);
+    			$this->staff->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，请尽快付款。付款完成后，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：400-6677-021',$this->staff->qf_uid);
     			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
     			$this->frame['data'] = $obj->id;
     		}
