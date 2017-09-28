@@ -512,6 +512,7 @@ function setArea(obj) {
         } 
     } else {
         o.street = $(obj).data('id');
+        o.area = '';
         if ($(obj).text()!=''&&$(obj).text()!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).text());
         } 

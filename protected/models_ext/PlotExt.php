@@ -315,10 +315,10 @@ class PlotExt extends Plot{
                             $plots = PlotExt::model()->normal()->getList($criteria);
                             if($datares = $plots->data) {
                                 foreach ($datares as $key => $value) {
-                                    if($area = $value->areaInfo)
-                                        $areaName = $area->name;
-                                    else
-                                        $areaName = '';
+                                    // if($area = $value->areaInfo)
+                                    $areaName = $area->name;
+                                    // else
+                                    //     $areaName = '';
                                     if($street = $value->streetInfo)
                                         $streetName = $street->name;
                                     else
