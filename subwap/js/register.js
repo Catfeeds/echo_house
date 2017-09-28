@@ -16,7 +16,7 @@ $(document).ready(function() {
                   //绑定成功
                   alert('绑定成功');
               }
-            }
+            });
         }
         $('.nophone').remove();
     }else{
