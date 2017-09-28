@@ -161,7 +161,7 @@ $('.register-register').click(function() {
 function regis() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
-            'UserExt[phone]': phone,
+            'UserExt[phone]':GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
             'UserExt[pwd]': $('#password').val(),
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
@@ -184,7 +184,7 @@ function regisInfo() {
         uid = data.uid;
         $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
-            'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
+            'UserExt[phone]': phone,
             'UserExt[qf_uid]': uid,
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
