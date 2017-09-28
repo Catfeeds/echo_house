@@ -16,9 +16,10 @@ $(document).ready(function() {
                   //绑定成功
                   alert('绑定成功');
               }
+            }
         }
         $('.nophone').remove();
-      }else{
+    }else{
         alert('请先登录');//data.error string
         QFH5.jumpLogin(function(state,data){
               //未登陆状态跳登陆会刷新页面，无回调
