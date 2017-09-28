@@ -1,14 +1,35 @@
 var kf_id = '';
 var our_uids = '';
+var phone = '';
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
         our_uids = data.data.our_uids;
         kf_id = data.data.kf_id;
     });
-    if(GetQueryString('phone')!=null) {
+    QFH5.getUserInfo(function(state,data){
+      if(state==1){
+        phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
+        if(phone=='') {
+            QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
+              if(state==1){
+                  //绑定成功
+                  alert('绑定成功');
+              }
+        }
         $('.nophone').remove();
-    }
+      }else{
+        alert('请先登录');//data.error string
+        QFH5.jumpLogin(function(state,data){
+              //未登陆状态跳登陆会刷新页面，无回调
+              //已登陆状态跳登陆会回调通知已登录
+              //用户取消登陆无回调
+              if(state==2){
+                  alert("您已登陆");
+              }
+          })
+      }
+    })
     $('#form').validate();
     // $('.container-big').css('display','none');
 });
@@ -139,7 +160,7 @@ $('.register-register').click(function() {
 function regis() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
-            'UserExt[phone]': GetQueryString('phone')!=null?GetQueryString('phone'):$('#writephonenumber').val(),
+            'UserExt[phone]': phone!=''?phone:$('#writephonenumber').val(),
             'UserExt[pwd]': $('#password').val(),
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
