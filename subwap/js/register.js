@@ -2,6 +2,7 @@ var kf_id = '';
 var our_uids = '';
 var phone = '';
 $(document).ready(function() {
+    $('.nophone').remove();
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.regis_words);
         our_uids = data.data.our_uids;
@@ -9,7 +10,6 @@ $(document).ready(function() {
     });
     QFH5.getUserInfo(function(state,data){
       if(state==1){
-        $('.nophone').remove();
         phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
         if(phone=='') {
             QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
