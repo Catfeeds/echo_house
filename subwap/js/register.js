@@ -161,7 +161,7 @@ $('.register-register').click(function() {
 function regis() {
     $.post("/api/user/regis", {
             'UserExt[name]': $('#username').val(),
-            'UserExt[phone]': phone!=''?phone:$('#writephonenumber').val(),
+            'UserExt[phone]': phone,
             'UserExt[pwd]': $('#password').val(),
             'UserExt[type]': $('#form-type').val(),
             'UserExt[image]': $('#img-url').val(),
