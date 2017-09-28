@@ -54,7 +54,7 @@ $statusArr = SubExt::$status;
             <td class="text-center"><?=$v->plot->title?></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
-            <td class="text-center"><?=$v->market_staff?></td>     
+            <td class="text-center"><?=$v->notice?(Yii::app()->db->createCommand("select name from user where phone='".$v->notice."'")->queryScalr().$v->notice):''?></td>     
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
             <td class="text-center" style="text-align:center;vertical-align: middle">
