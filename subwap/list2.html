@@ -32,7 +32,7 @@
 			<div class="line"></div>
 <!-- 筛选栏 -->
 			<ul class="list-filter clearfloat">
-		            <li ng-cloak ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea(item.name)">{{item.name}}
+		            <li ng-cloak ng-repeat="item in filterlist" class="list-filter-area list-filter-text" ng-class="{true:'list-filter-area-active',false:''}[show_Area]" data-id="{{item.id}}" ng-click="showArea($index)">{{item.name}}
 		            <img class="list-filter-slat" src="./img/slatdown.png" />
 		            </li>
 		    </ul>
@@ -50,7 +50,7 @@
 				</div>
 				<div class="filter-filter1-right"  ng-show="show_Street"> 
 					<ul id="streetul">
-						<li ng-click="showlist(this)" data-id="0">不限</li>
+						<li ng-click="showlist(this)" data-id="0">不限<div class="line"></div></li>
 						<li ng-cloak ng-repeat="item in filterlist1_right" ng-click="showlist(this)" data-type="street" data-id="{{item.id}}">{{item.name}}<div class="line"></div></li>
 					</ul>
 				</div>
@@ -61,7 +61,7 @@
 			<div class="line"></div>
 			<div class="filter-filter2">
 				<ul id="priceul">
-					<li ng-click="showlist(this)" data-id="0">不限</li>
+					<li ng-click="showlist(this)" data-id="0">不限<div class="line" style="left:-1.33rem"></div></li>
 					<li ng-cloak ng-repeat="item in filterlist2" ng-click="" data-id="{{item.id}}">{{item.name}}<div class="line" style="left:-1.33rem"></div></li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 			<div class="line"></div>
 			<div class="filter-filter3">
 				<ul id="FirstPayul">
-					<li ng-click="showlist(this)" data-id="0">不限</li>
+					<li ng-click="showlist(this)" data-id="0">不限<div class="line" style="left:-1.33rem"></div></li>
 					<li ng-cloak ng-repeat="item in filterlist3" onclick="setFirstPay(this)" data-id="{{item.id}}">{{item.name}}<div class="line" style="left:-1.33rem"></div></li>
 				</ul>
 			</div>
@@ -87,7 +87,7 @@
 							<ul class="clearfloat">
 								<div id="filter4-item0">
 									<li ng-click="" data-id="" class="filter-filter4-button-active">不限</li>
-									<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)">不限</li>
+									<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)" data-id="{{item.id}}">{{item.name}}</li>
 								</div>
 							</ul>
 						</div>

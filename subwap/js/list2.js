@@ -33,19 +33,30 @@ app.controller('filterCtrl', function($scope, $http) {
     $scope.show_Area=false;
     $scope.show_Street=false;
     $scope.showArea=function(obj){
-        console.log(obj)
         switch(obj){
-            case filter[0].name:
+            case 0:
             $scope.show_Area=!$scope.show_Area;
+            $scope.show_Price=false;
+            $scope.show_Firstpay=false;
+            $scope.show_More=false;
             break;
-            case filter[1].name:
+            case 1:
             $scope.show_Price=!$scope.show_Price;
+            $scope.show_Area=false;
+            $scope.show_Firstpay=false;
+            $scope.show_More=false;
             break;
-            case filter[2].name:
+            case 2:
             $scope.show_Firstpay=!$scope.show_Firstpay;
+            $scope.show_Area=false;
+            $scope.show_Price=false;
+            $scope.show_More=false;
             break;
-            case filter[3].name:
+            case 3:
             $scope.show_More=!$scope.show_More;
+            $scope.show_Area=false;
+            $scope.show_Price=false;
+            $scope.show_Firstpay=false;
             break;
         }    
     }
