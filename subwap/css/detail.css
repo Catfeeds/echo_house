@@ -844,7 +844,7 @@ body{
 	position:fixed;
 	width: 16rem;
 	height: 23rem;
-	top: 5rem;
+	top: 3rem;
 	left: 2rem;
 	border-radius: 1rem;
 	overflow: hidden;
@@ -882,6 +882,7 @@ body{
 	font-size: 0.8rem;
 	width: 14rem;
 	height: auto;
+	line-height: 1.067rem;
 }
 
 .rules-bottom-icons{
@@ -903,9 +904,10 @@ body{
 .rules-bottom-icons-name{
 	position: relative;
 	float: left;
-	font-size: 0.747rem;
+	font-size: 0.6rem;
 	line-height: 1rem;
-	width: 3.8rem;
+	margin-left: 0.1rem;
+	width: 3.9rem;
 	color: #868686;
 }
 
@@ -939,5 +941,5 @@ body{
 	width: 2rem;
 	height: 2rem;
 	left: 9rem;
-	top: 29rem;
+	top: 27rem;
 }
