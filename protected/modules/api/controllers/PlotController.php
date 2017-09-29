@@ -68,6 +68,7 @@ class PlotController extends ApiController{
 		foreach (['sfprice','wylx','toptag','zxzt'] as $key => $value) {
 			if($$value) {
 				$idarr = Yii::app()->db->createCommand("select hid from plot_tag where tid=".$$value)->queryAll();
+				// var_dump($idarr);exit;
 				if($idarr) {
 					$tmp = [];
 					foreach ($idarr as $hid) {
@@ -102,7 +103,7 @@ class PlotController extends ApiController{
 		}
 		// var_dump($ids);exit;
 		// $ids = array_intersect($ids,$companyids);
-		if($sfprice>0||$wylx>0||$toptag>0) {
+		if($sfprice>0||$wylx>0||$toptag>0||$zxzt>0) {
 			$criteria->addInCondition('id',$ids);
 		}
 		if($aveprice) {

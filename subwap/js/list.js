@@ -9,6 +9,7 @@ function init() {
     o.wylx = '';
     o.kw = '';
     o.company = '';
+    o.zxzt = '';
     o.page = '';
     o.page_count = '';
     o.num = '';
@@ -163,6 +164,9 @@ function ajaxGetList(obj) {
     }
     if (obj.wylx != '' && obj.wylx != undefined) {
         params += '&wylx=' + obj.wylx;
+    }
+    if (obj.zxzt != '' && obj.zxzt != undefined) {
+        params += '&zxzt=' + obj.zxzt;
     }
     if (obj.kw != '' && obj.kw != undefined) {
         params += '&kw=' + obj.kw;
@@ -594,10 +598,10 @@ function getFilterTitle(obj) {
                         var innerhtml = '';
                         if (secondlist.length > 0) {
                             for (var b = 0; b < secondlist.length; b++) {
-                                innerhtml += '<li onclick="setFilterItem(this)" data-id="' + secondlist[b].id + '">' + secondlist[b].name + '</li>';
+                                innerhtml += '<li data-type="'+list[a].filed+'" onclick="setFilterItem(this)" data-id="' + secondlist[b].id + '">' + secondlist[b].name + '</li>';
                             }
                         }
-                        html += '<li data-id="' + list[a].id + '" class="filter4-item"><div class="filter4-item-head"><strong>' + list[a].name + '</strong></div><div class="filter4-item-item"><ul class="clearfloat"><div id="filter4-item0"><li class="filter-filter4-button-active" onclick="setFilterItem(this)">不限</li>' + innerhtml + '</div></ul></div></li>';
+                        html += '<li data-id="' + list[a].id + '" class="filter4-item"><div class="filter4-item-head"><strong>' + list[a].name + '</strong></div><div class="filter4-item-item"><ul class="clearfloat"><div id="filter4-item0"><li class="filter-filter4-button-active" data-id="0" data-type="'+list[a].filed+'" onclick="setFilterItem(this)">不限</li>' + innerhtml + '</div></ul></div></li>';
                     }
                 }
                 break;
@@ -610,15 +614,21 @@ function getFilterTitle(obj) {
 function setFilterItem(obj) {
     $(obj).parent().children().removeClass('filter-filter4-button-active');
     $(obj).addClass('filter-filter4-button-active');
-    if ($(obj).data('id') < 4) {
+    if ($(obj).data('type') == 'sort') {
         o.sort = $(obj).data('id');
-    } else {
+    } else if($(obj).data('type') == 'wylx'){
         o.wylx = $(obj).data('id');
+    } else if($(obj).data('type') == 'zxzt'){
+        o.zxzt = $(obj).data('id');
     }
+
 
 }
 $('#reset').click(function() {
     $('#filter4-list').find('li').removeClass('filter-filter4-button-active');
+    o.wylx = '';
+    o.zxzt = '';
+    o.sort = '';
 });
 $('#ensure').click(function() {
     $('.list-filter-area').attr('class', 'list-filter-area list-filter-text');
