@@ -16,7 +16,15 @@ $(document).ready(function(){
 	});
 	if(GetQueryString('hid')!=undefined) {
 		hid = GetQueryString('hid');
+		$.get("/api/plot/getNameFromId?id="+hid,function(data){
+			if(data.status=='success') {
+				$('#title').html(data.data);
+			}
+		});
 	}
+	// if(GetQueryString('title')!=undefined) {
+	// 	$('#title').html(GetQueryString('title'));
+	// }
 });
 
 function subthis() {

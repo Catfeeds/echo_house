@@ -315,10 +315,10 @@ class PlotExt extends Plot{
                             $plots = PlotExt::model()->normal()->getList($criteria);
                             if($datares = $plots->data) {
                                 foreach ($datares as $key => $value) {
-                                    if($area = $value->areaInfo)
-                                        $areaName = $area->name;
-                                    else
-                                        $areaName = '';
+                                    // if($area = $value->areaInfo)
+                                    $areaName = $area->name;
+                                    // else
+                                    //     $areaName = '';
                                     if($street = $value->streetInfo)
                                         $streetName = $street->name;
                                     else
@@ -377,10 +377,7 @@ class PlotExt extends Plot{
     public function changeS()
     {
         if($owner = $this->owner) {
-            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线，但是目前没有联系方式。请点击'.Yii::app()->request->getHostInfo().'/subwap/duijieren.html?hid='.$this->id.' 进行付费，完成后您的联系方式将会自动显示到联系人电话列表首位。
-您是'.$this->title.'的发布人可享有以下特权：
-1.新增楼盘最新动态  
-2.您的联系方式始终在电话列表页面、在线申请签约页面、快速报备页面首位。',$owner->qf_uid);
+            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$owner->qf_uid);
             SmsExt::sendMsg('项目通过审核',$owner->phone,['lpmc'=>$this->title]);
             // 恭喜您，${lpmc}已通过后台编辑的完善和审核，请登录经纪圈APP消息列表查看付费链接。
         }
