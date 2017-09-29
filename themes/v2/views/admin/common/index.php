@@ -125,7 +125,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
                     今日报备数/总数
                 </div>
             </div>
-            <a class="more" href="<?php echo $this->createUrl('sub/list',['cate'=>1])?>">
+            <a class="more" href="<?php echo $this->createUrl('sub/list')?>">
                 查看更多 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>

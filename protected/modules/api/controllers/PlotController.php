@@ -199,10 +199,16 @@ class PlotController extends ApiController{
 					// var_dump($uid);exit;
 					if($uid) {
 						$expiret = Yii::app()->db->createCommand('select expire from plot_makert_user where uid='.$this->staff->id.' and hid='.$value->id)->queryScalar();
-						if($expiret>0 && $expiret<time()) {
+						if(!$expiret) {
+							$expire = '等待付款';
+						}elseif($expiret>0 && $expiret<time()) {
 							$expire = '已到期';
 						} elseif($expiret>0) {
-							$expire = '到期时间：'.date('Y-m-d',$expiret);
+							if($value->status) {
+								$expire = '已上线';
+							} else {
+								$expire = '已付款，等待审核';
+							}
 						}
 					}
 					$lists[] = [
@@ -214,7 +220,7 @@ class PlotController extends ApiController{
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 						'wylx'=>$wyw,
-						'status'=>$value->status?'已上线':'审核中',
+						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'sort'=>$value->sort,
@@ -723,29 +729,7 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	// var_dump(Yii::app()->msg);exit;
-        // var_dump(SmsExt::addOne('13861242596','1111'));
-        // $infos = PlotExt::model()->normal()->findAll();
-    // foreach ($infos as $key => $value) {
-        //     if(!$value->first_pay && $value->pays) {
-        //         $value->first_pay = $value->pays[0]['price'];
-        //     }
-        //     $value->save();
-        // }
-        // echo "ok";
-        // phpinfo();
-        Yii::app()->controller->sendNotice(
-							'报备项目；越溪湖畔
-客户姓名：罗姐
-客户电话： 189--7205
-公司门店：轩帆房产
-业务员姓名：孙灵
-业务员电话：18721135750
-市场对接人：刘鹏
-对接人电话：15618921692
-看房人数：4
-带看时间：9/26
-车牌号:皖B wt279','7187');
+    	
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;

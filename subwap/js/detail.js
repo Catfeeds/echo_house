@@ -154,14 +154,14 @@ $(document).ready(function(){
     	    	if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
                     tmp  = detail.phones[i];
                     phone=detail.phone;
-                    icon = "fuzeuser.png";
+                    icon = "ffusernew.png";
                     // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
                     if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
-                        icon = "fuzeuser.png";
+                        icon = "fbusernew.png";
                         word = '<div class="fbuser">发布人</div>'
                     } else {
-                        icon = "user.png";
+                        icon = "usernew.png";
                     }
                     // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
