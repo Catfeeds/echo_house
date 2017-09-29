@@ -336,10 +336,6 @@ $('.tip-off-tijiao').click(function(){
 $('.fufei-detail').click(function() {
     $('.rules-bg').css('display','block');
 });
-//点击立即付费
-$('.paynow').click(function() {
-    location.href="duijieren.html?hid="+hid;
-});
 //点击付费说明消失
 $('.shutoff-img').click(function() {
     $('.rules-bg').css('display','none');
