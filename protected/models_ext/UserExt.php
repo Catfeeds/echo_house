@@ -26,6 +26,13 @@ class UserExt extends User{
         '2'=>'分销公司',
         '3'=>'独立中介',
     ];
+    public static $is_jls = [
+        1=>'市场部经理',
+        2=>'案场部经理',
+        3=>'市场专员',
+        4=>'案场助理',
+        5=>'案场销售',
+    ];
     public static $sex = [
     '未知','男','女'
     ];
@@ -39,6 +46,8 @@ class UserExt extends User{
             'news'=>array(self::HAS_MANY, 'ArticleExt', 'uid'),
             'comments'=>array(self::HAS_MANY, 'CommentExt', 'uid'),
             'companyinfo'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
+            'plotplaces'=>array(self::HAS_MANY, 'PlotPlaceExt', 'uid'),
+            'plotsales'=>array(self::HAS_MANY, 'PlotSaleExt', 'uid'),
         );
     }
 
@@ -70,6 +79,14 @@ class UserExt extends User{
     }
 
     public function beforeValidate() {
+        if(!$this->type) {
+            $cinfo = $this->companyinfo;
+            if(!$cinfo) {
+                $this->type = 3;
+            } else {
+                $this->type = $cinfo->type;
+            }
+        }
         if($this->deleted==1) {
             $this->status = 1;
         }

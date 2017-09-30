@@ -19,16 +19,28 @@ class SubController extends VipController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$hid='',$cj=0)
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$hid='',$cj=0,$jl='',$sczy='')
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
 		if($value = trim($value))
             if ($type=='title') {
-                $criteria->addSearchCondition('name', $value);
+            	$comuids = [];
+            	$cri = new CDbCriteria;
+            	$cri->addSearchCondition('name',$value);
+            	$comobj = CompanyExt::model()->find($cri);
+            	if($comobj) {
+            		$comus = $comobj->users;
+            		if($comus) {
+            			foreach ($comus as $comu) {
+            				$comuids[] = $comu['id'];
+            			}
+            			$criteria->addInCondition('uid',$comuids);
+            		}
+            	}
             } 
         if(Yii::app()->user->id>1) {
-        	$hidsarr = Yii::app()->db->createCommand("select id,title from plot where status=1 and deleted=0 and company_id=".Yii::app()->user->cid)->queryAll();
+        	$hidsarr = Yii::app()->db->createCommand("select id,title from plot where deleted=0 and company_id=".Yii::app()->user->cid)->queryAll();
         	$hids = [];
         	if($hidsarr) {
         		foreach ($hidsarr as $h) {
@@ -56,6 +68,20 @@ class SubController extends VipController{
         if($cj) {
 			$criteria->addCondition('status>=3 and status<=5');
 		}
+		if($sczy) {
+			$criteria->addCondition('notice='.$sczy);
+		}
+		if($jl) {
+			$uidsarr = Yii::app()->db->createCommand("select phone from user where parent=".$jl)->queryAll();
+
+			$uids = [];
+			if($uidsarr) {
+				foreach ($uidsarr as $uida) {
+					$uids[] = $uida['phone'];
+				}
+			}
+			$criteria->addInCondition('notice',$uids);
+		}
 		if($cate) {
 			if($cate==1) {
 				$criteria->addCondition('status>=:cid');
@@ -63,9 +89,10 @@ class SubController extends VipController{
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		$criteria->order = 'updated desc';
 		// var_dump($hidsarr);ex
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'plots'=>$hidsarr,'hid'=>$hid]);
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'plots'=>$hidsarr,'hid'=>$hid,'jl'=>$jl,'sczy'=>$sczy]);
 	}
 
 	public function actionEdit($id='')

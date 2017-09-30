@@ -130,6 +130,27 @@ class PlotController extends VipController{
 	}
 
 	/**
+	 * [actionList 户型列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionSalelist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/vip');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotSaleExt::model()->undeleted()->getList($criteria,20);
+		// var_dump($houses->data);exit;
+		$this->render('salelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
 	 * [actionList 动态列表]
 	 * @param  string $title [description]
 	 * @return [type]        [description]
@@ -452,6 +473,27 @@ class PlotController extends VipController{
 			}
 		} 
 		$this->render('placeedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionEditSale()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotSaleExt';
+		$this->controllerName = '案场销售';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->hid = $hid;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['salelist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('saleedit',['article'=>$info,'hid'=>$hid]);
 	}
 
 	public function actionEditPrice()

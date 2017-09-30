@@ -45,7 +45,7 @@ class PlotController extends ApiController{
 		if($kw) {
 			$criteria1 = new CDbCriteria;
 			$criteria1->addSearchCondition('name',$kw);
-			$compas = CompanyExt::model()->find($criteria1);
+			$compas = CompanyExt::model()->normal()->find($criteria1);
 			// var_dump($compas);exit;
 			// $compas && $company = $compas['id'];
 			if($compas) {
@@ -375,6 +375,12 @@ class PlotController extends ApiController{
 			}
 		}
 		$info->dllx && array_unshift($tagName, Yii::app()->params['dllx'][$info->dllx]);
+		$ffphones=[];
+		if($ffs = $info->sfMarkets) {
+			foreach ($ffs as $key => $value) {
+				$ffphones[] = $value->user->phone;
+			}
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -405,6 +411,7 @@ class PlotController extends ApiController{
 			'areaid'=>$info->area,
 			'streetid'=>$info->street,
 			'owner_phone'=>$info->owner?$info->owner->phone:'',
+			'ff_phones'=>$ffphones,
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {

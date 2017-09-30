@@ -9,6 +9,12 @@ var our_uids = '';
 var thisphone = '';
 var is_user = false;
 var detail=new Object();
+Array.prototype.contains = function ( needle ) {
+  for (i in this) {
+    if (this[i] == needle) return true;
+  }
+  return false;
+}
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -154,12 +160,15 @@ $(document).ready(function(){
     	    	if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
                     tmp  = detail.phones[i];
                     phone=detail.phone;
-                    icon = "ffusernew.png";
+                    icon = "fbusernew.png";
                     // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
+                    console.log(detail.ff_phones.contains(detail.phonesnum[i]));
                     if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
                         icon = "fbusernew.png";
                         word = '<div class="fbuser">发布人</div>'
+                    } else if(detail.ff_phones.length>0 && detail.ff_phones.contains(detail.phonesnum[i])) {
+                        icon = "ffusernew.png";
                     } else {
                         icon = "usernew.png";
                     }

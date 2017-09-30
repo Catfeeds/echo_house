@@ -116,4 +116,25 @@ class CompanyExt extends Company{
         }
     }
 
+    public function getScjl()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==1&&$data[$value->id] = $value->name;
+            }
+        }
+        return $data;
+    }
+    public function getSczy()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==3&&$data[$value->phone] = $value->name;
+            }
+        }
+        return $data;
+    }
+
 }

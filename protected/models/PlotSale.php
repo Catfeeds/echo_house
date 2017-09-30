@@ -1,37 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "plot_sale".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'plot_sale':
  * @property integer $id
- * @property string $pwd
- * @property string $wx
- * @property string $phone
- * @property string $name
- * @property integer $parent
- * @property integer $is_jl
- * @property integer $is_manage
- * @property string $id_pic
- * @property integer $qf_uid
- * @property integer $cid
- * @property string $company
- * @property integer $type
- * @property string $image
- * @property integer $status
+ * @property integer $hid
+ * @property integer $uid
  * @property integer $deleted
- * @property integer $sort
+ * @property integer $status
  * @property integer $created
  * @property integer $updated
  */
-class User extends CActiveRecord
+class PlotSale extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'plot_sale';
 	}
 
 	/**
@@ -42,14 +30,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pwd, name, created', 'required'),
-			array('parent, is_jl, is_manage, qf_uid, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
-			array('pwd, id_pic, company, image', 'length', 'max'=>255),
-			array('wx, name', 'length', 'max'=>100),
-			array('phone', 'length', 'max'=>15),
+			array('created', 'required'),
+			array('hid, uid, deleted, status, created, updated', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, company, type, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, uid, deleted, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,22 +56,10 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pwd' => 'Pwd',
-			'wx' => 'Wx',
-			'phone' => 'Phone',
-			'name' => 'Name',
-			'parent' => 'Parent',
-			'is_jl' => 'Is Jl',
-			'is_manage' => 'Is Manage',
-			'id_pic' => 'Id Pic',
-			'qf_uid' => 'Qf Uid',
-			'cid' => 'Cid',
-			'company' => 'Company',
-			'type' => 'Type',
-			'image' => 'Image',
-			'status' => 'Status',
+			'hid' => 'Hid',
+			'uid' => 'Uid',
 			'deleted' => 'Deleted',
-			'sort' => 'Sort',
+			'status' => 'Status',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -111,22 +84,10 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('pwd',$this->pwd,true);
-		$criteria->compare('wx',$this->wx,true);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('parent',$this->parent);
-		$criteria->compare('is_jl',$this->is_jl);
-		$criteria->compare('is_manage',$this->is_manage);
-		$criteria->compare('id_pic',$this->id_pic,true);
-		$criteria->compare('qf_uid',$this->qf_uid);
-		$criteria->compare('cid',$this->cid);
-		$criteria->compare('company',$this->company,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('hid',$this->hid);
+		$criteria->compare('uid',$this->uid);
 		$criteria->compare('deleted',$this->deleted);
-		$criteria->compare('sort',$this->sort);
+		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -139,7 +100,7 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return PlotSale the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
