@@ -131,7 +131,7 @@ $(document).ready(function(){
             if(detail.images!=''&&detail.images!=undefined){    
                 for (var i = 0; i < detail.images.length; i++) {
                     // $('.detail-head-img-examplepic').html(detail.images[i].type);
-                    $('.swiper-wrapper').append('<div class="swiper-slide"><a href="'+detail.images[i].url+'"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
+                    $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="QFH5.viewImages('+i+','+detail.images+');"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
                 }
             }
             var swiper = new Swiper('.detail-head-img-container',{
