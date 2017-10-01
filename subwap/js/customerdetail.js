@@ -50,8 +50,9 @@ capp.controller("customerCtrl",function($scope,$http) {
 		var status='';
 		if($('#tuidi').hasClass('tuiding-active')){
 			status=6;
-		}else{
-
+		}else if($('#genjin').hasClass('genjin-active')) {
+			status=7;
+		}else {
 			status=id;
 		}	
 		$http({
@@ -79,6 +80,8 @@ function process(obj){
 		// $('.process ul li').removeAttr("onclick");
 		$('#tuidi').removeAttr("onclick");	
 		$(obj).nextAll('li').attr('class','processli');
+		$('.genjin').attr('class','genjin');
+		$('.tuiding').attr('class','tuiding');
 		id = $(obj).data('id');
 	// }
 }
@@ -87,6 +90,13 @@ function tuiding(){
 	$('#tuidi').removeClass('tuiding');
 	$('#tuidi').addClass('tuiding-active');
 	$('#tuidi').removeAttr("onclick");	
+	$('.process ul li').removeAttr("onclick");
+}
+function genjin(){
+	$('.remark').css('display','block');
+	$('#genjin').removeClass('genjin');
+	$('#genjin').addClass('genjin-active');
+	$('#genjin').removeAttr("onclick");	
 	$('.process ul li').removeAttr("onclick");
 }
 function GetQueryString(name) {

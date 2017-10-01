@@ -148,6 +148,27 @@ body{
 	color: #fff;
 	background-color: #00b7ee;
 }
+.genjin{
+	position: absolute;
+	left: 14.7rem;
+	top: 0.6rem;
+	padding: 0.1rem 0.3rem;
+	border: #D7D7D7 0.054rem solid;
+	border-radius: 0.133rem;
+	font-size: 0.64rem;
+	background-color: #fff;
+}
+.genjin-active{
+	position: absolute;
+	left: 14.7rem;
+	top: 0.6rem;
+	padding: 0.1rem 0.3rem;
+	border: #00b7ee 0.054rem solid;
+	border-radius: 0.133rem;
+	font-size: 0.64rem;
+	color: #fff;
+	background-color: #00b7ee;
+}
 .processli{
 	position: relative;
 	float: left;

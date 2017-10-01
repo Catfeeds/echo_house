@@ -136,5 +136,15 @@ class CompanyExt extends Company{
         }
         return $data;
     }
+    public function getAcsales()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==5&&$data[] = ['id'=>$value->id,'name'=>$value->name.$value->phone];
+            }
+        }
+        return $data;
+    }
 
 }

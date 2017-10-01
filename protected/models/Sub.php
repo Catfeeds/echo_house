@@ -14,6 +14,7 @@
  * @property string $notice
  * @property string $code
  * @property integer $visit_way
+ * @property integer $sale_uid
  * @property integer $sex
  * @property integer $is_check
  * @property integer $is_only_sub
@@ -43,7 +44,7 @@ class Sub extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('uid, status, created, updated', 'required'),
-			array('uid, time, visit_way, sex, is_check, is_only_sub, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('uid, time, visit_way, sale_uid, sex, is_check, is_only_sub, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('hid, market_staff, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>20),
 			array('notice', 'length', 'max'=>12),
@@ -51,7 +52,7 @@ class Sub extends CActiveRecord
 			array('note', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hid, uid, time, market_staff, name, phone, notice, code, visit_way, sex, is_check, is_only_sub, note, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, hid, uid, time, market_staff, name, phone, notice, code, visit_way, sale_uid, sex, is_check, is_only_sub, note, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +83,7 @@ class Sub extends CActiveRecord
 			'notice' => 'Notice',
 			'code' => 'Code',
 			'visit_way' => 'Visit Way',
+			'sale_uid' => 'Sale Uid',
 			'sex' => 'Sex',
 			'is_check' => 'Is Check',
 			'is_only_sub' => 'Is Only Sub',
@@ -122,6 +124,7 @@ class Sub extends CActiveRecord
 		$criteria->compare('notice',$this->notice,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('visit_way',$this->visit_way);
+		$criteria->compare('sale_uid',$this->sale_uid);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('is_check',$this->is_check);
 		$criteria->compare('is_only_sub',$this->is_only_sub);

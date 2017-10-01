@@ -904,8 +904,62 @@ class PlotController extends ApiController{
     		$this->frame['data'] = $data;
     	}
     }
+    public function actionCheckIsSale()
+    {
+    	if(Yii::app()->user->getIsGuest()) {
+    		return $this->returnError('暂无权限查看');
+    	} else {
+    		$hid = Yii::app()->db->createCommand("select hid from plot_sale where uid=".Yii::app()->user->id)->queryScalar();
+    		if(!$hid) {
+    			return $this->returnError('暂无权限查看');
+    		} else {
+    			$plot = PlotExt::model()->findByPk($hid);
+    		}
+    		// var_dump($hid);exit;
+    		// $subs = $plot->subs;
+    		$criteria = new CDbCriteria;
+    		$criteria->addCondition('hid='.$hid);
+    		$criteria->addCondition('sale_uid='.$this->staff->id);
+    		$kw = Yii::app()->request->getQuery('kw','');
+    		$status = Yii::app()->request->getQuery('status','');
+    		if($kw) {
+    			if(is_numeric($kw)) {
+    				$criteria->addSearchCondition('phone',$kw);
+    			} else {
+    				$criteria->addSearchCondition('name',$kw);
+    			}
+    		}
+    		if(is_numeric($status)) {
+    			$criteria->addCondition('status=:status');
+    			$criteria->params[':status'] = $status;
+    		}
+    		$criteria->order = 'created desc';
+    		$subs = SubExt::model()->undeleted()->getList($criteria);
 
-    public function actionCheckSub($code='')
+    		$data = $data['list'] = [];
+    		if($subs->data) {
+
+    			foreach ($subs->data as $key => $value) {
+    				
+    				$itsstaff = $value->user;
+    				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
+    				$tmp['id'] = $value->id;
+    				$tmp['user_name'] = $value->name;
+    				$tmp['user_phone'] = $value->phone;
+    				$tmp['staff_name'] = $itsstaff->name;
+    				$tmp['staff_phone'] = $itsstaff->phone;
+    				$tmp['time'] = date('m-d H:i',$value->updated);
+    				$tmp['status'] = SubProExt::$status[$value->status];
+    				$tmp['staff_company'] = $cname?$cname:'独立经纪人';
+    				$data['list'][] = $tmp;
+    			}
+    		}
+    		$data['num'] = $subs->pagination->itemCount;
+    		$this->frame['data'] = $data;
+    	}
+    }
+
+    public function actionCheckSub($code='',$acxs='')
     {
     	if(!$code) {
     		return $this->returnError('客户码不能为空');
@@ -915,6 +969,10 @@ class PlotController extends ApiController{
 
     	if($hisplot) {
     		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
+
+    		if($acxs) {
+    			$obj->sale_uid = $acxs;
+    		}
     		if(!$obj)
     			$this->returnError('报备信息错误或已添加');
     		else {
@@ -928,6 +986,9 @@ class PlotController extends ApiController{
     			$pro->save();
     			$obj->save();
     			$this->frame['data'] = $obj->id;
+    			if($acxs && $sale = UserExt::model()->findByPk($acxs)) {
+    				$sale->qf_uid && $this->sendNotice('您好，'.$hisplot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
+    			}
     		}
     	} else {
     		$this->returnError('项目不存在');
@@ -943,7 +1004,7 @@ class PlotController extends ApiController{
     	$pros = [];
     	if($ls = $sub->pros) {
     		foreach ($ls as $key => $value) {
-    			$pros[] = ['note'=>$value->note,'status'=>SubExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
+    			$pros[] = ['note'=>$value->note,'status'=>SubProExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
     		}
     	}
     	$data = [
@@ -972,8 +1033,10 @@ class PlotController extends ApiController{
     		$sub = SubExt::model()->findByPk($sid);
     			
     		if($sub && $status) {
-    			$sub->status = $status;
-    			$sub->save();
+    			if($status!=7) {
+    				$sub->status = $status;
+	    			$sub->save();
+    			}
     			$obj = new SubProExt;
     			$obj->note = $note;
     			$obj->sid = $sid;
@@ -1088,6 +1151,25 @@ class PlotController extends ApiController{
     {
     	if($id) {
     		$this->frame['data'] = PlotExt::model()->findByPk($id)->title;
+    	}
+    }
+
+    public function actionGetAcsales()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".$this->staff->id)->queryScalar();
+    		if($hid) {
+    			$ress = Yii::app()->db->createCommand("select u.id,u.name,u.phone from user u left join plot_sale s on u.id=s.uid where s.deleted=0 and s.hid=".$hid)->queryAll();
+    			if($ress) {
+    				foreach ($ress as $key => $value) {
+    					$ress[$key]['name'] = $value['name'].$value['phone'];
+    					unset($ress[$key]['phone']);
+    				}
+    			}
+    			$this->frame['data'] = $ress;
+    		}
+    	} else {
+    		$this->returnError('未知错误');
     	}
     }
 

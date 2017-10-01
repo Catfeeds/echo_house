@@ -23,7 +23,7 @@ $statusArr = SubExt::$status;
             <td class="text-center"><?=$v->user->name.$v->user->phone?></td> 
             <td class="text-center"><?=$v->note?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
-            <td class="text-center"><?=SubExt::$status[$v->status]?></td>
+            <td class="text-center"><?=SubProExt::$status[$v->status]?></td>
         </tr>
     <?php endforeach;?>
     </tbody>
