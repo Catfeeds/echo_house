@@ -420,7 +420,9 @@ class PlotController extends ApiController{
 			} else {
 				$data['can_edit'] = 0;
 			}
-		}
+		}else {
+				$data['can_edit'] = 0;
+			}
 		// $data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
 		$this->frame['data'] = $data;
 	}
