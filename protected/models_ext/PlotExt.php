@@ -203,6 +203,7 @@ class PlotExt extends Plot{
             }
         }
         CacheExt::delete('wap_init_plotlist');  
+        CacheExt::delete('wap_area_plotlist');  
         // PlotExt::setPlotCache(); 
     }
 
