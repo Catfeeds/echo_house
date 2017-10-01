@@ -1019,6 +1019,7 @@ class PlotController extends ApiController{
     		'status'=>SubExt::$status[$sub->status],
     		'is_del'=>SubExt::$status[$sub->status]=='失效'?1:0,
     		'list'=>$pros,
+    		'can_edit'=>$sub->is_check,
     	];
     	$this->frame['data'] = $data;
     }

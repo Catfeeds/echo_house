@@ -1,9 +1,9 @@
-var hid='';
+var sid='';
 var remark=false;
 var id = '';
 $(document).ready(function(){
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined){
-		hid=GetQueryString('id');
+		sid=GetQueryString('id');
 	}
 });
 var capp=angular.module("cApp",[]);
@@ -19,6 +19,9 @@ capp.controller("customerCtrl",function($scope,$http) {
 			$('#phone').css('display','none');
 		}else{
 			$('#phone').attr('href','tel:'+response.data.data.phone);
+		}
+		if(response.data.data.can_edit<1) {
+			$('.process ul li').removeAttr("onclick");
 		}
 		$scope.notelist=response.data.data.list;
 		var status = response.data.data.status;
@@ -58,7 +61,7 @@ capp.controller("customerCtrl",function($scope,$http) {
 		$http({
 			method:'POST',
 			url:'/api/plot/addSubPro',
-			data:$.param({note:note,status:status,sid:hid})  ,
+			data:$.param({note:note,status:status,sid:sid})  ,
 			headers:{'Content-Type': 'application/x-www-form-urlencoded'}, 
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
