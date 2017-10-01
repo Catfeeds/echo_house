@@ -22,7 +22,7 @@ class PlotController extends ApiController{
 		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
 			$init = 1;
 		}
-		if($area&&$page==1&&!$kw) {
+		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
 		$criteria = new CDbCriteria;
