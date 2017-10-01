@@ -113,4 +113,25 @@ class UserController extends VipController{
             $this->setMessage('操作成功');
         }
     }
+    public function actioneditPwd($id='')
+    {
+        if($id) {
+            $info = UserExt::model()->findByPk($id);
+            if(Yii::app()->request->getIsPostRequest()) {
+                $info->attributes = Yii::app()->request->getPost('UserExt',[]);
+                $info->pwd && $info->pwd = md5($info->pwd);
+                $info->cid = Yii::app()->user->cid;
+                // $info->getIsNewRecord() && $info->status = 1;
+                // $info->pwd = md5($info->pwd);
+                if($info->save()) {
+                    $this->setMessage('操作成功','success');
+                    Yii::app()->user->logout();
+                    $this->redirect(array('/vip/common/login'));
+                } else {
+                    $this->setMessage(array_values($info->errors)[0][0],'error');
+                }
+            } 
+            $this->render('editpwd',['article'=>$info]);
+        }
+    }
 }

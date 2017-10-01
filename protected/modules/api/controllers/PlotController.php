@@ -1007,6 +1007,7 @@ class PlotController extends ApiController{
     			$pros[] = ['note'=>$value->note,'status'=>SubProExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
     		}
     	}
+    	$sale_user = $sub->sale_user;
     	$data = [
     		'name'=>$sub->name,
     		'phone'=>$sub->phone,
@@ -1020,6 +1021,7 @@ class PlotController extends ApiController{
     		'is_del'=>SubExt::$status[$sub->status]=='失效'?1:0,
     		'list'=>$pros,
     		'can_edit'=>$sub->is_check,
+    		'sale'=>$sale_user?($sale_user->name.$sale_user->phone):'',
     	];
     	$this->frame['data'] = $data;
     }
@@ -1169,6 +1171,21 @@ class PlotController extends ApiController{
     			}
     			$this->frame['data'] = $ress;
     		}
+    	} else {
+    		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionAddSale($sid='',$sale_uid='')
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$sid&&$sale_uid) {
+    		$sub = SubExt::model()->findByPk($sid);
+    		$hisplot = $sub->plot;
+    		$sub->sale_uid = $sale_uid;
+    		$sub->save();
+    		if($sale_uid && $sale = UserExt::model()->findByPk($sale_uid)) {
+				$sale->qf_uid && $this->sendNotice('您好，'.$hisplot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
+			}
     	} else {
     		$this->returnError('未知错误');
     	}

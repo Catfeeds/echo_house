@@ -264,3 +264,28 @@ body{
 #ul2{
 	display: none;
 }
+.report-small-tag{
+	position: relative;
+	width: 20.0rem;
+	height: 2.027rem;
+	background-color: #fff;
+}
+.report-smalltag-title{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.8rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+.report-contacter{
+	position: absolute;
+	top: 0.25rem;
+	right: 1rem;
+	height: 1.5rem;
+	width: 8rem;
+	font-size: 0.693rem;
+	color: #868686;
+	text-align: right;
+	border:solid 0.027rem #c3c3c3;
+}

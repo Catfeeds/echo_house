@@ -2,6 +2,7 @@ var sid='';
 var remark=false;
 var id = '';
 $(document).ready(function(){
+			
 	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined){
 		sid=GetQueryString('id');
 	}
@@ -22,6 +23,22 @@ capp.controller("customerCtrl",function($scope,$http) {
 		}
 		if(response.data.data.can_edit<1) {
 			$('.process ul li').removeAttr("onclick");
+		}
+		if(response.data.data.sale=='') {
+			$.get('/api/plot/getAcsales',function(data) {
+				if(data.status=='success'&&data.data.length>0) {
+					var list = data.data;
+					var html = '';
+					html += '<option value="0">请选择案场销售</option>';
+					for (var i = 0; i < list.length; i++) {
+						html += '<option value="'+list[i].id+'">'+list[i].name+'</option>';
+					}
+					$('.report-contacter').append(html);
+				}
+			});
+		} else {
+			$('.report-contacter').remove();
+			$('.report-smalltag-title').after('<div style="border:none;top:0.5rem" class="report-contacter">'+response.data.data.sale+'</div>');
 		}
 		$scope.notelist=response.data.data.list;
 		var status = response.data.data.status;
@@ -107,4 +124,12 @@ function GetQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(decodeURI(r[2]));
     return null;
+}
+function setSale() {
+	$.get('/api/plot/addSale?sid='+sid+'&sale_uid='+$('.report-contacter').val(),function(data) {
+		if(data.status=='success') {
+			alert('成功指定案场销售');
+			location.reload();
+		}
+	});
 }
