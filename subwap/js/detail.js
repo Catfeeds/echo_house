@@ -10,6 +10,7 @@ var thisphone = '';
 var is_user = false;
 var detail=new Object();
 var topimglist = new Array;
+var hximglist = new Array;
 Array.prototype.contains = function ( needle ) {
   for (i in this) {
     if (this[i] == needle) return true;
@@ -107,6 +108,11 @@ $(document).ready(function(){
                 $('.detail-sailpoint').css('display','none');
             }
             //插入主力户型
+            if(detail.hx!=''&&detail.hx!=undefined){    
+                for (var i = 0; i < detail.hx.length; i++) {
+                    hximglist.push(detail.hx[i].image);
+                }
+            }
             if(detail.hx!=''&&detail.hx!=undefined){
                 $('.detail-mainstyle').css('display','block');
                 for(var i=0;i<detail.hx.length;i++){
@@ -114,9 +120,9 @@ $(document).ready(function(){
                         detail.hx[i].size="--";
                     }
                     if(detail.hx[i].bedroom>0)
-                      $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                      $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
                     else
-                        $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                        $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
                 }
             }else{
                 $('.detail-mainstyle').css('display','none');
@@ -195,6 +201,9 @@ $(document).ready(function(){
 });
 function showQfImgTop(i) {
     QFH5.viewImages(i,topimglist);
+}
+function showQfImgHx(i) {
+    QFH5.viewImages(i,hximglist);
 }
 function sameArea(){
     //同区域楼盘
