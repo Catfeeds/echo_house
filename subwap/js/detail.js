@@ -9,6 +9,7 @@ var our_uids = '';
 var thisphone = '';
 var is_user = false;
 var detail=new Object();
+var topimglist = new Array;
 Array.prototype.contains = function ( needle ) {
   for (i in this) {
     if (this[i] == needle) return true;
@@ -128,18 +129,18 @@ $(document).ready(function(){
             }
             $('.mzsm').html(detail.mzsm);
             //顶部图片  
-            var imglist = new Array;
             if(detail.images!=''&&detail.images!=undefined){    
                 for (var i = 0; i < detail.images.length; i++) {
-                    imglist.push(detail.images[i].url);
+                    topimglist.push(detail.images[i].url);
                 }
             }
             if(detail.images!=''&&detail.images!=undefined){    
                 for (var i = 0; i < detail.images.length; i++) {
                     // $('.detail-head-img-examplepic').html(detail.images[i].type);
-                    $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="QFH5.viewImages('+i+','+imglist+');"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
+                    $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="showQfImgTop('+i+')"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
                 }
             }
+            
             var swiper = new Swiper('.detail-head-img-container',{
                 loop: true,
                 onSlideChangeEnd:function() {
@@ -192,6 +193,9 @@ $(document).ready(function(){
     //     $('.maidian-on-off').css('display','none');
     // } 
 });
+function showQfImgTop(i) {
+    QFH5.viewImages(i,topimglist);
+}
 function sameArea(){
     //同区域楼盘
     $.get('/api/plot/list?street='+streetid+'&limit=6',function(data) {
