@@ -27,6 +27,11 @@ class IndexController extends ApiController
         $this->showUser();
         $this->redirect('/subwap/customerlist.html');
     }
+    public function actionSalelist()
+    {
+        $this->showUser();
+        $this->redirect('/subwap/salelist.html');
+    }
 
 
     public function showUser()
