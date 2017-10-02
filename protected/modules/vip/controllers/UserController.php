@@ -41,8 +41,8 @@ class UserController extends VipController{
             $criteria->params[':cid'] = Yii::app()->user->cid;
         }
         if($cate) {
-            $criteria->addCondition('is_jl=:cid');
-            $criteria->params[':cid'] = $cate;
+            $criteria->addCondition('is_jl=:cate11');
+            $criteria->params[':cate11'] = $cate;
         }
         
         $criteria->order = 'is_manage desc,is_jl asc,updated desc';
