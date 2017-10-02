@@ -218,7 +218,7 @@ class PlotController extends ApiController{
 						'unit'=>PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
-						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
 						'wylx'=>$wyw,
 						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
