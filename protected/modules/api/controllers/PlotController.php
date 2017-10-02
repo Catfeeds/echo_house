@@ -974,7 +974,7 @@ class PlotController extends ApiController{
     			$obj->sale_uid = $acxs;
     		}
     		if(!$obj)
-    			$this->returnError('报备信息错误或已添加');
+    			$this->returnError('客户码错误或已添加');
     		else {
     			$obj->is_check = 1;
     			$obj->status = 1;
