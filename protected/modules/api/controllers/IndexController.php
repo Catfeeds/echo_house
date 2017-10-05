@@ -3,7 +3,7 @@ class IndexController extends ApiController
 {
     public function actionIndex($cid=0)
     {
-        $this->showUser();
+        // $this->showUser();
         $this->redirect('/subwap/list.html');
     }
     public function actionPub()
