@@ -789,6 +789,8 @@ function cleardetail() {
     $('.swiper-wrapper').empty();
     $('.telephone-consult li').not('#showadd').remove();
     $('#samearea ul').empty();
+    topimglist = [];
+    hximglist = [];
 }
 
 function showdetail(id) {
