@@ -168,31 +168,31 @@ $(document).ready(function() {
 
     $.get('/api/index/getQfUid', function(data) {
         
-        if(data.status == 'success') {
-                $.get('/api/plot/getHasCoo', function(data) {
-                if(data.status == 'error') {
-                    getLocation();
-                }
-            });
-            if(getCookie('house_lat')==undefined) {
-                QFH5.getLocation(function(state,data){
-                  if(state==1){
-                    //获取成功
-                    var latitude = data.latitude;
-                    var longitude = data.longitude;
-                    setCookie('house_lat',latitude);
-                    setCookie('house_lng',longitude);
-                    location.reload();
-                    // alert(latitude);
-                    // var address = data.address;
-                  }else{
-                    //获取失败
-                    alert(data.error);//data.error: string
-                  }
-                });
-            }
+        // if(data.status == 'success') {
+            //     $.get('/api/plot/getHasCoo', function(data) {
+            //     if(data.status == 'error') {
+            //         getLocation();
+            //     }
+            // });
+            // if(getCookie('house_lat')==undefined) {
+            //     QFH5.getLocation(function(state,data){
+            //       if(state==1){
+            //         //获取成功
+            //         var latitude = data.latitude;
+            //         var longitude = data.longitude;
+            //         setCookie('house_lat',latitude);
+            //         setCookie('house_lng',longitude);
+            //         location.reload();
+            //         // alert(latitude);
+            //         // var address = data.address;
+            //       }else{
+            //         //获取失败
+            //         alert(data.error);//data.error: string
+            //       }
+            //     });
+            // }
             
-        }
+        // }
         $.get('/api/config/index',function(data) {
             is_user = data.data.is_user;      
             is_jy = data.data.is_jy;
