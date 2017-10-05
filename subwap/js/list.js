@@ -72,24 +72,6 @@ function getCookie(c_name) {
     return ""
 }
 
-function getLocation() {
-    // 百度地图API功能
-    var map = new BMap.Map("allmap");
-
-    var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function(r){
-        if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            var exdate = new Date();
-            exdate.setDate(exdate.getDate() + 1);
-            $.post('/api/plot/setCoo',{'lng':r.point.lng,'lat':r.point.lat},function() {
-                location.reload();
-            });
-        }
-        else {
-            alert('failed'+this.getStatus());
-        }        
-    },{enableHighAccuracy: true});
-}
 $(window).on("popstate",function(e){
     console.log(history.state);
     // alert(history.state.url);
@@ -177,12 +159,16 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
-
-    // $.get('/api/plot/getHasCoo', function(data) {
-    //     if(data.status == 'error') {
-    //         getLocation();
-    //     }
-    // });
+    $.get('/api/plot/getQfUid', function(data) {
+        if(data.status == 'success') {
+                $.get('/api/plot/getHasCoo', function(data) {
+                if(data.status == 'error') {
+                    getLocation();
+                }
+            });
+            
+        }
+    });
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;      
         is_jy = data.data.is_jy;
@@ -216,7 +202,6 @@ $(document).ready(function() {
             })
         }
     });    
-    // $.get('/api/index/getQfUid',function(data) {});
     if (GetQueryString('kw') != null) {
         o.kw = GetQueryString('kw');
         // thisurl = 'list.html?kw='+GetQueryString('kw');
@@ -229,20 +214,10 @@ $(document).ready(function() {
         $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销'); 
         // thisurl = 'list.html?zd_company='+GetQueryString('zd_company');
         // history.pushState({url:'list'},'',thisurl);
-    } else if(GetQueryString('area') != null) {
-        // thisurl = 'list.html?area='+GetQueryString('area');
-        // history.pushState({url:'list'},'',thisurl);
-    } else {
-        // thisurl = '';
-        // history.pushState({url:'list','end':'yes'},'',thisurl);
     }
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
     history.replaceState({url:'list'},'',thisurl);
-    // $.get('/api/tag/list?cate=plotFilter', function(data) {
-    //     filter = data.data;
-    // });
-
 });
 
 function GetQueryString(name) {
