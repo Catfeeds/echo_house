@@ -82,7 +82,7 @@ $(window).on("popstate",function(e){
         // history.pushState({url:'list'},'',thisurl);
         setTimeout(function() {
             window.scrollTo(0,listheight);
-        },0);
+        },50);
     }
         
 });
