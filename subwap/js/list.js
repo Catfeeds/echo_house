@@ -182,7 +182,7 @@ function turnDetail(obj){
 
 $(document).ready(function() {
     init();
-    // thisurl = 'list.html';
+    thisurl = '';
     var toptag = '';
     ajaxGetTop();
     ajaxGetFilter(); 
