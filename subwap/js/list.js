@@ -173,6 +173,7 @@ $(document).ready(function() {
             var longitude = data.longitude;
             setCookie('house_lat',latitude);
             setCookie('house_lng',longitude);
+            alert(latitude);
             // var address = data.address;
           }else{
             //获取失败
