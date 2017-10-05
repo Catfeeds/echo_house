@@ -33,6 +33,9 @@ var thisurl = '';
 var listheight='';
 var detail=new Object();
 
+var topimglist = new Array;
+var hximglist = new Array;
+
 var scrollHandler = function() {
     // if($('.detailshow').is('hide')) {
         var pageH = $('.listshow').height();
@@ -873,6 +876,11 @@ function showdetail(id) {
             $('.detail-sailpoint').css('display','none');
         }
         //插入主力户型
+        if(detail.hx!=''&&detail.hx!=undefined){    
+            for (var i = 0; i < detail.hx.length; i++) {
+                hximglist.push(detail.hx[i].image);
+            }
+        }   
         if(detail.hx!=''&&detail.hx!=undefined){
             $('.detail-mainstyle').css('display','block');
             for(var i=0;i<detail.hx.length;i++){
@@ -880,9 +888,9 @@ function showdetail(id) {
                     detail.hx[i].size="--";
                 }
                 if(detail.hx[i].bedroom>0)
-                  $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                  $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
                 else
-                    $('#mainstyle ul').append('<li><a href="'+detail.hx[i].image+'"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                    $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
             }
         }else{
             $('.detail-mainstyle').css('display','none');
@@ -897,8 +905,13 @@ function showdetail(id) {
         //顶部图片  
         if(detail.images!=''&&detail.images!=undefined){    
             for (var i = 0; i < detail.images.length; i++) {
+                topimglist.push(detail.images[i].url);
+            }
+        }
+        if(detail.images!=''&&detail.images!=undefined){    
+            for (var i = 0; i < detail.images.length; i++) {
                 // $('.detail-head-img-examplepic').html(detail.images[i].type);
-                $('.swiper-wrapper').append('<div class="swiper-slide"><a href="'+detail.images[i].url+'"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
+                $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="showQfImgTop('+i+')"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
             }
         }
         var swiper = new Swiper('.detail-head-img-container',{
@@ -939,6 +952,12 @@ function showdetail(id) {
     // } 
 }
 
+function showQfImgTop(i) {
+    QFH5.viewImages(i,topimglist);
+}
+function showQfImgHx(i) {
+    QFH5.viewImages(i,hximglist);
+}
 
 //将屏幕滑回最上端
 $('.list-stick').click(function(){
