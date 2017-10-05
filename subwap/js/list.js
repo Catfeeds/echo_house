@@ -165,8 +165,8 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
+    alert(getCookie('house_lat'));
     if(getCookie('house_lat')==undefined) {
-        alert(1);
         QFH5.getLocation(function(state,data){
           if(state==1){
             //获取成功
@@ -174,7 +174,7 @@ $(document).ready(function() {
             var longitude = data.longitude;
             setCookie('house_lat',latitude);
             setCookie('house_lng',longitude);
-            alert(latitude);
+            // alert(latitude);
             // var address = data.address;
           }else{
             //获取失败
