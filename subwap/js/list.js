@@ -149,6 +149,13 @@ function turnDetail(obj){
     showdetail(obj);
     // location.href="detail.html?id="+obj;
 }
+function setCookie(c_name,value,expiredays)
+{
+    var exdate=new Date()
+    exdate.setDate(exdate.getDate()+expiredays)
+    document.cookie=c_name+ "=" +escape(value)+
+    ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
 
 $(document).ready(function() {
     init();
@@ -160,6 +167,19 @@ $(document).ready(function() {
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
     $.get('/api/index/getQfUid', function(data) {
+        QFH5.getLocation(function(state,data){
+          if(state==1){
+            //获取成功
+            var latitude = data.latitude;
+            var longitude = data.longitude;
+            setCookie('house_lat',latitude);
+            setCookie('house_lng',longitude);
+            // var address = data.address;
+          }else{
+            //获取失败
+            alert(data.error);//data.error: string
+          }
+        });
         if(data.status == 'success') {
                 $.get('/api/plot/getHasCoo', function(data) {
                 if(data.status == 'error') {
