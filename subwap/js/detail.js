@@ -318,6 +318,11 @@ $('.tel-bg').click(function(){
 function copyUrl2() {
     alert('已成功复制手机号，请至微信搜索添加');
 }
+$(window).on("popstate",function(e){
+    if(history.state!=null && history.state.url=='list') {
+        location.href = 'list.html';
+    }  
+});
 
 function show_zd_list(obj) {
     location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).data('name');
