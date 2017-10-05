@@ -238,7 +238,7 @@ $(document).ready(function() {
     }
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-    history.pushState({url:'list'},'',thisurl);
+    // history.pushState({url:'list'},'',thisurl);
     // $.get('/api/tag/list?cate=plotFilter', function(data) {
     //     filter = data.data;
     // });
