@@ -168,56 +168,57 @@ $(document).ready(function() {
             });
             
         }
-    });
-    $.get('/api/config/index',function(data) {
-        is_user = data.data.is_user;      
-        is_jy = data.data.is_jy;
-        if (GetQueryString('area') != null) {
-            o.area = GetQueryString('area');
-            $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
-            setArea($('#areaul li[data-id="'+o.area+'"]')[0]); 
-            
-        } else {    
-            $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
-            setArea($('#areaul li')[0]); 
-        } 
-        if(is_user==1) {
-            QFH5.getUserInfo(function(state,data){
-              if(state==1){
-                $('.headimg').attr('src',data.face);
-                //登陆状态，有数据
-                // var uid = data.uid;//用户UID int
-                // var username = data.username;//用户名称 string
-                // var deviceid = data.deviceid;//用户设备唯一ID并MD5加密 string
-                // var phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
-                var face = data.face;//用户头像地址 string
-                //替换用户头像
-                $('.list-headimg1').css('display','none');
-                $('.list-headimg2').css('display','block');
-                $('.headimg2').attr('src',face);
-              }else{
-                //未登录
-                alert(data.error);//data.error string
-              }
-            })
+        $.get('/api/config/index',function(data) {
+            is_user = data.data.is_user;      
+            is_jy = data.data.is_jy;
+            if (GetQueryString('area') != null) {
+                o.area = GetQueryString('area');
+                $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
+                setArea($('#areaul li[data-id="'+o.area+'"]')[0]); 
+                
+            } else {    
+                $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
+                setArea($('#areaul li')[0]); 
+            } 
+            if(is_user==1) {
+                QFH5.getUserInfo(function(state,data){
+                  if(state==1){
+                    $('.headimg').attr('src',data.face);
+                    //登陆状态，有数据
+                    // var uid = data.uid;//用户UID int
+                    // var username = data.username;//用户名称 string
+                    // var deviceid = data.deviceid;//用户设备唯一ID并MD5加密 string
+                    // var phone = data.phone;//用户绑定的手机号，没有绑定手机号给空字符串
+                    var face = data.face;//用户头像地址 string
+                    //替换用户头像
+                    $('.list-headimg1').css('display','none');
+                    $('.list-headimg2').css('display','block');
+                    $('.headimg2').attr('src',face);
+                  }else{
+                    //未登录
+                    alert(data.error);//data.error string
+                  }
+                })
+            }
+        });    
+        if (GetQueryString('kw') != null) {
+            o.kw = GetQueryString('kw');
+            // thisurl = 'list.html?kw='+GetQueryString('kw');
+            // history.pushState({url:'list'},'',thisurl);
+            showkw();
+        }else if (GetQueryString('zd_company') != null) {
+            o.company = GetQueryString('zd_company');
+            html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
+            $('#companytag').html(html);
+            $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销'); 
+            // thisurl = 'list.html?zd_company='+GetQueryString('zd_company');
+            // history.pushState({url:'list'},'',thisurl);
         }
-    });    
-    if (GetQueryString('kw') != null) {
-        o.kw = GetQueryString('kw');
-        // thisurl = 'list.html?kw='+GetQueryString('kw');
-        // history.pushState({url:'list'},'',thisurl);
-        showkw();
-    }else if (GetQueryString('zd_company') != null) {
-        o.company = GetQueryString('zd_company');
-        html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
-        $('#companytag').html(html);
-        $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销'); 
-        // thisurl = 'list.html?zd_company='+GetQueryString('zd_company');
-        // history.pushState({url:'list'},'',thisurl);
-    }
-    var winHeight = ($(window).height() - 93) / 18.75;
-    $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-    history.replaceState({url:'list'},'',thisurl);
+        var winHeight = ($(window).height() - 93) / 18.75;
+        $('.filter-filter-bg').css({ "height": winHeight + "rem" });
+        history.replaceState({url:'list'},'',thisurl);
+    });
+        
 });
 
 function GetQueryString(name) {
