@@ -157,7 +157,6 @@ function turnDetail(obj){
     // location.href="detail.html?id="+obj;
 }
 $(document).ready(function() {
-    alert(2);
     init();
     thisurl = '';
     var toptag = '';
@@ -167,6 +166,7 @@ $(document).ready(function() {
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
     if(getCookie('house_lat')==undefined) {
+        alert(1);
         QFH5.getLocation(function(state,data){
           if(state==1){
             //获取成功
