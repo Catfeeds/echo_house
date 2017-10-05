@@ -178,11 +178,11 @@ $(document).ready(function() {
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
 
-    $.get('/api/plot/getHasCoo', function(data) {
-        if(data.status == 'error') {
-            getLocation();
-        }
-    });
+    // $.get('/api/plot/getHasCoo', function(data) {
+    //     if(data.status == 'error') {
+    //         getLocation();
+    //     }
+    // });
     $.get('/api/config/index',function(data) {
         is_user = data.data.is_user;      
         is_jy = data.data.is_jy;
