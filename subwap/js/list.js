@@ -156,6 +156,21 @@ function setCookie(c_name,value,expiredays)
     document.cookie=c_name+ "=" +escape(value)+
     ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
 }
+function getCookie(c_name)
+{
+    if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+    return "";
+}
 
 $(document).ready(function() {
     init();
@@ -166,6 +181,7 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
+    if()
     $.get('/api/index/getQfUid', function(data) {
         QFH5.getLocation(function(state,data){
           if(state==1){
@@ -174,6 +190,7 @@ $(document).ready(function() {
             var longitude = data.longitude;
             setCookie('house_lat',latitude);
             setCookie('house_lng',longitude);
+            alert(getCookie('house_lat'));
             // var address = data.address;
           }else{
             //获取失败
