@@ -165,23 +165,7 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
-    if(getCookie('house_lat')==undefined) {
-        QFH5.getLocation(function(state,data){
-          if(state==1){
-            //获取成功
-            var latitude = data.latitude;
-            var longitude = data.longitude;
-            setCookie('house_lat',latitude);
-            setCookie('house_lng',longitude);
-            location.reload();
-            // alert(latitude);
-            // var address = data.address;
-          }else{
-            //获取失败
-            alert(data.error);//data.error: string
-          }
-        });
-    }
+
     $.get('/api/index/getQfUid', function(data) {
         
         if(data.status == 'success') {
@@ -190,6 +174,23 @@ $(document).ready(function() {
                     getLocation();
                 }
             });
+            if(getCookie('house_lat')==undefined) {
+                QFH5.getLocation(function(state,data){
+                  if(state==1){
+                    //获取成功
+                    var latitude = data.latitude;
+                    var longitude = data.longitude;
+                    setCookie('house_lat',latitude);
+                    setCookie('house_lng',longitude);
+                    location.reload();
+                    // alert(latitude);
+                    // var address = data.address;
+                  }else{
+                    //获取失败
+                    alert(data.error);//data.error: string
+                  }
+                });
+            }
             
         }
         $.get('/api/config/index',function(data) {
