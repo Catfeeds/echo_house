@@ -14,7 +14,7 @@ class PlotController extends VipController{
 
 	public function filters()
 	{
-		return ['staff+newsList,imageList,priceList'];
+		// return ['staff+newsList,imageList,priceList'];
 	}
 
 	public function filterStaff($chain)
