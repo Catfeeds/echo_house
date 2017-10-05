@@ -101,18 +101,6 @@ $(window).on("popstate",function(e){
         setTimeout(function() {
             window.scrollTo(0,listheight);
         },0);
-    } else {
-
-        if(history.state.url=='list1') {
-            $('.detailshow').addClass('hide');
-            $('.listshow').removeClass('hide');
-            // history.pushState({url:'list'},'',thisurl);
-            setTimeout(function() {
-                window.scrollTo(0,listheight);
-            },0);
-            // init();
-            // ajaxGetList(o);
-        }
     }
         
 });
@@ -463,7 +451,7 @@ function changeState() {
 //公司列表
 function setCompany(obj) {
     var turl = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();
-    history.replaceState({url:'list1'},'',turl);
+    history.replaceState({url:'list'},'',turl);
     o.company = GetQueryString('zd_company');
     html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
     $('#companytag').html(html);
