@@ -35,7 +35,12 @@ var detail=new Object();
 
 var topimglist = new Array;
 var hximglist = new Array;
-
+Array.prototype.contains = function ( needle ) {
+  for (i in this) {
+    if (this[i] == needle) return true;
+  }
+  return false;
+}
 var scrollHandler = function() {
     // if($('.detailshow').is('hide')) {
         var pageH = $('.listshow').height();
@@ -86,23 +91,29 @@ function getLocation() {
     },{enableHighAccuracy: true});
 }
 $(window).on("popstate",function(e){
-    // console.log(e.url);
+    console.log(history.state);
     // alert(history.state.url);
-    if(history.state.url=='list') {
+    if(history.state!=null&&history.state.url=='list') {
+
         $('.detailshow').addClass('hide');
         $('.listshow').removeClass('hide');
         // history.pushState({url:'list'},'',thisurl);
         setTimeout(function() {
             window.scrollTo(0,listheight);
         },0);
-        
-    } 
-    // else if(history.state.url=='detail') {
-    //     $('.listshow').addClass('hide');
-    //     $('.detailshow').removeClass('hide');
-    //     // history.pushState({url:'list'},'',thisurl);
-    //     showdetail(history.state.id);
-    // }
+    } else {
+
+        if(history.state.url=='list1') {
+            $('.detailshow').addClass('hide');
+            $('.listshow').removeClass('hide');
+            // history.pushState({url:'list'},'',thisurl);
+            setTimeout(function() {
+                window.scrollTo(0,listheight);
+            },0);
+            // init();
+            // ajaxGetList(o);
+        }
+    }
         
 });
 function checkId(obj) {
@@ -160,6 +171,7 @@ function checkId(obj) {
             
     }
 }
+
 //同区域跳转 
 function turnDetail(obj){
     // history.pushState({url:'detail','id':hid},'','detail.html?id='+hid);
@@ -170,7 +182,7 @@ function turnDetail(obj){
 
 $(document).ready(function() {
     init();
-    thisurl = 'list.html';
+    // thisurl = 'list.html';
     var toptag = '';
     ajaxGetTop();
     ajaxGetFilter(); 
@@ -238,7 +250,7 @@ $(document).ready(function() {
     }
     var winHeight = ($(window).height() - 93) / 18.75;
     $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-    history.pushState({url:'list'},'',thisurl);
+    history.replaceState({url:'list'},'',thisurl);
     // $.get('/api/tag/list?cate=plotFilter', function(data) {
     //     filter = data.data;
     // });
@@ -444,9 +456,22 @@ function ajaxAddList(obj) {
     });
 }
 
+function changeState() {
+    // body...
+}
+
 //公司列表
 function setCompany(obj) {
-    location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();
+    var turl = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();
+    history.replaceState({url:'list1'},'',turl);
+    o.company = GetQueryString('zd_company');
+    html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
+    $('#companytag').html(html);
+    $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销'); 
+
+    ajaxGetList(o);
+    // changeState();
+    // location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();
 }
 //头部文字
 function getTopId(obj) {
@@ -774,7 +799,7 @@ function cleardetail() {
     $('.detail-daikanrules-message').empty();
     $('#mainstyle ul').empty();
     $('.swiper-wrapper').empty();
-    $('.telephone-consult ul').empty();
+    $('.telephone-consult li').not('#showadd').remove();
     $('#samearea ul').empty();
 }
 
@@ -808,144 +833,157 @@ function showdetail(id) {
     // }
     //获取数据
     $.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
-        detail = data.data;
-        areaid = detail.areaid;
-        streetid = detail.streetid;
-        sameArea();
-        $('title').html(detail.title);
-        $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
-            $('.wxscript').append(data);
-        });
-        $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
-        $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
-        area=detail.area;
-        title=detail.title;
-        $('.detail-head-price').append(detail.price,detail.unit);
-        // 顶部价格下面的标签
-        if (detail.tags.length<1) {
-            $('.head-price-tags').css('display','none');
-        }
-        for (var i = 0; i < detail.tags.length; i++) {
-            if (i%3==1) {
-                // $('#showadd').css('display','none');
-                $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
-            }else if(i%3==2){
-                // $('#showadd').css('display','none');
-                $('.head-price-tags ul').append('<li class="color2">'+detail.tags[i]+'</li>'); 
+            detail = data.data;
+            areaid = detail.areaid;
+            streetid = detail.streetid;
+            sameArea();
+            $('title').html(detail.title);
+             //底部按钮变化
+            if (detail.is_contact_only==1) {
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom1').css('display','block');
+            }
+            else if (detail.is_contact_only==2 || is_user==false){
+                $('.detail-buttom0').css('display','none');
+                $('.detail-buttom2').css('display','block');
+            }
+            $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
+                $('body').append(data);
+            });
+            $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
+            $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
+            area=detail.area;
+            title=detail.title;
+            $('.detail-head-price').append(detail.price,detail.unit);
+            // 顶部价格下面的标签
+            if (detail.tags.length<1) {
+                $('.head-price-tags').css('display','none');
+            }
+            for (var i = 0; i < detail.tags.length; i++) {
+                if (i%3==1) {
+                    // $('#showadd').css('display','none');
+                    $('.head-price-tags ul').append('<li class="color1">'+detail.tags[i]+'</li>'); 
+                }else if(i%3==2){
+                    // $('#showadd').css('display','none');
+                    $('.head-price-tags ul').append('<li class="color2">'+detail.tags[i]+'</li>'); 
+                }else{
+                    $('.head-price-tags ul').append('<li class="color3">'+detail.tags[i]+'</li>');  
+                }
+            }
+            $('#maptext').append(detail.address);
+            $('#zdtext').append(detail.zd_company.name);
+            $('#zd').attr('data-id',detail.zd_company.id);
+            $('#zd').attr('data-name',detail.zd_company.name);
+            $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
+            if (detail.news!=''&&detail.news!=undefined) {
+                $('.detail-laststate-message').append(detail.news);
             }else{
-                $('.head-price-tags ul').append('<li class="color3">'+detail.tags[i]+'</li>');  
+                $('.detail-laststate-message').append('暂无');
+                $('#laststate-img').css('display','none');
             }
-        }
-        $('#maptext').append(detail.address);
-        $('#zdtext').append(detail.zd_company.name);
-        $('#zd').attr('data-id',detail.zd_company.id);
-        $('#zd').attr('data-name',detail.zd_company.name);
-        $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
-        if (detail.news!=''&&detail.news!=undefined) {
-            $('.detail-laststate-message').append(detail.news);
-        }else{
-            $('.detail-laststate-message').append('暂无');
-            $('#laststate-img').css('display','none');
-        }
-        if(detail.is_login == '1') {
-            if(detail.pay.length<=1) {
-                $('#fangannum').css('display','none');
-            }
-            if(detail.pay.length>0){
-                pay = detail.pay[0];
-                content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
-                $('.detail-pricerules-message').append(content);
+            if(detail.is_login == '1') {
                 if(detail.pay.length<=1) {
                     $('#fangannum').css('display','none');
-                } else {
-                    
-                    $('#paynum').html(pay['num']);
+                }
+                if(detail.pay.length>0){
+                    pay = detail.pay[0];
+                    content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
+                    $('.detail-pricerules-message').append(content);
+                    if(detail.pay.length<=1) {
+                        $('#fangannum').css('display','none');
+                    } else {
+                        
+                        $('#paynum').html(pay['num']);
+                    }
+                }else{
+                    $('.detail-pricerules-message').append('暂无');
+                    $('#paynum').html('0');
+                }
+            } else {
+                $('.detail-pricerules').css('display','none');
+            }
+                
+            //楼盘卖点
+            if (detail.sell_point!=''&&detail.sell_point!=undefined) {
+                $('.detail-sailpoint-message').append(detail.sell_point);
+            } else {
+                $('.detail-sailpoint').css('display','none');
+            }
+            //插入主力户型
+            if(detail.hx!=''&&detail.hx!=undefined){    
+                for (var i = 0; i < detail.hx.length; i++) {
+                    hximglist.push(detail.hx[i].image);
+                }
+            }
+            if(detail.hx!=''&&detail.hx!=undefined){
+                $('.detail-mainstyle').css('display','block');
+                for(var i=0;i<detail.hx.length;i++){
+                    if(detail.hx[i].size==''||detail.hx[i].size==undefined){
+                        detail.hx[i].size="--";
+                    }
+                    if(detail.hx[i].bedroom>0)
+                      $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
+                    else
+                        $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
                 }
             }else{
-                $('.detail-pricerules-message').append('暂无');
-                $('#paynum').html('0');
+                $('.detail-mainstyle').css('display','none');
             }
-        } else {
-            $('.detail-pricerules').css('display','none');
-        }
+            //判断能否编辑
+            if(detail.can_edit==0){
+                $('.detail-laststate-edit').css('display','none');
+            }else{
+                $('.detail-laststate-edit').css('display','block');
+            }
+            $('.mzsm').html(detail.mzsm);
+            //顶部图片  
+            if(detail.images!=''&&detail.images!=undefined){    
+                for (var i = 0; i < detail.images.length; i++) {
+                    topimglist.push(detail.images[i].url);
+                }
+            }
+            if(detail.images!=''&&detail.images!=undefined){    
+                for (var i = 0; i < detail.images.length; i++) {
+                    // $('.detail-head-img-examplepic').html(detail.images[i].type);
+                    $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="showQfImgTop('+i+')"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
+                }
+            }
             
-        //楼盘卖点
-        if (detail.sell_point!=''&&detail.sell_point!=undefined) {
-            $('.detail-sailpoint-message').append(detail.sell_point);
-        } else {
-            $('.detail-sailpoint').css('display','none');
-        }
-        //插入主力户型
-        if(detail.hx!=''&&detail.hx!=undefined){    
-            for (var i = 0; i < detail.hx.length; i++) {
-                hximglist.push(detail.hx[i].image);
-            }
-        }   
-        if(detail.hx!=''&&detail.hx!=undefined){
-            $('.detail-mainstyle').css('display','block');
-            for(var i=0;i<detail.hx.length;i++){
-                if(detail.hx[i].size==''||detail.hx[i].size==undefined){
-                    detail.hx[i].size="--";
+            var swiper = new Swiper('.detail-head-img-container',{
+                loop: true,
+                onSlideChangeEnd:function() {
+                    $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
                 }
-                if(detail.hx[i].bedroom>0)
-                  $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room">'+detail.hx[i].bedroom+'房'+detail.hx[i].livingroom+'厅'+detail.hx[i].bathroom+'卫</div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
-                else
-                    $('#mainstyle ul').append('<li><a onclick="showQfImgHx('+i+')"><div class="detail-mainstyle-img"><img style="width: 7.307rem;height: 5.547rem;" src="'+detail.hx[i].image+'"></div></a><div class="detail-mainstyle-style">'+detail.hx[i].title+'</div><div class="detail-mainstyle-area">'+detail.hx[i].size+'㎡</div><div class="detail-mainstyle-room"></div><div class="detail-mainstyle-status">'+detail.hx[i].sale_status+'</div></li>');
-            }
-        }else{
-            $('.detail-mainstyle').css('display','none');
-        }
-        //判断能否编辑
-        if(detail.can_edit==0){
-            $('.detail-laststate-edit').css('display','none');
-        }else{
-            $('.detail-laststate-edit').css('display','block');
-        }
-        $('.mzsm').html(detail.mzsm);
-        //顶部图片  
-        if(detail.images!=''&&detail.images!=undefined){    
-            for (var i = 0; i < detail.images.length; i++) {
-                topimglist.push(detail.images[i].url);
-            }
-        }
-        if(detail.images!=''&&detail.images!=undefined){    
-            for (var i = 0; i < detail.images.length; i++) {
-                // $('.detail-head-img-examplepic').html(detail.images[i].type);
-                $('.swiper-wrapper').append('<div class="swiper-slide"><a onclick="showQfImgTop('+i+')"><img data-type="'+detail.images[i].type+'" class="detail-head-img" src="'+detail.images[i].url+'"></a></div>');
-            }
-        }
-        var swiper = new Swiper('.detail-head-img-container',{
-            loop: true,
-            onSlideChangeEnd:function() {
-                $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
-            }
-          });
-       
-        // 插入查询电话
-        if(detail.phones.length > 0) {
-            for (var i = 0; i < detail.phones.length; i++) {
-                var word = '';
-                // console.log(detail.phones[i].indexOf(detail.phone));
-                if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
-                    tmp  = detail.phones[i];
-                    phone=detail.phone;
-                    icon = "fuzeuser.png";
-                    // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
-                } else {
-                    if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
-                        icon = "fuzeuser.png";
-                        word = '<div class="fbuser">发布人</div>'
+              });
+           
+            // 插入查询电话
+            if(detail.phones.length > 0) {
+                for (var i = 0; i < detail.phones.length; i++) {
+                    var word = '';
+                    // console.log(detail.phones[i].indexOf(detail.phone));
+                    if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
+                        tmp  = detail.phones[i];
+                        phone=detail.phone;
+                        icon = "fbusernew.png";
+                        // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                     } else {
-                        icon = "user.png";
+                        console.log(detail.ff_phones.contains(detail.phonesnum[i]));
+                        if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
+                            icon = "fbusernew.png";
+                            word = '<div class="fbuser">发布人</div>'
+                        } else if(detail.ff_phones.length>0 && detail.ff_phones.contains(detail.phonesnum[i])) {
+                            icon = "ffusernew.png";
+                        } else {
+                            icon = "usernew.png";
+                        }
+                        // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                     }
-                    // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
+                    // debugger;
+                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
-                // debugger;
-                $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
             }
-        }
-        
-    });
+            
+        });
     // setInterval("console.log($('.detail-sailpoint-message').height())",5);
     // if ($('.detail-sailpoint-message').height()<3rem) {
     //     $('.maidian-on-off').css('display','none');
@@ -1301,4 +1339,12 @@ $('.tip-off-tijiao').click(function(){
         }
     });
     $('.tip-off').css('display','none');
+});
+//点击出现付费规则
+$('.fufei-detail').click(function() {
+    $('.rules-bg').css('display','block');
+});
+//点击付费说明消失
+$('.shutoff-img').click(function() {
+    $('.rules-bg').css('display','none');
 });

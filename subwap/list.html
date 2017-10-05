@@ -317,16 +317,50 @@
 	<!-- 电话页 -->
 	<div class="telephone-consult hide">
 	    <ul>
-	        <li onclick="becomeDuijieren()" id="showadd">
-	            <div class="telephone-place">
+	        <li id="showadd">
+	            <div class="telephone-place" onclick="becomeDuijieren()">
 	                <img class="consult-user-img" src="./img/add.png">
 	                <div class="consult-text">付费成为对接人</div>
+	            </div>
+	            <div class="fufei-detail">
+	            	<img class="fufei-detail-img" src="./img/bulb.png">
+	            	<div class="fufei-detail-text">规则说明</div>
 	            </div>
 	            <div class="line"></div>
 	        </li> 
 	    </ul>
 	</div>
 	<div class="tel-bg hide"></div>
+<!-- 规则说明 -->
+	<div class="rules-bg">
+		<div class="rules">
+			<div class="rules-top">
+				<div class="rules-top-head">经纪圈新房通</div>
+				<div class="rules-top-text">支持市场部人员自行付费加入对接人联系列表</div>
+				<div class="rules-top-head">具体规则如下</div>
+				<div class="rules-top-text">1.确保账户归属为该项目代理公司名下</div>
+				<div class="rules-top-text">2.每个项目最多5个付费对接人</div>
+				<div class="rules-top-text">3.付费后可自动替换掉免费对接人联系方式</div>
+				<div class="rules-top-head">收费标准</div>
+				<div class="rules-top-text">99元/月 268元/季度</div>
+			</div>
+			<div class="rules-bottom">
+				<div class="rules-bottom-icons clearfloat">
+					<img class="rules-bottom-icons-icon" src="./img/freeduijieren.png">
+					<div class="rules-bottom-icons-name">免费对接人</div>
+					<img class="rules-bottom-icons-icon" src="./img/payduijieren.png">
+					<div class="rules-bottom-icons-name">
+						付费对接人
+					</div>
+					<img class="rules-bottom-icons-icon" src="./img/projector.png">
+					<div class="rules-bottom-icons-name">项目发布人</div>
+				</div>
+				<div class="icon-tips">各用户角色图示</div>
+				<div class="paynow" onclick="becomeDuijieren()">立即付费</div>
+			</div>
+		</div>
+		<img class="shutoff-img" src="./img/shutoff.png">
+	</div>
 
 
 <!--底部按钮 -->
