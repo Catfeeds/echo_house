@@ -740,7 +740,7 @@ $('#ensure').click(function() {
 });
 
 function delCom() {
-    location.href = '/';
+    location.href = '/subwap/list.html';
 }
 
 function showkw() {
