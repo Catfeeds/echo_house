@@ -157,6 +157,7 @@ function turnDetail(obj){
     // location.href="detail.html?id="+obj;
 }
 $(document).ready(function() {
+    alert(2);
     init();
     thisurl = '';
     var toptag = '';
