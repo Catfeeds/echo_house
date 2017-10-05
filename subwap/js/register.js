@@ -181,7 +181,7 @@ function regisInfo() {
                         // $.get('/api/index/sendNotice?words='+'有独立经纪人注册，请登录后台审核');
                     }
                     
-                    location.href = 'http://'+window.location.host;
+                    location.href = 'http://'+window.location.host+'/subwap/list.html';
                 } else {
                     alert(data.msg);
                 }

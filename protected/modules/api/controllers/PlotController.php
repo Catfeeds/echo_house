@@ -218,7 +218,7 @@ class PlotController extends ApiController{
 						'unit'=>PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
-						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
 						'wylx'=>$wyw,
 						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
@@ -974,7 +974,7 @@ class PlotController extends ApiController{
     			$obj->sale_uid = $acxs;
     		}
     		if(!$obj)
-    			$this->returnError('报备信息错误或已添加');
+    			$this->returnError('客户码错误或已添加');
     		else {
     			$obj->is_check = 1;
     			$obj->status = 1;
