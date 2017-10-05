@@ -159,7 +159,7 @@ $(document).ready(function() {
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
-    $.get('/api/plot/getQfUid', function(data) {
+    $.get('/api/index/getQfUid', function(data) {
         if(data.status == 'success') {
                 $.get('/api/plot/getHasCoo', function(data) {
                 if(data.status == 'error') {
