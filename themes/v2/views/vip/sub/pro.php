@@ -20,7 +20,7 @@ $statusArr = SubExt::$status;
     <tbody>
     <?php foreach($infos as $k=>$v): ?>
         <tr>
-            <td class="text-center"><?=$v->user->name.$v->user->phone?></td> 
+            <td class="text-center"><?=($v->user)?($v->user->name.$v->user->phone):''?></td> 
             <td class="text-center"><?=$v->note?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=SubProExt::$status[$v->status]?></td>
