@@ -134,6 +134,27 @@ class PlotController extends VipController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
+	public function actionMarketlist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/vip');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotMarketUserExt::model()->undeleted()->getList($criteria,20);
+		// var_dump($houses->data);exit;
+		$this->render('marketlist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 户型列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
 	public function actionSalelist($hid='')
 	{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
@@ -473,6 +494,27 @@ class PlotController extends VipController{
 			}
 		} 
 		$this->render('placeedit',['article'=>$info,'hid'=>$hid]);
+	}
+	public function actionEditMarket()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotMarketUserExt';
+		$this->controllerName = '市场对接人';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->hid = $hid;
+			$info->expire = time()+86400*365;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['marketlist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('marketedit',['article'=>$info,'hid'=>$hid]);
 	}
 
 	public function actionEditSale()

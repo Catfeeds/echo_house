@@ -98,6 +98,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $thism.'/'.$allm; ?></td>
             <td  class="text-center"><?php echo date('Y-m-d H:i:s',$v->created) ?></td>
             <td  class="text-center">
+                <a href="<?=$this->createUrl('marketlist',['hid'=>$v->id])?>" class="btn btn-xs green">市场对接人</a>
                 <a href="<?=$this->createUrl('salelist',['hid'=>$v->id])?>" class="btn btn-xs blue">案场销售</a>
                 <a href="<?=$this->createUrl('placelist',['hid'=>$v->id])?>" class="btn btn-xs default">案场助理</a>
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>
