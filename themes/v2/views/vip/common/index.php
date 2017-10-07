@@ -114,7 +114,131 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
         </div>
     </div>
 </div>
-<div class="alert alert-info alert-dismissable">
-            <strong>后台须知: </strong><br>
-            <?=SiteExt::getAttr('qjpz','vipNotice')?>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-bar-chart-o"></i>分组数据
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs">
+                        <?php if($js = $this->company->getScjl(0)):?>
+                            <?php foreach ($js as $key => $value) {?>
+                                <li class="<?=$key==0?'active':''?>">
+                                    <a href="#overview_<?=$key+1?>" data-toggle="tab">
+                                    <?=$value['name'].'组'?></a>
+                                </li>
+                            <?php } ?>
+                        <?php endif;?>
+                    </ul>
+                    <div class="tab-content">
+                    <?php if($js) {
+                        foreach ($js as $key => $value) {?>
+                            <div class="tab-pane <?=$key==0?'active':''?>" id="overview_<?=$key+1?>">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>
+                                         姓名
+                                    </th>
+                                    <th>
+                                         今日新增报备数量/总数
+                                    </th>
+                                    <th>
+                                         今日新增来访数/总数
+                                    </th>
+                                    <th>
+                                         今天成交数量/总数
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if($us = Yii::app()->db->createCommand("select id,name,phone from user where cid=".$this->company->id." and parent=".$value['id'])->queryAll()) { foreach ($us as  $u) {?>
+                                    <?php 
+                                    $criteria = new CDbCriteria;
+                                    $criteria->addCondition("notice=:no");
+                                    $criteria->params[':no'] = $u['phone'];
+                                    $allsubs = SubExt::model()->undeleted()->count($criteria);
+                                    $criteria->addCondition('created>=:begin and created<=:end');
+                                    $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+                                    $criteria->params[':end'] = TimeTools::getDayEndTime();
+                                    $thissubs = SubExt::model()->undeleted()->count($criteria);
+
+                                    $criteria = new CDbCriteria;
+                                    $criteria->addCondition("notice=:no");
+                                    $criteria->params[':no'] = $u['phone'];
+                                    $criteria->addCondition('status>=3 and status<6');
+                                    $allm = SubExt::model()->undeleted()->count($criteria);
+                                    $criteria->addCondition('updated>=:begin and updated<=:end');
+                                    $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+                                    $criteria->params[':end'] = TimeTools::getDayEndTime();
+                                    $thism = SubExt::model()->undeleted()->count($criteria);
+
+                                    $criteria = new CDbCriteria;
+                                    $criteria->addCondition("notice=:no");
+                                    $criteria->params[':no'] = $u['phone'];
+                                    $criteria->addCondition('status>=1');
+                                    $allcomes = SubExt::model()->undeleted()->count($criteria);
+                                    $criteria->addCondition('updated>=:begin and updated<=:end');
+                                    $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+                                    $criteria->params[':end'] = TimeTools::getDayEndTime();
+                                    $thiscomes = SubExt::model()->undeleted()->count($criteria);
+                                     ?>
+                                    <tr>
+                                    <td>
+                                        <a href="javascript:;">
+                                        <?=$u['name'].$u['phone']?></a>
+                                    </td>
+                                    <td>
+                                         <?=$thissubs.'/'.$allsubs?>
+                                    </td>
+                                    <td>
+                                         <?=$thiscomes.'/'.$allcomes?>
+                                    </td>
+                                    <td>
+                                         <?=$thism.'/'.$allm?>
+                                    </td>
+                                    <td>
+                                        <a href="<?=$this->createUrl('sub/list',['sczy'=>$u['phone']])?>" class="btn default btn-xs green-stripe">
+                                        详情 </a>
+                                    </td>
+                                </tr>
+                                  <?php } } ?>
+                                
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php }
+                        } ?>
+                    
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- End: life time stats -->
+    </div>
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box grey-cascade">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>后台须知
+                </div>
+            </div>
+            <div class="portlet-body">
+            <div class="well">
+                     <?=SiteExt::getAttr('qjpz','vipNotice')?>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>

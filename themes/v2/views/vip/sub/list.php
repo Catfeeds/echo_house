@@ -59,7 +59,7 @@ $statusArr = SubExt::$status;
             <td class="text-center"><?=$v->plot->title?></td>
             <td class="text-center"><?=$v->notice?(UserExt::model()->find("phone='".$v->notice."'")->name.$v->notice):''?></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
-            <td class="text-center"><?=isset($v->user->companyinfo)?($v->user->companyinfo->name):'独立经纪人'?></td>
+            <td class="text-center"><?=$v->company_name?$v->company_name:'独立经纪人'?></td>
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
