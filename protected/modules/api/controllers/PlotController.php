@@ -895,7 +895,6 @@ class PlotController extends ApiController{
     			foreach ($subs->data as $key => $value) {
     				
     				$itsstaff = $value->user;
-    				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
     				$tmp['id'] = $value->id;
     				$tmp['user_name'] = $value->name;
     				$tmp['user_phone'] = $value->phone;
@@ -903,7 +902,7 @@ class PlotController extends ApiController{
     				$tmp['staff_phone'] = $itsstaff->phone;
     				$tmp['time'] = date('m-d H:i',$value->updated);
     				$tmp['status'] = SubExt::$status[$value->status];
-    				$tmp['staff_company'] = $cname?$cname:'独立经纪人';
+    				$tmp['staff_company'] = $value->company_name?$value->company_name:'独立经纪人';
     				$data['list'][] = $tmp;
     			}
     		}
