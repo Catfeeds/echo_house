@@ -38,7 +38,6 @@ class ConfigController extends ApiController{
 	public function actionQr($url='')
 	{
 		if($url) {
-			var_dump($url);exit;
 			$value = $url; //二维码内容 
 
 			$errorCorrectionLevel = 'L';//容错级别 
@@ -53,9 +52,10 @@ class ConfigController extends ApiController{
 
 			$QR = '/img/qrcode.png';//已经生成的原始二维码图 
 
-			// var_dump(Yii::app()->basePath.'/../'.$QR);exit;
+			var_dump(Yii::app()->request->getHostInfo().$QR);exit;
 			// $img = Yii::app()->basePath.'/../'.$QR;
 			$this->frame['data'] = Yii::app()->request->getHostInfo().$QR;
+			
 			// unlink($QR);
 		}
 	}
