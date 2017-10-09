@@ -5,6 +5,7 @@ $(document).ready(function() {
 	var url = GetQueryString('url');
 	//二维码
 	$.get('/api/config/qr?url='+url,function(data) {
+		alert(data.data);
 		$('.qrcode-img').attr('src',data.data);
 	});
 	//顶部图片

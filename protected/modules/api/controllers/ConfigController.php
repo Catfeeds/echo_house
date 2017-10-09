@@ -37,7 +37,6 @@ class ConfigController extends ApiController{
 	}
 	public function actionQr($url='')
 	{
-		var_dump($url);exit;
 		if($url) {
 			$value = $url; //二维码内容 
 
