@@ -76,9 +76,9 @@ $(window).on("popstate",function(e){
     // console.log(history.state);
     // alert(history.state.url);
     if(history.state!=null&&history.state.url=='list') {
-
         $('.detailshow').addClass('hide');
         $('.listshow').removeClass('hide');
+        initlisttitle();
         // history.pushState({url:'list'},'',thisurl);
         setTimeout(function() {
             window.scrollTo(0,listheight);
@@ -86,6 +86,14 @@ $(window).on("popstate",function(e){
     }
         
 });
+function initlisttitle() {
+    if(GetQueryString('zd_company') != null) {
+        $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销');
+    } else {
+        $('title').html('项目列表');
+    }
+     
+}
 function checkId(obj) {
 
     if(is_user == false) {
@@ -228,16 +236,12 @@ $(document).ready(function() {
         });    
         if (GetQueryString('kw') != null) {
             o.kw = GetQueryString('kw');
-            // thisurl = 'list.html?kw='+GetQueryString('kw');
-            // history.pushState({url:'list'},'',thisurl);
             showkw();
         }else if (GetQueryString('zd_company') != null) {
             o.company = GetQueryString('zd_company');
             html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
             $('#companytag').html(html);
-            $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销'); 
-            // thisurl = 'list.html?zd_company='+GetQueryString('zd_company');
-            // history.pushState({url:'list'},'',thisurl);
+            initlisttitle();
         }
         var winHeight = ($(window).height() - 93) / 18.75;
         $('.filter-filter-bg').css({ "height": winHeight + "rem" });
