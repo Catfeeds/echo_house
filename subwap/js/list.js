@@ -88,59 +88,46 @@ $(window).on("popstate",function(e){
 });
 function checkId(obj) {
 
-    // if(is_user == false) {
+    if(is_user == false) {
 
-    //     // $(obj).attr('href','#');
-    //     $.get('/api/index/getQfUid',function(data) {
-    //             if(data.status=='error') {
-    //                 if(data.msg=='请绑定经纪圈手机号') {
-    //                      QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
-    //                       if(state==1){
-    //                           //绑定成功
-    //                           location.href = 'list.html';
-    //                       }
-    //                   });
-    //                 } else {
-    //                     if(isWeiXin()) {
-    //                         alert('请下载经纪圈APP查看项目详情');
-    //                         location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.zj58.forum';
-    //                     }else
-    //                         alert('登录成功后请关闭本页面重新进入');
-    //                     QFH5.jumpLogin(function(state,data){
-    //                       //未登陆状态跳登陆会刷新页面，无回调
-    //                       //已登陆状态跳登陆会回调通知已登录
-    //                       //用户取消登陆无回调
-    //                       if(state==2){
-    //                           alert("您已登陆");
-    //                       }
-    //                   })
-    //                 }
+        // $(obj).attr('href','#');
+        $.get('/api/index/getQfUid',function(data) {
+                if(data.status=='error') {
+                    if(data.msg=='请绑定经纪圈手机号') {
+                         QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
+                          if(state==1){
+                              //绑定成功
+                              location.href = 'list.html';
+                          }
+                      });
+                    } else {
+                        if(isWeiXin()) {
+                            alert('请下载经纪圈APP查看项目详情');
+                            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.zj58.forum';
+                        }else
+                            alert('登录成功后请关闭本页面重新进入');
+                        QFH5.jumpLogin(function(state,data){
+                          //未登陆状态跳登陆会刷新页面，无回调
+                          //已登陆状态跳登陆会回调通知已登录
+                          //用户取消登陆无回调
+                          if(state==2){
+                              alert("您已登陆");
+                          }
+                      })
+                    }
                         
-    //             } else {
-    //                 if(is_jy==1) {
-    //                     alert('您的账户未通过审核或已禁用，请联系客服');
-    //                 }else
-    //                     location.href = 'register.html?phone='+data.data.phone;
-    //             }
-    //         });
+                } else {
+                    if(is_jy==1) {
+                        alert('您的账户未通过审核或已禁用，请联系客服');
+                    }else
+                        location.href = 'register.html?phone='+data.data.phone;
+                }
+            });
             
-    //     // $(obj).attr('href','login.html')
-    //     // location.href = '';
-    // } else {
-    //     listheight=$(window).scrollTop();
-    //     $('.listshow').addClass('hide');
-    //     $('.detailshow').removeClass('hide');
-    //     history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
-    //     if($(obj).data('id')!=hid) {
-            
-    //         showdetail($(obj).data('id'));
-    //     } else {
-    //         window.scrollTo(0,0);
-    //     }
-    //     // $(obj).attr('href','#');
-            
-    // }
-    listheight=$(window).scrollTop();
+        // $(obj).attr('href','login.html')
+        // location.href = '';
+    } else {
+        listheight=$(window).scrollTop();
         $('.listshow').addClass('hide');
         $('.detailshow').removeClass('hide');
         history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
@@ -150,6 +137,9 @@ function checkId(obj) {
         } else {
             window.scrollTo(0,0);
         }
+        // $(obj).attr('href','#');
+            
+    }
 }
 
 function setCookie(name,value) {
