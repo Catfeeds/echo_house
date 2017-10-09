@@ -52,7 +52,7 @@ class ConfigController extends ApiController{
 
 			$QR = '/img/qrcode.png';//已经生成的原始二维码图 
 
-			var_dump(Yii::app()->request->getHostInfo().$QR);exit;
+			// var_dump(Yii::app()->basePath.'/../'.$QR);exit;
 			// $img = Yii::app()->basePath.'/../'.$QR;
 			$this->frame['data'] = Yii::app()->request->getHostInfo().$QR;
 			
