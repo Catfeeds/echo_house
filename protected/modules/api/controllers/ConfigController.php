@@ -38,6 +38,7 @@ class ConfigController extends ApiController{
 	public function actionQr($url='')
 	{
 		if($url) {
+			var_dump($url);exit;
 			$value = $url; //二维码内容 
 
 			$errorCorrectionLevel = 'L';//容错级别 
