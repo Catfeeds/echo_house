@@ -3,6 +3,7 @@ var url='';
 var detail='';
 $(document).ready(function() {
 	var url = GetQueryString('url');
+	alert(url);
 	//二维码
 	$.get('/api/config/qr?url='+url,function(data) {
 		$('.qrcode-img').attr('src',data.data);
