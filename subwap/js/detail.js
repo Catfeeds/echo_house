@@ -262,7 +262,7 @@ $('.maidian-on-off').click(function(){
     } else {
         $('.maidian-on-off').removeClass('on');
         $('.maidian-on-off').addClass('off');
-        $('.detail-sailpoint-message').css('max-height','3rem');
+        $('.detail-sailpoint-message').css('max-height','3.1rem');
         $('.maidian-on-off').empty();
         $('.maidian-on-off').append('展开更多');
     }

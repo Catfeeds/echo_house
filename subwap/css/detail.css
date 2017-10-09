@@ -179,6 +179,7 @@ body{
 	font-size: 0.8rem;
 	top: 0rem;
 	left: 0.747rem;
+	font-weight: bold;
 }
 
 .detail-tip-off-small-tag{
@@ -364,18 +365,16 @@ body{
 	height: auto;
 	width: 18.5rem;
 	padding: 0.747rem 0.747rem 2rem 0.747rem;
-	overflow: hidden;
 	color: #868686;
 	overflow: hidden;
 }
 
 .detail-sailpoint-message{
-	font-size: 0.747rem;
+	font-size: 0.8rem;
 	position: relative;
 	height: auto;
-	max-height: 3rem;
+	max-height: 3.1rem;
 	width: 18.72rem;
-	overflow: hidden;
 	color: #868686;
 	overflow: hidden;
 }
@@ -548,17 +547,17 @@ body{
 
 .detail-button-phone-img{
 	position: absolute;
-	top: 0.4rem;
-	left: 0.853rem;
-	width: 0.96rem;
-	height: 0.96rem;
+	top: 0.3rem;
+	left: 0.8rem;
+	width: 1.067rem;
+	height: 1.067rem;
 }
 
 .detail-button-phone-text{
 	width: 2.667rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.533rem;
+	font-size: 0.747rem;
 	color: #666666;
 	text-align: center;
 }
@@ -574,17 +573,17 @@ body{
 
 .detail-button-distribution-img{
 	position: absolute;
-	top: 0.4rem;
-	left: 0.853rem;
-	width: 0.96rem;
-	height: 0.96rem;
+	top: 0.3rem;
+	left: 0.8rem;
+	width: 1.067rem;
+	height: 1.067rem;
 }
 
 .detail-button-distribution-text{
 	width: 2.667rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.533rem;
+	font-size: 0.747rem;
 	color: #666666;
 	text-align: center;
 }
@@ -600,23 +599,23 @@ body{
 
 .detail-button-share-img{
 	position: absolute;
-	top: 0.4rem;
-	left: 0.853rem;
-	width: 0.96rem;
-	height: 0.96rem;
+	top: 0.3rem;
+	left: 0.8rem;
+	width: 1.067rem;
+	height: 1.067rem;
 }
 
 .detail-button-share-text{
 	width: 2.667rem;
 	position: absolute;
 	top: 1.44rem;
-	font-size: 0.533rem;
+	font-size: 0.747rem;
 	color: #666666;
 	text-align: center;
 }
 
 .detail-button-baobei{
-	font-size: 0.853rem;
+	font-size: 0.9rem;
 	position: relative;
 	width: 11.999rem;
 	background-color: #00b7ee;
@@ -630,6 +629,7 @@ body{
 	line-height: 2.613rem;
 	text-align: center;
 	color: #fff;
+	font-weight: bold;
 }
 
 .telephone-consult{
