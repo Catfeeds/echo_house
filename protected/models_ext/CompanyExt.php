@@ -116,12 +116,15 @@ class CompanyExt extends Company{
         }
     }
 
-    public function getScjl()
+    public function getScjl($arr=1)
     {
         $data = [];
         if($users = $this->users) {
             foreach ($users as $key => $value) {
-                $value->is_jl==1&&$data[$value->id] = $value->name;
+                if($arr==1)
+                    $value->is_jl==1&&$data[$value->id] = $value->name;
+                else
+                    $value->is_jl==1&&$data[] = ['id'=>$value->id,'name'=>$value->name];
             }
         }
         return $data;

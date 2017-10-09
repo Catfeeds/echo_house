@@ -657,6 +657,10 @@ class PlotController extends ApiController{
 				$obj = new SubExt;
 				$obj->attributes = $tmp;
 				$obj->status = 0;
+				if($tmp['uid']) {
+					$companyname = Yii::app()->db->createCommand("select c.name from company c left join user u on u.cid=c.id where u.id=".$tmp['uid'])->queryScalar();
+					$obj->company_name = $companyname;
+				}
 				// 新增6位客户码 不重复
 				$code = 700000+rand(0,99999);
 				// var_dump($code);exit;
@@ -738,7 +742,10 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	
+    	foreach (SubExt::model()->findAll() as $key => $value) {
+    		$value->company_name = isset($value->user->companyinfo->name)?$value->user->companyinfo->name:'';
+    		$value->save();
+    	}
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;

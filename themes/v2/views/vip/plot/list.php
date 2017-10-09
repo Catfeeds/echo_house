@@ -36,12 +36,43 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">楼盘管理员</th>
             <!-- <th class="text-center">案场助理</th> -->
             <th class="text-center">今日点击量/总点击量</th>
+            <th class="text-center">今日报备量/总报备量</th>
+            <th class="text-center">今日到访量/总到访量</th>
+            <th class="text-center">今日成交量/总成交量</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">操作</th>
         </tr>
     </thead>
     <tbody>
     <?php foreach($infos as $v): ?>
+        <?php 
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('hid='.$v->id);
+        $allsubs = SubExt::model()->undeleted()->count($criteria);
+        $criteria->addCondition('created>=:begin and created<=:end');
+        $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+        $criteria->params[':end'] = TimeTools::getDayEndTime();
+        $thissubs = SubExt::model()->undeleted()->count($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('hid='.$v->id);
+        $criteria->addCondition('status>=3 and status<6');
+        $allm = SubExt::model()->undeleted()->count($criteria);
+        $criteria->addCondition('updated>=:begin and updated<=:end');
+        $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+        $criteria->params[':end'] = TimeTools::getDayEndTime();
+        $thism = SubExt::model()->undeleted()->count($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('hid='.$v->id);
+        $criteria->addCondition('status>=1');
+        $allcomes = SubExt::model()->undeleted()->count($criteria);
+        $criteria->addCondition('updated>=:begin and updated<=:end');
+        $criteria->params[':begin'] = TimeTools::getDayBeginTime();
+        $criteria->params[':end'] = TimeTools::getDayEndTime();
+        $thiscomes = SubExt::model()->undeleted()->count($criteria);
+
+         ?>
         <tr>
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><?php echo $v->title ?></td>
@@ -62,8 +93,12 @@ $this->breadcrumbs = array($this->pageTitle);
             </td>
             
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
-            <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
+            <td  class="text-center"><?php echo $thissubs.'/'.$allsubs; ?></td>
+            <td  class="text-center"><?php echo $thiscomes.'/'.$allcomes; ?></td>
+            <td  class="text-center"><?php echo $thism.'/'.$allm; ?></td>
+            <td  class="text-center"><?php echo date('Y-m-d H:i:s',$v->created) ?></td>
             <td  class="text-center">
+                <a href="<?=$this->createUrl('marketlist',['hid'=>$v->id])?>" class="btn btn-xs green">市场对接人</a>
                 <a href="<?=$this->createUrl('salelist',['hid'=>$v->id])?>" class="btn btn-xs blue">案场销售</a>
                 <a href="<?=$this->createUrl('placelist',['hid'=>$v->id])?>" class="btn btn-xs default">案场助理</a>
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>
