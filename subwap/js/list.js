@@ -799,15 +799,6 @@ function showdetail(id) {
             our_uids = data.data.our_uids;
             thisphone = data.data.user.phone;
         }
-         //底部按钮变化
-        if (detail.is_contact_only==1) {
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom1').css('display','block');
-        }
-        else if (detail.is_contact_only==2 || is_user==false){
-            $('.detail-buttom0').css('display','none');
-            $('.detail-buttom2').css('display','block');
-        }
         
     });
     //获取ID
@@ -829,7 +820,7 @@ function showdetail(id) {
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom1').css('display','block');
             }
-            else if (detail.is_contact_only==2 || is_user==false){
+            else if (detail.is_contact_only==2){
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom2').css('display','block');
             }

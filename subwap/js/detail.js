@@ -58,10 +58,6 @@ function checkUser() {
             });
 }
 $(document).ready(function(){
-    console.log($('.report-smalltag-title'));
-    console.log($('.report-smalltag-title').html());
-    console.log($('.report-smalltag-title').text());
-    console.log($('.report-smalltag-title').val());
     var clipboard = new Clipboard('.copy-weixin');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
