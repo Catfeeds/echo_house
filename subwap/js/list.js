@@ -827,7 +827,12 @@ function showdetail(id) {
             $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
                 $('body').append(data);
             });
-            $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
+            if(is_user==true)
+                $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
+            else {
+                $('#subit').removeAttr('href');
+                $('#subit').attr('onclick','checkUser()');
+            }
             $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
             area=detail.area;
             title=detail.title;
@@ -1189,20 +1194,31 @@ function sameArea(){
 
 //申请成为对接人
 function becomeDuijieren(){
-    $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
-        if(data.status=='success') {
-            location.href="duijieren.html?hid="+hid+'&title='+title;
-        } else {
-            alert(data.msg);
-        }
-    })
+    if(is_user==true) {
+        $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
+            if(data.status=='success') {
+                location.href="duijieren.html?hid="+hid+'&title='+title;
+            } else {
+                alert(data.msg);
+            }
+        })
+    } else {
+        checkUser();
+        
     // location.href="duijieren.html?hid="+hid;
+    }
 }
 
 //分享页面
 function share(){
-    url=window.location.href+'_'+thisphone+'&id='+hid;
-    location.href='qrcode.html?url='+url;
+    if(is_user==true)
+    { 
+        url=window.location.href+'_'+thisphone+'&id='+hid;
+        location.href='qrcode.html?url='+url;
+    }
+    else {
+        checkUser();
+    }
 }
 
 
@@ -1242,7 +1258,10 @@ $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
 });
 $('.detail-button-distribution').click(function(){
-    location.href='distribution.html?hid='+hid+'&title='+title;
+    if(is_user==true)
+        location.href='distribution.html?hid='+hid+'&title='+title;
+    else
+        checkUser();
 });
 $('.detail-laststate-edit').click(function(){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
@@ -1303,18 +1322,23 @@ $('.tip-off-select-window li').click(function(){
 });
 
 $('.tip-off-tijiao').click(function(){
-    reason=reason==''?$('.tip-off-detail').val():reason;
-    $.post('/api/plot/addReport',{
-        'hid':hid,
-        'reason':reason
-    },function(data){
-        if (data.status=='success') {
-            alert("举报成功");
-        } else {
-            alert(data.msg);
-        }
-    });
-    $('.tip-off').css('display','none');
+    if(is_user==true) {
+        reason=reason==''?$('.tip-off-detail').val():reason;
+        $.post('/api/plot/addReport',{
+            'hid':hid,
+            'reason':reason
+        },function(data){
+            if (data.status=='success') {
+                alert("举报成功");
+            } else {
+                alert(data.msg);
+            }
+        });
+        $('.tip-off').css('display','none');
+    } else {
+        checkUser();
+    }
+        
 });
 //点击出现付费规则
 $('.fufei-detail').click(function() {
