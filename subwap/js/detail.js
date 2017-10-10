@@ -34,13 +34,11 @@ function checkUser() {
                           }
                       });
                     } else {
-                        alert(1);
                         if(isWeiXin()) {
                             alert('请下载经纪圈APP查看项目详情');
                             location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.zj58.forum';
                         }else
                             alert('登录成功后请关闭本页面重新进入');
-                        alert(2);
                         QFH5.jumpLogin(function(state,data){
                           //未登陆状态跳登陆会刷新页面，无回调
                           //已登陆状态跳登陆会回调通知已登录
@@ -52,11 +50,12 @@ function checkUser() {
                     }
                         
                 } else {
-                    alert(3);
                     if(is_jy==1) {
                         alert('您的账户未通过审核或已禁用，请联系客服');
-                    }else
+                    }else {
+                        alert(1);
                         location.href = 'register.html?phone='+data.data.phone;
+                    }
                 }
             });
 }
