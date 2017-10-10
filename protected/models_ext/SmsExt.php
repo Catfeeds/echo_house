@@ -142,8 +142,8 @@ class SmsExt extends Sms{
                     if($com->msg_num>=$pa->msg_num) {
                         return false;
                     } else {
-                        $pa->msg_num += 1;
-                        $pa->save();
+                        $com->msg_num += 1;
+                        $com->save();
                     }
                 }
             }
