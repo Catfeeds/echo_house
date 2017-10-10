@@ -68,7 +68,10 @@ class AdminController extends Controller
                 ['label' => '项目列表', 'url' => ['/admin/plot/list']],
                 ['label' => '新建项目', 'url' => ['/admin/plot/edit'],'active'=>$this->route=='admin/plot/edit'],
             ]],
-            ['label'=>'公司管理','icon'=>'icon-speedometer','url'=>['/admin/company/list'],'active'=>$this->route=='admin/company/edit'],
+            ['label' => '公司管理', 'icon' => 'icon-speedometer', 'items' => [
+                ['label' => '公司列表', 'url' => ['/admin/company/list'],'active'=>$this->route=='admin/company/edit'],
+                ['label' => '合作公司', 'url' => ['/admin/companyPackage/list'],'active'=>$this->route=='admin/companyPackage/edit'],
+            ]],
             ['label'=>'报备管理','icon'=>'icon-speedometer','url'=>['/admin/sub/list'],'active'=>$this->route=='admin/sub/edit'],
             ['label'=>'对接人申请管理','icon'=>'icon-speedometer','url'=>['/admin/plotMarketUser/list'],'active'=>$this->route=='admin/plotMarketUser/edit'],
             ['label'=>'分销签约管理','icon'=>'icon-speedometer','url'=>['/admin/cooperate/list'],'active'=>$this->route=='admin/cooperate/edit'],

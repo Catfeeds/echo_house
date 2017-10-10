@@ -1,35 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "company".
+ * This is the model class for table "company_package".
  *
- * The followings are the available columns in table 'company':
+ * The followings are the available columns in table 'company_package':
  * @property integer $id
- * @property string $name
- * @property string $address
- * @property string $manager
- * @property integer $street
- * @property integer $area
- * @property string $phone
- * @property string $code
+ * @property integer $cid
+ * @property string $cname
+ * @property integer $expire
+ * @property integer $plot_num
  * @property integer $msg_num
- * @property string $image
- * @property integer $adduid
- * @property integer $type
- * @property integer $status
  * @property integer $sort
+ * @property integer $status
  * @property integer $deleted
  * @property integer $created
  * @property integer $updated
  */
-class Company extends CActiveRecord
+class CompanyPackage extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'company';
+		return 'company_package';
 	}
 
 	/**
@@ -41,14 +35,11 @@ class Company extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('street, area, msg_num, adduid, type, status, sort, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('name, address, image', 'length', 'max'=>255),
-			array('manager', 'length', 'max'=>100),
-			array('phone', 'length', 'max'=>30),
-			array('code', 'length', 'max'=>10),
+			array('cid, expire, plot_num, msg_num, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
+			array('cname', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, address, manager, street, area, phone, code, msg_num, image, adduid, type, status, sort, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, cid, cname, expire, plot_num, msg_num, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,19 +61,13 @@ class Company extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'address' => 'Address',
-			'manager' => 'Manager',
-			'street' => 'Street',
-			'area' => 'Area',
-			'phone' => 'Phone',
-			'code' => 'Code',
+			'cid' => 'Cid',
+			'cname' => 'Cname',
+			'expire' => 'Expire',
+			'plot_num' => 'Plot Num',
 			'msg_num' => 'Msg Num',
-			'image' => 'Image',
-			'adduid' => 'Adduid',
-			'type' => 'Type',
-			'status' => 'Status',
 			'sort' => 'Sort',
+			'status' => 'Status',
 			'deleted' => 'Deleted',
 			'created' => 'Created',
 			'updated' => 'Updated',
@@ -108,19 +93,13 @@ class Company extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('manager',$this->manager,true);
-		$criteria->compare('street',$this->street);
-		$criteria->compare('area',$this->area);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('code',$this->code,true);
+		$criteria->compare('cid',$this->cid);
+		$criteria->compare('cname',$this->cname,true);
+		$criteria->compare('expire',$this->expire);
+		$criteria->compare('plot_num',$this->plot_num);
 		$criteria->compare('msg_num',$this->msg_num);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('adduid',$this->adduid);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('status',$this->status);
 		$criteria->compare('sort',$this->sort);
+		$criteria->compare('status',$this->status);
 		$criteria->compare('deleted',$this->deleted);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
@@ -134,7 +113,7 @@ class Company extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Company the static model class
+	 * @return CompanyPackage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

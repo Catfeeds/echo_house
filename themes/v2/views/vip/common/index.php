@@ -40,6 +40,10 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
     $thiscomes = SubExt::model()->undeleted()->count($criteria);
 
 ?>
+<div class="alert alert-info">
+    <?php $pa = $this->company->package;?>
+    <?=$this->company->name?>欢迎您，贵公司后台到期时间：<?=date('Y-m-d',$pa->expire)?>，剩余房源发布量 <?=$pa->plot_num-$this->company->plotnum?> ，剩余短信量 <?=$pa->msg_num-$this->company->msg_num?> 。
+</div>
 <div class="row">
     <div class="col-lg-3 col-md-3">
         <div class="dashboard-stat blue-madison">

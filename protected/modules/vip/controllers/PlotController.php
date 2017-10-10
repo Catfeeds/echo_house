@@ -328,30 +328,37 @@ class PlotController extends VipController{
 					$tagArray = array_merge($tagArray,$tmp);
 				}
 			}
-			// var_dump($tagArray);exit;
-			if($house->save()) {
-				// if($zd_company) {
-				// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
-				// 	foreach ($zd_company as $cid) {
-				// 		$obj = new PlotCompanyExt;
-				// 		$obj->hid = $house->id;
-				// 		$obj->cid = $cid;
-				// 		$obj->save();
-				// 	}
-				// }
-				PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
-				if($tagArray)
-					foreach ($tagArray as $tid) {
-						$obj = new PlotTagExt;
-						$obj->hid = $house->id;
-						$obj->tid = $tid;
-						$obj->save();
-					}
-				$this->setMessage('保存成功','success');
-				$this->redirect('/vip/plot/list');
-			} else {
-				$this->setMessage(current(current($house->getErrors())),'error');
+			if($house->getIsNewRecord() && $pname = Yii::app()->db->createCommand("select plot_num from company_package where cid=".$house->company_id)->queryScalar()) {
+				$zdc = PlotExt::model()->undeleted()->count('company_id='.$house->company_id);
+				if($zdc>=$pname) {
+					$this->setMessage('房源数已达上限，请联系客服','error');
+				} else {
+					if($house->save()) {
+					// if($zd_company) {
+					// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+					// 	foreach ($zd_company as $cid) {
+					// 		$obj = new PlotCompanyExt;
+					// 		$obj->hid = $house->id;
+					// 		$obj->cid = $cid;
+					// 		$obj->save();
+					// 	}
+					// }
+					PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+					if($tagArray)
+						foreach ($tagArray as $tid) {
+							$obj = new PlotTagExt;
+							$obj->hid = $house->id;
+							$obj->tid = $tid;
+							$obj->save();
+						}
+					$this->setMessage('保存成功','success');
+					$this->redirect('/vip/plot/list');
+				} else {
+					$this->setMessage(current(current($house->getErrors())),'error');
+				}
+				}
 			}
+				
 		}
 		$this->render('edit',['plot'=>$house]);
 	}
