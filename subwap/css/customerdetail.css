@@ -205,14 +205,26 @@ body{
 .state li{
 	position: relative;
 	width: 20rem;
-	height: 2rem;
+	min-height: 2rem;
+	height: auto;
 }
-.state-text{
-	position: absolute;
+.state-text-off{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
-	left: 0.8rem;
+	margin-left: 0.8rem;
+	height: 1.88rem;
+	width: 11rem;
+	overflow: hidden;
+}
+.state-text-on{
+	color: #868686;
+	font-size: 0.747rem;
+	line-height: 1.88rem;
+	margin-left: 0.8rem;
+	margin-bottom: 1.88rem;
+	height: auto;
+	width: 18.4rem;
 }
 .state-status{
 	position: absolute;
@@ -220,6 +232,7 @@ body{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
+	bottom: 0rem;
 }
 .state-time{
 	position: absolute;
@@ -227,6 +240,7 @@ body{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
+	bottom: 0rem;
 }
 .remark{
 	position: relative;

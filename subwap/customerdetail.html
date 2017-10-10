@@ -67,7 +67,7 @@
 	<div class="state">
 		<ul>
 			<li ng-repeat="note in notelist">
-				<div class="state-text" ng-cloak>{{note.note}}</div>
+				<div class="state-text-off" onclick="spread(this)" ng-cloak>{{note.note}}</div>
 				<div class="state-status" ng-cloak>{{note.status}}</div>
 				<div class="state-time" ng-cloak>{{note.time}}</div>
 				<div class="line"></div>

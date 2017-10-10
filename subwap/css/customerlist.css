@@ -80,11 +80,12 @@ body{
 	bottom: 0rem;
 }
 .addimg{
-	position: absolute;
-	height: 1.5rem;
-	width: 1.5rem;
-	left: 9.25rem;
-	top: 0.58rem;
+	position: relative;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	line-height: 2.667rem;
 }
 
 .list-search-frame{

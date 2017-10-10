@@ -133,3 +133,12 @@ function setSale() {
 		}
 	});
 }
+function spread(obj) {
+	if ($(obj).hasClass('state-text-off')) {
+		$(obj).removeClass('state-text-off');
+		$(obj).addClass('state-text-on');
+	} else {
+		$(obj).removeClass('state-text-on');
+		$(obj).addClass('state-text-off');
+	}
+}
