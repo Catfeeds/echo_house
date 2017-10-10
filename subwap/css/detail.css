@@ -547,10 +547,10 @@ body{
 
 .detail-button-phone-img{
 	position: absolute;
-	top: 0.3rem;
+	top: 0.4rem;
 	left: 0.8rem;
-	width: 1.067rem;
-	height: 1.067rem;
+	width: 1.12rem;
+	height: 1.12rem;
 }
 
 .detail-button-phone-text{
@@ -573,10 +573,10 @@ body{
 
 .detail-button-distribution-img{
 	position: absolute;
-	top: 0.3rem;
-	left: 0.8rem;
-	width: 1.067rem;
-	height: 1.067rem;
+	top: 0.4rem;
+	left: 0.9rem;
+	width: 1.12rem;
+	height: 1.12rem;
 }
 
 .detail-button-distribution-text{
@@ -599,10 +599,10 @@ body{
 
 .detail-button-share-img{
 	position: absolute;
-	top: 0.3rem;
+	top: 0.4rem;
 	left: 0.8rem;
-	width: 1.067rem;
-	height: 1.067rem;
+	width: 1.12rem;
+	height: 1.12rem;
 }
 
 .detail-button-share-text{

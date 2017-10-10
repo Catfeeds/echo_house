@@ -24,7 +24,7 @@ body{
 	position: absolute;
 	line-height: 2.027rem;
 	color: #333333;
-	font-size: 0.747rem;
+	font-size: 0.8rem;
 	top: 0rem;
 	left: 0.64rem;
 }
@@ -33,7 +33,7 @@ body{
 	right: 1rem;
 	line-height: 2.027rem;
 	width: 10rem;
-	font-size: 0.693rem;
+	font-size: 0.8rem;
 	color: #868686;
 	text-align: right;
 }
@@ -42,8 +42,8 @@ body{
 	top: 0.25rem;
 	right: 1rem;
 	height: 1.5rem;
-	width: 8rem;
-	font-size: 0.693rem;
+	width: 8.5rem;
+	font-size: 0.8rem;
 	color: #868686;
 	text-align: right;
 	border:solid 0.027rem #c3c3c3;
@@ -66,9 +66,10 @@ body{
 	border-radius: 0.267rem;
 	text-align: center;
 	color: #fff;
-	font-size: 0.747rem;
+	font-size: 0.9rem;
 	line-height: 2.347rem;
 	border:none;
+	font-weight: bold;
 }
 
 .register-attention{
@@ -92,6 +93,6 @@ body{
 	position: absolute;
 	top: 0.533rem;
 	left: 1.707rem;
-	/*width: 10rem;*/
-	font-size: 0.64rem;
+	width: 18rem;
+	font-size: 0.7rem;
 }
