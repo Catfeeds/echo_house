@@ -27,11 +27,19 @@
 		<div class="zjphone" ng-cloak>手机号：{{cusmessage.zj_phone}}</div>
 		<div class="note" ng-cloak>公司名：{{cusmessage.company}}</div>
 	</div>
+	<div class="line"></div>
+	<div class="report-small-tag acxs">
+		<div class="report-smalltag-title" style="font-size: 0.9rem">案场销售</div>
+		<select class="report-contacter" onchange="setSale()">
+		</select>
+	</div>
+
 	<div class="blank"></div>
 	<div class="company clearfloat">
 		<img class="companyimg" src="./img/companyimg.png">
 		<div class="company-name" ng-cloak>{{cusmessage.plot_name}}</div>
 		<div class="del">失效</div>
+		<div id="genjin" class="genjin" onclick="genjin()">跟进</div>
 		<div id="tuidi" class="tuiding" onclick="tuiding()">退定</div>
 	</div>
 	<div class="line"></div>
@@ -59,7 +67,7 @@
 	<div class="state">
 		<ul>
 			<li ng-repeat="note in notelist">
-				<div class="state-text" ng-cloak>{{note.note}}</div>
+				<div class="state-text-off" onclick="spread(this)" ng-cloak>{{note.note}}</div>
 				<div class="state-status" ng-cloak>{{note.status}}</div>
 				<div class="state-time" ng-cloak>{{note.time}}</div>
 				<div class="line"></div>
