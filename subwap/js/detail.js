@@ -3,6 +3,7 @@ var hid = '';
 var title='';
 var phone='';
 var areaid='';
+var streetid='';
 var url='';
 var our_uids = '';
 var thisphone = '';
@@ -44,11 +45,9 @@ $(document).ready(function(){
 	$.get('/api/plot/info?id='+hid+'&phone='+phone, function(data) {
         detail = data.data;
         areaid = detail.areaid;
+        streetid = detail.streetid;
         sameArea();
         $('title').html(detail.title);
-        if(detail.is_show_add==0||detail.is_show_add=='0') {
-            $('#showadd').remove();
-        }
         $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
             $('body').append(data);
         });
@@ -155,14 +154,14 @@ $(document).ready(function(){
     	    	if (detail.phone && detail.phones[i].indexOf(detail.phone)>-1) {
                     tmp  = detail.phones[i];
                     phone=detail.phone;
-                    icon = "fuzeuser.png";
+                    icon = "ffusernew.png";
                     // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 } else {
                     if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
-                        icon = "fuzeuser.png";
+                        icon = "fbusernew.png";
                         word = '<div class="fbuser">发布人</div>'
                     } else {
-                        icon = "user.png";
+                        icon = "usernew.png";
                     }
                     // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
@@ -179,9 +178,10 @@ $(document).ready(function(){
 });
 function sameArea(){
     //同区域楼盘
-    $.get('/api/plot/list?area='+areaid+'&limit=6',function(data) {
+    $.get('/api/plot/list?street='+streetid+'&limit=6',function(data) {
         samearea=data.data.list;
-        if(samearea.length>0){
+        // console.log(samearea);
+        if(samearea.length>1){
         $('.detail-samearea').css('display','block');
         for(var i=0;i<samearea.length;i++){
             if(samearea[i].size==''||samearea[i].size==undefined){
@@ -205,18 +205,14 @@ function turnDetail(obj){
 }
 //申请成为对接人
 function becomeDuijieren(){
-    location.href="duijieren.html?hid="+hid;
-	// $.post("/api/plot/addMakert", {
- //            'hid': hid
- //        },
- //        function(data, status) {
- //            if (data.status == "success") {
- //                alert("申请成功！");
- //            } else {
- //                alert(data.msg);
- //            }
- //        }
- //    );
+    $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
+        if(data.status=='success') {
+            location.href="duijieren.html?hid="+hid+'&title='+title;
+        } else {
+            alert(data.msg);
+        }
+    })
+    // location.href="duijieren.html?hid="+hid;
 }
 
 //分享页面

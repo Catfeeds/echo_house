@@ -79,4 +79,21 @@ class ReportController extends AdminController{
 		}
 		$this->setMessage('操作成功','success');	
 	}
+
+	public function actionRecall($msg='',$id='')
+    {
+        if($id) {
+            $info = ReportExt::model()->findByPk($id);
+            if($msg && $info && $user = $info->user) {
+                $user->qf_uid && Yii::app()->controller->sendNotice($msg,$user->qf_uid);
+                $info->status = 1;
+                $info->save();
+                $this->setMessage('操作成功');
+            } else {
+                $this->setMessage('操作失败');
+            }
+            $this->redirect('list');
+            
+        }
+    }
 }

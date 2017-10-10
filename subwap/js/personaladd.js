@@ -45,10 +45,7 @@ function submitBtn()
     $( '#form' ).validate({
       submitHandler:function() {
           
-        if($('#img-url').val()=='') {
-          alert('请上传封面图');
-          return false;
-        }
+        
         var wylx = new Array;
         var zxzt = new Array;
         var imgs = new Array;
@@ -62,6 +59,10 @@ function submitBtn()
          //由于复选框一般选中的是多个,所以可以循环输出 
           // alert($(this).val()); 
         });
+        if(imgs.length<1) {
+          alert('请上传封面图');
+          return false;
+        }
         $(".zxzt[type='checkbox']:checkbox:checked").each(function(){
           zxzt.push($(this).val());
          //由于复选框一般选中的是多个,所以可以循环输出 
@@ -90,8 +91,8 @@ function submitBtn()
             'zxzt':zxzt,
           },function(data){
             if(data.status=='success'){
-              alert(data.msg);
-              location.href = 'personallist.html';
+              alert('您好，您的房源信息已提交，请前往成为对接人。');
+              location.href = 'duijieren.html?hid='+data.data;
             } else {
               alert(data.msg);
             }
@@ -112,8 +113,7 @@ function checkName(obj) {
       $.get('/api/plot/checkName?name='+name,function(data){
         if(data.status=='error') {
           alert(data.msg);
-          $(obj).val('');
-          $(obj).focus();
+          location.href = 'detail.html?id='+data.data;
         }
       });
   } 

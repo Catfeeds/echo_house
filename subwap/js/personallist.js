@@ -17,6 +17,7 @@ myapp.controller('perlistCtrl',function($scope,$http) {
 
     });
     $scope.search=function() {
+        $('.count').find('b').html('0'); 
         kw=$('.list-search-frame-text').val();
         status=$('.statusselect').val();
         $http({

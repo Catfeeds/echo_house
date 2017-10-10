@@ -37,11 +37,14 @@ class UserController extends ApiController{
 	{
 		if(Yii::app()->request->getIsPostRequest()) {
 			$obj = Yii::app()->request->getPost('UserExt',[]);
+			if(!$obj['phone']) {
+				return $this->returnError('请绑定手机号再进行提交');
+			}
 			if($obj) {
 				$user = new UserExt;
 				$company = '';
 				if(Yii::app()->db->createCommand("select id from user where phone='".$obj['phone']."'")->queryScalar()) {
-					$this->returnError('您已提交申请，请勿重复提交');
+					return $this->returnError('您已提交申请，请勿重复提交');
 				}
 				if($obj['type']<3) {
 					$code = $obj['companycode'];
@@ -71,7 +74,7 @@ class UserController extends ApiController{
 				!$user->pwd && $user->pwd = 'jjqxftv587';
 				$user->pwd = md5($user->pwd);
 				if(!$user->save()) {
-					$this->returnError(current(current($user->getErrors())));
+					return $this->returnError(current(current($user->getErrors())));
 				} else {
 					if($company) {
 						$managers = $company->managers;
