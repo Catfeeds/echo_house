@@ -4,6 +4,7 @@ var title='';
 var phone='';
 var areaid='';
 var streetid='';
+var is_jy = 0;
 var url='';
 var our_uids = '';
 var thisphone = '';
@@ -53,7 +54,6 @@ function checkUser() {
                     if(is_jy==1) {
                         alert('您的账户未通过审核或已禁用，请联系客服');
                     }else {
-                        alert(1);
                         location.href = 'register.html?phone='+data.data.phone;
                     }
                 }
@@ -62,6 +62,7 @@ function checkUser() {
 $(document).ready(function(){
     var clipboard = new Clipboard('.copy-weixin');  
     $.get('/api/config/index',function(data) {
+        is_jy = data.data.is_jy;
         if(data.data.is_user == true) {
             is_user = true;
             our_uids = data.data.our_uids;
