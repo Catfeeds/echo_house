@@ -97,7 +97,7 @@ class UserController extends VipController{
     }
     public function actionSetGroup($id='',$parent='')
     {
-        if($id&&$parent) {
+        if($id&&is_numeric($parent)) {
             $info = UserExt::model()->findByPk($id);
             $info->parent = $parent;
             $info->save();
@@ -106,7 +106,7 @@ class UserController extends VipController{
     }
     public function actionSetType($id='',$type='')
     {
-        if($id&&$type) {
+        if($id&&is_numeric($type)) {
             $info = UserExt::model()->findByPk($id);
             $info->is_jl = $type;
             $info->save();

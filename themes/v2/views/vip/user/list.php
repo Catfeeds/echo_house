@@ -1,6 +1,8 @@
 <?php
 $this->pageTitle = $this->controllerName.'列表';
 $this->breadcrumbs = array($this->pageTitle);
+$scjls[0] = '暂无';
+sort($scjls);
 ?>
 <div class="table-toolbar">
     <div class="btn-group pull-left">

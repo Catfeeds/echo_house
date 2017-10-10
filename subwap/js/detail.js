@@ -23,6 +23,40 @@ function GetQueryString(name) {
     if (r != null) return unescape(decodeURI(r[2]));
     return null;
 }
+function checkUser() {
+    $.get('/api/index/getQfUid',function(data) {
+                if(data.status=='error') {
+                    if(data.msg=='请绑定经纪圈手机号') {
+                         QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
+                          if(state==1){
+                              //绑定成功
+                              location.href = 'list.html';
+                          }
+                      });
+                    } else {
+                        if(isWeiXin()) {
+                            alert('请下载经纪圈APP查看项目详情');
+                            location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.zj58.forum';
+                        }else
+                            alert('登录成功后请关闭本页面重新进入');
+                        QFH5.jumpLogin(function(state,data){
+                          //未登陆状态跳登陆会刷新页面，无回调
+                          //已登陆状态跳登陆会回调通知已登录
+                          //用户取消登陆无回调
+                          if(state==2){
+                              alert("您已登陆");
+                          }
+                      })
+                    }
+                        
+                } else {
+                    if(is_jy==1) {
+                        alert('您的账户未通过审核或已禁用，请联系客服');
+                    }else
+                        location.href = 'register.html?phone='+data.data.phone;
+                }
+            });
+}
 $(document).ready(function(){
     console.log($('.report-smalltag-title'));
     console.log($('.report-smalltag-title').html());
@@ -45,14 +79,19 @@ $(document).ready(function(){
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom1').css('display','block');
             }
-            else if (detail.is_contact_only==2 || is_user==false){
+            else if (detail.is_contact_only==2){
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom2').css('display','block');
             }
             $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
                 $('body').append(data);
             });
-            $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
+            if(is_user==true)
+                $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
+            else {
+                $('#subit').removeAttr('href');
+                $('#subit').attr('onclick','checkUser()');
+            }
             $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
             area=detail.area;
             title=detail.title;
@@ -238,20 +277,31 @@ function turnDetail(obj){
 }
 //申请成为对接人
 function becomeDuijieren(){
-    $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
-        if(data.status=='success') {
-            location.href="duijieren.html?hid="+hid+'&title='+title;
-        } else {
-            alert(data.msg);
-        }
-    })
+    if(is_user==true) {
+        $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
+            if(data.status=='success') {
+                location.href="duijieren.html?hid="+hid+'&title='+title;
+            } else {
+                alert(data.msg);
+            }
+        })
+    } else {
+        checkUser();
+        
     // location.href="duijieren.html?hid="+hid;
+    }
 }
 
 //分享页面
 function share(){
-    url=window.location.href+'_'+thisphone+'&id='+hid;
-    location.href='qrcode.html?url='+url;
+    if(is_user==true)
+    { 
+        url=window.location.href+'_'+thisphone+'&id='+hid;
+        location.href='qrcode.html?url='+url;
+    }
+    else {
+        checkUser();
+    }
 }
 
 
@@ -291,7 +341,10 @@ $('#comment').click(function(){
     location.href='/wap/plot/comment?hid='+hid;
 });
 $('.detail-button-distribution').click(function(){
-    location.href='distribution.html?hid='+hid+'&title='+title;
+    if(is_user==true)
+        location.href='distribution.html?hid='+hid+'&title='+title;
+    else
+        checkUser();
 });
 $('.detail-laststate-edit').click(function(){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
@@ -357,18 +410,23 @@ $('.tip-off-select-window li').click(function(){
 });
 
 $('.tip-off-tijiao').click(function(){
-    reason=reason==''?$('.tip-off-detail').val():reason;
-    $.post('/api/plot/addReport',{
-        'hid':hid,
-        'reason':reason
-    },function(data){
-        if (data.status=='success') {
-            alert("举报成功");
-        } else {
-            alert(data.msg);
-        }
-    });
-    $('.tip-off').css('display','none');
+    if(is_user==true) {
+        reason=reason==''?$('.tip-off-detail').val():reason;
+        $.post('/api/plot/addReport',{
+            'hid':hid,
+            'reason':reason
+        },function(data){
+            if (data.status=='success') {
+                alert("举报成功");
+            } else {
+                alert(data.msg);
+            }
+        });
+        $('.tip-off').css('display','none');
+    } else {
+        checkUser();
+    }
+        
 });
 //点击出现付费规则
 $('.fufei-detail').click(function() {

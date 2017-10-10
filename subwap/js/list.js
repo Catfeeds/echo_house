@@ -94,12 +94,8 @@ function initlisttitle() {
     }
      
 }
-function checkId(obj) {
-
-    if(is_user == false) {
-
-        // $(obj).attr('href','#');
-        $.get('/api/index/getQfUid',function(data) {
+function checkUser() {
+    $.get('/api/index/getQfUid',function(data) {
                 if(data.status=='error') {
                     if(data.msg=='请绑定经纪圈手机号') {
                          QFH5.jumpBindMobile(function(state,data){//即使用户已绑定手机也会显示此界面，此时是修改绑定，调用前请先判断是否已绑定
@@ -131,22 +127,17 @@ function checkId(obj) {
                         location.href = 'register.html?phone='+data.data.phone;
                 }
             });
-            
-        // $(obj).attr('href','login.html')
-        // location.href = '';
+}
+function checkId(obj) {
+    listheight=$(window).scrollTop();
+    $('.listshow').addClass('hide');
+    $('.detailshow').removeClass('hide');
+    history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
+    if($(obj).data('id')!=hid) {
+        
+        showdetail($(obj).data('id'));
     } else {
-        listheight=$(window).scrollTop();
-        $('.listshow').addClass('hide');
-        $('.detailshow').removeClass('hide');
-        history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
-        if($(obj).data('id')!=hid) {
-            
-            showdetail($(obj).data('id'));
-        } else {
-            window.scrollTo(0,0);
-        }
-        // $(obj).attr('href','#');
-            
+        window.scrollTo(0,0);
     }
 }
 
@@ -314,35 +305,35 @@ function ajaxGetList(obj) {
                     companyid = item.zd_company.id;
                 }
                 if(item.sort>0){
-                    if (is_user==true) {
+                    // if (is_user==true) {
                         var payword = item.pay==''?'暂无佣金方案':item.pay;
                         if (item.distance != '') {
                             html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
                             html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
                         }
-                    } else {
-                        if (item.distance != '') {
-                            html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
-                        } else {
-                            html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
-                        }
-                    }
+                    // } else {
+                        // if (item.distance != '') {
+                            // html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
+                        // } else {
+                            // html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
+                        // }
+                    // }
                 }else{
-                    if (is_user==true) {
+                    // if (is_user==true) {
                         var payword = item.pay==''?'暂无佣金方案':item.pay;
                         if (item.distance != '') {
                             html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
                             html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
                         }
-                    } else {
-                        if (item.distance != '') {
-                            html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
-                        } else {
-                            html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
-                        }
-                    }
+                    // } else {
+                        // if (item.distance != '') {
+                            // html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><img class="distance-img" src="./img/icon-distance.png"><div class="list-distance">' + item.distance + 'km</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
+                        // } else {
+                            // html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div></a><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">暂无权限查看</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">' + company + '</div></li>';
+                        // }
+                    // }
                 }
                 
 

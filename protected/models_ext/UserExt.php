@@ -27,6 +27,7 @@ class UserExt extends User{
         '3'=>'独立中介',
     ];
     public static $is_jls = [
+        0=>'暂无',
         1=>'市场部经理',
         2=>'案场部经理',
         3=>'市场专员',

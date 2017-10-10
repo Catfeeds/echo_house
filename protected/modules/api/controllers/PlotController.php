@@ -397,7 +397,7 @@ class PlotController extends ApiController{
 			'news_time'=>$news_time,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
-			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
+			'phones'=>$phone?[$phone]:$phones,
 			'phone'=>$phone?$phone:($this->staff?$major_phone:''),
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
