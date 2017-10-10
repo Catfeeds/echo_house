@@ -54,6 +54,7 @@ function checkUser() {
                     if(is_jy==1) {
                         alert('您的账户未通过审核或已禁用，请联系客服');
                     }else {
+                        alert('请前往认证账号');
                         location.href = 'register.html?phone='+data.data.phone;
                     }
                 }
