@@ -52,6 +52,7 @@ function checkUser() {
                     }
                         
                 } else {
+                    alert(3);
                     if(is_jy==1) {
                         alert('您的账户未通过审核或已禁用，请联系客服');
                     }else
