@@ -865,27 +865,44 @@ function showdetail(id) {
                 $('.detail-laststate-message').append('暂无');
                 $('#laststate-img').css('display','none');
             }
-            if(detail.is_login == '1') {
+            if(detail.pay.length<=1) {
+                $('#fangannum').css('display','none');
+            }
+            if(detail.pay.length>0){
+                pay = detail.pay[0];
+                content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
+                $('.detail-pricerules-message').append(content);
                 if(detail.pay.length<=1) {
                     $('#fangannum').css('display','none');
+                } else {
+                    
+                    $('#paynum').html(pay['num']);
                 }
-                if(detail.pay.length>0){
-                    pay = detail.pay[0];
-                    content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
-                    $('.detail-pricerules-message').append(content);
-                    if(detail.pay.length<=1) {
-                        $('#fangannum').css('display','none');
-                    } else {
-                        
-                        $('#paynum').html(pay['num']);
-                    }
-                }else{
-                    $('.detail-pricerules-message').append('暂无');
-                    $('#paynum').html('0');
-                }
-            } else {
-                $('.detail-pricerules').css('display','none');
+            }else{
+                $('.detail-pricerules-message').append('暂无');
+                $('#paynum').html('0');
             }
+            // if(detail.is_login == '1') {
+            //     if(detail.pay.length<=1) {
+            //         $('#fangannum').css('display','none');
+            //     }
+            //     if(detail.pay.length>0){
+            //         pay = detail.pay[0];
+            //         content = pay['title']?(pay['title'] +'<br>'+ pay['content']):pay['content'];
+            //         $('.detail-pricerules-message').append(content);
+            //         if(detail.pay.length<=1) {
+            //             $('#fangannum').css('display','none');
+            //         } else {
+                        
+            //             $('#paynum').html(pay['num']);
+            //         }
+            //     }else{
+            //         $('.detail-pricerules-message').append('暂无');
+            //         $('#paynum').html('0');
+            //     }
+            // } else {
+            //     $('.detail-pricerules').css('display','none');
+            // }
                 
             //楼盘卖点
             if (detail.sell_point!=''&&detail.sell_point!=undefined) {
