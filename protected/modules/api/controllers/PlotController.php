@@ -299,9 +299,7 @@ class PlotController extends ApiController{
 		// } else {
 		// 	$companyArr = [];
 		// }
-		if(Yii::app()->user->getIsGuest()) {
-			$pay = [];
-		} elseif($pays = $info->pays) {
+		if($pays = $info->pays) {
 			$pay[] = ['title'=>$pays[0]['name'],'content'=>$pays[0]['content'],'num'=>count($pays)];
 		} else {
 			$pay = [];
