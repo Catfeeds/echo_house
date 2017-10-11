@@ -4,14 +4,14 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
 <?php 
 	$thishits = $allhits = $thissubs = $allsubs = $thism = $allm = $thiscomes = $allcomes = 0;
 	$hids = [];
-	$hidsa = Yii::app()->db->createCommand("select id from plot where company_id=".Yii::app()->user->cid)->queryAll();
+	$hidsa = Yii::app()->db->createCommand("select id from plot where deleted=0 and company_id=".Yii::app()->user->cid)->queryAll();
 	if($hidsa) {
 		foreach ($hidsa as $key => $value) {
 			$thishits += Yii::app()->redis->getClient()->hGet('plot_views',$value['id']);
 			$hids[] = $value['id'];
 		}
 	}
-	$allhits = Yii::app()->db->createCommand("select sum(views) from plot where company_id=".Yii::app()->user->cid)->queryScalar();
+	$allhits = Yii::app()->db->createCommand("select sum(views) from plot where deleted=0 and company_id=".Yii::app()->user->cid)->queryScalar();
 
 	$criteria = new CDbCriteria;
 	$criteria->addInCondition('hid',$hids);
@@ -168,6 +168,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
                                     <?php 
                                     $criteria = new CDbCriteria;
                                     $criteria->addCondition("notice=:no");
+                                    $criteria->addInCondition('hid',$hids);
                                     $criteria->params[':no'] = $u['phone'];
                                     $allsubs = SubExt::model()->undeleted()->count($criteria);
                                     $criteria->addCondition('created>=:begin and created<=:end');
@@ -177,6 +178,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
 
                                     $criteria = new CDbCriteria;
                                     $criteria->addCondition("notice=:no");
+                                    $criteria->addInCondition('hid',$hids);
                                     $criteria->params[':no'] = $u['phone'];
                                     $criteria->addCondition('status>=3 and status<6');
                                     $allm = SubExt::model()->undeleted()->count($criteria);
@@ -187,6 +189,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
 
                                     $criteria = new CDbCriteria;
                                     $criteria->addCondition("notice=:no");
+                                    $criteria->addInCondition('hid',$hids);
                                     $criteria->params[':no'] = $u['phone'];
                                     $criteria->addCondition('status>=1');
                                     $allcomes = SubExt::model()->undeleted()->count($criteria);
