@@ -1,4 +1,5 @@
 var tags='';
+var delimgindex='';
 $(document).ready(function() {
     $.get('/api/index/getQfUid',function(data) {
       if(data.status=='success') {
@@ -135,5 +136,7 @@ function setStreets(){
 }
 //删除图片
 function deleteimg(obj) {
+  delimgindex=$(obj).attr('class');
+  $('#'+delimgindex).remove();
   $(obj).closest('tr').remove();
 }

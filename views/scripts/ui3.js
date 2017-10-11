@@ -1,5 +1,6 @@
 /*global plupload */
 /*global qiniu */
+var imgindex=0;
 function FileProgress(file, targetID) {
     this.fileProgressID = file.id;
     this.file = file;
@@ -127,7 +128,6 @@ FileProgress.prototype.setChunkProgess = function(chunk_size) {
 
 FileProgress.prototype.setProgress = function(percentage, speed, chunk_size) {
     this.fileProgressWrapper.attr('class', "progressContainer green");
-
     var file = this.file;
     var uploaded = file.loaded;
 
@@ -232,7 +232,7 @@ FileProgress.prototype.setComplete = function(up, info) {
 
     var Wrapper = $('<div class="Wrapper"/>');
     var imgWrapper = $('<div class="imgWrapper col-md-3"/>');
-    var deleteimg = $('<img style="position: absolute;height: 30px;width: 30px;right: -55px;top: 0px;" onclick="deleteimg(this)" src="./img/deleteimg.png"/>');
+    var deleteimg = $('<img class="imgindex'+imgindex+'" style="position: absolute;height: 30px;width: 30px;right: -55px;top: 0px;" onclick="deleteimg(this)" src="./img/deleteimg.png"/>');
     var linkWrapper = $('<a class="linkWrapper" target="_blank"/>');
     var showImg = $('<img src="images/loading.gif"/>');
 
