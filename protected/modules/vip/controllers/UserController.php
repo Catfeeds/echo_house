@@ -52,12 +52,14 @@ class UserController extends VipController{
         if($infos->data) {
             foreach ($infos->data as $d) {
                 if($d->is_jl==1) {
-                    $scjls[$d->id] = $d->name;
+                    $scjls[] = ['name'=>$d->name,'id'=>$d->id];
                 }elseif($d->is_jl==2) {
-                    $acjls[$d->id] = $d->name;
+                    $acjls[] = ['name'=>$d->name,'id'=>$d->id];
                 }
             }
         }
+        array_unshift($scjls, ['id'=>'0','name'=>'暂无']);
+        array_unshift($acjls, ['id'=>'0','name'=>'暂无']);
         $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'scjls'=>$scjls,'acjls'=>$acjls]);
     }
 

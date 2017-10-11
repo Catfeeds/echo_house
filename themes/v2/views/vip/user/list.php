@@ -1,8 +1,6 @@
 <?php
 $this->pageTitle = $this->controllerName.'列表';
 $this->breadcrumbs = array($this->pageTitle);
-$scjls[0] = '暂无';
-sort($scjls);
 ?>
 <div class="table-toolbar">
     <div class="btn-group pull-left">
@@ -72,12 +70,17 @@ sort($scjls);
                     ?>
                     <div class="btn-group">
                     <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                    <?=isset($scjls[$v->parent])?($scjls[$v->parent].'组'):'请选择组别'?> <i class="fa fa-angle-down"></i>
+                    <?php $tmp = ''; foreach ($scjls as $l) {
+                        if($l['id']==$v->parent) {
+                            $tmp = $l['name']."组";
+
+                        }
+                    } if(!$tmp) $tmp = '请选择组别'; echo $tmp; ?> <i class="fa fa-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                     <?php foreach($scjls as $m=> $v1){?>
                         <li>
-                            <?=CHtml::ajaxLink($v1,$this->createUrl('setGroup',['parent'=>$m,'id'=>$v->id]),['success'=>'function(){location.reload();}'])?>
+                            <?=CHtml::ajaxLink($v1['name'],$this->createUrl('setGroup',['parent'=>$v1['id'],'id'=>$v->id]),['success'=>'function(){location.reload();}'])?>
                         </li>
                       <?php  }?>
                     </ul>
@@ -85,12 +88,17 @@ sort($scjls);
                    <?php  } elseif($v->is_jl>3) {?>
                     <div class="btn-group">
                     <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                    <?=isset($acjls[$v->parent])?($acjls[$v->parent].'组'):'请选择组别'?> <i class="fa fa-angle-down"></i>
+                    <?php $tmp = ''; foreach ($acjls as $l) {
+                        if($l['id']==$v->parent) {
+                            $tmp = $l['name']."组";
+
+                        }
+                    } if(!$tmp) $tmp = '请选择组别';  echo $tmp;?> <i class="fa fa-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                     <?php foreach($acjls as $m=> $v1){?>
                         <li>
-                            <?=CHtml::ajaxLink($v1,$this->createUrl('setGroup',['parent'=>$m,'id'=>$v->id]),['success'=>'function(){location.reload();}'])?>
+                            <?=CHtml::ajaxLink($v1['name'],$this->createUrl('setGroup',['parent'=>$v1['id'],'id'=>$v->id]),['success'=>'function(){location.reload();}'])?>
                         </li>
                       <?php  }?>
                     </ul>
