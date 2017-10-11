@@ -133,3 +133,7 @@ function setStreets(){
     }
   }
 }
+//删除图片
+function deleteimg(obj) {
+  $(obj).closest('tr').remove();
+}
