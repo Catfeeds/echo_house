@@ -1084,8 +1084,13 @@ class PlotController extends ApiController{
     		// unset($post['market_phone']);
     		$img = '';
     		$imgs = $post['image'];
-    		$imgs && $img = $imgs[0];
     		unset($post['image']);
+    		if(isset($post['fm']) && $post['fm']) {
+    			$img = $post['fm'];
+    		} else {
+    			$img = $imgs[0];
+    		}
+    		unset($post['fm']);
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);

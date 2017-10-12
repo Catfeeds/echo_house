@@ -3,7 +3,7 @@
 /*global FileProgress */
 /*global hljs */
 
-
+var imgindex=0;
 $(function() {
     var uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -73,8 +73,9 @@ $(function() {
                 progress.setComplete(up, info);
                 var obj = eval('(' + info + ')');
                 if(obj.key != 'undefined') {
-                     $('#img-url').append('<li class="img-key">'+obj.key+'</li>');
-                }
+                     $('#img-url').append('<li id="imgindex'+imgindex+'" class="img-key">'+obj.key+'</li>');
+                    imgindex++;
+                }   
             },
             'Error': function(up, err, errTip) {
                 $('table').show();
