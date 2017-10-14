@@ -95,6 +95,13 @@ class PlotExt extends Plot{
             // array('zd_company','required'),
         ));
     }
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        return array_merge($labels,[
+            'price'=>'价格',
+            ]);
+    }
 
     public function __set($name='',$value='')
     {

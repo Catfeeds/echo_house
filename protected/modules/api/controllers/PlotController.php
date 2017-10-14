@@ -382,6 +382,10 @@ class PlotController extends ApiController{
 				$ffphones[] = $value->user->phone;
 			}
 		}
+		$is_alert = 0;
+		if($info->uid && !Yii::app()->db->createCommand("select id from plot_makert_user where uid=".$info->uid." and hid=".$info->id)->queryScalar()) {
+			$is_alert = 1;
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -413,6 +417,7 @@ class PlotController extends ApiController{
 			'streetid'=>$info->street,
 			'owner_phone'=>$info->owner?$info->owner->phone:'',
 			'ff_phones'=>$ffphones,
+			'is_alert'=>$is_alert,
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {

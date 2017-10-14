@@ -234,17 +234,17 @@ FileProgress.prototype.setComplete = function(up, info) {
     var imgWrapper = $('<div class="imgWrapper col-md-3"/>');
     var deleteimg = $('<img class="imgindex'+imgindex+'" style="position: absolute;height: 30px;width: 30px;right: -50px;top: 0px;" onclick="deleteimg(this)" src="./img/deleteimg.png"/>');
     var linkWrapper = $('<a class="linkWrapper" data-id="imgindex'+imgindex+'" onclick="setFm($(this))" target="_blank"/>');
-    var showImg = $('<img src="images/loading.gif"/>');
+    // var showImg = $('<img src="images/loading.gif"/>');
 
     progressNameTd.append(Wrapper);
 
     if (!isImg) {
         showImg.attr('src', 'images/default.png');
         Wrapper.addClass('default');
-        imgWrapper.append(showImg);
+        // imgWrapper.append(showImg);
         Wrapper.append(imgWrapper);
     } else {
-        linkWrapper.append(showImg);
+        // linkWrapper.append(showImg);
         imgWrapper.append(linkWrapper);
         imgWrapper.append(deleteimg);
         Wrapper.append(imgWrapper);

@@ -60,6 +60,22 @@ body{
 	text-align: center;
 	z-index: 1;
 }
+.detail-top-img-alert{
+	position: absolute;
+	top: 0.0rem;
+	width: 20.0rem;
+	font-size: 0.64rem;
+	top: 0rem;
+	color: #fff;
+	text-align: center;
+	z-index: 1;
+	background-color: rgba(242, 222, 222, 0.78);
+	padding: 6px;
+    margin-bottom: 20px;
+    border-width: 1px;
+    border: 1px solid #ebccd1;
+    color: #a94442;
+}
 
 .detail-head-img-examplepic{
 	position: absolute;

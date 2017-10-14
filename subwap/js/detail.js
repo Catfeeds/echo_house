@@ -74,7 +74,10 @@ $(document).ready(function(){
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
-             //底部按钮变化
+            if(detail.is_alert==1) {
+                $('.detail-top-img-alert').css('display','block');
+            }
+            //底部按钮变化
             if (detail.is_contact_only==1) {
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom1').css('display','block');
