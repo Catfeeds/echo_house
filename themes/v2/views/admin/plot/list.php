@@ -40,6 +40,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
             <th class="text-center">楼盘发布人</th>
+            <th class="text-center">付款人数</th>
             <th class="text-center">今日点击量/总点击量</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">状态</th>
@@ -55,6 +56,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $v->title ?></td>
             <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.(Yii::app()->db->createCommand("select id from plot_makert_user where status=1 and is_manager=1 and hid=".$v->id." and uid=".$owner->id)->queryScalar()?'已付款':'<span style="color:red">未付款</span>')):'' ?></td>
+            <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
