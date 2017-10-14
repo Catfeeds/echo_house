@@ -11,15 +11,47 @@
 	<div class="area">
 		<div class="tittle">区域</div>
 		<div class="province small">省份</div>
-		<select class="sel"></select>
+		<select class="sel small">
+			<option>啊</option>
+			<option>点点滴滴</option>
+			<option>呜呜呜</option>
+		</select>
 		<div class="city small">城市</div>
 		<select class="sel"></select>
 	</div>
-	<div class="averageprice"></div>
-	<div class="firstpay"></div>
-	<div class="sort"></div>
-	<div class="wylx"></div>
-	<div class="zxzt"></div>
+	<div class="line"></div>
+	<div class="averageprice">
+		<div class="tittle">均价<span class="small">/千</span></div>
+		<div class="buxian">不限</div>
+	</div>
+	<div class="line"></div>
+	<div class="firstpay">
+		<div class="tittle">首付<span class="small">/万</span></div>
+		<div class="buxian">不限</div>
+	</div>
+	<div class="line"></div>
+	<div class="filter" ng-show="show_More">
+			<ul>
+				<li ng-cloak ng-repeat="items in filterlist4" class="filter4-item">
+					<div class="filter4-item-head"><strong>{{items.name}}</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<div id="filter4-item0">
+								<li ng-click="" data-id="" class="filter-filter4-button-active">不限</li>
+								<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)" data-id="{{item.id}}">{{item.name}}</li>
+							</div>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="list-blank"></div>
+			<div class="line"></div>
+			<div class="filter-filter4-buttom">
+				<div class="filter-filter4-buttom-button" id="reset">重置</div>
+				<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure">确定</div>
+			</div>
+		</div>
+	</div>
 
 
 
