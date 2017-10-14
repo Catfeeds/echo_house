@@ -1,0 +1,61 @@
+body{
+	background-color: #fff;
+}
+.area{
+	position: relative;
+	width: 20rem;
+	height: 178px;
+}
+.tittle{
+	position: absolute;
+	font-size: 0.8rem;
+	left: 0.64rem;
+	top: 1.067rem;
+}
+.small{
+	font-size: 0.693rem;
+	color: #999999;
+	line-height: 1.333rem;
+}
+.province{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+}
+.city{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+}
+.sel{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+	width: 4.8rem;
+	height: 1.333rem;
+	margin: 0rem 3rem 0rem 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+.averageprice{
+	position: relative;
+	width: 20rem;
+	height: 6.667rem;
+}
+.firstpay{
+	position: relative;
+	width: 20rem;
+	height: 6.667rem;
+}
