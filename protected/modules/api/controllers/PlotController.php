@@ -419,6 +419,7 @@ class PlotController extends ApiController{
 			'owner_phone'=>$info->owner?$info->owner->phone:'',
 			'ff_phones'=>$ffphones,
 			'is_alert'=>$is_alert,
+			'is_save'=>$this->staff&&Yii::app()->db->createCommand('select id from save where uid='.$this->staff->id.' and hid='.$info->id)->queryScalar()?1:0,
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {
@@ -1211,6 +1212,24 @@ class PlotController extends ApiController{
 			}
     	} else {
     		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionAddSave($hid='')
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$hid) {
+    		if($save = SaveExt::model()->find('hid='.(int)$hid.' and uid='.$this->staff->id)) {
+    			SaveExt::model()->deleteAllByAttributes(['hid'=>$hid,'uid'=>$this->staff->id]);
+    			$this->returnSuccess('取消收藏成功');
+    		} else {
+    			$save = new SaveExt;
+    			$save->uid = $this->staff->id;
+    			$save->hid = $hid;
+    			$save->save();
+    			$this->returnSuccess('收藏成功');
+    		}
+    	}else {
+    		$this->returnError('请登录后操作');
     	}
     }
 
