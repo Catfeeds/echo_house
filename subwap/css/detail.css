@@ -62,15 +62,6 @@ body{
 	z-index: 1;
 }
 
-#save{
-	position: absolute;
-	top: 0.8rem;
-	right: 1rem;
-	height: 1rem;
-	width: 1rem;
-	z-index: 1;
-}
-
 .detail-top-img-alert{
 	position: fixed;
 	top: 0.0rem;
@@ -640,18 +631,42 @@ body{
 	color: #666666;
 	text-align: center;
 }
+.saveornot{
+	position: relative;
+	width: 2.667rem;
+	background-color: #fff;
+	float: left;
+	height: 2.56rem;
+	border-top: solid 0.053rem #dfdfdf;
+}
+.detail-button-save-img{
+	position: absolute;
+	top: 0.4rem;
+	left: 0.9rem;
+	width: 1rem;
+	height: 1rem;
+}
+
+.detail-button-save-text{
+	width: 2.667rem;
+	position: absolute;
+	top: 1.44rem;
+	font-size: 0.7rem;
+	color: #666666;
+	text-align: center;
+}
 
 .detail-button-baobei{
 	font-size: 0.9rem;
 	position: relative;
-	width: 11.999rem;
+	width: 9.332rem;
 	background-color: #00b7ee;
 	float: left;
 	height: 2.613rem;
 }
 
 .detail-button-baobei-text{
-	width: 11.999rem;
+	width: 9.332rem;
 	position: absolute;
 	line-height: 2.613rem;
 	text-align: center;
