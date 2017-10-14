@@ -456,5 +456,17 @@ $('.fufei-detail').click(function() {
 $('.shutoff-img').click(function() {
     $('.rules-bg').css('display','none');
 });
+//收藏
+$('#save').click(function() {
+    if ($('#save').hasClass('notsave')) {
+        $('#save').removeClass('notsave');
+        $('#save').addClass('save');
+        $('#save').attr('src','./img/save.png');
+    } else {
+        $('#save').removeClass('save');
+        $('#save').addClass('notsave');
+        $('#save').attr('src','./img/notsave.png');
+    }
+});
 
 
