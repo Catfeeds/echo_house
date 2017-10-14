@@ -156,6 +156,7 @@ class PlotController extends ApiController{
 					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
 			}
+			$dats['num'] = $dats['num']+800;
 			$this->frame['data'] = $dats;
 		} else {
 			// var_dump($criteria);exit;
