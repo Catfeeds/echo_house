@@ -7,7 +7,7 @@ $statusArr = SubExt::$status;
     <div class="btn-group pull-left">
         <form class="form-inline">
             <div class="form-group">
-                <?php echo CHtml::dropDownList('type',$type,array('title'=>'标题'),array('class'=>'form-control','encode'=>false)); ?>
+                <?php echo CHtml::dropDownList('type',$type,array('title'=>'分销公司'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
             <div class="form-group">
                 <?php echo CHtml::textField('value',$value,array('class'=>'form-control chose_text')) ?>
@@ -23,6 +23,12 @@ $statusArr = SubExt::$status;
             <div class="form-group">
                 <?php echo CHtml::dropDownList('hid',$hid,CHtml::listData($plots,'id','title'),array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择楼盘--')); ?>
             </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('jl',$jl,$this->company->getScjl(),array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择市场组--')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('sczy',$sczy,$this->company->getSczy(),array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择市场专员--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
@@ -37,10 +43,12 @@ $statusArr = SubExt::$status;
     <thead class="flip-content">
     <tr>
         <th class="text-center">项目信息</th>
-        <th class="text-center">对接人信息</th>
+        <th class="text-center">市场对接人</th>
+        <th class="text-center">分销业务员</th>
+        <th class="text-center">分销公司</th>
         <th class="text-center">客户信息</th>
         <th class="text-center">客户码</th>
-        <th class="text-center">添加时间</th>
+        <th class="text-center">报备时间</th>
         <th class="text-center">状态</th>
         <th class="text-center">操作</th>
     </tr>
@@ -49,8 +57,9 @@ $statusArr = SubExt::$status;
     <?php foreach($infos as $k=>$v): ?>
         <tr>
             <td class="text-center"><?=$v->plot->title?></td>
+            <td class="text-center"><?=$v->notice?(UserExt::model()->find("phone='".$v->notice."'")->name.$v->notice):''?></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
-
+            <td class="text-center"><?=$v->company_name?$v->company_name:'独立经纪人'?></td>
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->code?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>

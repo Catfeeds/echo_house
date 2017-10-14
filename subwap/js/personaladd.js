@@ -81,6 +81,7 @@ function submitBtn()
             'hxjs':$('textarea[name="hxjs"]').val(),
             'sfprice':$('select[name="sfprice"]').val(),
             'dllx':$('input[name="dllx"]').val(),
+            'fm':$('input[name="fm"]').val(),
             // 'market_name':$('input[name="market_name"]').val(),
             // 'market_phone':$('input[name="market_phone"]').val(),
             'yjfa':$('textarea[name="yjfa"]').val(),
@@ -139,4 +140,10 @@ function deleteimg(obj) {
   delimgindex=$(obj).attr('class');
   $('#'+delimgindex).remove();
   $(obj).closest('tr').remove();
+}
+function setFm(obj) {
+    $('.is_cover').remove();
+    var dataid = obj.data('id');
+    obj.append('<div class="is_cover"></div>');
+    $('.fm').val($('#'+dataid).html());
 }

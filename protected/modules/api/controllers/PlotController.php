@@ -22,7 +22,7 @@ class PlotController extends ApiController{
 		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
 			$init = 1;
 		}
-		if($area&&$page==1&&!$kw) {
+		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
 		$criteria = new CDbCriteria;
@@ -45,7 +45,7 @@ class PlotController extends ApiController{
 		if($kw) {
 			$criteria1 = new CDbCriteria;
 			$criteria1->addSearchCondition('name',$kw);
-			$compas = CompanyExt::model()->find($criteria1);
+			$compas = CompanyExt::model()->normal()->find($criteria1);
 			// var_dump($compas);exit;
 			// $compas && $company = $compas['id'];
 			if($compas) {
@@ -121,6 +121,9 @@ class PlotController extends ApiController{
 				case '2':
 					$criteria->order = 'price asc';
 					break;
+				case '4':
+					$criteria->order = 'created desc';
+					break;
 				default:
 					# code...
 					break;
@@ -132,7 +135,7 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'sort desc,updated desc';
+			$criteria->order = 'sort desc,ff_num desc,updated desc';
 		}
 		if($areainit) {
 			$dats = PlotExt::getFirstListFromArea();
@@ -153,6 +156,7 @@ class PlotController extends ApiController{
 					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
 			}
+			$dats['num'] = $dats['num']+800;
 			$this->frame['data'] = $dats;
 		} else {
 			// var_dump($criteria);exit;
@@ -175,16 +179,16 @@ class PlotController extends ApiController{
 					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					// }
 					$wyw = '';
-					// $wylx = $value->wylx;
-					// if($wylx) {
-					// 	if(!is_array($wylx)) 
-					// 		$wylx = [$wylx];
-					// 	foreach ($wylx as $w) {
-					// 		$t = TagExt::model()->findByPk($w)->name;
-					// 		$t && $wyw .= $t.' ';
-					// 	}
-					// 	$wyw = trim($wyw);
-					// }
+					$wylx = $value->wylx;
+					if($wylx) {
+						if(!is_array($wylx)) 
+							$wylx = [$wylx];
+						foreach ($wylx as $w) {
+							$t = TagExt::model()->findByPk($w)->name;
+							$t && $wyw .= $t.' ';
+						}
+						$wyw = trim($wyw);
+					}
 					
 					
 					// var_dump(Yii::app()->user->getIsGuest());exit;
@@ -218,7 +222,7 @@ class PlotController extends ApiController{
 						'unit'=>PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
-						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
 						'wylx'=>$wyw,
 						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
@@ -299,9 +303,7 @@ class PlotController extends ApiController{
 		// } else {
 		// 	$companyArr = [];
 		// }
-		if(Yii::app()->user->getIsGuest()) {
-			$pay = [];
-		} elseif($pays = $info->pays) {
+		if($pays = $info->pays) {
 			$pay[] = ['title'=>$pays[0]['name'],'content'=>$pays[0]['content'],'num'=>count($pays)];
 		} else {
 			$pay = [];
@@ -375,6 +377,16 @@ class PlotController extends ApiController{
 			}
 		}
 		$info->dllx && array_unshift($tagName, Yii::app()->params['dllx'][$info->dllx]);
+		$ffphones=[];
+		if($ffs = $info->sfMarkets) {
+			foreach ($ffs as $key => $value) {
+				$ffphones[] = $value->user->phone;
+			}
+		}
+		$is_alert = 0;
+		if($info->uid && !Yii::app()->db->createCommand("select id from plot_makert_user where uid=".$info->uid." and hid=".$info->id)->queryScalar()) {
+			$is_alert = 1;
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -391,7 +403,7 @@ class PlotController extends ApiController{
 			'news_time'=>$news_time,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
-			'phones'=>$phone?[$phone]:($this->staff?$phones:[]),
+			'phones'=>$phone?[$phone]:$phones,
 			'phone'=>$phone?$phone:($this->staff?$major_phone:''),
 			'images'=>$images,
 			'dk_rule'=>$info->dk_rule,
@@ -405,6 +417,9 @@ class PlotController extends ApiController{
 			'areaid'=>$info->area,
 			'streetid'=>$info->street,
 			'owner_phone'=>$info->owner?$info->owner->phone:'',
+			'ff_phones'=>$ffphones,
+			'is_alert'=>$is_alert,
+			'is_save'=>$this->staff&&Yii::app()->db->createCommand('select id from save where uid='.$this->staff->id.' and hid='.$info->id)->queryScalar()?1:0,
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {
@@ -413,7 +428,9 @@ class PlotController extends ApiController{
 			} else {
 				$data['can_edit'] = 0;
 			}
-		}
+		}else {
+				$data['can_edit'] = 0;
+			}
 		// $data['can_edit'] = $this->staff && strstr($info->market_user,$this->staff->phone)?1:0;
 		$this->frame['data'] = $data;
 	}
@@ -648,6 +665,10 @@ class PlotController extends ApiController{
 				$obj = new SubExt;
 				$obj->attributes = $tmp;
 				$obj->status = 0;
+				if($tmp['uid']) {
+					$companyname = Yii::app()->db->createCommand("select c.name from company c left join user u on u.cid=c.id where u.id=".$tmp['uid'])->queryScalar();
+					$obj->company_name = $companyname;
+				}
 				// 新增6位客户码 不重复
 				$code = 700000+rand(0,99999);
 				// var_dump($code);exit;
@@ -729,7 +750,14 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	
+    	foreach (PlotExt::model()->undeleted()->findAll() as $key => $value) {
+    		if(!$value->ff_num) {
+    			$value->ff_num = PlotMarketUserExt::model()->count('hid='.$value->id);
+	    		if($value->ff_num)
+	    			$value->save();
+    		}
+	    		
+    	}
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
@@ -895,8 +923,62 @@ class PlotController extends ApiController{
     		$this->frame['data'] = $data;
     	}
     }
+    public function actionCheckIsSale()
+    {
+    	if(Yii::app()->user->getIsGuest()) {
+    		return $this->returnError('暂无权限查看');
+    	} else {
+    		$hid = Yii::app()->db->createCommand("select hid from plot_sale where uid=".Yii::app()->user->id)->queryScalar();
+    		if(!$hid) {
+    			return $this->returnError('暂无权限查看');
+    		} else {
+    			$plot = PlotExt::model()->findByPk($hid);
+    		}
+    		// var_dump($hid);exit;
+    		// $subs = $plot->subs;
+    		$criteria = new CDbCriteria;
+    		$criteria->addCondition('hid='.$hid);
+    		$criteria->addCondition('sale_uid='.$this->staff->id);
+    		$kw = Yii::app()->request->getQuery('kw','');
+    		$status = Yii::app()->request->getQuery('status','');
+    		if($kw) {
+    			if(is_numeric($kw)) {
+    				$criteria->addSearchCondition('phone',$kw);
+    			} else {
+    				$criteria->addSearchCondition('name',$kw);
+    			}
+    		}
+    		if(is_numeric($status)) {
+    			$criteria->addCondition('status=:status');
+    			$criteria->params[':status'] = $status;
+    		}
+    		$criteria->order = 'created desc';
+    		$subs = SubExt::model()->undeleted()->getList($criteria);
 
-    public function actionCheckSub($code='')
+    		$data = $data['list'] = [];
+    		if($subs->data) {
+
+    			foreach ($subs->data as $key => $value) {
+    				
+    				$itsstaff = $value->user;
+    				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
+    				$tmp['id'] = $value->id;
+    				$tmp['user_name'] = $value->name;
+    				$tmp['user_phone'] = $value->phone;
+    				$tmp['staff_name'] = $itsstaff->name;
+    				$tmp['staff_phone'] = $itsstaff->phone;
+    				$tmp['time'] = date('m-d H:i',$value->updated);
+    				$tmp['status'] = SubProExt::$status[$value->status];
+    				$tmp['staff_company'] = $cname?$cname:'独立经纪人';
+    				$data['list'][] = $tmp;
+    			}
+    		}
+    		$data['num'] = $subs->pagination->itemCount;
+    		$this->frame['data'] = $data;
+    	}
+    }
+
+    public function actionCheckSub($code='',$acxs='')
     {
     	if(!$code) {
     		return $this->returnError('客户码不能为空');
@@ -906,8 +988,12 @@ class PlotController extends ApiController{
 
     	if($hisplot) {
     		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
+
+    		if($acxs) {
+    			$obj->sale_uid = $acxs;
+    		}
     		if(!$obj)
-    			$this->returnError('报备信息错误或已添加');
+    			$this->returnError('客户码错误或已添加');
     		else {
     			$obj->is_check = 1;
     			$obj->status = 1;
@@ -919,6 +1005,9 @@ class PlotController extends ApiController{
     			$pro->save();
     			$obj->save();
     			$this->frame['data'] = $obj->id;
+    			if($acxs && $sale = UserExt::model()->findByPk($acxs)) {
+    				$sale->qf_uid && $this->sendNotice('您好，'.$hisplot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
+    			}
     		}
     	} else {
     		$this->returnError('项目不存在');
@@ -934,9 +1023,10 @@ class PlotController extends ApiController{
     	$pros = [];
     	if($ls = $sub->pros) {
     		foreach ($ls as $key => $value) {
-    			$pros[] = ['note'=>$value->note,'status'=>SubExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
+    			$pros[] = ['note'=>$value->note,'status'=>SubProExt::$status[$value->status],'time'=>date('m-d H:i',$value->created)];
     		}
     	}
+    	$sale_user = $sub->sale_user;
     	$data = [
     		'name'=>$sub->name,
     		'phone'=>$sub->phone,
@@ -949,6 +1039,8 @@ class PlotController extends ApiController{
     		'status'=>SubExt::$status[$sub->status],
     		'is_del'=>SubExt::$status[$sub->status]=='失效'?1:0,
     		'list'=>$pros,
+    		'can_edit'=>$sub->is_check,
+    		'sale'=>$sale_user?($sale_user->name.$sale_user->phone):'',
     	];
     	$this->frame['data'] = $data;
     }
@@ -963,8 +1055,10 @@ class PlotController extends ApiController{
     		$sub = SubExt::model()->findByPk($sid);
     			
     		if($sub && $status) {
-    			$sub->status = $status;
-    			$sub->save();
+    			if($status!=7) {
+    				$sub->status = $status;
+	    			$sub->save();
+    			}
     			$obj = new SubProExt;
     			$obj->note = $note;
     			$obj->sid = $sid;
@@ -997,8 +1091,13 @@ class PlotController extends ApiController{
     		// unset($post['market_phone']);
     		$img = '';
     		$imgs = $post['image'];
-    		$imgs && $img = $imgs[0];
     		unset($post['image']);
+    		if(isset($post['fm']) && $post['fm']) {
+    			$img = $post['fm'];
+    		} else {
+    			$img = $imgs[0];
+    		}
+    		unset($post['fm']);
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
@@ -1079,6 +1178,58 @@ class PlotController extends ApiController{
     {
     	if($id) {
     		$this->frame['data'] = PlotExt::model()->findByPk($id)->title;
+    	}
+    }
+
+    public function actionGetAcsales()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".$this->staff->id)->queryScalar();
+    		if($hid) {
+    			$ress = Yii::app()->db->createCommand("select u.id,u.name,u.phone from user u left join plot_sale s on u.id=s.uid where s.deleted=0 and s.hid=".$hid)->queryAll();
+    			if($ress) {
+    				foreach ($ress as $key => $value) {
+    					$ress[$key]['name'] = $value['name'].$value['phone'];
+    					unset($ress[$key]['phone']);
+    				}
+    			}
+    			$this->frame['data'] = $ress;
+    		}
+    	} else {
+    		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionAddSale($sid='',$sale_uid='')
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$sid&&$sale_uid) {
+    		$sub = SubExt::model()->findByPk($sid);
+    		$hisplot = $sub->plot;
+    		$sub->sale_uid = $sale_uid;
+    		$sub->save();
+    		if($sale_uid && $sale = UserExt::model()->findByPk($sale_uid)) {
+				$sale->qf_uid && $this->sendNotice('您好，'.$hisplot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
+			}
+    	} else {
+    		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionAddSave($hid='')
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$hid) {
+    		if($save = SaveExt::model()->find('hid='.(int)$hid.' and uid='.$this->staff->id)) {
+    			SaveExt::model()->deleteAllByAttributes(['hid'=>$hid,'uid'=>$this->staff->id]);
+    			$this->returnSuccess('取消收藏成功');
+    		} else {
+    			$save = new SaveExt;
+    			$save->uid = $this->staff->id;
+    			$save->hid = $hid;
+    			$save->save();
+    			$this->returnSuccess('收藏成功');
+    		}
+    	}else {
+    		$this->returnError('请登录后操作');
     	}
     }
 

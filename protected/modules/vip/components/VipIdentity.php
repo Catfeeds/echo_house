@@ -12,27 +12,29 @@ class VipIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		//内置帐号
-		// if($this->username=='admin' && ($this->password=='admin123'))
-		// {
-		// 	$this->errorCode = self::ERROR_NONE;
-		// 	$this->setState('id',1);
-		// 	$this->setState('username','管理员');
-		// 	$this->setState('avatar','');
-		// 	return $this->errorCode;
-		// } else{
-			if($user = UserExt::model()->normal()->find("is_manage=1 and phone='".$this->username."'") ){
-				if($user->pwd == md5($this->password)) {
-					$this->errorCode = self::ERROR_NONE;
-					$this->setState('id',$user->id);
-					$this->setState('username',$user->name);
-					$this->setState('avatar','');
-					$this->setState('cid',$user->cid);
-					$this->setState('cname',CompanyExt::model()->findByPk($user->cid)->name);
-					return $this->errorCode;
+		if($user = UserExt::model()->normal()->find("is_manage=1 and phone='".$this->username."'") ){
+			if($user->pwd == md5($this->password)) {
+				$company = CompanyExt::model()->findByPk($user->cid);
+				if($company) {
+					$expire = Yii::app()->db->createCommand("select expire from company_package where cid=".$company->id)->queryScalar();
+					if(!$expire||$expire<=time()) {
+						$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+					} else {
+						$this->errorCode = self::ERROR_NONE;
+						$this->setState('id',$user->id);
+						$this->setState('username',$user->name);
+						$this->setState('avatar','');
+						$this->setState('cid',$user->cid);
+						$this->setState('cname',$company->name);
+					}
+
+				} else {
+					$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
 				}
+						
+				return $this->errorCode;
 			}
-		// }
+		}
 
 		$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
 		return $this->errorCode;

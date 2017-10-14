@@ -95,6 +95,13 @@ class PlotExt extends Plot{
             // array('zd_company','required'),
         ));
     }
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        return array_merge($labels,[
+            'price'=>'价格',
+            ]);
+    }
 
     public function __set($name='',$value='')
     {
@@ -147,7 +154,7 @@ class PlotExt extends Plot{
             'subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'subs.deleted=0','order'=>'subs.created desc'),
             'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1','order'=>'checked_subs.created desc'),
             'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
-            'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.is_manager desc,sfMarkets.created desc'),
+            'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.is_manager desc,sfMarkets.created asc'),
             'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
@@ -203,6 +210,7 @@ class PlotExt extends Plot{
             }
         }
         CacheExt::delete('wap_init_plotlist');  
+        CacheExt::delete('wap_area_plotlist');  
         // PlotExt::setPlotCache(); 
     }
 
@@ -257,7 +265,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'sort desc,updated desc';
+                    $criteria->order = 'sort desc,ff_num desc,updated desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
@@ -311,7 +319,7 @@ class PlotExt extends Plot{
                             $criteria = new CDbCriteria;
                             $criteria->addCondition('area='.$area->id);
                             $criteria->limit = 20;
-                            $criteria->order = 'sort desc,updated desc';
+                            $criteria->order = 'sort desc,ff_num desc,updated desc';
                             $plots = PlotExt::model()->normal()->getList($criteria);
                             if($datares = $plots->data) {
                                 foreach ($datares as $key => $value) {
@@ -382,4 +390,5 @@ class PlotExt extends Plot{
             // 恭喜您，${lpmc}已通过后台编辑的完善和审核，请登录经纪圈APP消息列表查看付费链接。
         }
     }
+
 }

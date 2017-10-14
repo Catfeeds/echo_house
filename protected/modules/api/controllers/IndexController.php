@@ -1,10 +1,13 @@
 <?php
 class IndexController extends ApiController
 {
-    public function actionIndex($cid=0)
+    public function actionIndex($cid=0,$area='')
     {
         $this->showUser();
-        $this->redirect('/subwap/list.html');
+        if($area) {
+            $this->redirect('/subwap/list.html?area='.$area);
+        }else
+            $this->redirect('/subwap/list.html');
     }
     public function actionPub()
     {
@@ -26,6 +29,11 @@ class IndexController extends ApiController
     {
         $this->showUser();
         $this->redirect('/subwap/customerlist.html');
+    }
+    public function actionSalelist()
+    {
+        $this->showUser();
+        $this->redirect('/subwap/salelist.html');
     }
 
 

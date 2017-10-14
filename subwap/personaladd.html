@@ -1,86 +1,110 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/personaladd.css">
-	<link href="../../views/images/favicon.ico" rel="shortcut icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/personaladd.css">
+    <link href="../../views/images/favicon.ico" rel="shortcut icon">
     <link rel="stylesheet" href="../../views/styles/main.css">
     <link rel="stylesheet" href="../../views/styles/highlight.css">
-	<title>发布房源</title>
+    <title>发布房源</title>
+    <style>
+    table tr {
+        float: left;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+    }
+
+    table td {
+        -webkit-transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+    }
+
+    .is_cover {
+        width: 38px;
+        height: 20px;
+        background: url(./img/cover.png) no-repeat;
+        background-size: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    </style>
 </head>
+
 <body>
-	<form id="form" onsubmit="return false;">
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">项目名称</div>
-			<input type="text" class="report-smalltag-name" placeholder="请输入项目名称" name="title" id="housename" required onblur="checkName(this)">
-		</div>
-		<div class="line"></div>
-		<div class="submit-textarea">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="submit-textname">项目区域</div>
-			<select id="area1" name="area" class="submit-select" onchange="setStreets()">
-				 <!-- <option value="volvo">Volvo</option> -->
-			</select>
-			<select id="area2" name="street" class="area-select">
-				 <!-- <option value="volvo">Volvo</option> -->
-			</select>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">项目地址</div>
-			<input type="text" name="address" class="report-smalltag-name" placeholder="请输入项目地址" id="houseaddress" required>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">物业类型</div>			
-			<ul id="wylx" class="checkbox-ul clearfloat">
-			</ul>			
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">装修状况</div>
-			<ul id="zxzt" class="checkbox-ul clearfloat">
-			</ul>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag" style="height: 2.677rem;">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">均价</div>
-			<input type="text" name="price" class="report-smalltag-name" placeholder="请输入均价" required>
-			<select id="unit" name="unit" class="area-select">
-				 <option selected="selected" value="1">元/㎡</option>
-				 <option value="2">万元/套</option>
-			</select>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">户型介绍</div>
-			<textarea name="hxjs" class="report-smalltag-textarea" placeholder="请输入户型介绍" required></textarea>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag" style="height: 2.677rem;">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title" >最低首付金额</div>
-			<select id="leastpay" name="sfprice" class="submit-select">
-				 <!-- <option value="volvo">Volvo</option> -->
-			</select>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">代理性质</div>
-			<ul id="mode" class="checkbox-ul clearfloat">
-			</ul>
-		</div>
-		<div class="line"></div>
-		<!-- <div class="report-small-tag">
+    <form id="form" onsubmit="return false;">
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">项目名称</div>
+            <input type="text" class="report-smalltag-name" placeholder="请输入项目名称" name="title" id="housename" required onblur="checkName(this)">
+        </div>
+        <div class="line"></div>
+        <div class="submit-textarea">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="submit-textname">项目区域</div>
+            <select id="area1" name="area" class="submit-select" onchange="setStreets()">
+                <!-- <option value="volvo">Volvo</option> -->
+            </select>
+            <select id="area2" name="street" class="area-select">
+                <!-- <option value="volvo">Volvo</option> -->
+            </select>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">项目地址</div>
+            <input type="text" name="address" class="report-smalltag-name" placeholder="请输入项目地址" id="houseaddress" required>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">物业类型</div>
+            <ul id="wylx" class="checkbox-ul clearfloat">
+            </ul>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">装修状况</div>
+            <ul id="zxzt" class="checkbox-ul clearfloat">
+            </ul>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag" style="height: 2.677rem;">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">均价</div>
+            <input type="text" name="price" class="report-smalltag-name" placeholder="请输入均价" required>
+            <select id="unit" name="unit" class="area-select">
+                <option selected="selected" value="1">元/㎡</option>
+                <option value="2">万元/套</option>
+            </select>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">户型介绍</div>
+            <textarea name="hxjs" class="report-smalltag-textarea" placeholder="请输入户型介绍" required></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag" style="height: 2.677rem;">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">最低首付金额</div>
+            <select id="leastpay" name="sfprice" class="submit-select">
+                <!-- <option value="volvo">Volvo</option> -->
+            </select>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">代理性质</div>
+            <ul id="mode" class="checkbox-ul clearfloat">
+            </ul>
+        </div>
+        <div class="line"></div>
+        <!-- <div class="report-small-tag">
 			<img class="asterisk-img" src="./img/asterisk.png">
 			<div class="report-smalltag-title">对接人姓名</div>
 			<input type="text" name="market_name" class="report-smalltag-name" placeholder="请输入对接人姓名" required>
@@ -91,95 +115,80 @@
 			<div name="" class="report-smalltag-title">对接人手机号码</div>
 			<input type="text" name="market_phone" class="report-smalltag-name" placeholder="请输入对接人手机号码" required>
 		</div> -->
-		<!-- <div class="line"></div> -->
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div name="" class="report-smalltag-title">佣金方案</div>
-			<textarea name="yjfa" class="report-smalltag-textarea" placeholder="请输入佣金方案" required></textarea>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">结佣规则及时间</div>
-			<textarea name="jy_rule" class="report-smalltag-textarea" placeholder="请输入结佣规则及时间" required></textarea>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">带看奖励及车费报销规则</div>
-			<textarea name="dk_rule" class="report-smalltag-textarea" placeholder="请输入带看奖励及车费报销规则" required></textarea>
-		</div>
-		<div class="line"></div>
-		<div class="report-small-tag">
-			<img class="asterisk-img" src="./img/asterisk.png">
-			<div class="report-smalltag-title">项目介绍(微信转发的版本)</div>
-			<textarea style="height: 10rem" name="peripheral" class="report-smalltag-textarea" placeholder="请输入项目介绍(微信转发的版本)" required></textarea>
-		</div>
-		<div class="line"></div>
-
-		<div class="container container-big">
-		        <div class="tab-content">
-		            <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">   
-		                <div class="row">  
-		                    <input type="hidden" id="domain" value="http://oofuaem2b.bkt.clouddn.com/">
-		                    <input type="hidden" id="uptoken_url" value="">
-
-		                    <div class="col-md-12 upload-btn">
-
-		                        <div id="container">
-		                        
-		                            <a class="btn-default" id="pickfiles3" href="#" >
+        <!-- <div class="line"></div> -->
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div name="" class="report-smalltag-title">佣金方案</div>
+            <textarea name="yjfa" class="report-smalltag-textarea" placeholder="请输入佣金方案" required></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">结佣规则及时间</div>
+            <textarea name="jy_rule" class="report-smalltag-textarea" placeholder="请输入结佣规则及时间" required></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">带看奖励及车费报销规则</div>
+            <textarea name="dk_rule" class="report-smalltag-textarea" placeholder="请输入带看奖励及车费报销规则" required></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">项目介绍(微信转发的版本)</div>
+            <textarea style="height: 10rem" name="peripheral" class="report-smalltag-textarea" placeholder="请输入项目介绍(微信转发的版本)" required></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="container container-big">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">
+                    <div class="row">
+                        <input type="hidden" id="domain" value="http://oofuaem2b.bkt.clouddn.com/">
+                        <input type="hidden" id="uptoken_url" value="">
+                        <div class="col-md-12 upload-btn">
+                            <div id="container">
+                                <a class="btn-default" id="pickfiles3" href="#">
 		                                <i class="glyphicon glyphicon-plus"></i>
 		                                上传项目图片(可批量上传)
 		                            </a>
-		                        </div>
-		                    </div>
-
-		                    <div class="col-md-12 upload-detail">
-		                        <table class="table table-striped table-hover text-left" style="display:none">
-		                            <tbody id="fsUploadProgress">
-		                            </tbody>
-		                        </table>
-		                    </div>
-
-
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    <ul style="display: none;" id="img-url"></ul>
-
-
-		<div class="bottom-blank"></div>
-		<div class="report-report">
-			<button type="submit" onclick="submitBtn()" class="report-submit">提 交</button>
-		</div>
-	</form>
-	
-
-
-
-
-
-
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/messages_zh.js"></script>
-
-<script type="text/javascript" src="js/rem.js"></script>
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/personaladd.js"></script>
-<script type="text/javascript" src="../../views/bower_components/plupload/js/moxie.js"></script>
-<script type="text/javascript" src="../../views/bower_components/plupload/js/plupload.dev.js"></script>
-<script type="text/javascript" src="../../views/bower_components/plupload/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="../../views/scripts/ui3.js"></script>
-<script type="text/javascript" src="../../views/src/qiniu.js"></script>
-<script type="text/javascript" src="../../views/scripts/highlight.js"></script>
-<script type="text/javascript" src="../../views/scripts/main3.js"></script>
-<script type="text/javascript">
-hljs.initHighlightingOnLoad();
-</script>
+                            </div>
+                        </div>
+                        <div class="col-md-12 upload-detail">
+                            <table class="table table-striped table-hover text-left" style="display:none">
+                                <tbody id="fsUploadProgress">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul style="display: none;" id="img-url"></ul>
+        <div class="bottom-blank"></div>
+        <div class="report-report">
+            <button type="submit" onclick="submitBtn()" class="report-submit">提 交</button>
+        </div>
+        <input class="fm" type="hidden" name="fm" value="" />
+    </form>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/messages_zh.js"></script>
+    <script type="text/javascript" src="js/rem.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/personaladd.js"></script>
+    <script type="text/javascript" src="../../views/bower_components/plupload/js/moxie.js"></script>
+    <script type="text/javascript" src="../../views/bower_components/plupload/js/plupload.dev.js"></script>
+    <script type="text/javascript" src="../../views/bower_components/plupload/js/i18n/zh_CN.js"></script>
+    <script type="text/javascript" src="../../views/scripts/ui3.js"></script>
+    <script type="text/javascript" src="../../views/src/qiniu.js"></script>
+    <script type="text/javascript" src="../../views/scripts/highlight.js"></script>
+    <script type="text/javascript" src="../../views/scripts/main3.js"></script>
+    <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+    </script>
 </body>
+
 </html>

@@ -16,6 +16,8 @@ class CompanyExt extends Company{
     {
         return array(
             'users'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'users.deleted=0 and users.status=1'),
+            'package'=>array(self::HAS_ONE, 'CompanyPackageExt', 'cid'),
+            'plotnum'=>array(self::STAT, 'PlotExt', 'company_id','condition'=>'deleted=0'),
             'managers'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'managers.deleted=0 and managers.status=1 and managers.is_manage=1'),
         );
     }
@@ -114,6 +116,40 @@ class CompanyExt extends Company{
         if($code) {
             return CompanyExt::model()->normal()->find("code='$code'");
         }
+    }
+
+    public function getScjl($arr=1)
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                if($arr==1)
+                    $value->is_jl==1&&$data[$value->id] = $value->name;
+                else
+                    $value->is_jl==1&&$data[] = ['id'=>$value->id,'name'=>$value->name];
+            }
+        }
+        return $data;
+    }
+    public function getSczy()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==3&&$data[$value->phone] = $value->name;
+            }
+        }
+        return $data;
+    }
+    public function getAcsales()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==5&&$data[] = ['id'=>$value->id,'name'=>$value->name.$value->phone];
+            }
+        }
+        return $data;
     }
 
 }

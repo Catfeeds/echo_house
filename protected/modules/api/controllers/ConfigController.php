@@ -55,6 +55,7 @@ class ConfigController extends ApiController{
 			// var_dump(Yii::app()->basePath.'/../'.$QR);exit;
 			// $img = Yii::app()->basePath.'/../'.$QR;
 			$this->frame['data'] = Yii::app()->request->getHostInfo().$QR;
+			
 			// unlink($QR);
 		}
 	}

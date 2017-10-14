@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/detail.css">
+	<script type="text/javascript" src="js/rem.js"></script>
 	<title>项目名称</title>
 </head>
 <body>
@@ -14,6 +15,7 @@
             <div class="swiper-wrapper">
             </div>
 			<div class="detail-top-img-title"></div>
+			<div class="detail-top-img-alert" style="display: none">此为预览页面，仅发布者可见。付款后才会在前台展示！</div>
 			<div class="detail-head-img-examplepic"></div>
 		</div>
 		<div class="detail-small-tag">
@@ -180,7 +182,7 @@
 	<div class="detail-tip-off-small-tag">
 		<img class="detail-tip-off-img" src="./img/tip-off.png">
 		<div class="detail-tip-off-text">我要举报</div>
-		<div class="detail-tip-off-text-small">已售罄、代理公司撤场、号码错误</div>
+		<div class="detail-tip-off-text-small">已售罄、号码错误</div>
 		<div class="detail-shu"></div>
 		<div class="detail-mail-container">
 			<img class="detail-mail-img" src="./img/mail.png">
@@ -249,7 +251,7 @@
 					<div class="rules-bottom-icons-name">项目发布人</div>
 				</div>
 				<div class="icon-tips">各用户角色图示</div>
-				<div class="paynow">立即付费</div>
+				<div class="paynow" onclick="becomeDuijieren()">立即付费</div>
 			</div>
 		</div>
 		<img class="shutoff-img" src="./img/shutoff.png">
@@ -259,21 +261,21 @@
 	<div class="detail-buttom0">
 		<div class="detail-button-phone">
 			<div class="detail-button-phone-img">
-				<img style="height: 1rem;width: 1rem;" src="./img/telephone.png">
+				<img style="height: 0.853rem;width: 0.853rem;" src="./img/telephone.png">
 			</div>
 			<div class="detail-button-phone-text">电话</div>
 		</div>
 
 		<div class="detail-button-distribution">
 			<div class="detail-button-distribution-img">
-				<img style="height: 1rem;width: 1rem;" src="./img/distribution.png">
+				<img style="height: 0.853rem;width: 0.853rem;" src="./img/distribution.png">
 			</div>
 			<div class="detail-button-distribution-text">分销</div>
 		</div>
 
 		<div onclick="share()" class="detail-button-share">
 			<div class="detail-button-share-img">
-				<img style="height: 1rem;width: 1rem;" src="./img/share.png">
+				<img style="height: 0.853rem;width: 0.853rem;" src="./img/share.png">
 			</div>
 			<div class="detail-button-share-text">分享</div>
 		</div>
@@ -302,11 +304,10 @@
 
 
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="js/rem.js"></script>
 <script type="text/javascript" src="js/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
 <script type="text/javascript" src="js/swiper.min.js"></script>
-<script type="text/javascript" src="js/detail.js"></script>
+<script type="text/javascript" src="js/detail.js?t=1"></script>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="js/clipboard.min.js"></script>  
 <script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>

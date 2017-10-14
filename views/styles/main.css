@@ -209,7 +209,7 @@ td .imgWrapper {
 }
 td .imgWrapper .linkWrapper {
     position: absolute;
-    left: 0.4rem;
+    left: 0;
     top: 0;
     width:5.333rem;
     height: 5.333rem;

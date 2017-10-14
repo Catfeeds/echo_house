@@ -462,7 +462,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
     <div class="col-md-12 center-block text-center">
         <div class="btn-group text-center">
             <button class="btn green-meadow col-md-offset-4">提交</button>
-            <a href = "<?php echo $this->createUrl('/admin/plot/list')?>" class="btn default col-md-offset-4">返回</a>
+            <a href = "<?php echo $this->createUrl('/vip/plot/list')?>" class="btn default col-md-offset-4">返回</a>
         </div>
     </div>
 </div>

@@ -15,6 +15,7 @@ body{
 	width: 20rem;
 	height: auto;
 	background-color: #fff;
+	padding-bottom: 2.667rem;
 }
 .customerlist li{
 	position: relative;
