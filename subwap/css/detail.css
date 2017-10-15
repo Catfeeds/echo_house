@@ -659,14 +659,14 @@ body{
 .detail-button-baobei{
 	font-size: 0.9rem;
 	position: relative;
-	width: 9.332rem;
+	width: 12rem;
 	background-color: #00b7ee;
 	float: left;
 	height: 2.613rem;
 }
 
 .detail-button-baobei-text{
-	width: 9.332rem;
+	width: 12rem;
 	position: absolute;
 	line-height: 2.613rem;
 	text-align: center;

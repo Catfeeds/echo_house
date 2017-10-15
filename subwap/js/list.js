@@ -817,7 +817,16 @@ function showdetail(id) {
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
-             //底部按钮变化
+            if(detail.is_save==1) {
+                $('#save').attr('css','save');
+                $('#save').attr('src','./img/save.png');
+                $('.detail-button-save-text').html('已收藏');
+            } else {
+                $('#save').attr('css','notsave');
+                $('#save').attr('src','./img/notsave.png');
+                $('.detail-button-save-text').html('收藏');
+            }
+            //底部按钮变化
             if (detail.is_contact_only==1) {
                 $('.detail-buttom0').css('display','none');
                 $('.detail-buttom1').css('display','block');
@@ -1366,4 +1375,23 @@ $('.fufei-detail').click(function() {
 //点击付费说明消失
 $('.shutoff-img').click(function() {
     $('.rules-bg').css('display','none');
+});
+//收藏
+$('#save').click(function() {
+    $.get('/api/plot/addSave?hid='+hid,function(data) {
+        if(data.status=='success') {
+            if ($('#save').hasClass('notsave')) {
+                $('#save').removeClass('notsave');
+                $('#save').addClass('save');
+                $('.detail-button-save-text').html('已收藏');
+                $('#save').attr('src','./img/save.png');
+            } else {
+                $('#save').removeClass('save');
+                $('#save').addClass('notsave');
+                $('.detail-button-save-text').html('收藏');
+                $('#save').attr('src','./img/notsave.png');
+            }
+        }
+        alert(data.msg);
+    });
 });

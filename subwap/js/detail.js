@@ -77,6 +77,15 @@ $(document).ready(function(){
             if(detail.is_alert==1) {
                 $('.detail-top-img-alert').css('display','block');
             }
+            if(detail.is_save==1) {
+                $('#save').attr('css','save');
+                $('#save').attr('src','./img/save.png');
+                $('.detail-button-save-text').html('已收藏');
+            } else {
+                $('#save').attr('css','notsave');
+                $('#save').attr('src','./img/notsave.png');
+                $('.detail-button-save-text').html('收藏');
+            }
             //底部按钮变化
             if (detail.is_contact_only==1) {
                 $('.detail-buttom0').css('display','none');
@@ -458,15 +467,22 @@ $('.shutoff-img').click(function() {
 });
 //收藏
 $('#save').click(function() {
-    if ($('#save').hasClass('notsave')) {
-        $('#save').removeClass('notsave');
-        $('#save').addClass('save');
-        $('#save').attr('src','./img/save.png');
-    } else {
-        $('#save').removeClass('save');
-        $('#save').addClass('notsave');
-        $('#save').attr('src','./img/notsave.png');
-    }
+    $.get('/api/plot/addSave?hid='+hid,function(data) {
+        if(data.status=='success') {
+            if ($('#save').hasClass('notsave')) {
+                $('#save').removeClass('notsave');
+                $('#save').addClass('save');
+                $('.detail-button-save-text').html('已收藏');
+                $('#save').attr('src','./img/save.png');
+            } else {
+                $('#save').removeClass('save');
+                $('#save').addClass('notsave');
+                $('.detail-button-save-text').html('收藏');
+                $('#save').attr('src','./img/notsave.png');
+            }
+        }
+        alert(data.msg);
+    });
 });
 
 
