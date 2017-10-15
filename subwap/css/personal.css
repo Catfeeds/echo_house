@@ -1,5 +1,9 @@
 body{
-	background-color: #F4F2EF;
+	background-color: #fff;
+}
+.shadow{
+	-moz-box-shadow: 0px 10px 15px 5px #e4e1e1;
+	box-shadow: 0px 10px 15px 5px #e4e1e1;
 }
 .line{
 	position: relative;
