@@ -156,7 +156,6 @@ class PlotController extends ApiController{
 					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
 			}
-			$dats['num'] = $dats['num']+800;
 			$this->frame['data'] = $dats;
 		} else {
 			// var_dump($criteria);exit;
@@ -179,11 +178,11 @@ class PlotController extends ApiController{
 					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					// }
 					$wyw = '';
-					$wylx = $value->wylx;
-					if($wylx) {
-						if(!is_array($wylx)) 
-							$wylx = [$wylx];
-						foreach ($wylx as $w) {
+					$wylx1 = $value->wylx;
+					if($wylx1) {
+						if(!is_array($wylx1)) 
+							$wylx1 = [$wylx1];
+						foreach ($wylx1 as $w) {
 							$t = TagExt::model()->findByPk($w)->name;
 							$t && $wyw .= $t.' ';
 						}
@@ -235,6 +234,9 @@ class PlotController extends ApiController{
 				$pager = $plots->pagination;
 				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
 			}
+		}
+		if($area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid==0&&!$kw) {
+			$this->frame['data']['num'] += 800;
 		}
 			
 	}
