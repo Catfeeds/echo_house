@@ -752,14 +752,7 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	foreach (PlotExt::model()->undeleted()->findAll() as $key => $value) {
-    		if(!$value->ff_num) {
-    			$value->ff_num = PlotMarketUserExt::model()->count('hid='.$value->id);
-	    		if($value->ff_num)
-	    			$value->save();
-    		}
-	    		
-    	}
+    	Yii::app()->cache->flush();  
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
