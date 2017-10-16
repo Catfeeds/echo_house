@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/customerlist.css">
+	<title></title>
+</head>
+<body ng-app="cuslist" ng-controller="cuslistCtrl">
+
+	<div class="list-search-frame">
+		<div class="list-search-search" ng-click="search()">搜索</div>
+		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入客户姓名/手机号">
+		<select class="statusselect" ng-change="search()" ng-model="myselect">
+			<option value="">状态</option>
+			<option value="0">报备</option>
+			<option value="1">到访</option>
+			<option value="2">认筹</option>
+			<option value="3">认购</option>
+			<option value="4">签约</option>
+			<option value="5">结佣</option>
+			<option value="6">退定</option>
+		</select>
+	</div>
+	<div class="count">共查找到 <b>-</b> 条</div>
+	<div class="customerlist">
+		<ul id="ul1">
+			<li ng-repeat="item in cuntomerlist" ng-click="turn(item.id)">
+				<div class="cusname" ng-cloak>{{item.user_name}}</div>
+				<div class="custel" ng-cloak>{{item.user_phone}}</div>
+				<div class="intername" ng-cloak>{{item.staff_name}}</div>
+				<div class="intertel" ng-cloak>{{item.staff_phone}}</div>
+				<div class="intercom" ng-cloak>{{item.staff_company}}</div>
+				<div class="time" ng-cloak>{{item.time}}</div>
+				<div class="status" ng-cloak>{{item.status}}</div>
+				<div class="line"></div>
+			</li>
+		</ul>
+		<ul id="ul2">
+			<li ng-repeat="search in searchlist" ng-click="turn(search.id)">
+				<div class="cusname" ng-cloak>{{search.user_name}}</div>
+				<div class="custel" ng-cloak>{{search.user_phone}}</div>
+				<div class="intername" ng-cloak>{{search.staff_name}}</div>
+				<div class="intertel" ng-cloak>{{search.staff_phone}}</div>
+				<div class="intercom" ng-cloak>{{search.staff_company}}</div>
+				<div class="time" ng-cloak>{{search.time}}</div>
+				<div class="status" ng-cloak>{{search.status}}</div>
+				<div class="line"></div>
+			</li>
+		</ul>
+	</div>
+	<!-- <div class="add" ng-click="addCustomer()">
+		<div class="addimg">添加客户</div>
+	</div> -->
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/userlist.js"></script>
+<script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
         <img class="headbg" src="<?=$this->subwappath?>/img/personalheadbg.png">
         <div class="personalhead-big">
             <div class="personalhead-small">
-                <img class="personalhead-wu" src="<?=$this->subwappath?>/img/personaluserhead.png">
+                <img class="personalhead-wu" src="<?=isset($staff->image)&&$staff->image?ImageTools::fixImage($staff->image):$this->subwappath.'/img/personaluserhead.png'?>">
             </div>
         </div>
         <img class="setup" src="<?=$this->subwappath?>/img/setup.png">
@@ -18,7 +18,7 @@
     <div class="functionmodule shadow">
         <div class="functiontag">
             <img class="functiontag-img" src="<?=$this->subwappath?>/img/edit.png">
-            <div class="functiontag-text">客户管理</div>
+            <div class="functiontag-text" onclick="tocs()">客户管理</div>
         </div>
         <div class="line"></div>
         <div class="functiontag">
@@ -75,3 +75,14 @@
             <div class="functiontag-text">联系客服</div>
         </div>
     </div>
+    <script>
+        function tocs() {
+            <?php if($this->staff):?>
+                <?php if($this->staff->type==1):?>
+                location.href = 'subwap/customerlist.html';
+                <?php else:?>
+                location.href = 'subwap/userlist.html';
+                <?php endif;?>
+            <?php endif;?>
+        }
+    </script>

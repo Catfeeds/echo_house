@@ -172,6 +172,7 @@ $config1 = array(
                 'plot/<ext:\w+>' => 'home/plot/list',
                 'plot' => 'home/plot/list',
                 'ditu' => 'home/map/index',
+                'my' => 'wap/my/index',
 
                 //知识库
                 'baike' => 'home/baike/index',
