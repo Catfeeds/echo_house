@@ -17,6 +17,7 @@
  * @property integer $cid
  * @property string $company
  * @property integer $type
+ * @property string $ava
  * @property string $image
  * @property integer $status
  * @property integer $deleted
@@ -44,12 +45,12 @@ class User extends CActiveRecord
 		return array(
 			array('pwd, name, created', 'required'),
 			array('parent, is_jl, is_manage, qf_uid, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
-			array('pwd, id_pic, company, image', 'length', 'max'=>255),
+			array('pwd, id_pic, company, ava, image', 'length', 'max'=>255),
 			array('wx, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, company, type, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,6 +84,7 @@ class User extends CActiveRecord
 			'cid' => 'Cid',
 			'company' => 'Company',
 			'type' => 'Type',
+			'ava' => 'Ava',
 			'image' => 'Image',
 			'status' => 'Status',
 			'deleted' => 'Deleted',
@@ -123,6 +125,7 @@ class User extends CActiveRecord
 		$criteria->compare('cid',$this->cid);
 		$criteria->compare('company',$this->company,true);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('ava',$this->ava,true);
 		$criteria->compare('image',$this->image,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('deleted',$this->deleted);
