@@ -909,6 +909,9 @@ class PlotController extends ApiController{
     			foreach ($subs->data as $key => $value) {
     				
     				$itsstaff = $value->user;
+    				if(!$itsstaff) {
+    					continue;
+    				}
     				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
     				$tmp['id'] = $value->id;
     				$tmp['user_name'] = $value->name;
