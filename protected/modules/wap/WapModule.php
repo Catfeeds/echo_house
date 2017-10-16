@@ -28,12 +28,13 @@ class WapModule extends CWebModule
             ),
             'user' => array(
 				'allowAutoLogin' => true,
-				'loginUrl' => Yii::app()->createUrl('wap/staff/login'),
+				// 'loginUrl' => Yii::app()->createUrl('wap/staff/login'),
+				'stateKeyPrefix' => '_vip',
 				'authTimeout' => 3600 * 2,//用户登录后2小时不活动则过期，需要重新登陆
 			),
 		));
 
-		Yii::app()->user->setStateKeyPrefix('_wap');
+		// Yii::app()->user->setStateKeyPrefix('_wap');
 	}
 
 	public function beforeControllerAction($controller, $action)
