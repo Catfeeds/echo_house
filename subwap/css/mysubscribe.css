@@ -49,5 +49,27 @@ body{
 	height: 0.693rem;
 	width: 0.427rem;
 	right: 0.64rem;
-	top: 1.92rem;
+	top: 3rem;
+}
+.canclesubscribe{
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.add{
+	position: fixed;
+	width: 20rem;
+	height:2.667rem;
+	background-color: #00b7ee;
+	bottom: 0rem;
+}
+.addsubscribe{
+	position: relative;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	line-height: 2.667rem;
 }

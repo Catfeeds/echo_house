@@ -354,9 +354,9 @@ $('.maidian-on-off').click(function(){
 
 
 //点击跳转
-$('#paramter').click(function(){
-    location.href='/wap/plot/paramter?hid='+hid;
-});   
+// $('#paramter').click(function(){
+//     location.href='/wap/plot/paramter?hid='+hid;
+// });   
 $('#map').click(function(){
     $.get('/api/config/getP?lat='+detail.map_lat+'&lng='+detail.map_lng,function(data) {
         location.href='https://map.baidu.com/mobile/webapp/place/detail/qt=inf&uid='+data.data+'/vt=map';

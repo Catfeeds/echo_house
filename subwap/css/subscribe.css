@@ -132,3 +132,27 @@ body{
 	background-color: #00b7ee;
 	color: #fff;
 }
+.slider-container{
+	position: absolute;
+	top: 2.667rem;
+	left: 1rem;
+	width: 18rem;
+}
+.textmin{
+	position: absolute;
+	left: 1.2rem;
+	top: 0rem;
+	font-size: 0.64rem;
+	border:none;
+	color: #666666;
+	width: 2rem;
+}
+.textmax{
+	position: absolute;
+	left: 15.5rem;
+	top: 0rem;
+	font-size: 0.64rem;
+	border:none;
+	color: #666666;
+	width: 2rem;
+}
