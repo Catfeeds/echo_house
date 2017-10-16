@@ -220,6 +220,9 @@ $(document).ready(function() {
                     $('.list-headimg1').css('display','none');
                     $('.list-headimg2').css('display','block');
                     $('.headimg2').attr('src',face);
+                    if(data.data.user_image==''||data.data.user_image!=face) {
+                        $.post('/api/user/addImage',{'image':face},function(){});
+                    }
                   }else{
                     //未登录
                     alert(data.error);//data.error string

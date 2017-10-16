@@ -113,8 +113,6 @@ $this->breadcrumbs = array($this->pageTitle);
             <td style="text-align:center;vertical-align: middle">
                 <?php if(Yii::app()->user->id==$v->id):?><a href="<?php echo $this->createUrl('editpwd',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs blue"><i class="fa fa-edit"></i> 修改密码 </a><?php endif;?>
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
-                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
-
 
             </td>
         </tr>

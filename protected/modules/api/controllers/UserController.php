@@ -131,4 +131,13 @@ class UserController extends ApiController{
 			}	
 		}
 	}
+
+	public function actionAddImage()
+	{
+		if(Yii::app()->request->getIsPostRequest()) {
+			$image = $this->cleanXss(Yii::app()->request->getPost('image',''));
+			$this->staff->image = $image;
+			$this->staff->save();
+		}
+	}
 }
