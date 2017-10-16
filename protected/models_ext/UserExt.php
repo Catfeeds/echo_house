@@ -26,6 +26,14 @@ class UserExt extends User{
         '2'=>'分销公司',
         '3'=>'独立中介',
     ];
+    public static $is_jls = [
+        0=>'暂无',
+        1=>'市场部经理',
+        2=>'案场部经理',
+        3=>'市场专员',
+        4=>'案场助理',
+        5=>'案场销售',
+    ];
     public static $sex = [
     '未知','男','女'
     ];
@@ -39,6 +47,8 @@ class UserExt extends User{
             'news'=>array(self::HAS_MANY, 'ArticleExt', 'uid'),
             'comments'=>array(self::HAS_MANY, 'CommentExt', 'uid'),
             'companyinfo'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
+            'plotplaces'=>array(self::HAS_MANY, 'PlotPlaceExt', 'uid'),
+            'plotsales'=>array(self::HAS_MANY, 'PlotSaleExt', 'uid'),
         );
     }
 
@@ -70,6 +80,14 @@ class UserExt extends User{
     }
 
     public function beforeValidate() {
+        if(!$this->type) {
+            $cinfo = $this->companyinfo;
+            if(!$cinfo) {
+                $this->type = 3;
+            } else {
+                $this->type = $cinfo->type;
+            }
+        }
         if($this->deleted==1) {
             $this->status = 1;
         }
@@ -84,7 +102,7 @@ class UserExt extends User{
         }
         else {
             $this->updated = time();
-            if($this->status==1 && $this->qf_uid && ((Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0)) {
+            if($this->type==3 && $this->status==1 && $this->qf_uid && ((Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0)) {
                 $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
                 // var_dump(SmsExt::sendMsg('经纪人注册通过',$this->phone););exit;
                 SmsExt::sendMsg('经纪人注册通过',$this->phone);

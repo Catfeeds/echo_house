@@ -52,8 +52,12 @@ class ReportExt extends Report{
             
             $this->created = $this->updated = time();
         }
-        else
+        else {
+            // if($this->status==1&&Yii::app()->db->createCommand("select status from report where id=".$this->id)->queryScalar()==0) {
+                
+            // }
             $this->updated = time();
+        }
         return parent::beforeValidate();
     }
 

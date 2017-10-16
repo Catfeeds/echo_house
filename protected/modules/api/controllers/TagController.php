@@ -72,6 +72,7 @@ class TagController extends ApiController{
 						['id'=>1,'name'=>'均价从高到低'],
 						['id'=>2,'name'=>'均价从低到高'],
 						['id'=>3,'name'=>'位置从近到远'],
+						['id'=>4,'name'=>'发布时间倒序'],
 					];
 
 					$wylx = [];

@@ -114,9 +114,9 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">总代公司</label>
                 <div class="col-md-10">
-                    <?php echo $form->dropDownList($plot, 'zd_company',  CHtml::listData(CompanyExt::model()->normal()->findAll('type=1'),'id','name'), array('class'=>'form-control select2')); ?>
+                    <?php echo $form->dropDownList($plot, 'company_id',  CHtml::listData(CompanyExt::model()->normal()->findAll('type=1'),'id','name'), array('class'=>'form-control select2')); ?>
                 </div>
-                <div class="col-md-12"><?php echo $form->error($plot, 'zd_company'); ?></div>
+                <div class="col-md-12"><?php echo $form->error($plot, 'company_id'); ?></div>
             </div>
             <?php endif;?>
             <div class="form-group">

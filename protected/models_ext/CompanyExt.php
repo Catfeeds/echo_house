@@ -16,6 +16,8 @@ class CompanyExt extends Company{
     {
         return array(
             'users'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'users.deleted=0 and users.status=1'),
+            'package'=>array(self::HAS_ONE, 'CompanyPackageExt', 'cid'),
+            'plotnum'=>array(self::STAT, 'PlotExt', 'company_id','condition'=>'deleted=0'),
             'managers'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'managers.deleted=0 and managers.status=1 and managers.is_manage=1'),
         );
     }
@@ -51,7 +53,7 @@ class CompanyExt extends Company{
                 $code = $this->type==1 ? 800000 + rand(0,99999) :  600000 + rand(0,99999) ;
             }
             $this->code = $code;
-            $this->adduid && Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，请使用此本门店码加入新房通系统',$this->adduid);
+            $this->adduid && Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，公司其他员工也可以通过此门店码加入经纪圈新房通，点这里立即前往绑定门店码：'.Yii::app()->request->getHostInfo().'/subwap/register.html?phone='.Yii::app()->db->createCommand("select phone from user where qf_uid=".$this->adduid)->queryScalar(),$this->adduid);
             $this->phone && SmsExt::sendMsg('公司注册通过',$this->phone,['code'=>$code]);
         }
         if($this->getIsNewRecord()) {
@@ -114,6 +116,40 @@ class CompanyExt extends Company{
         if($code) {
             return CompanyExt::model()->normal()->find("code='$code'");
         }
+    }
+
+    public function getScjl($arr=1)
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                if($arr==1)
+                    $value->is_jl==1&&$data[$value->id] = $value->name;
+                else
+                    $value->is_jl==1&&$data[] = ['id'=>$value->id,'name'=>$value->name];
+            }
+        }
+        return $data;
+    }
+    public function getSczy()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==3&&$data[$value->phone] = $value->name;
+            }
+        }
+        return $data;
+    }
+    public function getAcsales()
+    {
+        $data = [];
+        if($users = $this->users) {
+            foreach ($users as $key => $value) {
+                $value->is_jl==5&&$data[] = ['id'=>$value->id,'name'=>$value->name.$value->phone];
+            }
+        }
+        return $data;
     }
 
 }

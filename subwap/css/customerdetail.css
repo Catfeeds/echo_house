@@ -86,6 +86,7 @@ body{
 	top: 2.6rem;
 	font-size: 0.747rem;
 	color: #868686;
+	width: 10rem;
 }
 .note{
 	width: 18.4rem;
@@ -147,6 +148,27 @@ body{
 	color: #fff;
 	background-color: #00b7ee;
 }
+.genjin{
+	position: absolute;
+	left: 14.7rem;
+	top: 0.6rem;
+	padding: 0.1rem 0.3rem;
+	border: #D7D7D7 0.054rem solid;
+	border-radius: 0.133rem;
+	font-size: 0.64rem;
+	background-color: #fff;
+}
+.genjin-active{
+	position: absolute;
+	left: 14.7rem;
+	top: 0.6rem;
+	padding: 0.1rem 0.3rem;
+	border: #00b7ee 0.054rem solid;
+	border-radius: 0.133rem;
+	font-size: 0.64rem;
+	color: #fff;
+	background-color: #00b7ee;
+}
 .processli{
 	position: relative;
 	float: left;
@@ -183,14 +205,26 @@ body{
 .state li{
 	position: relative;
 	width: 20rem;
-	height: 2rem;
+	min-height: 2rem;
+	height: auto;
 }
-.state-text{
-	position: absolute;
+.state-text-off{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
-	left: 0.8rem;
+	margin-left: 0.8rem;
+	height: 1.88rem;
+	width: 11rem;
+	overflow: hidden;
+}
+.state-text-on{
+	color: #868686;
+	font-size: 0.747rem;
+	line-height: 1.88rem;
+	margin-left: 0.8rem;
+	margin-bottom: 1.88rem;
+	height: auto;
+	width: 18.4rem;
 }
 .state-status{
 	position: absolute;
@@ -198,6 +232,7 @@ body{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
+	bottom: 0rem;
 }
 .state-time{
 	position: absolute;
@@ -205,6 +240,7 @@ body{
 	color: #868686;
 	font-size: 0.747rem;
 	line-height: 1.88rem;
+	bottom: 0rem;
 }
 .remark{
 	position: relative;
@@ -241,4 +277,29 @@ body{
 }
 #ul2{
 	display: none;
+}
+.report-small-tag{
+	position: relative;
+	width: 20.0rem;
+	height: 2.027rem;
+	background-color: #fff;
+}
+.report-smalltag-title{
+	position: absolute;
+	line-height: 2.027rem;
+	color: #333333;
+	font-size: 0.8rem;
+	top: 0rem;
+	left: 0.64rem;
+}
+.report-contacter{
+	position: absolute;
+	top: 0.25rem;
+	right: 1rem;
+	height: 1.5rem;
+	width: 8rem;
+	font-size: 0.693rem;
+	color: #868686;
+	text-align: right;
+	border:solid 0.027rem #c3c3c3;
 }

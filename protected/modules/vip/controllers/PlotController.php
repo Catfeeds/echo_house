@@ -14,7 +14,7 @@ class PlotController extends VipController{
 
 	public function filters()
 	{
-		return ['staff+newsList,imageList,priceList'];
+		// return ['staff+newsList,imageList,priceList'];
 	}
 
 	public function filterStaff($chain)
@@ -127,6 +127,48 @@ class PlotController extends VipController{
 		$houses = PlotPlaceExt::model()->undeleted()->getList($criteria,20);
 		// var_dump($houses->data);exit;
 		$this->render('placelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 户型列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionMarketlist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/vip');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotMarketUserExt::model()->undeleted()->getList($criteria,20);
+		// var_dump($houses->data);exit;
+		$this->render('marketlist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 户型列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionSalelist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/vip');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotSaleExt::model()->undeleted()->getList($criteria,20);
+		// var_dump($houses->data);exit;
+		$this->render('salelist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 
 	/**
@@ -286,30 +328,37 @@ class PlotController extends VipController{
 					$tagArray = array_merge($tagArray,$tmp);
 				}
 			}
-			// var_dump($tagArray);exit;
-			if($house->save()) {
-				// if($zd_company) {
-				// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
-				// 	foreach ($zd_company as $cid) {
-				// 		$obj = new PlotCompanyExt;
-				// 		$obj->hid = $house->id;
-				// 		$obj->cid = $cid;
-				// 		$obj->save();
-				// 	}
-				// }
-				PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
-				if($tagArray)
-					foreach ($tagArray as $tid) {
-						$obj = new PlotTagExt;
-						$obj->hid = $house->id;
-						$obj->tid = $tid;
-						$obj->save();
-					}
-				$this->setMessage('保存成功','success');
-				$this->redirect('/vip/plot/list');
-			} else {
-				$this->setMessage(current(current($house->getErrors())),'error');
+			if($house->getIsNewRecord() && $pname = Yii::app()->db->createCommand("select plot_num from company_package where cid=".$house->company_id)->queryScalar()) {
+				$zdc = PlotExt::model()->undeleted()->count('company_id='.$house->company_id);
+				if($zdc>=$pname) {
+					$this->setMessage('房源数已达上限，请联系客服','error');
+				} else {
+					if($house->save()) {
+					// if($zd_company) {
+					// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+					// 	foreach ($zd_company as $cid) {
+					// 		$obj = new PlotCompanyExt;
+					// 		$obj->hid = $house->id;
+					// 		$obj->cid = $cid;
+					// 		$obj->save();
+					// 	}
+					// }
+					PlotTagExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
+					if($tagArray)
+						foreach ($tagArray as $tid) {
+							$obj = new PlotTagExt;
+							$obj->hid = $house->id;
+							$obj->tid = $tid;
+							$obj->save();
+						}
+					$this->setMessage('保存成功','success');
+					$this->redirect('/vip/plot/list');
+				} else {
+					$this->setMessage(current(current($house->getErrors())),'error');
+				}
+				}
 			}
+				
 		}
 		$this->render('edit',['plot'=>$house]);
 	}
@@ -452,6 +501,48 @@ class PlotController extends VipController{
 			}
 		} 
 		$this->render('placeedit',['article'=>$info,'hid'=>$hid]);
+	}
+	public function actionEditMarket()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotMarketUserExt';
+		$this->controllerName = '市场对接人';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->hid = $hid;
+			$info->expire = time()+86400*365;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['marketlist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('marketedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionEditSale()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotSaleExt';
+		$this->controllerName = '案场销售';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->hid = $hid;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['salelist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('saleedit',['article'=>$info,'hid'=>$hid]);
 	}
 
 	public function actionEditPrice()

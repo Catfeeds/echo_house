@@ -5,7 +5,7 @@
 	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/personallist.css">
-	<title></title>
+	<title>房源列表</title>
 </head>
 <body ng-app="perlist" ng-controller="perlistCtrl">
 
@@ -29,15 +29,16 @@
 		            <div ng-cloak class="house-text-head">{{item.title}}</div>
 	            </a>
 	            <div ng-cloak class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
-	            <div ng-cloak class="house-text-price">{{item.price+ '' +item.unit}}</div>
-	            <div ng-cloak class="list-status">{{item.distance}}</div>
-	            <div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.obj.company_name}}</div>
+	            <div ng-cloak class="house-text-price"><a style="color: rgb(223,82,37);" href="duijieren.html?hid={{item.id}}">对接人申请/续费</a></div>
+	            <div ng-cloak class="list-expire">{{item.expire}}</div>
+	            <!-- <div ng-cloak class="list-status">报备管理</div> -->
+	            <div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.zd_company.name}}</div>
             </li>
 		</ul>
 	</div>
 	<div class="bottom-blank"></div>
 	<div class="add" onclick="location.href='personaladd.html'">
-		<img class="addimg" src="./img/addimg.png">
+		<div class="addimg">发布项目</div>
 	</div>
 
 

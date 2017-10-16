@@ -31,7 +31,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
         echo $form->dropDownList($article , 'area' ,CHtml::listData($parentArea,'id','name') , array(
                 'class'=>'form-control input-inline',
                 'ajax' =>array(
-                    'url' => Yii::app()->createUrl('admin/area/ajaxGetArea'),
+                    'url' => Yii::app()->createUrl('vip/area/ajaxGetArea'),
                     'update' => '#CompanyExt_street',
                     'data'=>array('area'=>'js:this.value'),
                 )
@@ -100,7 +100,7 @@ $js = "
 
     var getHousesAjax =
      {
-        url: '".$this->createUrl('/admin/plot/AjaxGetHouse')."',"."
+        url: '".$this->createUrl('/vip/plot/AjaxGetHouse')."',"."
         dataType: 'json',
         delay: 250,
         data: function (params) {

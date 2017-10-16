@@ -9,6 +9,8 @@
  * @property string $wx
  * @property string $phone
  * @property string $name
+ * @property integer $parent
+ * @property integer $is_jl
  * @property integer $is_manage
  * @property string $id_pic
  * @property integer $qf_uid
@@ -41,13 +43,13 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pwd, name, created', 'required'),
-			array('is_manage, qf_uid, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('parent, is_jl, is_manage, qf_uid, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('pwd, id_pic, company, image', 'length', 'max'=>255),
 			array('wx, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, is_manage, id_pic, qf_uid, cid, company, type, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, company, type, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +75,8 @@ class User extends CActiveRecord
 			'wx' => 'Wx',
 			'phone' => 'Phone',
 			'name' => 'Name',
+			'parent' => 'Parent',
+			'is_jl' => 'Is Jl',
 			'is_manage' => 'Is Manage',
 			'id_pic' => 'Id Pic',
 			'qf_uid' => 'Qf Uid',
@@ -111,6 +115,8 @@ class User extends CActiveRecord
 		$criteria->compare('wx',$this->wx,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('parent',$this->parent);
+		$criteria->compare('is_jl',$this->is_jl);
 		$criteria->compare('is_manage',$this->is_manage);
 		$criteria->compare('id_pic',$this->id_pic,true);
 		$criteria->compare('qf_uid',$this->qf_uid);

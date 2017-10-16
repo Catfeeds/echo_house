@@ -22,7 +22,7 @@
 					<div class="list-head-list">
 						<ul>
 							<li id="alltop" data-id="0" class="list-head-item list-head-text list-head-item-active" onclick="getTopId(this)">全部</li>
-							<li ng-repeat="item in toplist" class="list-head-item list-head-text" data-id="{{item.id}}" onclick="getTopId(this)">{{item.name}}</li>
+							<li ng-cloak ng-repeat="item in toplist" class="list-head-item list-head-text" data-id="{{item.id}}" onclick="getTopId(this)">{{item.name}}</li>
 
 						</ul>
 					</div>
@@ -30,53 +30,68 @@
 			</div>
 
 			<div class="line"></div>
-		<!-- 筛选栏 -->
+<!-- 筛选栏 -->
 			<ul class="list-filter clearfloat">
-		            <li ng-repeat="item in filterlist" class="list-filter-area list-filter-text" data-id="{{item.id}}" ng-click="showArea(item.name)">{{item.name}}
+		            <li ng-cloak ng-repeat="item in filterlist" class="list-filter-area list-filter-text" ng-class="{true:'list-filter-area-active',false:''}[show_Area]" data-id="{{item.id}}" ng-click="showArea($index)">{{item.name}}
 		            <img class="list-filter-slat" src="./img/slatdown.png" />
 		            </li>
 		    </ul>
 	    </div>
 
-		<!-- 筛选列表1 -->
+<!-- 筛选列表1 -->
 		<div class="filter-filter-bg" ng-show="show_Area">
 			<div class="line"></div>
 			<div class="filter-filter1">
 				<div class="filter-filter1-left"> 
 					<ul id="areaul">
-						<li ng-repeat="item in filterlist1" ng-click="showStreet(this)" data-id="{{item.id}}">{{item.name}}</li>
+						<li ng-click="showlist(this)" data-id="0">不限</li>
+						<li ng-cloak ng-repeat="item in filterlist1_left" ng-click="showStreet(item.name)" data-id="{{item.id}}">{{item.name}}</li>
 					</ul>
 				</div>
-				<div class="filter-filter1-right"> 
+				<div class="filter-filter1-right"  ng-show="show_Street"> 
 					<ul id="streetul">
-						<!-- 街道 -->
+						<li ng-click="showlist(this)" data-id="0">不限<div class="line"></div></li>
+						<li ng-cloak ng-repeat="item in filterlist1_right" ng-click="showlist(this)" data-type="street" data-id="{{item.id}}">{{item.name}}<div class="line"></div></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<!-- 筛选列表2 -->
-		<div class="filter-filter-bg" ng-show="1+1==3">
+<!-- 筛选列表2 -->
+		<div class="filter-filter-bg" ng-show="show_Price">
 			<div class="line"></div>
 			<div class="filter-filter2">
 				<ul id="priceul">
-					<!-- 价格列表 -->
+					<li ng-click="showlist(this)" data-id="0">不限<div class="line" style="left:-1.33rem"></div></li>
+					<li ng-cloak ng-repeat="item in filterlist2" ng-click="" data-id="{{item.id}}">{{item.name}}<div class="line" style="left:-1.33rem"></div></li>
 				</ul>
 			</div>
 		</div>
-		<!-- 筛选列表3 -->
-		<div class="filter-filter-bg" ng-show="1+1==3">
+<!-- 筛选列表3 -->
+		<div class="filter-filter-bg" ng-show="show_Firstpay">
 			<div class="line"></div>
 			<div class="filter-filter3">
 				<ul id="FirstPayul">
-					<!-- 首付列表 -->
+					<li ng-click="showlist(this)" data-id="0">不限<div class="line" style="left:-1.33rem"></div></li>
+					<li ng-cloak ng-repeat="item in filterlist3" onclick="setFirstPay(this)" data-id="{{item.id}}">{{item.name}}<div class="line" style="left:-1.33rem"></div></li>
 				</ul>
 			</div>
 		</div>
-		<!-- 筛选列表4 -->
-		<div class="filter-filter-bg" ng-show="1+1==3">
+<!-- 筛选列表4 -->
+		<div class="filter-filter-bg" ng-show="show_More">
 			<div class="line"></div>
 			<div class="filter-filter4">
-				<ul id="filter4-list">	
+				<ul id="filter4-list">
+					<li ng-cloak ng-repeat="items in filterlist4" class="filter4-item">
+						<div class="filter4-item-head"><strong>{{items.name}}</strong></div>
+						<div class="filter4-item-item">
+							<ul class="clearfloat">
+								<div id="filter4-item0">
+									<li ng-click="" data-id="" class="filter-filter4-button-active">不限</li>
+									<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)" data-id="{{item.id}}">{{item.name}}</li>
+								</div>
+							</ul>
+						</div>
+					</li>
 				</ul>
 				<div class="list-blank"></div>
 				<div class="line"></div>
@@ -87,23 +102,27 @@
 			</div>
 		</div>
 	</div>
-
-
+<!-- 未登陆头像图标 -->
+	<div class="list-headimg1">
+		<img class="headimg1" onclick="toUser()" src="./img/list-headimg.png">
+	</div>
+<!-- 登陆后头像图标 -->
+	<!-- <div class="list-headimg2">
+		<img class="headimg2" onclick="toUser()" src="">
+	</div> -->
 <!-- 返回顶部图标 -->
 	<div class="list-stick">
 		<img class="list-stick-img" src="./img/stick.png">
 	</div>
-
-
 <!-- 房子列表 -->
-	<div class="houselist">
+	<div class="houselist" ng-controller="listCtrl">
 		<div class="hose-list-ammount-bg">
-			共<b id="num"></b>条房源
+			共<b id="num">{{num}}</b>条房源
 			<div class="hose-list-ammount" id="companytag" onclick="delCom()">
 			</div>
 		</div>
-        <ul id="ul1" ng-controller="listCtrl">
-            <li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
+        <ul id="ul1">
+            <li ng-cloak class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
 	            <div class="line"></div>
 	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
 		            <img class="house-img" ng-Src="{{ item.image }}"/>

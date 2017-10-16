@@ -134,6 +134,20 @@ class SmsExt extends Sms{
     {
         // 一分钟有效期外或者新的可以保存
         if($phone) {
+            // 短信统计
+            $user = UserExt::model()->find("phone='$phone'");
+            if($user && $com = $user->companyinfo) {
+                $pa = $com->package;
+                if($pa) {
+                    if($com->msg_num>=$pa->msg_num) {
+                        return false;
+                    } else {
+                        $com->msg_num += 1;
+                        $com->save();
+                    }
+                }
+            }
+            
             return Yii::app()->msg->sendSms(Yii::app()->params['msgArr'][$type],$phone,$arr);
             } else {
                 return false;

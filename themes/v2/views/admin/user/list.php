@@ -16,7 +16,10 @@ $this->breadcrumbs = array($this->pageTitle);
             </div>
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
             <div class="form-group">
-                <?php echo CHtml::dropDownList('cate',$cate,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
+                <?php echo CHtml::dropDownList('cate',$cate,UserExt::$ids,array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择类型--')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('status',$status,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
             </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
@@ -34,6 +37,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">排序</th>
         <th class="text-center">ID</th>
         <th class="text-center">用户名</th>
+        <th class="text-center">用户类型</th>
         <th class="text-center">电话</th>
         <th class="text-center">公司名</th>
         <th class="text-center">添加时间</th>
@@ -50,6 +54,7 @@ $this->breadcrumbs = array($this->pageTitle);
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
+            <td class="text-center"><?=UserExt::$ids[$v->type]?></td>
             <td class="text-center"><?=$v->phone?></td>
             <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>         
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
@@ -57,7 +62,6 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
 
             <td style="text-align:center;vertical-align: middle">
-                
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
                 <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
 

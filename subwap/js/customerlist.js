@@ -2,19 +2,27 @@ var cuslistapp=angular.module("cuslist",[]);
 cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	$http({
 		method:'GET',
-		url:'/api/plot/checkIsZc'
+		url:'/api/index/getQfUid'
 	}).then(function successCallback(response){
-		if(response.data.status=='error') {
-			alert('案场助理仅对与新房通合作的总代公司开放，请联系管理员开通');
-			location.href = 'list.html';
-		}else{
-			$('.count b').html(response.data.data.num);
-			$scope.cuntomerlist=response.data.data.list;
-		}
-		
+		$http({
+			method:'GET',
+			url:'/api/plot/checkIsZc'
+		}).then(function successCallback(response){
+			if(response.data.status=='error') {
+				alert('案场助理仅对与新房通合作的总代公司开放，请联系管理员开通');
+				location.href = 'list.html';
+			}else{
+				$('.count b').html(response.data.data.num);
+				$scope.cuntomerlist=response.data.data.list;
+			}
+			
+		},function errorCallback(response){
+
+		});
 	},function errorCallback(response){
 
 	});
+		
 	$scope.search=function(){
 		var search1=$('.list-search-frame-text').val();
 		var status1=$('.statusselect').val();

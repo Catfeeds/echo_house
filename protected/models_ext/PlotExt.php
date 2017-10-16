@@ -95,6 +95,13 @@ class PlotExt extends Plot{
             // array('zd_company','required'),
         ));
     }
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        return array_merge($labels,[
+            'price'=>'价格',
+            ]);
+    }
 
     public function __set($name='',$value='')
     {
@@ -147,7 +154,7 @@ class PlotExt extends Plot{
             'subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'subs.deleted=0','order'=>'subs.created desc'),
             'checked_subs'=>array(self::HAS_MANY, 'SubExt', 'hid','condition'=>'checked_subs.deleted=0 and checked_subs.is_check=1','order'=>'checked_subs.created desc'),
             'places'=>array(self::HAS_MANY, 'PlotPlaceExt', 'hid','condition'=>'places.deleted=0','order'=>'places.created desc'),
-            'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.created desc'),
+            'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.is_manager desc,sfMarkets.created asc'),
             'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
         );
@@ -203,6 +210,7 @@ class PlotExt extends Plot{
             }
         }
         CacheExt::delete('wap_init_plotlist');  
+        CacheExt::delete('wap_area_plotlist');  
         // PlotExt::setPlotCache(); 
     }
 
@@ -257,7 +265,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'sort desc,updated desc';
+                    $criteria->order = 'sort desc,ff_num desc,updated desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
@@ -289,7 +297,7 @@ class PlotExt extends Plot{
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
                                 'zd_company'=>$companydes,
                                 'pay'=>$value->first_pay,
-                                'sort'=>$value->sort,                        
+                                'sort'=>$value->sort,       
                                 'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
                                 'obj'=>$value,
                             ];
@@ -301,10 +309,86 @@ class PlotExt extends Plot{
                 });
     }
 
+    public static function getFirstListFromArea() {
+        return CacheExt::gas('wap_area_plotlist','AreaExt',0,'wap区域数据列表',function (){
+                    $datas = [];
+                    $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
+                    $areas = AreaExt::model()->normal()->findAll('parent=0');
+                    if($areas) {
+                        foreach ($areas as $area) {
+                            $criteria = new CDbCriteria;
+                            $criteria->addCondition('area='.$area->id);
+                            $criteria->limit = 20;
+                            $criteria->order = 'sort desc,ff_num desc,updated desc';
+                            $plots = PlotExt::model()->normal()->getList($criteria);
+                            if($datares = $plots->data) {
+                                foreach ($datares as $key => $value) {
+                                    // if($area = $value->areaInfo)
+                                    $areaName = $area->name;
+                                    // else
+                                    //     $areaName = '';
+                                    if($street = $value->streetInfo)
+                                        $streetName = $street->name;
+                                    else
+                                        $streetName = '';
+                                    $companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+                                        
+                                    // var_dump(Yii::app()->user->getIsGuest());exit;
+                                    // if(Yii::app()->user->getIsGuest()) {
+                                    //     $pay = '';
+                                    // } elseif($pays = $value->pays) {
+                                    //     $pay = $pays[0]['price'].(count($pays)>1?'('.count($pays).'个方案)':'');
+                                    // } else {
+                                    //     $pay = '';
+                                    // }
+                                    $wyw = '';
+                                    $wylx = $value->wylx;
+                                    if($wylx) {
+                                     if(!is_array($wylx)) 
+                                         $wylx = [$wylx];
+                                     foreach ($wylx as $w) {
+                                         $t = TagExt::model()->findByPk($w)->name;
+                                         $t && $wyw .= $t.' ';
+                                     }
+                                     $wyw = trim($wyw);
+                                    }
+                                    $lists[] = [
+                                        'id'=>$value->id,
+                                        'title'=>Tools::u8_title_substr($value->title,18),
+                                        'price'=>$value->price,
+                                        'unit'=>PlotExt::$unit[$value->unit],
+                                        'area'=>$areaName,
+                                        'street'=>$streetName,
+                                        'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+                                        'zd_company'=>$companydes,
+                                        'pay'=>$value->first_pay,
+                                        'sort'=>$value->sort, 
+                                        'wylx'=>$wyw,   
+                                        'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
+                                        'obj'=>$value,
+                                    ];
+                                }
+                                $pager = $plots->pagination;
+                                $datas[$area->id] = ['list'=>$lists,'page'=>1,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
+                                unset($lists);
+                            }
+
+                        }
+
+                    }
+                    return $datas;
+                            
+
+                });
+    }
+
     public function changeS()
     {
         if($owner = $this->owner) {
-            $owner->qf_uid && Yii::app()->controller->sendNotice('您好，您的项目'.$this->title.'已上线，请登录经纪圈新房通查看。',$owner->qf_uid);
+            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$owner->qf_uid);
+            SmsExt::sendMsg('项目通过审核',$owner->phone,['lpmc'=>$this->title]);
+            // 恭喜您，${lpmc}已通过后台编辑的完善和审核，请登录经纪圈APP消息列表查看付费链接。
         }
     }
+
 }

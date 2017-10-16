@@ -47,7 +47,7 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$cate1='',$company='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='')
 	{
 		$modelName = 'PlotExt';
 		$criteria = new CDbCriteria;
@@ -71,21 +71,23 @@ class PlotController extends AdminController{
         	$company=Yii::app()->user->cid;
         }
         if($company) {
-        	// $ids = Yii::app()->db->createCommand("select hid from plot_company where cid=$company")->queryAll();
-        	// $idArr = [];
-        	// if($ids) {
-        	// 	foreach ($ids as $id) {
-        	// 		$idArr[] = $id['hid'];
-        	// 	}
-        	// }
-        	// $criteria->addInCondition('id',$idArr);
         	$criteria->addCondition('company_id=:comid');
         	$criteria->params[':comid'] = $company;
+        }
+        if(is_numeric($status)) {
+        	$criteria->addCondition('status=:status');
+        	$criteria->params[':status'] = $status;
+        }
+         if(is_numeric($is_uid)) {
+         	if($is_uid)
+        		$criteria->addCondition('uid>0');
+        	else
+        		$criteria->addCondition('uid=0');
         }
 		$this->controllerName = '楼盘';
 		$criteria->order = 'sort desc,updated desc,id desc';
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'cate1'=>$cate1,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
 	}
 
 	/**
@@ -228,9 +230,13 @@ class PlotController extends AdminController{
 	 */
 	public function actionEdit($id='')
 	{
+		$change = 0;
 		$house = $id ? PlotExt::model()->findByPk($id) : new PlotExt;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$values = Yii::app()->request->getPost('PlotExt',[]);
+			if($values['status']==1&&$house->status==0) {
+				$change = 1;	
+			}
 			$house->attributes = $values;
 			if(strpos($house->open_time,'-')) {
 				$house->open_time = strtotime($house->open_time);
@@ -238,21 +244,21 @@ class PlotController extends AdminController{
 			if(strpos($house->delivery_time,'-')) {
 				$house->delivery_time = strtotime($house->delivery_time);
 			}
-			$zd_company = [];
+			$company_id = '';
 			if(Yii::app()->user->id==1) {
-				$zd_company = $house->zd_company;
+				$company_id = $house->company_id;
 				
 			} else {
 				if($house->getIsNewRecord())
-					$zd_company = [Yii::app()->user->cid];
+					$company_id = Yii::app()->user->cid;
 			}
-			if(!is_array($zd_company) && $zd_company) {
-				$zd_company = [$zd_company];
-			}
+			// if(!is_array($zd_company) && $zd_company) {
+			// 	$zd_company = [$zd_company];
+			// }
 			// var_dump($zd_company);exit;
-			if($zd_company) {
-				$house->company_name = CompanyExt::model()->findByPk($zd_company[0])->name;
-				$house->company_id = $zd_company[0];
+			if($company_id) {
+				$house->company_name = CompanyExt::model()->findByPk($company_id)->name;
+				$house->company_id = $company_id;
 			}
 				
 			$tagArray = [];
@@ -267,6 +273,9 @@ class PlotController extends AdminController{
 			}
 			// var_dump($tagArray);exit;
 			if($house->save()) {
+				if($change) {
+					$house->changeS();
+				}
 				// if($zd_company) {
 				// 	PlotCompanyExt::model()->deleteAllByAttributes(['hid'=>$house->id]);
 				// 	foreach ($zd_company as $cid) {

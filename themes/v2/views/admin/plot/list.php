@@ -16,6 +16,12 @@ $this->breadcrumbs = array($this->pageTitle);
             </div>
              
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('is_uid',$is_uid,['后台','用户'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--信息来源--')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('status',$status,['禁用','启用'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
@@ -33,23 +39,27 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">id</th>
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
-            <th class="text-center">对接人</th>
+            <th class="text-center">楼盘发布人</th>
+            <th class="text-center">付款人数</th>
             <th class="text-center">今日点击量/总点击量</th>
             <th class="text-center">创建时间</th>
+            <th class="text-center">状态</th>
             <th class="text-center">操作</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $v): ?>
+    <?php foreach($infos as $v): $owner = $v->owner; ?>
         <tr>
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><?php echo $v->title ?></td>
             <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
-            <td  class="text-center"><?php echo $v->market_user ?></td>
+            <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.(Yii::app()->db->createCommand("select id from plot_makert_user where status=1 and is_manager=1 and hid=".$v->id." and uid=".$owner->id)->queryScalar()?'已付款':'<span style="color:red">未付款</span>')):'' ?></td>
+            <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
+            <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
             <td  class="text-center">
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>
                 <a href="<?=$this->createUrl('hxlist',['hid'=>$v->id])?>" class="btn btn-xs yellow">户型</a>

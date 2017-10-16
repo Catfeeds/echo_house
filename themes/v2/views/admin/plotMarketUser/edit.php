@@ -17,14 +17,14 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 <div class="form-group">
     <label class="col-md-2 control-label">经纪人</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
+        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control select2','empty'=>'')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>
 </div>
 <div class="form-group">
     <label class="col-md-2 control-label">楼盘</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'hid', CHtml::listData(PlotExt::model()->normal()->findAll(),'id','title'), array('class' => 'form-control', 'encode' => false)); ?>
+        <?php echo $form->dropDownList($article, 'hid', CHtml::listData(PlotExt::model()->normal()->findAll(),'id','title'), array('class' => 'form-control select2','empty'=>'')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
@@ -39,6 +39,13 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         </div>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">是否发布人</label>
+    <div class="col-md-4">
+        <?php echo $form->radioButtonList($article, 'is_manager', ['否','是'], array('separator' => '')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'is_manager') ?></div>
 </div>
 <div class="form-group">
     <label class="col-md-2 control-label">状态</label>

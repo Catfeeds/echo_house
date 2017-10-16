@@ -8,7 +8,7 @@ body{
 }
 .line{
 	position: absolute;
-	top: 4.446rem;
+	top: 5.26rem;
 	width: 20rem;
 	height: 0.054rem;
 	background-color: #F5F5F5;
@@ -34,11 +34,12 @@ body{
 	background-color: #f5f5f5;
 }
 .addimg{
-	position: absolute;
-	height: 1.5rem;
-	width: 1.5rem;
-	left: 9.25rem;
-	top: 0.58rem;
+	position: relative;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	line-height: 2.667rem;
 }
 
 .list-search-frame{
@@ -185,16 +186,25 @@ body{
 	font-size: 0.747rem;
 	position: absolute;
 	top: 0.3rem;
-	left:13.2rem;
+	right: 1rem;
 	width: 6.0rem;
-	color: rgb(223,82,37);
+	text-align: right;
+}
+.list-expire{
+	position: absolute;
+	font-size: 0.64rem;
+	top: 1.64rem;
+	right: 1rem;
+	width: 10rem;
+	color:#868686;
 	text-align: right;
 }
 .list-status{
 	position: absolute;
 	font-size: 0.64rem;
-	top: 1.64rem;
-	left: 16.7rem;
+	top: 2.64rem;
+	right: 1rem;
 	width: 3rem;
 	color:#868686;
+	text-align: right;
 }

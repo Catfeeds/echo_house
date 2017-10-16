@@ -13,6 +13,7 @@ class SubProExt extends SubPro{
         '成交',
         '结佣',
         '退定',
+        '跟进',
     ];
 	/**
      * 定义关系
@@ -52,8 +53,28 @@ class SubProExt extends SubPro{
     }
 
     public function beforeValidate() {
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()) {
+            if($this->status==7) {
+                // 跟进通知分销业务员和分销店长
+                $sub = $this->sub;
+                $user = $this->user;
+                $plotname = $sub->plot->title;
+                $salename = $user->name.$user->phone;
+                $cumsname = $sub->name.$sub->phone;
+                $words = "{$plotname}的案场销售【{$salename}】对您的客户【{$cumsname}】跟进内容如下：".$this->note;
+                $fx = $sub->user;
+                if($fx) {
+                    $fx->qf_uid && Yii::app()->controller->sendNotice($words,$fx->qf_uid);
+                    $bosss = UserExt::model()->normal()->findAll('is_manage=1 and cid='.$fx->cid);
+                    if($bosss) {
+                        foreach ($bosss as $key => $value) {
+                            $value->qf_uid && Yii::app()->controller->sendNotice($words,$value->qf_uid);
+                        }
+                    }
+                }
+            }
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

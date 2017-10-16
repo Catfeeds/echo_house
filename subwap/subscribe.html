@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/subscribe.css">
+	<title>订阅</title>
+</head>
+<body>
+	<div class="area">
+		<div class="tittle">区域</div>
+		<div class="province small">省份</div>
+		<select class="sel small">
+			<option>啊</option>
+			<option>点点滴滴</option>
+			<option>呜呜呜</option>
+		</select>
+		<div class="city small">城市</div>
+		<select class="sel"></select>
+	</div>
+	<div class="line"></div>
+	<div class="averageprice">
+		<div class="tittle">均价<span class="small">/千</span></div>
+		<div class="buxian">不限</div>
+		<p>
+			<label for="amount">价格范围：</label>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+		</p>	 
+		<div id="slider-range"></div>
+	</div>
+	<div class="line"></div>
+	<div class="firstpay">
+		<div class="tittle">首付<span class="small">/万</span></div>
+		<div class="buxian">不限</div>
+		<p>
+			<label for="amount">价格范围：</label>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+		</p>	 
+		<div id="slider-range"></div>
+	</div>
+	<div class="line"></div>
+	<div class="filter" ng-show="show_More">
+			<ul>
+				<li ng-cloak ng-repeat="items in filterlist4" class="filter4-item">
+					<div class="filter4-item-head"><strong>{{items.name}}</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<div id="filter4-item0">
+								<li ng-click="" data-id="" class="filter-filter4-button-active">不限</li>
+								<li ng-cloak ng-repeat="item in items.list" onclick="setFilterItem(this)" data-id="{{item.id}}">{{item.name}}</li>
+							</div>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="list-blank"></div>
+			<div class="line"></div>
+			<div class="filter-filter4-buttom">
+				<div class="filter-filter4-buttom-button" id="reset">重置</div>
+				<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure">确定</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/subscribe.js"></script>
+</body>
+</html>
