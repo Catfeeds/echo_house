@@ -3,7 +3,7 @@
         <img class="headbg" src="<?=$this->subwappath?>/img/personalheadbg.png">
         <div class="personalhead-big">
             <div class="personalhead-small">
-                <img class="personalhead-wu" src="<?=isset($staff->image)&&$staff->image?ImageTools::fixImage($staff->image):$this->subwappath.'/img/personaluserhead.png'?>">
+                <img class="personalhead-wu" src="<?=isset($staff->ava)&&$staff->ava?ImageTools::fixImage($staff->ava):$this->subwappath.'/img/personaluserhead.png'?>">
             </div>
         </div>
         <img class="setup" src="<?=$this->subwappath?>/img/setup.png">
