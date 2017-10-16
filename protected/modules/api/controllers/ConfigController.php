@@ -19,7 +19,7 @@ class ConfigController extends ApiController{
 		$data = [
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
-			'user_image'=>$this->staff->ava,
+			'user_image'=>isset($this->staff->ava)?$this->staff->ava:'',
 			'is_jy'=>isset($userinfo)&&$userinfo['id']&&$userinfo['status']==0?1:0,
 		];
 		$data = array_merge($oths,$data);
