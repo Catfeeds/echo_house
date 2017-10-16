@@ -221,7 +221,9 @@ $(document).ready(function() {
                     $('.list-headimg1').css('display','none');
                     $('.list-headimg2').css('display','block');
                     $('.headimg2').attr('src',face);
+                    face.replace('/','\/');
                     if(user_image==''||user_image!=face) {
+
                         $.post('/api/user/addImage',{'image':face},function(){});
                     }
                   }else{
