@@ -6,10 +6,10 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 	}).then(function successCallback(response){
 		$http({
 			method:'GET',
-			url:'/api/plot/checkIsZc'
+			url:'/api/plot/userList'
 		}).then(function successCallback(response){
 			if(response.data.status=='error') {
-				alert(response.data.msg);
+				alert('案场助理仅对与新房通合作的总代公司开放，请联系管理员开通');
 				location.href = 'list.html';
 			}else{
 				$('.count b').html(response.data.data.num);
@@ -28,7 +28,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		var status1=$('.statusselect').val();
 		$http({
 			method:'GET',
-			url:'/api/plot/checkIsZc?kw='+search1+'&status='+status1,
+			url:'/api/plot/userList?kw='+search1+'&status='+status1,
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
 				$('.count b').html(response.data.data.num);
@@ -43,7 +43,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		});
 	}
 	$scope.turn=function(obj){
-		location.href="customerdetail.html?id="+obj;
+		// location.href="customerdetail.html?id="+obj;
 	}
 	$scope.addCustomer=function(){
 		location.href="addcustomer.html";
