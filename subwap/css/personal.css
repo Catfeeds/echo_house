@@ -83,15 +83,12 @@ body{
 }
 .status1{
 	background-color: #9DD072;
-	display: block;
 }
 .status2{
 	background-color: #ffab58;
-	display: none;
 }
 .status3{
 	background-color: #00b7ee;
-	display: none;
 }
 .company{
 	position: absolute;

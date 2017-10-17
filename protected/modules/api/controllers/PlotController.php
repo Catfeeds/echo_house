@@ -17,12 +17,13 @@ class PlotController extends ApiController{
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$status = Yii::app()->request->getQuery('status','');
 		$page = (int)Yii::app()->request->getQuery('page',1);
+		$save = (int)Yii::app()->request->getQuery('save',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$init = $areainit = 0 ;
-		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save==0&&$page==1&&!$kw) {
 			$init = 1;
 		}
-		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
 		$criteria = new CDbCriteria;
@@ -41,6 +42,16 @@ class PlotController extends ApiController{
 			
 		} else {
 			$criteria->addCondition('status=1');
+		}
+		if($save>0&&$this->staff) {
+			$savehidsarr = [];
+			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$this->staff->id)->queryAll();
+			if($savehids) {
+				foreach ($savehids as $savehid) {
+					$savehidsarr[] = $savehid['hid'];
+				}
+				$criteria->addInCondition('id',$savehidsarr);
+			}
 		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
