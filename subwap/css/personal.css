@@ -78,9 +78,20 @@ body{
 	text-align: center;
 	top: 6.34rem;
 	left: 12rem;
-	background-color: #9DD072;
 	border-radius: 0.2rem;
 	padding: 0.08rem 0.2rem;
+}
+.status1{
+	background-color: #9DD072;
+	display: block;
+}
+.status2{
+	background-color: #ffab58;
+	display: none;
+}
+.status3{
+	background-color: #00b7ee;
+	display: none;
 }
 .company{
 	position: absolute;

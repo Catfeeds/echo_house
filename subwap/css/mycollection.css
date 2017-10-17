@@ -120,12 +120,12 @@ body{
 	color: rgb(223,82,37);
 	text-align: right;
 }
-.collect{
+#collect{
 	position: absolute;
-	height: 0.693rem;
-	width: 0.533rem;
-	top: 1.7rem;
-	left: 16rem;
+	height: 1.2rem;
+	width: 1.2rem;
+	top: 2.7rem;
+	left: 18rem;
 }
 .line{
 	width: 20.0rem;
