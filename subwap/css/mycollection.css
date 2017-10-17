@@ -1,6 +1,9 @@
 body{
 	background-color: #f5f5f5;
 }
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
 .houselist{
 	position: relative;
 }
@@ -120,12 +123,12 @@ body{
 	color: rgb(223,82,37);
 	text-align: right;
 }
-#collect{
+.notcollect{
 	position: absolute;
-	height: 1.2rem;
-	width: 1.2rem;
-	top: 2.7rem;
-	left: 18rem;
+	font-size: 0.747rem;
+	top: 1.7rem;
+	left: 16rem;
+	color: #868686;
 }
 .line{
 	width: 20.0rem;

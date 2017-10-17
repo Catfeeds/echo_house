@@ -7,21 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/mycollection.css">
 </head>
-<body>
+<body ng-app="mycollection">
 	<div class="list-search-frame">
 		<div class="list-search-search" ng-click="search()">搜索</div>
 		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入项目名称">
 	</div>
 	<div class="houselist" ng-controller="listCtrl">
-		<div class="hose-list-ammount-bg">
+		<div ng-cloak class="hose-list-ammount-bg">
 			共<b id="num">{{num}}</b>条房源
-			<div class="hose-list-ammount" id="companytag" onclick="delCom()">
-			</div>
 		</div>
-        <ul id="ul1">
-            <li ng-cloak class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
+        <ul id="ul">
+            <li ng-cloak class="list-house" style="list-style-type: none;" ng-repeat="item in list">
 	            <div class="line"></div>
-	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
+	            <a href="detail.html?id={{item.id}}">
 		            <img class="house-img" ng-Src="{{ item.image }}"/>
 		            <!-- <div class="house-jing">顶</div> -->
 		            <div class="house-text-head">{{item.title}}</div>
@@ -29,9 +27,9 @@
 	            <div class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
 	            <div class="house-text-pay-yong">佣</div>
 	            <div class="house-text-pay">{{item.pay}}</div>
-	            <div class="house-text-price">{{item.price+ '' +item.unit}}</div>
-	            <img id="collect" class="save" src="./img/save.png">
-	            <div class="house-text-company" onclick="setCompany(this)" data-id="' + companyid + '">{{item.obj.company_name}}</div>
+	            <div class="house-text-price">{{item.price+ '' +item.unit}}</div>  
+	            <div class="notcollect" ng-click="notsave($event)" data-id="{{item.id}}">取消收藏</div>
+	            <div class="house-text-company" data-id="' + companyid + '">{{item.zd_company.name}}</div>
             </li>
         </ul>
         <div class="loaddiv">  
@@ -45,6 +43,7 @@
 
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/mycollection.js"></script>
 </body>
 </html>
