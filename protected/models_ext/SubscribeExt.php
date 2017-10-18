@@ -4,15 +4,17 @@
  * @author steven.allen <[<email address>]>
  * @date(2017.2.12)
  */
-class CooperateExt extends Cooperate{
+class SubscribeExt extends Subscribe{
 	/**
      * 定义关系
      */
     public function relations()
     {
-         return array(
+        return array(
             'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
-            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
+            'areainfo'=>array(self::BELONGS_TO, 'AreaExt', 'area'),
+            'streetinfo'=>array(self::BELONGS_TO, 'AreaExt', 'street'),
+            // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
 
@@ -43,13 +45,10 @@ class CooperateExt extends Cooperate{
     }
 
     public function beforeValidate() {
-        if($this->uid && !$this->user_name && $user = $this->user) {
-            $this->user_name = $user->name;
-            $this->user_phone = $user->phone;
-            $this->user_company = $user->companyinfo?$user->companyinfo->name:'';
-        }
-        if($this->getIsNewRecord())
+        if($this->getIsNewRecord()){
+            $this->status = 1;
             $this->created = $this->updated = time();
+        }
         else
             $this->updated = time();
         return parent::beforeValidate();

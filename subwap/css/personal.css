@@ -53,7 +53,7 @@ body{
 	position: absolute;
 	height: 3.733rem;
 	width: 3.733rem;
-	top: 0.7rem;
+	/*top: 0.7rem;*/
 }
 .setup{
 	position: absolute;
@@ -78,9 +78,17 @@ body{
 	text-align: center;
 	top: 6.34rem;
 	left: 12rem;
-	background-color: #9DD072;
 	border-radius: 0.2rem;
 	padding: 0.08rem 0.2rem;
+}
+.status1{
+	background-color: #9DD072;
+}
+.status2{
+	background-color: #ffab58;
+}
+.status3{
+	background-color: #00b7ee;
 }
 .company{
 	position: absolute;

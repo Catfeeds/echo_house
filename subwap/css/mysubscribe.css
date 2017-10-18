@@ -1,6 +1,9 @@
 body{
 	background-color: #F5F5F5;
 }
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
 .subscribelist{
 	position: relative;
 	width: 20.0rem;
@@ -28,7 +31,6 @@ body{
 	float: left;
 	font-size: 0.64rem;
 	margin-right: 0.4rem;
-	padding: 0.08rem 0.267rem;
 	top: 2.88rem;
 	left: 0.64rem;
 }

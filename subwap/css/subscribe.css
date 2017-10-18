@@ -1,6 +1,9 @@
 body{
 	background-color: #fff;
 }
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
 .line{
 	position: relative;
 	left: 0.64rem;
@@ -63,7 +66,7 @@ body{
 	font-size: 0.8rem;
 	right: 0.64rem;
 	top: 1.067rem;
-	color: #999999;
+	color: rgb(223,82,37);
 }
 
 
@@ -140,19 +143,19 @@ body{
 }
 .textmin{
 	position: absolute;
-	left: 1.2rem;
+	left: 0rem;
 	top: 0rem;
 	font-size: 0.64rem;
 	border:none;
 	color: #666666;
-	width: 2rem;
+	width: 1rem;
 }
 .textmax{
 	position: absolute;
-	left: 15.5rem;
+	left: 17rem;
 	top: 0rem;
 	font-size: 0.64rem;
 	border:none;
 	color: #666666;
-	width: 2rem;
+	width: 1rem;
 }

@@ -17,12 +17,13 @@ class PlotController extends ApiController{
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$status = Yii::app()->request->getQuery('status','');
 		$page = (int)Yii::app()->request->getQuery('page',1);
+		$save = (int)Yii::app()->request->getQuery('save',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$init = $areainit = 0 ;
-		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save==0&&$page==1&&!$kw) {
 			$init = 1;
 		}
-		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
 		$criteria = new CDbCriteria;
@@ -41,6 +42,16 @@ class PlotController extends ApiController{
 			
 		} else {
 			$criteria->addCondition('status=1');
+		}
+		if($save>0&&$this->staff) {
+			$savehidsarr = [];
+			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$this->staff->id)->queryAll();
+			if($savehids) {
+				foreach ($savehids as $savehid) {
+					$savehidsarr[] = $savehid['hid'];
+				}
+				$criteria->addInCondition('id',$savehidsarr);
+			}
 		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
@@ -1274,6 +1285,61 @@ class PlotController extends ApiController{
     		$this->frame['data'] = $data;
     	} else {
     		$this->returnError('用户类型错误，只支持分销或独立经纪人访问');
+    	}
+    }
+
+    public function actionAddSubscribe()
+    {
+    	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
+    		$params = Yii::app()->request->getPost('SubscribeExt',[]);
+    		if($params) {
+    			$criteria = new CDbCriteria;
+    			$tmp = "uid=:uid and";
+    			$criteria->params[':uid'] = $this->staff->id;
+    			foreach ($params as $key => $value) {
+    				$tmp .= " $key=:$key and";
+    				$criteria->params[":$key"] = $value;
+    			}
+    			$tmp = trim($tmp,'and');
+    			$criteria->addCondition($tmp);
+    			// var_dump($criteria);exit;
+    			if(SubscribeExt::model()->find($criteria)) {
+    				$this->returnError('您已添加此类订阅，请勿重复添加');
+    			} else {
+    				$obj = new SubscribeExt;
+    				$obj->attributes = $params;
+    				$obj->uid = $this->staff->id;
+    				if($obj->save()) {
+    					$this->returnSuccess('添加成功');
+    				} else {
+    					$this->returnError(current(current($obj->getErrors())));
+    				}
+    			}
+    		}
+    	} else {
+    		$this->returnError('请登录后操作');
+    	}
+    }
+
+    public function actionGetSubscribeList()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$subss = $this->staff->subscribes;
+    		$data = [];
+    		if($subss) {
+    			foreach ($subss as $key => $value) {
+    				$data[] = [
+    				'id'=>$value->id,
+    				'area'=>$value->area?$value->areainfo->name:'',
+    				'street'=>$value->street?$value->streetinfo->name:'',
+    				'minprice'=>$value->minprice,
+    				'maxprice'=>$value->maxprice,
+    				'wylx'=>$value->wylx?TagExt::model()->findByPk($value->wylx)->name:'',
+    				'zxzt'=>$value->zxzt?TagExt::model()->findByPk($value->zxzt)->name:'',
+    				];
+    			}
+    			$this->frame['data'] = $data;
+    		}
     	}
     }
 
