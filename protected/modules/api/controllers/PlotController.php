@@ -1321,4 +1321,26 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionGetSubscribeList()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$subss = $this->staff->subscribes;
+    		$data = [];
+    		if($subss) {
+    			foreach ($subss as $key => $value) {
+    				$data[] = [
+    				'id'=>$value->id,
+    				'area'=>$value->area?$value->areainfo->name:'',
+    				'street'=>$value->street?$value->streetinfo->name:'',
+    				'minprice'=>$value->minprice,
+    				'maxprice'=>$value->maxprice,
+    				'wylx'=>$value->wylx?TagExt::model()->findByPk($value->wylx)->name:'',
+    				'zxzt'=>$value->zxzt?TagExt::model()->findByPk($value->zxzt)->name:'',
+    				];
+    			}
+    			$this->frame['data'] = $data;
+    		}
+    	}
+    }
+
 }

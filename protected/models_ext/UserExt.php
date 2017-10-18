@@ -49,6 +49,7 @@ class UserExt extends User{
             'companyinfo'=>array(self::BELONGS_TO, 'CompanyExt', 'cid'),
             'plotplaces'=>array(self::HAS_MANY, 'PlotPlaceExt', 'uid'),
             'plotsales'=>array(self::HAS_MANY, 'PlotSaleExt', 'uid'),
+            'subscribes'=>array(self::HAS_MANY, 'SubscribeExt', 'uid'),
         );
     }
 

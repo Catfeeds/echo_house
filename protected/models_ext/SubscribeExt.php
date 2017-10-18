@@ -12,7 +12,8 @@ class SubscribeExt extends Subscribe{
     {
         return array(
             'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
-            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
+            'areainfo'=>array(self::BELONGS_TO, 'AreaExt', 'area'),
+            'streetinfo'=>array(self::BELONGS_TO, 'AreaExt', 'street'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
