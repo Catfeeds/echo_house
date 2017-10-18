@@ -1,30 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "cooperate".
+ * This is the model class for table "user_log".
  *
- * The followings are the available columns in table 'cooperate':
+ * The followings are the available columns in table 'user_log':
  * @property integer $id
- * @property integer $hid
- * @property string $user_company
- * @property string $user_phone
- * @property string $user_name
  * @property integer $uid
- * @property string $com_phone
- * @property integer $sort
- * @property integer $status
- * @property integer $deleted
+ * @property integer $from
+ * @property integer $to
  * @property integer $created
  * @property integer $updated
  */
-class Cooperate extends CActiveRecord
+class UserLog extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'cooperate';
+		return 'user_log';
 	}
 
 	/**
@@ -36,12 +30,10 @@ class Cooperate extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('hid, uid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('user_company, user_name', 'length', 'max'=>100),
-			array('user_phone, com_phone', 'length', 'max'=>20),
+			array('uid, from, to, created, updated', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hid, user_company, user_phone, user_name, uid, com_phone, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, uid, from, to, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,15 +55,9 @@ class Cooperate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hid' => 'Hid',
-			'user_company' => 'User Company',
-			'user_phone' => 'User Phone',
-			'user_name' => 'User Name',
 			'uid' => 'Uid',
-			'com_phone' => 'Com Phone',
-			'sort' => 'Sort',
-			'status' => 'Status',
-			'deleted' => 'Deleted',
+			'from' => 'From',
+			'to' => 'To',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -96,15 +82,9 @@ class Cooperate extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('hid',$this->hid);
-		$criteria->compare('user_company',$this->user_company,true);
-		$criteria->compare('user_phone',$this->user_phone,true);
-		$criteria->compare('user_name',$this->user_name,true);
 		$criteria->compare('uid',$this->uid);
-		$criteria->compare('com_phone',$this->com_phone,true);
-		$criteria->compare('sort',$this->sort);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('from',$this->from);
+		$criteria->compare('to',$this->to);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -117,7 +97,7 @@ class Cooperate extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Cooperate the static model class
+	 * @return UserLog the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

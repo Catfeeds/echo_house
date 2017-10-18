@@ -1,30 +1,31 @@
 <?php
 
 /**
- * This is the model class for table "cooperate".
+ * This is the model class for table "subscribe".
  *
- * The followings are the available columns in table 'cooperate':
+ * The followings are the available columns in table 'subscribe':
  * @property integer $id
- * @property integer $hid
- * @property string $user_company
- * @property string $user_phone
- * @property string $user_name
  * @property integer $uid
- * @property string $com_phone
- * @property integer $sort
+ * @property integer $area
+ * @property integer $street
+ * @property string $minprice
+ * @property string $maxprice
+ * @property integer $sfprice
+ * @property integer $wylx
+ * @property integer $zxzt
  * @property integer $status
- * @property integer $deleted
+ * @property integer $sort
  * @property integer $created
  * @property integer $updated
  */
-class Cooperate extends CActiveRecord
+class Subscribe extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'cooperate';
+		return 'subscribe';
 	}
 
 	/**
@@ -36,12 +37,11 @@ class Cooperate extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('hid, uid, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('user_company, user_name', 'length', 'max'=>100),
-			array('user_phone, com_phone', 'length', 'max'=>20),
+			array('uid, area, street, sfprice, wylx, zxzt, status, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('minprice, maxprice', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hid, user_company, user_phone, user_name, uid, com_phone, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, uid, area, street, minprice, maxprice, sfprice, wylx, zxzt, status, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,15 +63,16 @@ class Cooperate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hid' => 'Hid',
-			'user_company' => 'User Company',
-			'user_phone' => 'User Phone',
-			'user_name' => 'User Name',
 			'uid' => 'Uid',
-			'com_phone' => 'Com Phone',
-			'sort' => 'Sort',
+			'area' => 'Area',
+			'street' => 'Street',
+			'minprice' => 'Minprice',
+			'maxprice' => 'Maxprice',
+			'sfprice' => 'Sfprice',
+			'wylx' => 'Wylx',
+			'zxzt' => 'Zxzt',
 			'status' => 'Status',
-			'deleted' => 'Deleted',
+			'sort' => 'Sort',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -96,15 +97,16 @@ class Cooperate extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('hid',$this->hid);
-		$criteria->compare('user_company',$this->user_company,true);
-		$criteria->compare('user_phone',$this->user_phone,true);
-		$criteria->compare('user_name',$this->user_name,true);
 		$criteria->compare('uid',$this->uid);
-		$criteria->compare('com_phone',$this->com_phone,true);
-		$criteria->compare('sort',$this->sort);
+		$criteria->compare('area',$this->area);
+		$criteria->compare('street',$this->street);
+		$criteria->compare('minprice',$this->minprice,true);
+		$criteria->compare('maxprice',$this->maxprice,true);
+		$criteria->compare('sfprice',$this->sfprice);
+		$criteria->compare('wylx',$this->wylx);
+		$criteria->compare('zxzt',$this->zxzt);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('sort',$this->sort);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -117,7 +119,7 @@ class Cooperate extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Cooperate the static model class
+	 * @return Subscribe the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

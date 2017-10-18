@@ -1288,4 +1288,36 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionAddSubscribe()
+    {
+    	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
+    		$params = Yii::app()->request->getPost('SubscribeExt',[]);
+    		if($params) {
+    			$criteria = new CDbCriteria;
+    			$tmp = "uid=:uid";
+    			$criteria->params[':uid'] = $this->staff->id;
+    			foreach ($params as $key => $value) {
+    				$tmp .= " $key=:$key and";
+    				$criteria->params[":$key"] = $value;
+    			}
+    			$tmp = trim($tmp,'and');
+    			$criteria->addCondition($tmp);
+    			if(SubscribeExt::model()->find($criteria)) {
+    				$this->returnError('您已添加此类订阅，请勿重复添加');
+    			} else {
+    				$obj = new SubscribeExt;
+    				$obj->attributes = $params;
+    				$obj->uid = $this->staff->id;
+    				if($obj->save()) {
+    					$this->returnSuccess('添加成功');
+    				} else {
+    					$this->returnError(current(current($obj->getErrors())));
+    				}
+    			}
+    		}
+    	} else {
+    		$this->returnError('请登录后操作');
+    	}
+    }
+
 }
