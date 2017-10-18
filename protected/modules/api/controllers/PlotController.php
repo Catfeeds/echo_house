@@ -1343,4 +1343,10 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionDelSubscribe($id='')
+    {
+    	SubscribeExt::model()->deleteAllByAttributes(['id'=>$id]);
+    	$this->returnSuccess('操作成功');
+    }
+
 }
