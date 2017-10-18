@@ -135,7 +135,7 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'sort desc,ff_num desc,updated desc';
+			$criteria->order = 'updated desc';
 		}
 		if($areainit) {
 			$dats = PlotExt::getFirstListFromArea();
