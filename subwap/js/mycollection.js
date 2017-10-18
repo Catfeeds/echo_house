@@ -42,7 +42,6 @@ app.controller('listCtrl',function($scope,$http){
 		if(r==true){
 			$($event.target).parent().remove();
 			hid=$($event.target).attr('data-id');
-			console.log(hid);
 			$scope.num--;
 			$.get("/api/plot/addSave?hid="+hid,function(data,status){
 	            alert(data.msg);      

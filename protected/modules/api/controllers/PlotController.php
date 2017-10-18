@@ -1294,7 +1294,7 @@ class PlotController extends ApiController{
     		$params = Yii::app()->request->getPost('SubscribeExt',[]);
     		if($params) {
     			$criteria = new CDbCriteria;
-    			$tmp = "uid=:uid";
+    			$tmp = "uid=:uid and";
     			$criteria->params[':uid'] = $this->staff->id;
     			foreach ($params as $key => $value) {
     				$tmp .= " $key=:$key and";
@@ -1302,6 +1302,7 @@ class PlotController extends ApiController{
     			}
     			$tmp = trim($tmp,'and');
     			$criteria->addCondition($tmp);
+    			// var_dump($criteria);exit;
     			if(SubscribeExt::model()->find($criteria)) {
     				$this->returnError('您已添加此类订阅，请勿重复添加');
     			} else {
