@@ -71,8 +71,8 @@ app.controller('subscribeCtrl',function($scope,$http){
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }).then(function successCallback(response) {
           if (response.data.status == 'success') {
-              alert("提交成功！");
-              location.reload();
+              alert(response.msg);
+              location.href="mysubscribe.html";
           }
       }, function errorCallback(response) {
 

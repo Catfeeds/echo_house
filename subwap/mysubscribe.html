@@ -11,18 +11,18 @@
 	<ul>
 		<li class="subscribelist" ng-cloak ng-repeat="item in list">
 			<div class="location clearfloat">
-				<span>{{item.title}}</span>
-				<span>常州市</span>
+				<span ng-if="item.area=item.area?item.area:'不限省份'">{{item.area}}</span>
+				<span ng-if="item.street=item.street?item.street:'不限城市'">{{item.street}}</span>
 			</div>
 			<div class="price clearfloat">
-				<span>5K-6K</span>
-				<span>,</span>
-				<span>20-25W</span>
+				<span ng-if="item.minprice=item.minprice?item.minprice:'0'">{{item.minprice}}K</span>
+				<span>-</span>
+				<span ng-if="item.maxprice=item.maxprice?item.maxprice:'不限'">{{item.maxprice}}K</span>
 			</div>
 			<ul class="tags clearfloat">
-				<li class="tag">综合体</li>
-				<li class="tag">代看奖</li>
-				<li class="tag">系统系统盘</li>
+				<li class="tag color1">{{item.wylx}}</li>
+				<li class="tag color2">{{item.zxzt}}</li>
+				<!-- <li class="tag color3"></li> -->
 			</ul>
 			<img class="detail" src="./img/).png">
 			<img class="canclesubscribe" src="./img/canclesubscribe.png" ng-click="canclesubscribe($event)" data-id="">

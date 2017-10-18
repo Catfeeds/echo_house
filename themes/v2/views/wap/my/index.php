@@ -21,7 +21,7 @@
             <div class="functiontag-text" onclick="tocs()">客户管理</div>
         </div>
         <div class="line"></div>
-        <div class="functiontag">
+        <div class="functiontag" onclick="location.href='subwap/mycollection.html'">
             <img class="functiontag-img" src="<?=$this->subwappath?>/img/collection.png">
             <div class="functiontag-text">我的收藏</div>
         </div>
@@ -34,7 +34,7 @@
         <div class="panel">
             <div class="line"></div>
             <ul class="iconcontainer clearfloat">
-                <li>
+                <li onclick="location.href='subwap/mysubscribe.html'">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/dingyue.png">
                     <div class="panel-text">我的订阅</div>
                 </li>

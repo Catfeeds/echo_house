@@ -4,9 +4,9 @@ app.controller('listCtrl',function($scope,$http){
 //获取列表
 	$http({
 		method:'GET',
-		url:'/api/plot/list?save=1'
+		url:'/api/plot/getSubscribeList'
 	}).then(function successCallback(response){
-		$scope.list=response.data.data.list;
+		$scope.list=response.data.data;
 	},function errorCallback(response){
 
 	});
