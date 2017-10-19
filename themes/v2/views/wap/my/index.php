@@ -103,14 +103,15 @@
                 <?php if(!$this->staff->cid):?>
                 location.href = 'subwap/joincompany.html';
                 <?php else:?>
-                alert("您确定要离开<?=$this->staff->companyinfo->name?>，吗？");
-                // 是的话
-                $.get("/api/plot/leave?id=<?=$this->staff->id?>",function(data) {
+                var r=confirm("您确定要离开<?=$this->staff->companyinfo->name?>，吗？");
+                if(r==true){
+                    $.get("/api/plot/leave?id=<?=$this->staff->id?>",function(data) {
                     if(data.status=='success') {
                         alert('解绑成功');
                         location.href = 'subwap/joincompany.html';
                     }
                 });
+                }               
                 <?php endif;?>
             <?php endif;?>
         }
