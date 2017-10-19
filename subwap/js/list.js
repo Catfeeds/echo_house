@@ -197,6 +197,7 @@ $(document).ready(function() {
         $.get('/api/config/index',function(data) {
             is_user = data.data.is_user;      
             is_jy = data.data.is_jy;
+            var user_image = data.data.user_image;
             if (GetQueryString('area') != null) {
                 o.area = GetQueryString('area');
                 $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -220,6 +221,9 @@ $(document).ready(function() {
                     $('.list-headimg1').css('display','none');
                     $('.list-headimg2').css('display','block');
                     $('.headimg2').attr('src',face);
+                    if(user_image==''||user_image!=face) {
+                        $.post('/api/user/addImage',{'image':face},function(){});
+                    }
                   }else{
                     //未登录
                     alert(data.error);//data.error string
