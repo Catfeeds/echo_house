@@ -21,7 +21,7 @@
             <div class="functiontag-text" onclick="tocs()">客户管理</div>
         </div>
         <div class="line"></div>
-        <div class="functiontag" onclick="location.href='subwap/mycollection.html'">
+        <div class="functiontag" onclick="<?php if($this->staff):?>location.href='subwap/mycollection.html'<?php else:?>alert('请先登录')<?php endif;?>">
             <img class="functiontag-img" src="<?=$this->subwappath?>/img/collection.png">
             <div class="functiontag-text">我的收藏</div>
         </div>
