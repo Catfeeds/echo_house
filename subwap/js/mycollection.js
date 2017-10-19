@@ -1,4 +1,5 @@
 var hid='';
+var search='';
 var app=angular.module('mycollection',[]);
 app.controller('listCtrl',function($scope,$http){
 //获取列表
@@ -17,10 +18,10 @@ app.controller('listCtrl',function($scope,$http){
 	});
 //搜索
 	$scope.search=function(){
-		var search=$('.list-search-frame-text').val();
+		search=$('.list-search-frame-text').val();
 		$http({
 			method:'GET',
-			url:'/api/plot/checkIsZc?kw='+search,
+			url:'/api/plot/list?save=1&kw='+search,
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
 				if (response.data.data!='') {

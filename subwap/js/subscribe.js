@@ -71,7 +71,7 @@ app.controller('subscribeCtrl',function($scope,$http){
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }).then(function successCallback(response) {
           if (response.data.status == 'success') {
-              alert(response.msg);
+              alert(response.data.msg);
               location.href="mysubscribe.html";
           }
       }, function errorCallback(response) {

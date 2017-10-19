@@ -6,7 +6,7 @@
                 <img class="personalhead-wu" src="<?=isset($staff->ava)&&$staff->ava?ImageTools::fixImage($staff->ava):$this->subwappath.'/img/personaluserhead.png'?>">
             </div>
         </div>
-        <img class="setup" src="<?=$this->subwappath?>/img/setup.png">
+        <!-- <img class="setup" src="<?=$this->subwappath?>/img/setup.png"> -->
         <?php if(Yii::app()->user->getIsGuest()):?>
         <div class="name">请登录</div>
     <?php else:?>
@@ -35,14 +35,18 @@
             <div class="line"></div>
             <ul class="iconcontainer clearfloat">
                 <li onclick="location.href='subwap/mysubscribe.html'">
-                    <img class="panel-img" src="<?=$this->subwappath?>/img/dingyue.png">
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/zhuanti.png">
                     <div class="panel-text">我的订阅</div>
                 </li>
                 <li>
-                    <img class="panel-img" src="<?=$this->subwappath?>/img/fangyuan.png">
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/zhuangxiu.png">
                     <div class="panel-text">发布房源</div>
                 </li>
                 <li>
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/jiancai.png">
+                    <div class="panel-text">更换公司</div>
+                </li>
+                <!-- <li>
                     <img class="panel-img" src="<?=$this->subwappath?>/img/yanfang.png">
                     <div class="panel-text">特惠验房</div>
                 </li>
@@ -65,7 +69,7 @@
                 <li>
                     <img class="panel-img" src="<?=$this->subwappath?>/img/jiancai.png">
                     <div class="panel-text">建材公司</div>
-                </li>
+                </li> -->
             </ul>   
         </div>
     </div>

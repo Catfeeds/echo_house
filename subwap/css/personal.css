@@ -142,13 +142,13 @@ body{
 }
 .panel{
 	position: relative;
-	height: 7.547rem;
+	height: auto;
 	width: 17.867rem;
 }
 .iconcontainer{
-	position: absolute;
 	margin-left: 0.8rem;
 	overflow: hidden;
+	height: auto;
 }
 .iconcontainer li{
 	position: relative;

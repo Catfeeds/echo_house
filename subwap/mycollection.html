@@ -7,12 +7,12 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/mycollection.css">
 </head>
-<body ng-app="mycollection">
+<body ng-app="mycollection" ng-controller="listCtrl">
 	<div class="list-search-frame">
 		<div class="list-search-search" ng-click="search()">搜索</div>
 		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入项目名称">
 	</div>
-	<div class="houselist" ng-controller="listCtrl">
+	<div class="houselist">
 		<div ng-cloak class="hose-list-ammount-bg">
 			共<b id="num">{{num}}</b>条房源
 		</div>

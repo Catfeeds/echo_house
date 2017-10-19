@@ -9,7 +9,7 @@
 </head>
 <body ng-app="mysubscribe" ng-controller="listCtrl">
 	<ul>
-		<li class="subscribelist" ng-cloak ng-repeat="item in list">
+		<li class="subscribelist" ng-cloak ng-repeat="item in list" data-id="{{item.id}}">
 			<div class="location clearfloat">
 				<span ng-if="item.area=item.area?item.area:'不限省份'">{{item.area}}</span>
 				<span ng-if="item.street=item.street?item.street:'不限城市'">{{item.street}}</span>

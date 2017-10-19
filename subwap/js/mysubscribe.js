@@ -1,4 +1,4 @@
-var hid='';
+var id='';
 var app=angular.module('mysubscribe',[]);
 app.controller('listCtrl',function($scope,$http){
 //获取列表
@@ -12,12 +12,12 @@ app.controller('listCtrl',function($scope,$http){
 	});
 //取消订阅
 	$scope.canclesubscribe=function(obj){
-		var r=confirm("确定取消收藏吗？");
+		var r=confirm("确定取消订阅吗？");
 		if(r==true){
-			var hid=$(obj.target).attr('data-id');
+			id=$(obj.target).parent().attr('data-id');
 			$(obj.target).parent().remove();
-			$.get("/api/plot/addSave?hid="+hid,function(data,status){
-	            alert(data.msg);      
+			$.get("/api/plot/delSubscribe?id="+id,function(data,status){
+	            alert(data.msg);    
 			});
 		}
 	}
