@@ -1308,6 +1308,13 @@ class PlotController extends ApiController{
     {
     	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
     		$params = Yii::app()->request->getPost('SubscribeExt',[]);
+    		if($usu = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id)){
+    			if($usu<=count($this->staff->subscribes)) {
+    				$this->returnError('您的订阅数已达上线');
+    			}
+    		} else {
+    			$this->returnError('您的订阅已到期，请先支付');
+    		}
     		if($params) {
     			$criteria = new CDbCriteria;
     			$tmp = "uid=:uid and";
