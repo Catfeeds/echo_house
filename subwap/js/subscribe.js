@@ -73,6 +73,8 @@ app.controller('subscribeCtrl',function($scope,$http){
           if (response.data.status == 'success') {
               alert(response.data.msg);
               location.href="mysubscribe.html";
+          } else {
+              alert(response.data.msg);
           }
       }, function errorCallback(response) {
 
