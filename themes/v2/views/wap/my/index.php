@@ -11,7 +11,7 @@
         <div class="name">请登录</div>
     <?php else:?>
     <div class="name"><?=$staff->name?></div>
-        <div class="status status<?=$staff->status?>"><?=$staff->status==1?'总代':($staff->status==2?'分销':'独立经纪人')?></div>
+        <div class="status status<?=$staff->type?>"><?=$staff->type==1?'总代':($staff->type==2?'分销':'独立经纪人')?></div>
         <div class="company"><?=$staff->companyinfo?($staff->companyinfo->name.'('.$staff->companyinfo->code.')'):''?></div>
 <?php endif;?>
     </div>
