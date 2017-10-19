@@ -1309,7 +1309,7 @@ class PlotController extends ApiController{
     	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
     		$params = Yii::app()->request->getPost('SubscribeExt',[]);
     		if($usu = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id)){
-    			if($usu<=count($this->staff->subscribes)) {
+    			if($usu->num<=count($this->staff->subscribes)) {
     				$this->returnError('您的订阅数已达上线');
     			}
     		} else {
