@@ -90,7 +90,7 @@ $(function() {
       max: 25,
       values: [ 0, 25 ],
       slide: function( event, ui ) {
-        $( ".buxian" ).html(ui.values[ 0 ]+'千-'+ui.values[ 1 ]+'千');
+        $( ".buxian" ).html(ui.values[ 0 ]+'k-'+ui.values[ 1 ]+'k');
         $( "#amount1" ).val(ui.values[ 0 ]);
         $( "#amount2" ).val(ui.values[ 1 ] );
         changeornot=1;

@@ -11,8 +11,8 @@
         <div class="name">请登录</div>
     <?php else:?>
     <div class="name"><?=$staff->name?></div>
-        <div class="status status<?=$staff->status?>"><?=$staff->status==1?'总代':($staff->status==2?'分销':'')?></div>
-        <div class="company"><?=$staff->companyinfo?$staff->companyinfo->name:'独立经纪人'?></div>
+        <div class="status status<?=$staff->status?>"><?=$staff->status==1?'总代':($staff->status==2?'分销':'独立经纪人')?></div>
+        <div class="company"><?=$staff->companyinfo?($staff->companyinfo->name.'('.$staff->companyinfo->code.')'):''?></div>
 <?php endif;?>
     </div>
     <div class="functionmodule shadow">
@@ -38,11 +38,11 @@
                     <img class="panel-img" src="<?=$this->subwappath?>/img/zhuanti.png">
                     <div class="panel-text">我的订阅</div>
                 </li>
-                <li>
+                <li onclick="checkfb()">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/zhuangxiu.png">
                     <div class="panel-text">发布房源</div>
                 </li>
-                <li>
+                <li onclick="join()">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/jiancai.png">
                     <div class="panel-text">更换公司</div>
                 </li>
@@ -86,6 +86,31 @@
                 location.href = 'subwap/customerlist.html';
                 <?php else:?>
                 location.href = 'subwap/userlist.html';
+                <?php endif;?>
+            <?php endif;?>
+        }
+        function checkfb() {
+           <?php if($this->staff):?>
+                <?php if($this->staff->type==1):?>
+                location.href = 'subwap/personallist.html';
+                <?php else:?>
+                alert('只有总代身份才能发布房源哦~');
+                <?php endif;?>
+            <?php endif;?>
+        }
+        function join() {
+           <?php if($this->staff):?>
+                <?php if(!$this->staff->cid):?>
+                location.href = 'subwap/joincompany.html';
+                <?php else:?>
+                alert("您确定要离开<?=$this->staff->companyinfo->name?>，吗？");
+                // 是的话
+                $.get("/api/plot/leave?id=<?=$this->staff->id?>",function(data) {
+                    if(data.status=='success') {
+                        alert('解绑成功');
+                        location.href = 'subwap/joincompany.html';
+                    }
+                });
                 <?php endif;?>
             <?php endif;?>
         }

@@ -213,13 +213,9 @@ class PlotController extends AdminController{
 	public function actionAjaxDel($id='')
 	{
 		if($id) {
-			$plot = PlotExt::model()->findByPk($id);
-			$plot->deleted=1;
-			if($plot->save()) {
-				$this->setMessage('操作成功','success');
-			} else {
-				$this->setMessage('操作失败','error');
-			}
+			// $plot = PlotExt::model()->findByPk($id);
+			PlotExt::model()->deleteAllByAttributes(['id'=>$id]);
+			$this->setMessage('操作成功','success');
 		}
 	}
 

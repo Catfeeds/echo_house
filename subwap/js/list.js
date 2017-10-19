@@ -13,6 +13,8 @@ function init() {
     o.page = '';
     o.page_count = '';
     o.num = '';
+    o.minprice = '';
+    o.maxprice = '';
 }
 var filter = new Object();
 var is_jy = 0;
@@ -197,6 +199,21 @@ $(document).ready(function() {
         $.get('/api/config/index',function(data) {
             is_user = data.data.is_user;      
             is_jy = data.data.is_jy;
+            if(GetQueryString('street') != null) {
+                o.street = GetQueryString('street');
+            }
+            if(GetQueryString('minprice') != null) {
+                o.minprice = GetQueryString('minprice');
+            }
+            if(GetQueryString('maxprice') != null) {
+                o.maxprice = GetQueryString('maxprice');
+            }
+            if(GetQueryString('zxzt') != null) {
+                o.zxzt = GetQueryString('zxzt');
+            }
+            if(GetQueryString('wylx') != null) {
+                o.wylx = GetQueryString('wylx');
+            }
             if (GetQueryString('area') != null) {
                 o.area = GetQueryString('area');
                 $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
@@ -206,6 +223,7 @@ $(document).ready(function() {
                 $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
                 setArea($('#areaul li')[0]); 
             } 
+            
             if(is_user==1) {
                 QFH5.getUserInfo(function(state,data){
                   if(state==1){
@@ -284,6 +302,12 @@ function ajaxGetList(obj) {
     }
     if (obj.company != '' && obj.company != undefined) {
         params += '&company=' + obj.company;
+    }
+    if (obj.maxprice != '' && obj.maxprice != undefined) {
+        params += '&maxprice=' + obj.maxprice;
+    }
+    if (obj.minprice != '' && obj.minprice != undefined) {
+        params += '&minprice=' + obj.minprice;
     }
     // if(obj.page != '' && obj.page != undefined) {
     //     params += '&page='+obj.page;
@@ -383,6 +407,12 @@ function ajaxAddList(obj) {
     }
     if (obj.page != '' && obj.page != undefined) {
         params += '&page=' + obj.page;
+    }
+    if (obj.maxprice != '' && obj.maxprice != undefined) {
+        params += '&maxprice=' + obj.maxprice;
+    }
+    if (obj.minprice != '' && obj.minprice != undefined) {
+        params += '&minprice=' + obj.minprice;
     }
 
     $.get('/api/plot/list' + params, function(data) {
@@ -638,7 +668,7 @@ function setArea(obj) {
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
         } 
-    } else {
+    } else if(o.street=='') {
         o.street = $(obj).data('id');
         if($(obj).data('type')=='street')
             o.area = '';

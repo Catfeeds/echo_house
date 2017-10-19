@@ -384,6 +384,21 @@ class PlotExt extends Plot{
 
     public function changeS()
     {
+        $area = $this->area;
+        $street = $this->street;
+        $wylx = $this->wylx?$this->wylx[0]:0;
+        $zxzt = $this->zxzt?$this->zxzt[0]:0;
+        $price = $this->price/1000;
+
+        $sql = "select distinct u.qf_uid from user u left join subscribe s on s.uid=u.id where u.qf_uid>0 and (s.area=$area or s.area=0) and (s.street=$street or s.street=0) and (s.wylx=$wylx or s.wylx=0) and (s.zxzt=$zxzt or s.zxzt=0) and s.maxprice>=$price and s.minprice<=$price";
+        
+        $uids = Yii::app()->db->createCommand($sql)->queryAll();
+        // var_dump($uids);exit;
+        if($uids) {
+            foreach ($uids as $key => $value) {
+                Yii::app()->controller->sendNotice('有新的项目符合您的订阅条件：'.$this->title.' 已上线，欢迎前往经纪圈新房通查看。点这里查看项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$value['qf_uid']);
+            }
+        }
         if($owner = $this->owner) {
             $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$owner->qf_uid);
             SmsExt::sendMsg('项目通过审核',$owner->phone,['lpmc'=>$this->title]);

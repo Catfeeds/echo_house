@@ -9,7 +9,7 @@
 </head>
 <body ng-app="mysubscribe" ng-controller="listCtrl">
 	<ul>
-		<li class="subscribelist" ng-cloak ng-repeat="item in list" data-id="{{item.id}}">
+		<li class="subscribelist" ng-cloak ng-repeat="item in list" data-id="{{item.id}}" ng-click="turnlist(item)">
 			<div class="location clearfloat">
 				<span ng-if="item.area=item.area?item.area:'不限省份'">{{item.area}}</span>
 				<span ng-if="item.street=item.street?item.street:'不限城市'">{{item.street}}</span>
@@ -28,7 +28,7 @@
 			<img class="canclesubscribe" src="./img/canclesubscribe.png" ng-click="canclesubscribe($event)" data-id="">
 		</li>
 	</ul>
-	<a href="subscribe.html">
+	<a onclick="addSubscribe()">
 		<div class="add">
 			<div class="addsubscribe">添加订阅</div>
 		</div>
@@ -39,5 +39,22 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/rem.js"></script>
 	<script type="text/javascript" src="js/mysubscribe.js"></script>
+	<script>
+		function addSubscribe() {
+			$.get('/api/plot/checkCanSubscribe',function(data) {
+				
+				if(data.status=='success') {
+					location.href = 'subscribe.html';
+				} else {
+					if(data.msg=='请登录后操作') {
+						alert(data.msg);
+					} else {
+						alert(data.msg);
+						location.href = 'payforsubscribe.html';
+					}
+				}
+			});
+		}
+	</script>
 </body>
 </html>
