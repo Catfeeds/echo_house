@@ -53,7 +53,10 @@ class ToolCommand extends CConsoleCommand
         if($hids) {
             foreach ($hids as $key => $value) {
                 $plot = PlotExt::model()->findByPk($key);
-                $value && $plot->views+=$value;
+                if(!$plot) {
+                    continue;
+                }
+                $plot->views+=$value;
                 $plot->save();
                 Yii::app()->redis->getClient()->hSet('plot_views',$key,0);
             }
