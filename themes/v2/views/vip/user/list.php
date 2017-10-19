@@ -48,7 +48,10 @@ $this->breadcrumbs = array($this->pageTitle);
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?php
-                if($v->is_manage) {
+                if($v->cid!=$this->company->id) {
+                    echo    '-';
+                } else {
+                    if($v->is_manage) {
                     echo "店长";
                 } else {
                     ?><div class="btn-group">
@@ -64,9 +67,15 @@ $this->breadcrumbs = array($this->pageTitle);
                     </ul>
                 </div>
                 <?php }
+                }
+                
              ?></td>
              <td class="text-center">
-                <?php if($v->is_jl==3) {
+                <?php
+                if($v->cid!=$this->company->id) {
+                    echo    '-';
+                } else {
+                    if($v->is_jl==3) {
                     ?>
                     <div class="btn-group">
                     <button id="btnGroupVerticalDrop1" type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -103,22 +112,33 @@ $this->breadcrumbs = array($this->pageTitle);
                       <?php  }?>
                     </ul>
                 </div>
-                   <?php } ?>
+                   <?php } 
+                }
+                 ?>
              </td>
             <td class="text-center"><?=$v->phone?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
-            <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
-            <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
+            <td class="text-center"><?=$v->cid==$this->company->id?date('Y-m-d',$v->created):'-'?></td>
+            <td class="text-center"><?=$v->cid==$this->company->id?date('Y-m-d',$v->updated):'-'?></td>
+            <td class="text-center">
+            <?php if($v->cid==$this->company->id):?>
+                <?php echo CHtml::htmlButton('在职', array('data-toggle'=>'confirmation', 'class'=>'btn btn-default blue', 'data-title'=>'确定辞退该员工？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('leave'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id))));?>
+            <?php else:?>
+                已离职
+            <?php endif;?>
+                
+            </td>
 
             <td style="text-align:center;vertical-align: middle">
-                <?php if(Yii::app()->user->id==$v->id):?><a href="<?php echo $this->createUrl('editpwd',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs blue"><i class="fa fa-edit"></i> 修改密码 </a><?php endif;?>
-                <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
-                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
+                <?php
+                 if($v->cid!=$this->company->id) {
+                    echo    '-';
+                } else { if(Yii::app()->user->id==$v->id):?><a href="<?php echo $this->createUrl('editpwd',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs blue"><i class="fa fa-edit"></i> 修改密码 </a><?php endif; ?>
+                <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a> <?php }?>
 
 
             </td>
         </tr>
-    <?php endforeach;?>
+    <?php endforeach; ?>
     </tbody>
 </table>
 <?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>

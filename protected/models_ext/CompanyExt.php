@@ -19,6 +19,7 @@ class CompanyExt extends Company{
             'package'=>array(self::HAS_ONE, 'CompanyPackageExt', 'cid'),
             'plotnum'=>array(self::STAT, 'PlotExt', 'company_id','condition'=>'deleted=0'),
             'managers'=>array(self::HAS_MANY, 'UserExt', 'cid','condition'=>'managers.deleted=0 and managers.status=1 and managers.is_manage=1'),
+            'old_users'=>array(self::HAS_MANY, 'UserLogExt', 'from'),
         );
     }
 

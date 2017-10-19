@@ -70,10 +70,10 @@
         </div>
     </div>
     <div class="service shadow">
-        <div class="functiontag">
+        <a class="functiontag" href="tel:<?=SiteExt::getAttr('qjpz','site_phone')?>">
             <img class="functiontag-img" src="<?=$this->subwappath?>/img/service.png">
             <div class="functiontag-text">联系客服</div>
-        </div>
+        </a>
     </div>
     <script>
         function tocs() {
