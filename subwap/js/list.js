@@ -1054,7 +1054,7 @@ function toUser() {
                   }
               })
             } else {
-                QFH5.jumpUser(data.data.uid);
+                location.href = '/my';
             }
         });
 }
