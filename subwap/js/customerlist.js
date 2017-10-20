@@ -9,7 +9,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 			url:'/api/plot/checkIsZc'
 		}).then(function successCallback(response){
 			if(response.data.status=='error') {
-				alert(response.data.msg);
+				alert('暂无权限，请联系管理员开通');
 				history.back();
 			}else{
 				$('.count b').html(response.data.data.num);
