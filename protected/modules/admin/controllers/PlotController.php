@@ -437,4 +437,14 @@ class PlotController extends AdminController{
 		$this->render('priceedit',['article'=>$info,'hid'=>$hid]);
 	}
 
+	public function actionCleanPublisher($id='')
+	{
+		if($id) {
+			$obj = PlotExt::model()->findByPk($id);
+			$obj->uid = 0;
+			$obj->save();
+			$this->setMessage('操作成功','success');
+		}
+	}
+
 }

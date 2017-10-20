@@ -43,7 +43,7 @@ function subthis() {
 		// if (data.status=='error') {
 		// 	alert(data.msg);		
 		// } else {
-			QFH5.createOrder(10001,item,0,additem,12,function(state,data){
+			QFH5.createOrder(10004,item,0,additem,12,function(state,data){
 		        order_id = data.order_id;
 		        QFH5.jumpPayOrder(order_id,function(state,data){
 				    if(state==1){

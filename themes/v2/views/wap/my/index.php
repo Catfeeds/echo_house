@@ -16,9 +16,9 @@
 <?php endif;?>
     </div>
     <div class="functionmodule shadow">
-        <div class="functiontag">
+        <div class="functiontag" onclick="tocs()">
             <img class="functiontag-img" src="<?=$this->subwappath?>/img/edit.png">
-            <div class="functiontag-text" onclick="tocs()">客户管理</div>
+            <div class="functiontag-text">客户管理</div>
         </div>
         <div class="line"></div>
         <div class="functiontag" onclick="<?php if($this->staff):?>location.href='subwap/mycollection.html'<?php else:?>alert('请先登录')<?php endif;?>">
@@ -44,7 +44,7 @@
                 </li>
                 <li onclick="join()">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/jiancai.png">
-                    <div class="panel-text">更换公司</div>
+                    <div class="panel-text"><?=$staff->cid?'更换':'加入'?>公司</div>
                 </li>
                 <!-- <li>
                     <img class="panel-img" src="<?=$this->subwappath?>/img/yanfang.png">
