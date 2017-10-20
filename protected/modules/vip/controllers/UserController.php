@@ -44,8 +44,15 @@ class UserController extends VipController{
             $criteria->addCondition('is_jl=:cate11');
             $criteria->params[':cate11'] = $cate;
         }
-        
-        $criteria->order = 'is_manage desc,is_jl asc,updated desc';
+        // 已离职员工
+        if($oldres = $this->company->old_users) {
+            $oldids = [];
+            foreach ($oldres as $o) {
+                $criteria->addCondition('id='.$o->uid,'OR');
+            }
+        }
+        $thiscid = $this->company->id;
+        $criteria->order = "ABS(cid-$thiscid) asc,is_manage desc,is_jl asc,updated desc";
         $infos = $modelName::model()->undeleted()->getList($criteria,20);
         $scjls = [];
         $acjls = [];
@@ -134,6 +141,28 @@ class UserController extends VipController{
                 }
             } 
             $this->render('editpwd',['article'=>$info]);
+        }
+    }
+
+    public function actionLeave($id='')
+    {
+        if($id) {
+            $info = UserExt::model()->findByPk($id);
+            if($info->cid==$this->company->id) {
+                UserExt::model()->updateAll(['parent'=>0],'parent=:pa',[':pa'=>$id]);
+                $info->cid = 0;
+                $info->is_jl = 0;
+                $info->is_manage = 0;
+                $info->parent = 0;
+                if($info->save()) {
+                    $log = new UserLogExt;
+                    $log->from = $this->company->id;
+                    $log->uid = $id;
+                    $log->to = 0;
+                    $log->save();
+                    $this->setMessage('操作成功','success');
+                }
+            }
         }
     }
 }

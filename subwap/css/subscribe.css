@@ -1,0 +1,161 @@
+body{
+	background-color: #fff;
+}
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
+.line{
+	position: relative;
+	left: 0.64rem;
+	height: 0.054rem;
+	width: 18.72rem;
+	background-color: #dfdfdf;
+}
+.area{
+	position: relative;
+	width: 20rem;
+	height: 4.747rem;
+}
+.tittle{
+	position: absolute;
+	font-size: 0.8rem;
+	left: 0.64rem;
+	top: 1.067rem;
+}
+.small{
+	font-size: 0.693rem;
+	color: #999999;
+	line-height: 1.333rem;
+}
+.province{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+}
+.city{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+}
+.sel{
+	position: relative;
+	top: 2.613rem;
+	float: left;
+	left: 0.64rem;
+	width: 4.8rem;
+	height: 1.333rem;
+	margin: 0rem 1rem 0rem 0.7rem;
+	background-color: #F5F5F5;
+	border-radius: 0.15rem;
+	border: none;	
+}
+.averageprice{
+	position: relative;
+	width: 20rem;
+	height: 6.667rem;
+}
+.firstpay{
+	position: relative;
+	width: 20rem;
+	height: 6.667rem;
+}
+.buxian{
+	position: absolute;
+	font-size: 0.8rem;
+	right: 0.64rem;
+	top: 1.067rem;
+	color: rgb(223,82,37);
+}
+
+
+
+
+.filter4-item{
+	position: relative;
+	width: 20.0rem;
+	height: auto;
+	background-color: #fff;
+}
+.filter4-item-head{
+	position: relative;
+	font-size: 0.8rem;
+	height: 1.547rem;
+	width: 19.36rem;
+	padding-top: 1.04rem;
+	padding-left: 0.64rem;
+}
+.filter4-item-item{
+	position: relative;
+	height: auto;
+	width: 20rem;
+}
+.filter4-item-item ul li{
+	position: relative;
+	float: left;
+	height: 1.813rem;
+	width: 5.867rem;
+	border-radius: 0.267rem;
+	border:solid #c3c3c3 0.027rem;
+	margin-left: 0.533rem;
+	margin-top: 0.533rem;
+	font-size: 0.8rem;
+	line-height: 1.813rem;
+	text-align: center;
+}
+.list-blank{
+	position: relative;
+	background-color: #fff;
+	height: 1.333rem;
+	width: 20.0rem;
+}
+.filter-filter4{
+	background-color: #fff;
+}
+.filter-filter4-buttom{
+	position: relative;
+	height: 3.68rem;
+	width: 20.0rem;
+	color: #414141;
+}
+.filter-filter4-buttom-button{
+	position: relative;
+	height: 2.08rem;
+	width: 9.067rem;
+	margin-left: 0.56rem;
+	margin-top: 0.8rem;
+	border:solid #00b7ee 0.027rem;
+	border-radius: 0.267rem;
+	float: left;
+	text-align: center;
+	line-height: 2.08rem;
+}
+.filter-filter4-button-active{
+	background-color: #00b7ee;
+	color: #fff;
+}
+.slider-container{
+	position: absolute;
+	top: 2.667rem;
+	left: 1rem;
+	width: 18rem;
+}
+.textmin{
+	position: absolute;
+	left: 0rem;
+	top: 0rem;
+	font-size: 0.64rem;
+	border:none;
+	color: #666666;
+	width: 1rem;
+}
+.textmax{
+	position: absolute;
+	left: 17rem;
+	top: 0rem;
+	font-size: 0.64rem;
+	border:none;
+	color: #666666;
+	width: 1rem;
+}

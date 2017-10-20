@@ -213,13 +213,9 @@ class PlotController extends AdminController{
 	public function actionAjaxDel($id='')
 	{
 		if($id) {
-			$plot = PlotExt::model()->findByPk($id);
-			$plot->deleted=1;
-			if($plot->save()) {
-				$this->setMessage('操作成功','success');
-			} else {
-				$this->setMessage('操作失败','error');
-			}
+			// $plot = PlotExt::model()->findByPk($id);
+			PlotExt::model()->deleteAllByAttributes(['id'=>$id]);
+			$this->setMessage('操作成功','success');
 		}
 	}
 
@@ -439,6 +435,16 @@ class PlotController extends AdminController{
 			}
 		} 
 		$this->render('priceedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionCleanPublisher($id='')
+	{
+		if($id) {
+			$obj = PlotExt::model()->findByPk($id);
+			$obj->uid = 0;
+			$obj->save();
+			$this->setMessage('操作成功','success');
+		}
 	}
 
 }

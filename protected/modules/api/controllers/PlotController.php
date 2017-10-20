@@ -16,13 +16,16 @@ class PlotController extends ApiController{
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$status = Yii::app()->request->getQuery('status','');
+		$minprice = (int)Yii::app()->request->getQuery('minprice',0);
+		$maxprice = (int)Yii::app()->request->getQuery('maxprice',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
+		$save = (int)Yii::app()->request->getQuery('save',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$init = $areainit = 0 ;
-		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$init = 1;
 		}
-		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company==0&&$page==1&&!$kw) {
+		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
 		$criteria = new CDbCriteria;
@@ -41,6 +44,16 @@ class PlotController extends ApiController{
 			
 		} else {
 			$criteria->addCondition('status=1');
+		}
+		if($save>0&&$this->staff) {
+			$savehidsarr = [];
+			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$this->staff->id)->queryAll();
+			if($savehids) {
+				foreach ($savehids as $savehid) {
+					$savehidsarr[] = $savehid['hid'];
+				}
+				$criteria->addInCondition('id',$savehidsarr);
+			}
 		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
@@ -63,6 +76,17 @@ class PlotController extends ApiController{
 			$criteria->addCondition('street=:street');
 			$criteria->params[':street'] = $street;
 		}
+
+		if($minprice) {
+			$criteria->addCondition('price>=:minprice');
+			$criteria->params[':minprice'] = $minprice;
+		}
+
+		if($maxprice) {
+			$criteria->addCondition('price<=:maxprice');
+			$criteria->params[':maxprice'] = $maxprice;
+		}
+
 		$ids = $companyids = [];
 		// var_dump($toptag,$sfprice,$wylx);exit;
 		foreach (['sfprice','wylx','toptag','zxzt'] as $key => $value) {
@@ -382,7 +406,7 @@ class PlotController extends ApiController{
 		$ffphones=[];
 		if($ffs = $info->sfMarkets) {
 			foreach ($ffs as $key => $value) {
-				$ffphones[] = $value->user->phone;
+				$value->user&&$ffphones[] = $value->user->phone;
 			}
 		}
 		$is_alert = 0;
@@ -1051,7 +1075,10 @@ class PlotController extends ApiController{
     		$status = $this->cleanXss(Yii::app()->request->getPost('status',''));
     		$sid = $this->cleanXss(Yii::app()->request->getPost('sid',''));  
     		$sub = SubExt::model()->findByPk($sid);
-    			
+    		// 防止离职后操作
+    		if($this->staff->cid!=$sub->plot->company_id) {
+    			return $this->returnError('您已从该公司离职，暂无权限操作');
+    		}
     		if($sub && $status) {
     			if($status!=7) {
     				$sub->status = $status;
@@ -1228,6 +1255,193 @@ class PlotController extends ApiController{
     		}
     	}else {
     		$this->returnError('请登录后操作');
+    	}
+    }
+
+    public function actionUserList()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$this->staff->type>1) {
+    		$criteria = new CDbCriteria;
+    		$criteria->addCondition('uid='.$this->staff->id);
+    		$kw = Yii::app()->request->getQuery('kw','');
+    		$status = Yii::app()->request->getQuery('status','');
+    		if($kw) {
+    			if(is_numeric($kw)) {
+    				$criteria->addSearchCondition('phone',$kw);
+    			} else {
+    				$criteria->addSearchCondition('name',$kw);
+    			}
+    		}
+    		if(is_numeric($status)) {
+    			$criteria->addCondition('status=:status');
+    			$criteria->params[':status'] = $status;
+    		}
+    		$criteria->order = 'created desc';
+    		$subs = SubExt::model()->undeleted()->getList($criteria);
+    		$data = $data['list'] = [];
+    		if($subs->data) {
+
+    			foreach ($subs->data as $key => $value) {
+    				
+    				$itsstaff = $this->staff;
+    				$tmp['id'] = $value->id;
+    				$tmp['user_name'] = $value->name;
+    				$tmp['user_phone'] = $value->phone;
+    				$tmp['staff_name'] = Yii::app()->db->createCommand("select name from user where phone='".$value->notice."'")->queryScalar();
+    				$tmp['staff_phone'] = $value->notice;
+    				$tmp['time'] = date('m-d H:i',$value->updated);
+    				$tmp['status'] = SubExt::$status[$value->status];
+    				$tmp['staff_company'] = $value->plot?$value->plot->title:'';
+    				$data['list'][] = $tmp;
+    			}
+    		}
+    		$data['num'] = $subs->pagination->itemCount;
+    		$this->frame['data'] = $data;
+    	} else {
+    		$this->returnError('用户类型错误，只支持分销或独立经纪人访问');
+    	}
+    }
+
+    public function actionAddSubscribe()
+    {
+    	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
+    		$params = Yii::app()->request->getPost('SubscribeExt',[]);
+    		if($usu = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id)){
+    			if($usu->num<=count($this->staff->subscribes)) {
+    				return $this->returnError('您的订阅数已达上线');
+    			}
+    		} else {
+    			return $this->returnError('您的订阅已到期，请先支付');
+    		}
+    		if($params) {
+    			$criteria = new CDbCriteria;
+    			$tmp = "uid=:uid and";
+    			$criteria->params[':uid'] = $this->staff->id;
+    			foreach ($params as $key => $value) {
+    				$tmp .= " $key=:$key and";
+    				$criteria->params[":$key"] = $value;
+    			}
+    			$tmp = trim($tmp,'and');
+    			$criteria->addCondition($tmp);
+    			// var_dump($criteria);exit;
+    			if(SubscribeExt::model()->find($criteria)) {
+    				$this->returnError('您已添加此类订阅，请勿重复添加');
+    			} else {
+    				$obj = new SubscribeExt;
+    				$obj->attributes = $params;
+    				$obj->uid = $this->staff->id;
+    				if($obj->save()) {
+    					$this->returnSuccess('添加成功');
+    				} else {
+    					$this->returnError(current(current($obj->getErrors())));
+    				}
+    			}
+    		}
+    	} else {
+    		$this->returnError('请登录后操作');
+    	}
+    }
+
+    public function actionGetSubscribeList()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$subss = $this->staff->subscribes;
+    		$data = [];
+    		if($subss) {
+    			foreach ($subss as $key => $value) {
+    				$data[] = [
+    				'id'=>$value->id,
+    				'area'=>$value->area?$value->areainfo->name:'',
+    				'area_id'=>$value->area,
+    				'street'=>$value->street?$value->streetinfo->name:'',
+    				'street_id'=>$value->street,
+    				'minprice'=>$value->minprice,
+    				'maxprice'=>$value->maxprice,
+    				'wylx'=>$value->wylx?TagExt::model()->findByPk($value->wylx)->name:'',
+    				'wylx_id'=>$value->wylx,
+    				'zxzt'=>$value->zxzt?TagExt::model()->findByPk($value->zxzt)->name:'',
+    				'zxzt_id'=>$value->zxzt,
+    				];
+    			}
+    			$this->frame['data'] = $data;
+    		}
+    	}
+    }
+
+    public function actionDelSubscribe($id='')
+    {
+    	SubscribeExt::model()->deleteAllByAttributes(['id'=>$id]);
+    	$this->returnSuccess('操作成功');
+    }
+
+    public function actionJoinCompany($code='')
+    {
+    	if($code&&!Yii::app()->user->getIsGuest()) {
+    		if($com = CompanyExt::model()->undeleted()->find("code='$code'")){
+    			if(substr($code, 0,1)=='6')
+    				$this->staff->type = 2;
+    			elseif(substr($code, 0,1)=='8')
+    				$this->staff->type = 1;
+    			$this->staff->cid = $com->id;
+    			$this->staff->save();
+    			$log = new UserLogExt;
+    			$log->from = 0;
+    			$log->to = $com->id;
+    			$log->uid = $this->staff->id;
+    			$log->save();
+    			$this->returnSuccess('您已成功绑定到'.$com->name);
+    		} else {
+    			$this->returnError('该门店码不存在，请核实或联系客服');
+    		}
+    	} else {
+    		$this->returnError('请登录后操作');
+    	}
+    }
+
+    public function actionCheckCanSubscribe()
+    {
+    	if(!Yii::app()->user->getIsGuest()) {
+    		$obj = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id);
+    		if(!$obj) {
+				$this->returnError('请支付后操作');
+    		}
+    	} else {
+    		$this->returnError('请登录后操作');
+    	}
+    }
+
+    public function actionAddSubscribePay()
+    {
+    	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
+    		$num = $_POST['num'];
+    		$title = $_POST['title'];
+    		$time = $num*(strstr($title, '年')?(365*86400):(30*86400));
+    		$obj = new UserSubscribeExt;
+    		$obj->uid = $this->staff->id;
+    		$obj->expire = time()+$time;
+    		$obj->save();
+    	}
+    }
+    public function actionLeave($id='')
+    {
+    	if($id && !Yii::app()->user->getIsGuest() && $this->staff->id == $id) {
+    		$info = UserExt::model()->findByPk($id);
+            if($info->cid) {
+                UserExt::model()->updateAll(['parent'=>0],'parent=:pa',[':pa'=>$id]);
+                $info->cid = 0;
+                $info->is_jl = 0;
+                $info->is_manage = 0;
+                $info->parent = 0;
+                if($info->save()) {
+                    $log = new UserLogExt;
+                    $log->from = $info->cid;
+                    $log->uid = $id;
+                    $log->to = 0;
+                    $log->save();
+                }
+            }
+    	} else {
+    		$this->returnError('未知错误');
     	}
     }
 

@@ -12,10 +12,13 @@ class WapController extends Controller
      */
     public $backUrl = '';
     public $banner = 'nobanner';
+    public $subwappath = '../../../../../../../subwap';
+    public $wappath;
+    public $staff;
     /**
      * @var string 布局文件路径
      */
-    public $layout = '/layouts/base';
+    public $layout = '';
     /**
      * @var string 页面description meta信息
      */
@@ -39,7 +42,10 @@ class WapController extends Controller
     public function init()
     {
         parent::init();
-        $this->backUrl = $this->createUrl('/wap/staff/index');
+        if(!Yii::app()->user->getIsGuest()) {
+            $this->staff = UserExt::model()->findByPk(Yii::app()->user->id);
+       }
+       $this->wappath = Yii::app()->theme->baseUrl.'/static/wap';
     }
 
     /**

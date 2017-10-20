@@ -43,6 +43,11 @@ class CooperateExt extends Cooperate{
     }
 
     public function beforeValidate() {
+        if($this->uid && !$this->user_name && $user = $this->user) {
+            $this->user_name = $user->name;
+            $this->user_phone = $user->phone;
+            $this->user_company = $user->companyinfo?$user->companyinfo->name:'';
+        }
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
         else

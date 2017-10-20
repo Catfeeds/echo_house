@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>我的订阅</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/mysubscribe.css">
+</head>
+<body ng-app="mysubscribe" ng-controller="listCtrl">
+	<ul>
+		<li class="subscribelist" ng-cloak ng-repeat="item in list" data-id="{{item.id}}" ng-click="turnlist(item)">
+			<div class="location clearfloat">
+				<span ng-if="item.area=item.area?item.area:'不限省份'">{{item.area}}</span>
+				<span ng-if="item.street=item.street?item.street:'不限城市'">{{item.street}}</span>
+			</div>
+			<div class="price clearfloat">
+				<span ng-if="item.minprice=item.minprice?item.minprice:'0'">{{item.minprice}}K</span>
+				<span>-</span>
+				<span ng-if="item.maxprice=item.maxprice?item.maxprice:'不限'">{{item.maxprice}}K</span>
+			</div>
+			<ul class="tags clearfloat">
+				<li class="tag color1">{{item.wylx}}</li>
+				<li class="tag color2">{{item.zxzt}}</li>
+				<!-- <li class="tag color3"></li> -->
+			</ul>
+			<img class="detail" src="./img/).png">
+			<img class="canclesubscribe" src="./img/canclesubscribe.png" ng-click="canclesubscribe($event)" data-id="">
+		</li>
+	</ul>
+	<a onclick="addSubscribe()">
+		<div class="add">
+			<div class="addsubscribe">添加订阅</div>
+		</div>
+	</a>
+
+
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/mysubscribe.js"></script>
+	<script>
+		function addSubscribe() {
+			$.get('/api/plot/checkCanSubscribe',function(data) {
+				
+				if(data.status=='success') {
+					location.href = 'subscribe.html';
+				} else {
+					if(data.msg=='请登录后操作') {
+						alert(data.msg);
+					} else {
+						alert(data.msg);
+						location.href = 'payforsubscribe.html';
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

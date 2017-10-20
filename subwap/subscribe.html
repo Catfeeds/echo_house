@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/subscribe.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.min.css">
+	<title>订阅</title>
+</head>
+<body ng-app="subscribe" ng-controller="subscribeCtrl">
+	<div class="area">
+		<div class="tittle">区域</div>
+		<div class="province small">省份</div>
+		<select ng-cloak class="sel small" id="province" ng-change="getprovince()" ng-model="province">
+			<option ng-repeat="item in provincelist" data-id="{{item.id}}">{{item.name}}</option>
+		</select>
+		<div class="city small">城市</div>
+		<select ng-cloak class="sel small" id="city" ng-change="getcity()" ng-model="city">
+			<option ng-cloak ng-repeat="item in citylist" data-id="{{item.id}}">{{item.name}}</option>
+		</select>
+	</div>
+	<div class="line"></div>
+	<div class="averageprice">
+		<div class="tittle">均价<span class="small">/千</span></div>
+		<div class="buxian">不限</div>
+		<div class="slider-container">
+			<input readonly="readonly" type="text" id="amount1" class="textmin">
+			<input onchange="changenum()" readonly="readonly" type="text" id="amount2" class="textmax">	 
+			<div id="slider-range" style="margin-top: 1.333rem;"></div>
+		</div>
+	</div>
+	<div class="line"></div>
+	<div class="filter">
+			<ul>
+				<li ng-cloak class="filter4-item">
+					<div class="filter4-item-head"><strong>物业类型</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<div id="filter4-item0">
+								<li ng-click="choose($event)" data-id="0" class="filter-filter4-button-active">不限</li>
+								<li ng-cloak ng-repeat="item in filterlist0" ng-click="choose1($event)" data-id="{{item.id}}">{{item.name}}</li>
+							</div>
+						</ul>
+					</div>
+				</li>
+				<li ng-cloak class="filter4-item">
+					<div class="filter4-item-head"><strong>装修状态</strong></div>
+					<div class="filter4-item-item">
+						<ul class="clearfloat">
+							<div id="filter4-item0">
+								<li ng-click="choose($event)" data-id="0" class="filter-filter4-button-active">不限</li>
+								<li ng-cloak ng-repeat="item in filterlist1" ng-click="choose2($event)" data-id="{{item.id}}">{{item.name}}</li>
+							</div>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="list-blank"></div>
+			<div class="line"></div>
+			<div class="filter-filter4-buttom">
+				<div class="filter-filter4-buttom-button" id="reset" onclick="reset()">重置</div>
+				<div class="filter-filter4-buttom-button filter-filter4-button-active" id="ensure" ng-click="postmsg()">确定</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/rem.js"></script>
+<script type="text/javascript" src="js/subscribe.js"></script>
+</body>
+</html>

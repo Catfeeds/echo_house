@@ -1,0 +1,177 @@
+body{
+	background-color: #f5f5f5;
+}
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+
+.houselist{
+	position: relative;
+}
+.hose-list-ammount-bg{
+	position: relative;
+	width: 19.36rem;
+	height: 1.333rem;
+	font-size:0.693rem;
+	line-height: 1.333rem;
+	color:gray;
+	padding-left: 0.64rem;
+	background-color: #f1f1f1;
+}
+.hose-list-ammount{
+	background-color: #00b7ee;
+	float: right;
+	color: white;
+	margin-top: 0.16rem;
+	margin-right: 0.133rem;
+	height: 1.067rem;
+	font-size:0.693rem;
+	line-height: 1.067rem;
+}
+.list-house{
+	height: 5.333rem;
+	width: 20.0rem;
+	position: relative;
+	background-color: #fff;
+}
+
+.house-img{
+	position: absolute;
+	top: 0.667rem;
+	left: 0.667rem;
+	height: 4.0rem;
+	width: 5.333rem;
+}
+
+.house-jing{
+	position: absolute;
+	width: 0.8rem;
+	height: 0.8rem;
+	margin: 0.14rem 0rem;
+	font-size: 0.64rem;
+	background-color: #FCA61E;
+	border-radius: 0.053rem;
+	text-align: center;
+	line-height: 0.8rem;
+	top: 0.533rem;
+	left: 6.8rem;
+	color: #fff;
+}
+.house-text-head{
+	font-weight: bold;
+	font-size: 0.8rem;
+	position: absolute;
+	top: 0.533rem;
+	left:6.8rem;
+	width: 8rem;
+	height: 1.068rem;
+	overflow: hidden;
+}
+.house-text-company{
+	font-size: 0.64rem;
+	position: absolute;
+	top: 3.9rem;
+	left:6.8rem;
+	width: 12rem;
+	color:#868686;
+}
+.house-text-size{
+	font-size: 0.64rem;
+	position: relative;
+	top: -4.053rem;
+	left:10.933rem;
+	width: 2.667rem;
+	color:#868686;
+}
+.house-text-plot_name-2{
+	font-size: 0.64rem;
+	position: absolute;
+	top: 1.7rem;
+	left:6.8rem;
+	width: 9rem;
+	color:#868686;
+}
+.house-text-pay-yong{
+	position: absolute;
+	width: 0.8rem;
+	height: 0.8rem;
+	font-size: 0.64rem;
+	background-color: rgb(223,82,37);
+	border-radius: 0.053rem;
+	text-align: center;
+	line-height: 0.8rem;
+	top: 2.8rem;
+	left: 6.8rem;
+	color: #fff;
+}
+.house-text-pay{
+	font-size: 0.64rem;
+	position: absolute;
+	width: 12.0rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	color:rgb(223,82,37);
+	top: 2.8rem;
+	left: 7.8rem;
+	overflow: hidden;
+}
+.house-text-price{
+	font-size: 0.747rem;
+	position: absolute;
+	top: 0.3rem;
+	left:13.2rem;
+	width: 6.0rem;
+	color: rgb(223,82,37);
+	text-align: right;
+}
+.notcollect{
+	position: absolute;
+	font-size: 0.747rem;
+	top: 1.7rem;
+	left: 16rem;
+	color: #868686;
+}
+.line{
+	width: 20.0rem;
+	height: 0.053rem;
+	position: relative;
+	background-color: #E8E8E9;
+}
+#ul1 a{
+	color: #333333;
+}
+
+.loaddiv{
+	position: relative;
+	width: 1.707rem;
+	height: 1.707rem;
+	left: 9.147rem;
+	margin: 0.5rem 0rem;
+	display: none;
+}
+.loading-img{
+	width: 1.707rem;
+	height: 1.707rem;
+}
+.list-search-frame{
+	position: relative;
+	width: 20.0rem;
+	height: 2.347rem;	
+}
+.list-search-search{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #414141;
+	top: 0.7rem;
+	left: 17.5rem;
+}
+.list-search-frame-text{
+	position: absolute;
+	width: 15.5rem;
+	height: 1.547rem;
+	top: 0.4rem;
+	left: 0.64rem;
+	background-color: #fff;
+	border: none;
+	font-size: 0.693rem;
+	padding-left: 0.533rem;
+}

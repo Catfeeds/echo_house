@@ -76,3 +76,27 @@ color:#c3c3c3;
 :-ms-input-placeholder { /* Internet Explorer 10+ */
 color:#c3c3c3;
 }
+.register-attention{
+	position: relative;
+	top: 1.04rem;
+	height: 1.893rem;
+	width: 20rem;
+	font-size: 0.64rem;
+	color: #999999;
+}
+
+.register-attention-img{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	top: 0.533rem;
+	left: 0.4rem;
+}
+
+.register-attention-text{
+	position: absolute;
+	top: 0.533rem;
+	left: 1.4rem;
+	width: 18.3rem;
+	font-size: 0.747rem;
+}

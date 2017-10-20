@@ -1,0 +1,183 @@
+body{
+	background-color: #fff;
+}
+.shadow{
+	-moz-box-shadow: 0px 10px 15px 5px #e4e1e1;
+	box-shadow: 0px 10px 15px 5px #e4e1e1;
+}
+.line{
+	position: relative;
+	background-color: #dfdfdf;
+	width: 20.0rem;
+	height: 0.054rem;
+}
+.head{
+	position: absolute;
+	width: 20.0rem;
+	height: 10.64rem;
+	top: 0rem;
+	left: 0rem;
+	z-index: 0;
+}
+.headbg{
+	position: absolute;
+	width: 20rem;
+	height: 10.64rem;
+	overflow: hidden;
+}
+.personalhead-big{
+	position: absolute;
+	width: 4.16rem;
+	height: 4.16rem;
+	background-color: rgba(256,256,256,0.2);
+	left: 7.947rem;
+	top: 1.36rem;
+	border-radius: 2.08rem;
+}
+.personalhead-small{
+	position: absolute;
+	width: 3.733rem;
+	height: 3.733rem;
+	border-radius: 1.867rem;
+	overflow: hidden;
+	left: 0.213rem;
+	top: 0.213rem;
+	background-color: #fff;
+}
+.personalhead-you{
+	position: absolute;
+	height: 3.733rem;
+	width: 3.733rem;
+}
+.personalhead-wu{
+	position: absolute;
+	height: 3.733rem;
+	width: 3.733rem;
+	/*top: 0.7rem;*/
+}
+.setup{
+	position: absolute;
+	right: 0.64rem;
+	top: 0.56rem;
+	height: 1.12rem;
+	width: 1.12rem;
+}
+.name{
+	position: absolute;
+	font-size: 0.907rem;
+	color: #fff;
+	top: 6.187rem;
+	left: 8rem;
+	text-align: center;
+	width: 4rem;
+}
+.status{
+	position: absolute;
+	font-size: 0.587rem;
+	color: #fff;
+	text-align: center;
+	top: 6.34rem;
+	left: 12rem;
+	border-radius: 0.2rem;
+	padding: 0.08rem 0.2rem;
+}
+.status1{
+	background-color: #9DD072;
+}
+.status2{
+	background-color: #ffab58;
+}
+.status3{
+	background-color: #00b7ee;
+}
+.company{
+	position: absolute;
+	font-size: 0.64rem;
+	color: #fff;
+	text-align: center;
+	top: 7.52rem;
+	width: 20.0rem;
+}
+.functionmodule{
+	position: relative;
+	margin: 9.307rem 1.067rem 0rem 1.067rem;
+	width: 17.866rem;
+	height: auto;
+	border-radius: 0.3rem;
+	background-color: #fff;
+	overflow: hidden;
+	z-index: 1;
+}
+.functiontag{
+	position: relative;
+	height: 2.827rem;
+}
+.functiontag-img{
+	position: absolute;
+	width: 1.6rem;
+	height: 1.6rem;
+	left: 0.8rem;
+	top: 0.64rem;
+}
+.functiontag-text{
+	position: absolute;
+	font-size: 0.853rem;
+	color: #000;
+	line-height: 2.827rem;
+	left: 2.933rem;
+}
+.up{
+	position: absolute;
+	right: 0.64rem;
+	top: 1.253rem;
+	height: 0.373rem;
+	width: 0.693rem;
+}
+.down{
+	position: absolute;
+	right: 0.64rem;
+	top: 1.253rem;
+	height: 0.373rem;
+	width: 0.693rem;
+}
+.panel{
+	position: relative;
+	height: auto;
+	width: 17.867rem;
+}
+.iconcontainer{
+	margin-left: 0.8rem;
+	overflow: hidden;
+	height: auto;
+}
+.iconcontainer li{
+	position: relative;
+	float: left;
+	width: 4.0rem;
+	height: 3.733rem;
+}
+.panel-img{
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	left: 1.193rem;
+	top: 0.807rem;
+}
+.panel-text{
+	position: absolute;
+	color: #999999;
+	text-align: center;
+	font-size: 0.64rem;
+	width: 4rem;
+	top: 2.507rem;
+}
+.service{
+	position: relative;
+	width: 17.886rem;
+	height: 2.827rem;
+	margin: 0.533rem 1.067rem 1.067rem 1.067rem;
+	border-radius: 0.3rem;
+	background-color: #fff;
+	overflow: hidden;
+	z-index: 1;
+}
