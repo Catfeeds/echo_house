@@ -10,7 +10,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		}).then(function successCallback(response){
 			if(response.data.status=='error') {
 				alert(response.data.msg);
-				location.href = 'list.html';
+				history.back();
 			}else{
 				$('.count b').html(response.data.data.num);
 				$scope.cuntomerlist=response.data.data.list;

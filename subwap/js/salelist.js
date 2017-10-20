@@ -10,7 +10,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		}).then(function successCallback(response){
 			if(response.data.status=='error') {
 				alert('案场销售仅对与新房通合作的总代公司开放，请联系管理员开通');
-				location.href = 'list.html';
+				history.back();
 			}else{
 				$('.count b').html(response.data.data.num);
 				$scope.cuntomerlist=response.data.data.list;
