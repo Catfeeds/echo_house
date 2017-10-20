@@ -47,7 +47,7 @@ class PlotController extends ApiController{
 		} else {
 			$criteria->addCondition('status=1');
 		}
-		if($save>0) {
+		if($save>0&&$this->staff) {
 			$savehidsarr = [];
 			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$this->staff->id)->queryAll();
 			if($savehids) {
@@ -175,6 +175,7 @@ class PlotController extends ApiController{
 		}
 		// 走缓存拿初始数据
 		elseif($init) {
+			echo "alert(1)";
 			$dats = PlotExt::setPlotCache();
 			if(isset($dats['list']) && $dats['list']) {
 				foreach ($dats['list'] as $key => $value) {
