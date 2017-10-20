@@ -54,8 +54,8 @@ class PlotController extends ApiController{
 				foreach ($savehids as $savehid) {
 					$savehidsarr[] = $savehid['hid'];
 				}
-				$criteria->addInCondition('id',$savehidsarr);
 			}
+			$criteria->addInCondition('id',$savehidsarr);
 		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
@@ -184,7 +184,6 @@ class PlotController extends ApiController{
 			}
 			$this->frame['data'] = $dats;
 		} else {
-			var_dump($criteria);exit;
 			$plots = PlotExt::model()->undeleted()->getList($criteria,$limit);
 			$lists = [];
 			// if($company) {
