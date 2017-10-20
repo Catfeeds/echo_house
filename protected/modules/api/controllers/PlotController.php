@@ -2,6 +2,7 @@
 class PlotController extends ApiController{
 	public function actionList()
 	{
+
 		$info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
 		$areaslist = AreaExt::getALl();
 		$area = (int)Yii::app()->request->getQuery('area',0);
@@ -21,6 +22,7 @@ class PlotController extends ApiController{
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$save = (int)Yii::app()->request->getQuery('save',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
+		$this->frame['data'] = ['list'=>[],'page'=>$page,'num'=>0,'page_count'=>0,];
 		$init = $areainit = 0 ;
 		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$init = 1;
@@ -259,7 +261,7 @@ class PlotController extends ApiController{
 				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
 			}
 		}
-		if($area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid==0&&!$kw) {
+		if($area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
 			$this->frame['data']['num'] += 800;
 		}
 			
@@ -1403,7 +1405,7 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest()) {
     		$obj = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id);
     		if(!$obj) {
-				$this->returnError('请支付后操作');
+				$this->returnError('订阅上新房源仅需9.9元/月');
     		}
     	} else {
     		$this->returnError('请登录后操作');
