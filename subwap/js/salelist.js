@@ -9,7 +9,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 			url:'/api/plot/checkIsSale'
 		}).then(function successCallback(response){
 			if(response.data.status=='error') {
-				alert('案场销售仅对与新房通合作的总代公司开放，请联系管理员开通');
+				alert('暂无权限，请联系管理员开通');
 				history.back();
 			}else{
 				$('.count b').html(response.data.data.num);
