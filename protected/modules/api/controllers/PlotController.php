@@ -175,7 +175,6 @@ class PlotController extends ApiController{
 		}
 		// 走缓存拿初始数据
 		elseif($init) {
-			exit;
 			$dats = PlotExt::setPlotCache();
 			if(isset($dats['list']) && $dats['list']) {
 				foreach ($dats['list'] as $key => $value) {
@@ -185,7 +184,7 @@ class PlotController extends ApiController{
 			}
 			$this->frame['data'] = $dats;
 		} else {
-			// var_dump($criteria);exit;
+			var_dump($criteria);exit;
 			$plots = PlotExt::model()->undeleted()->getList($criteria,$limit);
 			$lists = [];
 			// if($company) {
