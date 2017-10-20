@@ -175,7 +175,7 @@ class PlotController extends ApiController{
 		}
 		// 走缓存拿初始数据
 		elseif($init) {
-			echo "alert(1)";
+			exit;
 			$dats = PlotExt::setPlotCache();
 			if(isset($dats['list']) && $dats['list']) {
 				foreach ($dats['list'] as $key => $value) {
