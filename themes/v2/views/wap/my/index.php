@@ -44,17 +44,17 @@
                 </li>
                 <li onclick="join()">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/jiancai.png">
-                    <div class="panel-text"><?=$staff->cid?'更换':'加入'?>公司</div>
+                    <div class="panel-text"><?=$staff&&$staff->cid?'更换':'加入'?>公司</div>
+                </li>
+                <li onclick="sale()">
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/placesale.png">
+                    <div class="panel-text">案场销售</div>
+                </li>
+                <li onclick="assist()">
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/assist3.png">
+                    <div class="panel-text">案场助理</div>
                 </li>
                 <!-- <li>
-                    <img class="panel-img" src="<?=$this->subwappath?>/img/yanfang.png">
-                    <div class="panel-text">特惠验房</div>
-                </li>
-                <li>
-                    <img class="panel-img" src="<?=$this->subwappath?>/img/zhuanti.png">
-                    <div class="panel-text">精彩专题</div>
-                </li>
-                <li>
                     <img class="panel-img" src="<?=$this->subwappath?>/img/diary.png">
                     <div class="panel-text">装修日记</div>
                 </li>
@@ -113,6 +113,20 @@
                 });
                 }               
                 <?php endif;?>
+            <?php endif;?>
+        }
+        function sale() {
+            <?php if($this->staff):?>
+            location.href = 'subwap/salelist.html';
+            <?php else:?>
+            alert('请登录后操作');
+            <?php endif;?>
+        }
+        function assist() {
+            <?php if($this->staff):?>
+            location.href = 'subwap/customerlist.html';
+            <?php else:?>
+            alert('请登录后操作');
             <?php endif;?>
         }
     </script>

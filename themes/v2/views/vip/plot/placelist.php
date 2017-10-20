@@ -23,7 +23,7 @@
     <?php foreach($infos as $v): ?>
         <tr>
             <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->id ?></td>
-            <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->user->name.'/'.$v->user->phone ?></td>
+            <td style="text-align:center;vertical-align: middle" class="text-center"><?php echo $v->user?($v->user->name.'/'.$v->user->phone):'' ?></td>
             
             <td style="text-align:center;vertical-align: middle">
                 
