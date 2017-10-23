@@ -10,6 +10,11 @@ app.controller('listCtrl',function($scope,$http){
 		url:'/api/plot/getSubscribeList'
 	}).then(function successCallback(response){
 		$scope.list=response.data.data;
+		if (response.data.data.length<=0||response.data.data.length==undefined) {
+			$('.nomore').css('display','block');
+		}else{
+				$('.nomore').css('display','none');
+			}
 	},function errorCallback(response){
 
 	});
@@ -22,6 +27,12 @@ app.controller('listCtrl',function($scope,$http){
 			$.get("/api/plot/delSubscribe?id="+id,function(data,status){
 	            alert(data.msg);    
 			});
+			$scope.list.length--;
+			if($scope.list.length<=0||$scope.list.length==undefined){
+				$('.nomore').css('display','block');
+			}else{
+				$('.nomore').css('display','none');
+			}
 		}
 	}
 });

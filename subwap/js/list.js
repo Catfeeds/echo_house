@@ -368,6 +368,11 @@ function ajaxGetList(obj) {
         $('#ul1').empty();
         $('#ul1').append(html);
         $('#num').html(o.num);
+        if (o.num==0) {
+            $('.nomore').css('display','block');
+        }else{
+            $('.nomore').css('display','none');
+        }
         // 加载中消失
         $('.loaddiv').css('display','none');
     });
@@ -467,6 +472,11 @@ function ajaxAddList(obj) {
         }
         $('#ul1').append(html);
         $('#num').html(o.num);
+        if (o.num==0) {
+            $('.nomore').css('display','block');
+        }else{
+            $('.nomore').css('display','none');
+        }
         // 加载中消失
         $('.loaddiv').css('display','none');
     });
