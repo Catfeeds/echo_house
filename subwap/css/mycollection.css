@@ -175,3 +175,27 @@ body{
 	font-size: 0.693rem;
 	padding-left: 0.533rem;
 }
+.nomore{
+	display: none;
+	position: relative;
+	height: 16.0rem;
+	width: 16rem;
+	left: 2rem;
+	top: 2rem;
+	background-color: #f5f5f5;
+}
+.nomoreimg{
+	position: absolute;
+	width: 6rem;
+	height: 6rem;
+	top: 5rem;
+	left: 5rem;
+}
+.nomoretext{
+	position: absolute;
+	height: auto;
+	width: 16rem;
+	top: 12rem;
+	text-align: center;
+	font-size: 1rem;
+}

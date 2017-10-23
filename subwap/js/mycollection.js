@@ -12,6 +12,11 @@ app.controller('listCtrl',function($scope,$http){
 			$scope.num=response.data.data.list.length;
 		} else {
 			$scope.num=0;
+		}
+		if ($scope.num==0) {
+			$('.nomore').css('display','block');
+		}else{
+			$('.nomore').css('display','none');
 		}	
 	},function errorCallback(response){
 
@@ -31,6 +36,12 @@ app.controller('listCtrl',function($scope,$http){
 				}
 				$scope.list=response.data.data.list;	
 			}
+			console.log($scope.num);
+			if ($scope.num==0) {
+				$('.nomore').css('display','block');
+			}else{
+				$('.nomore').css('display','none');
+			}
 			$('.list-search-frame-text').val('');
 			$('.list-search-frame-text').attr('placeholder',search?search:"请输入项目名称");
 		},function errorCallback(response){
@@ -47,6 +58,11 @@ app.controller('listCtrl',function($scope,$http){
 			$.get("/api/plot/addSave?hid="+hid,function(data,status){
 	            alert(data.msg);      
 			});
+			if ($scope.num==0) {
+				$('.nomore').css('display','block');
+			}else{
+				$('.nomore').css('display','none');
+			}
 		}
 	}
 });

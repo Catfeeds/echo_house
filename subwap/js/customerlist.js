@@ -15,6 +15,11 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 				$('.count b').html(response.data.data.num);
 				$scope.cuntomerlist=response.data.data.list;
 			}
+			if (response.data.data.num==0) {
+	            $('.nomore').css('display','block');
+	        }else{
+	            $('.nomore').css('display','none');
+	        }
 			
 		},function errorCallback(response){
 
@@ -36,6 +41,11 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 				$('#ul2').css('display','block');
 				$scope.searchlist=response.data.data.list;	
 			}
+			if (response.data.data.num==0) {
+	            $('.nomore').css('display','block');
+	        }else{
+	            $('.nomore').css('display','none');
+	        }
 			$('.list-search-frame-text').val('');
 			$('.list-search-frame-text').attr('placeholder',search1?search1:"请输入客户姓名/手机号");
 		},function errorCallback(response){

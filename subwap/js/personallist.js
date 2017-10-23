@@ -16,6 +16,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
                 }else{
                     $scope.houselist = response.data.data.list;
                     $('.count').find('b').html(response.data.data.num); 
+                    if (response.data.data.num==0) {
+                        $('.nomore').css('display','block');
+                    }else{
+                        $('.nomore').css('display','none');
+                    }
                 }
             }, function errorCallback(response) {
 
@@ -33,7 +38,12 @@ myapp.controller('perlistCtrl',function($scope,$http) {
             url: '/api/plot/list?uid=1?kw='+kw+'&status='+status,
         }).then(function successCallback(response) {    
                 $scope.houselist = response.data.data.list;
-                $('.count').find('b').html(response.data.data.num); 
+                $('.count').find('b').html(response.data.data.num);
+                if (response.data.data.num==0) {
+                $('.nomore').css('display','block');
+            }else{
+                $('.nomore').css('display','none');
+            } 
             }, function errorCallback(response) {
 
         });

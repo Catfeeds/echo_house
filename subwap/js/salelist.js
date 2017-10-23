@@ -13,6 +13,11 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 				history.back();
 			}else{
 				$('.count b').html(response.data.data.num);
+				if (response.data.data.num==0) {
+	            $('.nomore').css('display','block');
+	        }else{
+	            $('.nomore').css('display','none');
+	        }
 				$scope.cuntomerlist=response.data.data.list;
 			}
 			
@@ -32,6 +37,11 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 		}).then(function successCallback(response){
 			if(response.data.status=='success'){
 				$('.count b').html(response.data.data.num);
+				if (response.data.data.num==0) {
+	            $('.nomore').css('display','block');
+	        }else{
+	            $('.nomore').css('display','none');
+	        }
 				$('#ul1').css('display','none');
 				$('#ul2').css('display','block');
 				$scope.searchlist=response.data.data.list;	
