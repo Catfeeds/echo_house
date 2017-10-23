@@ -131,4 +131,13 @@ class UserController extends ApiController{
 			}	
 		}
 	}
+
+	public function actionAddImage()
+	{
+		if(Yii::app()->request->getIsPostRequest()) {
+			$image = Yii::app()->request->getPost('image','');
+			$this->staff->ava = $image;
+			$this->staff->save();
+		}
+	}
 }

@@ -142,17 +142,24 @@ color:#c3c3c3;
 	height: 0.853rem;
 	width: 0.88rem;
 	top: 0.853rem;
-	left: 18.32rem;
+	left: 16.7rem;
 }
 
 .list-head-window{
 	position: relative;
 	top: 0.747rem;
 	left: 0.64rem;
-	width: 17.067rem;
+	width: 15.5rem;
 	height: 1.067rem;
 	overflow-x: scroll;
 	overflow-y: hidden;
+}
+.dingyue{
+    position: absolute;
+    font-size: 0.747rem;
+    left: 18rem;
+    top: 0.8rem;
+    color: #999999;
 }
 ::-webkit-scrollbar{
 	display: none;

@@ -44,6 +44,14 @@
 	<script type="text/javascript" src="js/rem.js"></script>
 	<script type="text/javascript" src="js/mysubscribe.js"></script>
 	<script>
+		$(document).ready(function() {
+			$.get('/api/index/getQfUid',function(data) {
+				if(data.status=='error') {
+					alert('请登录后操作');
+					history.back();
+				}
+			});
+		});
 		function addSubscribe() {
 			$.get('/api/plot/checkCanSubscribe',function(data) {
 				

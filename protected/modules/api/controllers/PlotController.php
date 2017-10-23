@@ -2,6 +2,7 @@
 class PlotController extends ApiController{
 	public function actionList()
 	{
+
 		$info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
 		$areaslist = AreaExt::getALl();
 		$area = (int)Yii::app()->request->getQuery('area',0);
@@ -21,6 +22,7 @@ class PlotController extends ApiController{
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$save = (int)Yii::app()->request->getQuery('save',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
+		$this->frame['data'] = ['list'=>[],'page'=>$page,'num'=>0,'page_count'=>0,];
 		$init = $areainit = 0 ;
 		if($area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$init = 1;
@@ -52,8 +54,8 @@ class PlotController extends ApiController{
 				foreach ($savehids as $savehid) {
 					$savehidsarr[] = $savehid['hid'];
 				}
-				$criteria->addInCondition('id',$savehidsarr);
 			}
+			$criteria->addInCondition('id',$savehidsarr);
 		}
 		if($kw) {
 			$criteria1 = new CDbCriteria;
@@ -159,7 +161,7 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'sort desc,ff_num desc,updated desc';
+			$criteria->order = 'updated desc';
 		}
 		if($areainit) {
 			$dats = PlotExt::getFirstListFromArea();
@@ -180,10 +182,8 @@ class PlotController extends ApiController{
 					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
 			}
-			$dats['num'] = $dats['num']+800;
 			$this->frame['data'] = $dats;
 		} else {
-			// var_dump($criteria);exit;
 			$plots = PlotExt::model()->undeleted()->getList($criteria,$limit);
 			$lists = [];
 			// if($company) {
@@ -203,11 +203,11 @@ class PlotController extends ApiController{
 					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
 					// }
 					$wyw = '';
-					$wylx = $value->wylx;
-					if($wylx) {
-						if(!is_array($wylx)) 
-							$wylx = [$wylx];
-						foreach ($wylx as $w) {
+					$wylx1 = $value->wylx;
+					if($wylx1) {
+						if(!is_array($wylx1)) 
+							$wylx1 = [$wylx1];
+						foreach ($wylx1 as $w) {
 							$t = TagExt::model()->findByPk($w)->name;
 							$t && $wyw .= $t.' ';
 						}
@@ -259,6 +259,9 @@ class PlotController extends ApiController{
 				$pager = $plots->pagination;
 				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
 			}
+		}
+		if($area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
+			$this->frame['data']['num'] += 800;
 		}
 			
 	}
@@ -774,14 +777,7 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	foreach (PlotExt::model()->undeleted()->findAll() as $key => $value) {
-    		if(!$value->ff_num) {
-    			$value->ff_num = PlotMarketUserExt::model()->count('hid='.$value->id);
-	    		if($value->ff_num)
-	    			$value->save();
-    		}
-	    		
-    	}
+    	Yii::app()->cache->flush();  
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;
@@ -931,6 +927,9 @@ class PlotController extends ApiController{
     			foreach ($subs->data as $key => $value) {
     				
     				$itsstaff = $value->user;
+    				if(!$itsstaff) {
+    					continue;
+    				}
     				$cname = Yii::app()->db->createCommand("select name from company where id=".$itsstaff->cid)->queryScalar();
     				$tmp['id'] = $value->id;
     				$tmp['user_name'] = $value->name;
@@ -1405,7 +1404,7 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest()) {
     		$obj = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id);
     		if(!$obj) {
-				$this->returnError('请支付后操作');
+				$this->returnError('订阅上新房源仅需9.9元/月');
     		}
     	} else {
     		$this->returnError('请登录后操作');
