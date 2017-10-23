@@ -47,9 +47,12 @@ body{
 	width: 4.8rem;
 	height: 1.333rem;
 	margin: 0rem 1rem 0rem 0.7rem;
-	background-color: #F5F5F5;
+/*	background-color: #F5F5F5;
 	border-radius: 0.15rem;
-	border: none;	
+	border: none;	*/
+	background-color: #fff;
+	border-radius: 0.267rem;
+	border:solid #c3c3c3 0.027rem;
 }
 .averageprice{
 	position: relative;
