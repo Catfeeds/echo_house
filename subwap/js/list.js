@@ -163,8 +163,14 @@ $(document).ready(function() {
     init();
     thisurl = '';
     var toptag = '';
-    ajaxGetTop();
-    ajaxGetFilter(); 
+    if(GetQueryString('order')==1) {
+        $('.list-head-container').css('display','none');
+        $('.list-head-bg').css('margin-top','-5rem');
+    } else {
+        $('.list-head-container').css('display','block');
+        ajaxGetTop();
+        ajaxGetFilter(); 
+    }
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
