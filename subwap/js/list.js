@@ -678,14 +678,14 @@ function setArea(obj) {
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
         } 
-    } else if(o.street=='') {
-        o.street = $(obj).data('id');
+    } else {
+        o.street = GetQueryString('street')!=undefined?GetQueryString('street'):$(obj).data('id');
         if($(obj).data('type')=='street')
             o.area = '';
         if ($(obj).text()!=''&&$(obj).text()!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).text());
         } 
-    }
+    } 
     ajaxGetList(o);
 }
 //显示列表2
