@@ -1432,6 +1432,6 @@ $('#save').click(function() {
                 $('#save').attr('src','./img/notsave.png');
             }
         }
-        alert(data.msg);
+        // alert(data.msg);
     });
 });
