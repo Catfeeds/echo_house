@@ -21,6 +21,9 @@ $this->breadcrumbs = array($this->pageTitle);
             <div class="form-group">
                 <?php echo CHtml::dropDownList('status',$status,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
             </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择会员--')); ?>
+            </div>
             <button type="submit" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
@@ -40,6 +43,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">用户类型</th>
         <th class="text-center">电话</th>
         <th class="text-center">公司名</th>
+        <th class="text-center">会员到期时间</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -56,7 +60,8 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=UserExt::$ids[$v->type]?></td>
             <td class="text-center"><?=$v->phone?></td>
-            <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>         
+            <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>  
+            <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>       
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>

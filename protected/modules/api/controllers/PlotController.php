@@ -1099,13 +1099,13 @@ class PlotController extends ApiController{
 
     public function actionAddPlot()
     {
-    	if(Yii::app()->request->getIsPostRequest() && !Yii::app()->user->getIsGuest()) {
-    		if($this->staff->type!=1) {
+    	if(Yii::app()->request->getIsPostRequest()) {
+    		if($this->staff && $this->staff->type!=1) {
     			return $this->returnError('用户类型错误，只支持总代公司发布房源');
     		}
-    		if(!($company = $this->staff->companyinfo)) {
-    			return $this->returnError('尚未绑定公司');
-    		}
+    		// if(!($company = $this->staff->companyinfo)) {
+    		// 	return $this->returnError('尚未绑定公司');
+    		// }
     		$post = $_POST;
     		// if($post&&is_array($post) ){
     		// 	foreach ($post as $key => $value) {
@@ -1124,6 +1124,29 @@ class PlotController extends ApiController{
     			$img = $imgs[0];
     		}
     		unset($post['fm']);
+    		if($comname = $post['pcompany']) {
+    			$criteria = new CDbCriteria;
+    			$criteria->addSearchCondition('name',$comname);
+    			$company = CompanyExt::model()->find($criteria);
+    			if(!$company) {
+    				$company = new CompanyExt;
+    				$company->name = $comname;
+    				$company->phone = $post['pphone'];
+    				$company->status = 0;
+    				$company->save();
+    			}
+    		}
+    		unset($post['pcompany']);
+    		$pphone = $post['pphone'];
+    		if(!($user = UserExt::model()->find("phone='$pphone'"))) {
+    			$user = new UserExt;
+    			$user->name = $post['pname'];
+    			$user->type = 1;
+    			$user->cid = $company->id;
+    			$user->phone = $pphone;
+    			$user->status = 0;
+    			$user->save();
+    		}
     		$obj = new PlotExt;
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
@@ -1131,7 +1154,7 @@ class PlotController extends ApiController{
     		$obj->status = 0;
     		$obj->image = $img;
     		// $obj->market_user = $mak;
-    		$obj->uid = $this->staff->id;
+    		$obj->uid = $user->id;
     		// $company = $this->staff->companyinfo;
     		$obj->company_id = $company->id;
     		$obj->company_name = $company->name;
@@ -1167,11 +1190,22 @@ class PlotController extends ApiController{
     	}
     }
 
-    public function actionCheckCanSub()
+    public function actionCheckCanSub($phone='')
     {
-    	if(!$this->staff || $this->staff->type!=1 || !$this->staff->companyinfo) {
+    	$staff = UserExt::model()->find("phone='$phone'");
+    	// 不是会员只能发一条
+    	if($this->staff && $this->staff->type!=1) {
     		return $this->returnError('用户类型错误，只支持总代公司发布房源');
     	}
+    	if($staff && $staff->vip_expire<time()) {
+    		if($staff->plots)
+    			return $this->returnError('您的免费项目配额已满，请至经纪圈成为会员后操作');
+    	}
+    	// if(!$this->staff || $this->staff->type!=1) {
+    	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
+    	// } elseif($this->staff->vip_expire<time()) {
+    	// 	return $this->returnError('您尚未成为会员，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    	// }
     }
 
     public function actionCheckCompanyName($name='') {
@@ -1441,6 +1475,89 @@ class PlotController extends ApiController{
                     $log->save();
                 }
             }
+    	} else {
+    		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionSetVip()
+    {
+    	if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+			if($title = $this->cleanXss($_POST['title'])) {
+				$num = $this->cleanXss($_POST['num']);
+				if(strstr($title, '1')) {
+					$time = 365*86400*$num;
+				} elseif (strstr($title, '2')) {
+					$time = 365*86400*2*$num;
+				}
+				if($obj = $this->staff) {
+					if($obj->vip_expire<time()) {
+						$obj->vip_expire = time()+$time;
+					} else {
+						$obj->vip_expire = $obj->vip_expire+$time;
+					}
+					if(!$obj->save()) {
+						$this->returnError(current(current($obj->getErrors())));
+					}
+				}
+			}
+		} else{
+			$this->returnError('未知错误');
+		}
+    }
+
+    public function actionCheckIsVip()
+    {
+    	if(!Yii::app()->user->getIsGuest()&& $staff = $this->staff) {
+    		if($staff->type>1) {
+    			return $this->returnError('系统只支持总代用户类型成为会员');
+    		}
+    		if($staff->vip_expire>time()) {
+    			$this->returnSuccess('bingo');
+    		} else {
+    			$this->returnError('您尚未成为会员，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    		}
+    	} else {
+    		$this->returnError('请先登录');
+    	}
+    }
+
+    public function actionAddMakertNew()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()&& $staff = $this->staff) {
+    		if($staff->vip_expire>time()) {
+    			if($hid = $this->cleanXss($_POST['hid'])) {
+					$plot = PlotExt::model()->findByPk($hid);
+					
+					$uid = $this->staff->id;
+					// var_dump($uid,$hid);exit;
+					$criteria = new CDbCriteria;
+					$criteria->addCondition("uid=$uid and hid=$hid and deleted=0");
+					$obj = PlotMarketUserExt::model()->normal()->find($criteria);
+					if(!$obj)
+						$obj = new PlotMarketUserExt;
+					if($obj->expire>time()) {
+						return $this->returnError('您已是该项目对接人，请勿重复操作');
+					}
+					// if(!Yii::app()->db->createCommand("select id from plot_makert_user where uid=$uid and hid=$hid and deleted=0 and expire>".time())->queryRow()) {
+						// $obj = new PlotMarketUserExt;
+						if($plot->uid&&$plot->uid==$uid) {
+							$obj->is_manager = 1;
+						}
+						$obj->status = 1;
+						$obj->uid = $uid;
+						$obj->hid = $hid;
+						if($obj->expire<time()) {
+							$obj->expire = $staff->vip_expire;
+						} 
+						
+						if(!$obj->save())
+							$this->returnError(current(current($obj->getErrors())));
+					// } else {
+					// 	$this->returnError('您已经提交申请，请勿重复提交');
+					// }
+				}
+    		}
     	} else {
     		$this->returnError('未知错误');
     	}

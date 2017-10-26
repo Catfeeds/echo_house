@@ -20,6 +20,7 @@ class ConfigController extends ApiController{
 		$data = [
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
+			'companyname'=>isset($this->staff->companyinfo)?$this->staff->companyinfo->name:'',
 			'user_image'=>isset($this->staff->ava)?$this->staff->ava:'',
 			'is_jy'=>isset($userinfo)&&$userinfo['id']&&$userinfo['status']==0?1:0,
 		];

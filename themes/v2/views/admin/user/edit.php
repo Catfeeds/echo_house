@@ -57,6 +57,17 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label">会员到期时间</label>
+    <div class="col-md-4">
+        <div class="input-group date form_datetime" >
+            <?php echo $form->textField($article,'vip_expire',array('class'=>'form-control','value'=>($article->vip_expire?date('Y-m-d',$article->vip_expire):''))); ?>
+            <span class="input-group-btn">
+              <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+           </span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label">身份</label>
     <div class="col-md-4">
         <?php echo $form->radioButtonList($article, 'type', UserExt::$ids, array('separator' => '')); ?>

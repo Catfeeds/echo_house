@@ -1,17 +1,27 @@
 var tags='';
 var delimgindex='';
 $(document).ready(function() {
-    $.get('/api/index/getQfUid',function(data) {
+    $.get('/api/config/index',function(data) {
       if(data.status=='success') {
-        $.get('/api/plot/checkCanSub',function(data) {
-          if(data.status=='error') {
-            alert(data.msg);
-            location.href = 'list.html';
-          }
-        })
-      } else {
-        alert('用户尚未登录');
-      }
+        if(data.data.user.phone!=undefined) {
+          $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
+            if(data.status=='error') {
+              alert(data.msg);
+              if(data.msg=='用户类型错误，只支持总代公司发布房源') 
+                location.href = 'list.html';
+              else
+                location.href = 'duijierennew.html';
+            }
+          });
+          $('#pname').val(data.data.user.name);
+          $('#pphone').val(data.data.user.phone);
+          $('#pcompany').val(data.data.companyname);
+          $('#pname').attr('readonly','readonly');
+          $('#pphone').attr('readonly','readonly');
+          $('#pcompany').attr('readonly','readonly');
+        }
+        // 
+      } 
     });
       
      //validata
@@ -72,6 +82,9 @@ function submitBtn()
         // console.log(wylx);debugger;
         $.post('/api/plot/addPlot',
           {
+            'pname':$('input[name="pname"]').val(),
+            'pphone':$('input[name="pphone"]').val(),
+            'pcompany':$('input[name="pcompany"]').val(),
             'title':$('input[name="title"]').val(),
             'area':$('select[name="area"]').val(),
             'street':$('select[name="street"]').val(),
@@ -93,7 +106,7 @@ function submitBtn()
             'zxzt':zxzt,
           },function(data){
             if(data.status=='success'){
-              alert('您好，您的房源信息已提交，请前往成为对接人。');
+              alert('您好，您的房源信息已提交。');
               location.href = 'duijieren.html?hid='+data.data;
             } else {
               alert(data.msg);
@@ -116,6 +129,19 @@ function checkName(obj) {
         if(data.status=='error') {
           alert(data.msg);
           location.href = 'detail.html?id='+data.data;
+        }
+      });
+  } 
+}
+function checkPhone(obj) {
+  var name = $(obj).val();
+  if(name!='') {
+      $.get('/api/plot/checkCanSub?phone='+name,function(data){
+        if(data.status=='error') {
+          alert(data.msg);
+          location.href = 'duijierennew.html';
+          // $(obj).val('');
+          // $(obj).focus();
         }
       });
   } 

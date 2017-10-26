@@ -50,6 +50,7 @@ class UserExt extends User{
             'plotplaces'=>array(self::HAS_MANY, 'PlotPlaceExt', 'uid'),
             'plotsales'=>array(self::HAS_MANY, 'PlotSaleExt', 'uid'),
             'subscribes'=>array(self::HAS_MANY, 'SubscribeExt', 'uid'),
+            'plots'=>array(self::HAS_MANY, 'PlotExt', 'uid'),
         );
     }
 
@@ -91,6 +92,9 @@ class UserExt extends User{
         }
         if($this->deleted==1) {
             $this->status = 1;
+        }
+        if(strstr($this->vip_expire,'-')) {
+            $this->vip_expire = strtotime($this->vip_expire);
         }
         if($this->getIsNewRecord()) {
             if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {

@@ -307,11 +307,19 @@ function turnDetail(obj){
 //申请成为对接人
 function becomeDuijieren(){
     if(is_user==true) {
-        $.get('/api/plot/checkIsMarket?hid='+hid,function(data) {
+        $.get('/api/plot/checkIsVip',function(data) {
             if(data.status=='success') {
-                location.href="duijieren.html?hid="+hid+'&title='+title;
+                $.post('/api/plot/addMakertNew',{'hid':hid},function(data) {
+                    if(data.status=='success') {
+                        alert('操作成功');
+                        location.reload();
+                    } else {
+                        alert(data.msg);
+                    }
+                });
             } else {
                 alert(data.msg);
+                location.href="duijierennew.html";
             }
         })
     } else {
@@ -320,7 +328,6 @@ function becomeDuijieren(){
     // location.href="duijieren.html?hid="+hid;
     }
 }
-
 //分享页面
 function share(){
     if(is_user==true)

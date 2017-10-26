@@ -38,6 +38,24 @@
     <form id="form" onsubmit="return false;">
         <div class="report-small-tag">
             <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">姓名</div>
+            <input type="text" class="report-smalltag-name" placeholder="请输入姓名" name="pname" id="pname" required>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">联系方式</div>
+            <input type="text" class="report-smalltag-name" placeholder="请输入联系方式" name="pphone" id="pphone" required onblur="checkPhone(this)">
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
+            <div class="report-smalltag-title">总代公司</div>
+            <input type="text" class="report-smalltag-name" placeholder="请输入总代公司全称" name="pcompany" id="pcompany" required>
+        </div>
+        <div class="line"></div>
+        <div class="report-small-tag">
+            <img class="asterisk-img" src="./img/asterisk.png">
             <div class="report-smalltag-title">项目名称</div>
             <input type="text" class="report-smalltag-name" placeholder="请输入项目名称" name="title" id="housename" required onblur="checkName(this)">
         </div>

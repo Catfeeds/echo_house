@@ -15,6 +15,7 @@
  * @property string $id_pic
  * @property integer $qf_uid
  * @property integer $cid
+ * @property integer $vip_expire
  * @property string $company
  * @property integer $type
  * @property string $ava
@@ -44,13 +45,13 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pwd, name, created', 'required'),
-			array('parent, is_jl, is_manage, qf_uid, cid, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('parent, is_jl, is_manage, qf_uid, cid, vip_expire, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('pwd, id_pic, company, ava, image', 'length', 'max'=>255),
 			array('wx, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, pwd, wx, phone, name, parent, is_jl, is_manage, id_pic, qf_uid, cid, vip_expire, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +83,7 @@ class User extends CActiveRecord
 			'id_pic' => 'Id Pic',
 			'qf_uid' => 'Qf Uid',
 			'cid' => 'Cid',
+			'vip_expire' => 'Vip Expire',
 			'company' => 'Company',
 			'type' => 'Type',
 			'ava' => 'Ava',
@@ -123,6 +125,7 @@ class User extends CActiveRecord
 		$criteria->compare('id_pic',$this->id_pic,true);
 		$criteria->compare('qf_uid',$this->qf_uid);
 		$criteria->compare('cid',$this->cid);
+		$criteria->compare('vip_expire',$this->vip_expire);
 		$criteria->compare('company',$this->company,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('ava',$this->ava,true);
