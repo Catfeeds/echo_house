@@ -107,7 +107,8 @@ function submitBtn()
           },function(data){
             if(data.status=='success'){
               alert('您好，您的房源信息已提交。');
-              location.href = 'duijieren.html?hid='+data.data;
+              // location.href = 'duijieren.html?hid='+data.data;
+              location.href = 'list.html';
             } else {
               alert(data.msg);
             }
