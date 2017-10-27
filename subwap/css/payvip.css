@@ -1,0 +1,149 @@
+/*解决{{}}*/
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+body{
+	background-color: #f5f5f5;
+}
+.customer{
+	position: relative;
+	background: #fff;
+	width: 20rem;
+	height: 3rem;
+}
+.head-container{
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+	top: 0.5rem;
+	left: 0.8rem;
+	border-radius: 1rem;
+	overflow: hidden;
+}
+.head-img{
+	position: absolute;
+	width: 2rem;
+	height: 2rem;
+}
+.phonenum{
+	position: absolute;
+	font-size: 0.9rem;
+	color: #000;
+	left: 3.5rem;
+	top: 0.5rem;
+}
+.status{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #868686;
+	left: 3.5rem;
+	top: 1.4rem;
+}
+.blank{
+	width: 20.0rem;
+	height: 0.5rem;
+}
+.choose{
+	position: relative;
+	width: 20.0rem;
+	height: 13rem;
+	background-color: #fff;
+}
+.choose-head{
+	position: relative;
+	width: 18rem;
+	height: 1.5rem;
+	left: 1rem;
+	line-height: 1.5rem;
+	color: #868686;
+	font-size: 0.8rem;
+}
+.tag{
+	position: relative;
+	width:18rem;
+	height: 3rem;
+	border: solid #c5c5c5 0.054rem;
+	border-radius: 0.3rem;
+	margin: 0.3rem 1rem;
+}
+.tag:hover{
+	position: relative;
+	width:18rem;
+	height: 3rem;
+	border: solid #F78B43 0.054rem;
+	border-radius: 0.3rem;
+	margin: 0.3rem 1rem;
+	background-color: #FEF1E8;
+}
+.tittle{
+	position: absolute;
+	font-size: 0.8rem;
+	left: 1rem;
+	color: #000;
+	top: 0.5rem;
+}
+.detail{
+	position: absolute;
+	font-size: 0.8rem;
+	left: 1rem;
+	top: 1.5rem;
+	color: #868686;
+}
+.tag-status{
+	position: absolute;
+	font-size: 0.8rem;
+	color: #000;
+	top: 0.5rem;
+	left: 10rem;
+	color: #fff;
+	padding: 0.05rem 0.15rem;
+	border-radius: 0.2rem;
+	background-color: #F78B43;
+}
+.price{
+	position: absolute;
+	font-size: 1.3rem;
+	color: #F78B43;
+	left: 14rem;
+	top: 0.6rem;
+}
+.pay{
+	position: fixed;
+	bottom: 0rem;
+	width: 20.0rem;
+	height: 3rem;
+	z-index: 1;
+	background-color: #fff;
+}
+.left{
+	position: absolute;
+	background-color: #fff;
+	height: 3rem;
+	width: 13rem;
+}
+.jine{
+	position: absolute;
+	font-size: 1rem;
+	color: #000;
+	left: 1rem;
+	top: 1rem;
+	line-height: 1rem;
+}
+.pricenum{
+	position: absolute;
+	font-size: 1.1rem;
+	color: #F78B43;
+	left: 3.4rem;
+	top: 1rem;
+	line-height: 1rem;
+}
+.gotopay{
+	position: absolute;
+	background-color: #F78B43;
+	height: 3rem;
+	width: 7rem;
+	left: 13rem;
+	line-height: 3rem;
+	text-align: center;
+	color: #fff;
+	font-weight: bolder;
+
+}
