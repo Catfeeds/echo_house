@@ -55,7 +55,8 @@ $('.gotopay').click(function () {
                             function(data, status) {
                                 if (data.status == "success") {
                                     alert("操作成功！");
-                                    location.href = 'my';
+                                    // location.href = 'my';
+                                    history.back();
                                 } else {
                                     alert(data.msg);
                                 }
