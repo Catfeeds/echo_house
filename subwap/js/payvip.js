@@ -48,9 +48,9 @@ $('.gotopay').click(function () {
                 QFH5.jumpPayOrder(order_id,function(state,data){
                     if(state==1){
                         alert('支付成功');
-                        $.post("/api/plot/addMakertNew", {
-                                // 'num': $('#housenum').val(),
-                                // 'title': $('#housename').val(),
+                        $.post("/api/plot/setVip", {
+                                'num': 1,
+                                'title': $('#finp').html()?1:2,
                             },
                             function(data, status) {
                                 if (data.status == "success") {
