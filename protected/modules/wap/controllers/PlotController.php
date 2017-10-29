@@ -44,6 +44,7 @@ class PlotController extends WapController{
 
 	public function actionComment($hid='')
 	{
+		$this->layout = 'layout/nobase';
 		$info = PlotExt::model()->findByPk($hid);
 		if(!$info) {
 			$this->redirect('/subwap/list.html');
@@ -52,6 +53,7 @@ class PlotController extends WapController{
 	}
 	public function actionPay($hid='')
 	{
+		$this->layout = 'layout/nobase';
 		$info = PlotExt::model()->findByPk($hid);
 		if(!$info) {
 			$this->redirect('/subwap/list.html');
