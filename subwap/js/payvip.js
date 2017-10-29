@@ -8,7 +8,7 @@ $(document).ready(function() {
             var user = data.data.user;
             if(data.data.user_image!='')
                 $('.head-img').attr('src',data.data.user_image);
-            $('.phonenum').html(user.name+user.phone);
+            $('.phonenum').html(user.name);
             if(user.vip_expire*100000>Date.parse(new Date())) {
                 $('.status').html('您是会员账户');
             }
