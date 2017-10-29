@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/payvip.css">
 </head>
-<body ng-app="pay" ng-controller="payCtrl">
+<body>
 	<div class="customer">
 		<div class="head-container">
 			<img class="head-img" src="./img/user-pic.png">
@@ -15,8 +15,8 @@
 		<!-- 
 		<div class="phonenum">{{item.title}}</div>
 		<div class="status">{{item.title}}</div> -->
-		<div class="phonenum">18621657355</div>
-		<div class="status">你还不是VIP身份</div>
+		<div class="phonenum"></div>
+		<div class="status">你还不是会员身份</div>
 	</div>
 	<div class="blank"></div>
 	<div class="choose">
@@ -30,27 +30,31 @@
 			<div class="price">{{item.tittle}}</div>
 		</div>
 		 -->
-		<div class="tag">
-			<div class="tittle">三年VIP会员(限时特惠)</div>
-			<div class="detail">另赠500元报告抵扣券</div>
+		<div class="tag" onclick="findprices(this)">
+			<div class="tittle">1年VIP会员(限时特惠)</div>
+			<div class="detail">原价999</div>
 			<div class="tag-status">推荐</div>
-			<div class="price">720元</div>
+			<div class="price"><span class="nowp">699</span><span style="font-size:0.747rem">元</span></div>
 		</div>
-		<div class="tag">
+		<div class="tag" onclick="findprices(this)">
+			<div class="tittle">2年VIP会员(限时特惠)</div>
+			<div class="detail">原价1999</div>
+			<div class="price"><span class="nowp">1099</span><span style="font-size:0.747rem">元</span></div>
+		</div>
+		<div class="register-attention">
+			<img class="register-attention-img" src="./img/i.png">
+			<div class="register-attention-text"></div>
+		</div>
+		<!-- <div class="tag">
 			<div class="tittle">三年VIP会员(限时特惠)</div>
 			<div class="detail">另赠500元报告抵扣券</div>
 			<div class="price">720元</div>
-		</div>
-		<div class="tag">
-			<div class="tittle">三年VIP会员(限时特惠)</div>
-			<div class="detail">另赠500元报告抵扣券</div>
-			<div class="price">720元</div>
-		</div>
+		</div> -->
 	</div>
 	<div class="pay">
 		<div class="left">
 			<div class="jine">金额:</div>
-			<div class="pricenum">720元</div>
+			<div class="pricenum"><span id="finp">699</span><span style="font-size:0.747rem">元</span></div>
 		</div>
 		<div class="gotopay">去支付</div>
 	</div>

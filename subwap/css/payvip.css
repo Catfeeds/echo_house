@@ -32,10 +32,10 @@ body{
 }
 .status{
 	position: absolute;
-	font-size: 0.8rem;
+	font-size: 0.747rem;
 	color: #868686;
 	left: 3.5rem;
-	top: 1.4rem;
+	top: 1.6rem;
 }
 .blank{
 	width: 20.0rem;
@@ -82,7 +82,7 @@ body{
 }
 .detail{
 	position: absolute;
-	font-size: 0.8rem;
+	font-size: 0.64rem;
 	left: 1rem;
 	top: 1.5rem;
 	color: #868686;
@@ -100,7 +100,7 @@ body{
 }
 .price{
 	position: absolute;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	color: #F78B43;
 	left: 14rem;
 	top: 0.6rem;
@@ -129,7 +129,7 @@ body{
 }
 .pricenum{
 	position: absolute;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	color: #F78B43;
 	left: 3.4rem;
 	top: 1rem;
@@ -146,4 +146,28 @@ body{
 	color: #fff;
 	font-weight: bolder;
 
+}
+.register-attention{
+	position: relative;
+	top: 1.04rem;
+	height: 1.893rem;
+	width: 20rem;
+	font-size: 0.64rem;
+	color: #999999;
+}
+
+.register-attention-img{
+	position: absolute;
+	height: 0.8rem;
+	width: 0.8rem;
+	top: 0.533rem;
+	left: 0.4rem;
+}
+
+.register-attention-text{
+	position: absolute;
+	top: 0.533rem;
+	left: 1.4rem;
+	width: 18.3rem;
+	font-size: 0.747rem;
 }
