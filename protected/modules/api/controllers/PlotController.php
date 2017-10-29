@@ -58,15 +58,15 @@ class PlotController extends ApiController{
 			$criteria->addInCondition('id',$savehidsarr);
 		}
 		if($kw) {
-			$criteria1 = new CDbCriteria;
-			$criteria1->addSearchCondition('name',$kw);
-			$compas = CompanyExt::model()->normal()->find($criteria1);
-			// var_dump($compas);exit;
-			// $compas && $company = $compas['id'];
-			if($compas) {
-				$company = $compas['id'];
-			}else
-				$criteria->addSearchCondition('title',$kw);
+			// $criteria1 = new CDbCriteria;
+			// $criteria1->addSearchCondition('name',$kw);
+			// $compas = CompanyExt::model()->normal()->find($criteria1);
+			// // var_dump($compas);exit;
+			// // $compas && $company = $compas['id'];
+			// if($compas) {
+			// 	$company = $compas['id'];
+			// }else
+			$criteria->addSearchCondition('title',$kw);
 			
 		}
 		if($area) {

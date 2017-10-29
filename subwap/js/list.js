@@ -163,8 +163,14 @@ $(document).ready(function() {
     init();
     thisurl = '';
     var toptag = '';
-    ajaxGetTop();
-    ajaxGetFilter(); 
+    if(GetQueryString('order')==1) {
+        $('.list-head-container').css('display','none');
+        $('.list-head-bg').css('margin-top','-5rem');
+    } else {
+        $('.list-head-container').css('display','block');
+        ajaxGetTop();
+        ajaxGetFilter(); 
+    }
     $('#priceul').append('<li class="filter2-active" id="price0" onclick="setPrice(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#FirstPayul').append('<li class="filter3-active" id="FirstPay0" onclick="setFirstPay(this)">不限<div class="line" style="left:-1.33rem"></div></li>');
     $('#filter4-list').append('<li id="filter4-title0"></li>');
@@ -372,11 +378,6 @@ function ajaxGetList(obj) {
         $('#ul1').empty();
         $('#ul1').append(html);
         $('#num').html(o.num);
-        if (o.num==0) {
-            $('.nomore').css('display','block');
-        }else{
-            $('.nomore').css('display','none');
-        }
         // 加载中消失
         $('.loaddiv').css('display','none');
     });
@@ -476,11 +477,6 @@ function ajaxAddList(obj) {
         }
         $('#ul1').append(html);
         $('#num').html(o.num);
-        if (o.num==0) {
-            $('.nomore').css('display','block');
-        }else{
-            $('.nomore').css('display','none');
-        }
         // 加载中消失
         $('.loaddiv').css('display','none');
     });
@@ -682,14 +678,14 @@ function setArea(obj) {
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
         } 
-    } else if(o.street=='') {
-        o.street = $(obj).data('id');
+    } else {
+        o.street = GetQueryString('street')!=undefined?GetQueryString('street'):$(obj).data('id');
         if($(obj).data('type')=='street')
             o.area = '';
         if ($(obj).text()!=''&&$(obj).text()!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).text());
         } 
-    }
+    } 
     ajaxGetList(o);
 }
 //显示列表2
@@ -1436,6 +1432,6 @@ $('#save').click(function() {
                 $('#save').attr('src','./img/notsave.png');
             }
         }
-        alert(data.msg);
+        // alert(data.msg);
     });
 });
