@@ -44,7 +44,7 @@ body{
 .choose{
 	position: relative;
 	width: 20.0rem;
-	height: 18rem;
+	height: 16rem;
 	background-color: #fff;
 }
 .choose-head{
@@ -149,7 +149,6 @@ body{
 }
 .register-attention{
 	position: relative;
-	top: 1.04rem;
 	height: 1.893rem;
 	width: 20rem;
 	font-size: 0.64rem;
@@ -160,7 +159,7 @@ body{
 	position: absolute;
 	height: 0.8rem;
 	width: 0.8rem;
-	top: 0.533rem;
+	top: 0.7rem;
 	left: 0.4rem;
 }
 
