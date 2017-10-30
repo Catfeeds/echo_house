@@ -38,6 +38,10 @@
         <div class="panel">
             <div class="line"></div>
             <ul class="iconcontainer clearfloat">
+                <li onclick="vip()">
+                    <img class="panel-img" src="<?=$this->subwappath?>/img/vipmanage.png">
+                    <div class="panel-text">会员服务</div>
+                </li>
                 <li onclick="location.href='subwap/mysubscribe.html'">
                     <img class="panel-img" src="<?=$this->subwappath?>/img/zhuanti.png">
                     <div class="panel-text">我的订阅</div>
@@ -58,10 +62,7 @@
                     <img class="panel-img" src="<?=$this->subwappath?>/img/assist3.png">
                     <div class="panel-text">案场助理</div>
                 </li>
-                <li onclick="vip()">
-                    <img class="panel-img" src="<?=$this->subwappath?>/img/vipmanage.png">
-                    <div class="panel-text">会员服务</div>
-                </li>
+                
                 <!-- <li>
                     <img class="panel-img" src="<?=$this->subwappath?>/img/diary.png">
                     <div class="panel-text">装修日记</div>
