@@ -4,8 +4,12 @@
         <div class="personalhead-big">
             <div class="personalhead-small">
                 <img class="personalhead-wu" src="<?=isset($staff->ava)&&$staff->ava?ImageTools::fixImage($staff->ava):$this->subwappath.'/img/personaluserhead.png'?>">
+
             </div>
         </div>
+        <?php if($this->staff&& $this->staff->vip_expire>time()):?>
+        <img src="<?=$this->subwappath?>/img/vip.png" alt="" class="vipuser">
+    <?php endif;?>
         <!-- <img class="setup" src="<?=$this->subwappath?>/img/setup.png"> -->
         <?php if(Yii::app()->user->getIsGuest()):?>
         <div class="name">请登录</div>

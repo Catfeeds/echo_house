@@ -74,9 +74,9 @@ $(document).ready(function(){
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
-            if(detail.is_alert==1) {
-                $('.detail-top-img-alert').css('display','block');
-            }
+            // if(detail.is_alert==1) {
+            //     $('.detail-top-img-alert').css('display','block');
+            // }
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');

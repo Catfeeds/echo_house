@@ -224,7 +224,7 @@ class PlotController extends ApiController{
 					// 	$pay = '';
 					// }
 					$expire = '您尚未成为对接人';
-					// var_dump($uid);exit;
+					// // var_dump($uid);exit;
 					if($uid) {
 						$expiret = Yii::app()->db->createCommand('select expire from plot_makert_user where uid='.$this->staff->id.' and hid='.$value->id)->queryScalar();
 						if(!$expiret) {
@@ -235,7 +235,7 @@ class PlotController extends ApiController{
 							if($value->status) {
 								$expire = '已上线';
 							} else {
-								$expire = '已付款，等待审核';
+								$expire = '等待审核';
 							}
 						}
 					}
@@ -1096,7 +1096,9 @@ class PlotController extends ApiController{
     		}
     	}
     }
-
+    /**
+     * 新项目 会员免费发布 其余免费发布一条
+     */
     public function actionAddPlot()
     {
     	if(Yii::app()->request->getIsPostRequest()) {
@@ -1162,6 +1164,14 @@ class PlotController extends ApiController{
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
+    			// 对接人
+    			$mak = new PlotMarketUserExt;
+    			$mak->uid = $user->id;
+    			$mak->hid = $obj->id;
+    			$mak->is_manager = 1;
+    			$mak->status = 1;
+    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:30*86400;
+    			$mak->save();
     			if($imgs && count($imgs)>1) {
     				unset($imgs[0]);
     				foreach ($imgs as $k) {
@@ -1557,6 +1567,8 @@ class PlotController extends ApiController{
 					// 	$this->returnError('您已经提交申请，请勿重复提交');
 					// }
 				}
+    		} else {
+    			return $this->returnError('您尚未成为会员或已到期，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
     		}
     	} else {
     		$this->returnError('未知错误');
