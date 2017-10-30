@@ -17,8 +17,10 @@ myapp.controller('perlistCtrl',function($scope,$http) {
                     $scope.houselist = response.data.data.list;
                     $('.count').find('b').html(response.data.data.num); 
                     if (response.data.data.num==0) {
+                        $('.customerlist').css('background-color','#f5f5f5');
                         $('.nomore').css('display','block');
                     }else{
+                        $('.customerlist').css('background-color','white');
                         $('.nomore').css('display','none');
                     }
                 }
