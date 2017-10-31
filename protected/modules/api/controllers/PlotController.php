@@ -1538,7 +1538,9 @@ class PlotController extends ApiController{
     		if($staff->vip_expire>time()) {
     			if($hid = $this->cleanXss($_POST['hid'])) {
 					$plot = PlotExt::model()->findByPk($hid);
-					
+					if($plot->company_id!=$staff->cid) {
+						return $this->returnError('您不属于此家总代公司，暂无权限操作');
+					}
 					$uid = $this->staff->id;
 					// var_dump($uid,$hid);exit;
 					$criteria = new CDbCriteria;
