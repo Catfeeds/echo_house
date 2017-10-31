@@ -15,8 +15,8 @@ $(document).ready(function() {
             if(data.data.user_image!='')
                 $('.head-img').attr('src',data.data.user_image);
             $('.phonenum').html(user.name);
-            console.log(user.vip_expire*1000);
-            console.log(Date.parse(new Date()));
+            // console.log(user.vip_expire*1000);
+            // console.log(Date.parse(new Date()));
             if(user.vip_expire*1000>Date.parse(new Date())) {
                 $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire));
             }
@@ -49,7 +49,11 @@ function findprices (obj) {
         }else
             $('#finp').html($(obj).find('.nowp').html()-num);
     } else {
-        $('#finp').html($(obj).find('.nowp').html());
+        if(nownum.indexOf(',')>-1) {
+            $('#finp').html('1099');
+        } else {
+            $('#finp').html($(obj).find('.nowp').html());
+        }
     }
 }
 $('.gotopay').click(function () {
@@ -62,7 +66,7 @@ $('.gotopay').click(function () {
     qftype.num=1;
     qftype.gold_cost=0;
 
-    qftype.cash_cost=$('#finp').html()=='699'?0.1:0.2;
+    qftype.cash_cost=$('#finp').html();
     var qfarray=new Array();
     qfarray[0]=qftype;
     var address=new Object();
