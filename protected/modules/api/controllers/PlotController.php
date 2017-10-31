@@ -1575,4 +1575,24 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionGetOldExpire()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&$this->staff&&$this->staff->vip_expire==0) {
+    		$num = 0;
+    		$expire = PlotMarketUserExt::model()->findAll('uid='.$this->staff->id);
+    		if($expire) {
+    			foreach ($expire as $key => $value) {
+    				if($value->expire>1513270861) {
+    					$num += 268;
+    				} elseif($value->expire>0) {
+    					$num += 99;
+    				}
+    			}
+    		}
+    		$this->frame['data'] = $num;
+    	} else {
+    		$this->returnError('未知错误');
+    	}
+    }
+
 }

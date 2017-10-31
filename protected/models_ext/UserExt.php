@@ -103,6 +103,7 @@ class UserExt extends User{
             if($this->type==3&&$this->status==0) {
                 $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
             }
+            !$this->pwd && $this->pwd = md5('jjqxftv587');
             $this->created = $this->updated = time();
         }
         else {

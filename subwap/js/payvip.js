@@ -1,3 +1,4 @@
+var num = 0;
 $(document).ready(function() {
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.add_vip_words);
@@ -5,6 +6,11 @@ $(document).ready(function() {
             $('.phonenum').html('请先登录');
             alert('请先登录');
         } else {
+            $.get('/api/plot/getOldExpire',function(data) {
+                if(data.status=='success') {
+                    num = data.data;
+                }
+            });
             var user = data.data.user;
             if(data.data.user_image!='')
                 $('.head-img').attr('src',data.data.user_image);
@@ -12,14 +18,39 @@ $(document).ready(function() {
             console.log(user.vip_expire*1000);
             console.log(Date.parse(new Date()));
             if(user.vip_expire*1000>Date.parse(new Date())) {
-                $('.status').html('您是会员账户');
+                $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire));
             }
             
         }
     });
 });
+function formatDateTime(timeStamp) {   
+    var date = new Date();  
+    date.setTime(timeStamp * 1000);  
+    var y = date.getFullYear();      
+    var m = date.getMonth() + 1;      
+    m = m < 10 ? ('0' + m) : m;      
+    var d = date.getDate();      
+    d = d < 10 ? ('0' + d) : d;      
+    var h = date.getHours();    
+    h = h < 10 ? ('0' + h) : h;    
+    var minute = date.getMinutes();    
+    var second = date.getSeconds();    
+    minute = minute < 10 ? ('0' + minute) : minute;      
+    second = second < 10 ? ('0' + second) : second;     
+    return y + '-' + m + '-' + d;      
+}; 
 function findprices (obj) {
-    $('#finp').html($(obj).find('.nowp').html());
+    var nownum = $(obj).find('.nowp').html();
+    if(num>0){
+        $('#note').html(nownum+'-'+num);
+        if(nownum.indexOf(',')>-1) {
+            $('#finp').html(1099-num);
+        }else
+            $('#finp').html($(obj).find('.nowp').html()-num);
+    } else {
+        $('#finp').html($(obj).find('.nowp').html());
+    }
 }
 $('.gotopay').click(function () {
     var qftype=new Object();
