@@ -22,7 +22,8 @@
               //已登陆状态跳登陆会回调通知已登录
               //用户取消登陆无回调
               if(state==2){
-                  alert("您已登陆");
+                  alert('请前往认证账号');
+                  location.href = 'register.html?phone='+data.data.phone;
               }
           })
         <?php endif;?>
