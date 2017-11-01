@@ -23,7 +23,7 @@
               //用户取消登陆无回调
               if(state==2){
                   alert('请前往认证账号');
-                  location.href = 'register.html?phone='+data.data.phone;
+                  location.href = '<?=Yii::app()->request->getHostInfo()?>/subwap/register.html?phone='+data.data.phone;
               }
           })
         <?php endif;?>
