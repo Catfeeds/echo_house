@@ -24,7 +24,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 <div class="form-group">
     <label class="col-md-2 control-label">楼盘</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'hid', CHtml::listData(PlotExt::model()->normal()->findAll(),'id','title'), array('class' => 'form-control select2','empty'=>'')); ?>
+        <?php echo $form->dropDownList($article, 'hid', CHtml::listData(PlotExt::model()->findAll(),'id','title'), array('class' => 'form-control select2','empty'=>'')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
