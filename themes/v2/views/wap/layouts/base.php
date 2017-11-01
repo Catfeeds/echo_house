@@ -17,15 +17,24 @@
 
     $(document).ready(function() {
         <?php if(!($this->staff)):?>
-            QFH5.jumpLogin(function(state,data){
-              //未登陆状态跳登陆会刷新页面，无回调
-              //已登陆状态跳登陆会回调通知已登录
-              //用户取消登陆无回调
-              if(state==2){
-                  alert('请前往认证账号');
-                  location.href = '<?=Yii::app()->request->getHostInfo()?>/subwap/register.html?phone='+data.data.phone;
-              }
-          })
+            QFH5.getUserInfo(function(state,data){
+                  if(state==1){
+                    alert('请前往认证账号');
+                    location.href = '<?=Yii::app()->request->getHostInfo()?>/subwap/register.html?phone='+data.phone;
+                  }else{
+                    QFH5.jumpLogin(function(state,data){
+                          //未登陆状态跳登陆会刷新页面，无回调
+                          //已登陆状态跳登陆会回调通知已登录
+                          //用户取消登陆无回调
+                          if(state==2){
+                              alert('您已登录');
+                          }
+                      })
+                    //未登录
+                    // alert(data.error);//data.error string
+                  }
+                })
+            
         <?php endif;?>
     });
     </script>
