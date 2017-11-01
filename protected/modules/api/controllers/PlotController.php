@@ -41,7 +41,8 @@ class PlotController extends ApiController{
 					$criteria->params[':status'] = $status;
 				}
 			} else {
-				return $this->returnError('用户类型错误，只支持总代公司发布房源');
+				// $criteria->addCondition('uid=');
+				return $this->returnError('未登录');
 			}
 			
 		} else {
@@ -1170,7 +1171,7 @@ class PlotController extends ApiController{
     			$mak->hid = $obj->id;
     			$mak->is_manager = 1;
     			$mak->status = 1;
-    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:30*86400;
+    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+30*86400);
     			$mak->save();
     			if($imgs && count($imgs)>1) {
     				unset($imgs[0]);

@@ -11,8 +11,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
             url: '/api/plot/list?uid=1'
         }).then(function successCallback(response) {
                 if (response.data.status=='error') {
-                    alert(response.data.msg);
-                    location.href='list.html';
+                    // alert(response.data.msg);
+                    if(response.data.msg=='未登录') {
+                        location.href='personaladd.html';
+                    }
+                    // location.href='list.html';
                 }else{
                     $scope.houselist = response.data.data.list;
                     $('.count').find('b').html(response.data.data.num); 
