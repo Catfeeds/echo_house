@@ -1,5 +1,6 @@
 var num = 0;
 $(document).ready(function() {
+    
     $.get('/api/config/index',function(data) {
         $('.register-attention-text').html(data.data.add_vip_words);
         if(data.data.is_user==false) {
@@ -23,6 +24,7 @@ $(document).ready(function() {
             
         }
     });
+    findprices($('#recom'));
 });
 function formatDateTime(timeStamp) {   
     var date = new Date();  
@@ -41,6 +43,8 @@ function formatDateTime(timeStamp) {
     return y + '-' + m + '-' + d;      
 }; 
 function findprices (obj) {
+    $('.vipli').attr('class','tag vipli');
+    $(obj).attr('class','active vipli');
     var nownum = $(obj).find('.nowp').html();
     if(num>0){
         $('#note').html(nownum+'-'+num);

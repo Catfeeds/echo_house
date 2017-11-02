@@ -64,7 +64,7 @@ body{
 	border-radius: 0.3rem;
 	margin: 0.3rem 1rem;
 }
-.tag:hover{
+.active{
 	position: relative;
 	width:18rem;
 	height: 3rem;
@@ -73,6 +73,15 @@ body{
 	margin: 0.3rem 1rem;
 	background-color: #FEF1E8;
 }
+/*.tag:hover{
+	position: relative;
+	width:18rem;
+	height: 3rem;
+	border: solid #F78B43 0.054rem;
+	border-radius: 0.3rem;
+	margin: 0.3rem 1rem;
+	background-color: #FEF1E8;
+}*/
 .tittle{
 	position: absolute;
 	font-size: 0.8rem;
