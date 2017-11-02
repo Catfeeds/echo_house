@@ -66,12 +66,12 @@ body{
 	position: fixed;
 	top: 0.0rem;
 	width: 20.0rem;
-	font-size: 0.64rem;
+	font-size: 0.8rem;
 	top: 0rem;
 	color: #fff;
 	text-align: center;
 	z-index: 1;
-	background-color: rgba(242, 222, 222, 0.78);
+	background-color: rgba(242, 222, 222, 0.8);
 	padding: 6px;
     margin-bottom: 20px;
     border-width: 1px;
