@@ -591,8 +591,8 @@ color:#c3c3c3;
 	position: absolute;
 	font-size: 0.64rem;
 	top: 1.64rem;
-	left: 16.7rem;
-	width: 3rem;
+	right: 1rem;
+	/*width: rem;*/
 	color:#868686;
 }
 .line{

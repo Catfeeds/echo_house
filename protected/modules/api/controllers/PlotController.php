@@ -1149,7 +1149,7 @@ class PlotController extends ApiController{
     			$user->cid = $company->id;
     			$user->qf_uid = $post['qf_uid'];
     			$user->phone = $pphone;
-    			$user->status = 0;
+    			$user->status = 1;
     			$user->save();
     		}
     		$obj = new PlotExt;
@@ -1186,7 +1186,7 @@ class PlotController extends ApiController{
     				}
     			}
 
-    			$user->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：400-6677-021',$user->qf_uid);
+    			$user->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：'.SiteExt::getAttr('qjpz','site_phone'),$user->qf_uid);
     			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
     			$this->frame['data'] = $obj->id;
     		}
@@ -1208,11 +1208,11 @@ class PlotController extends ApiController{
     	$staff = UserExt::model()->find("phone='$phone'");
     	// 不是会员只能发一条
     	if($this->staff && $this->staff->type!=1) {
-    		return $this->returnError('用户类型错误，只支持总代公司发布房源');
+    		return $this->returnError('仅支持总代公司发布房源，您可以至用户中心更换公司');
     	}
     	if($staff && $staff->vip_expire<time()) {
     		if($staff->plots)
-    			return $this->returnError('您的免费项目配额已满，请至经纪圈成为会员后操作');
+    			return $this->returnError('普通用户仅可免费发布一条项目信息，VIP会员可无限发布');
     	}
     	// if(!$this->staff || $this->staff->type!=1) {
     	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
