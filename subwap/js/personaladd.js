@@ -3,11 +3,6 @@ var delimgindex='';
 var uid = '';
 $(document).ready(function() {
   // 获取千帆uid
-   QFH5.getUserInfo(function(state,data){
-      if(state==1){
-        uid = data.uid;
-      }
-    })
     $.get('/api/config/index',function(data) {
       if(data.status=='success') {
         if(data.data.user.phone!=undefined) {
@@ -55,6 +50,11 @@ $(document).ready(function() {
           $('#mode').append('<li><input class="box" name="dllx" required type="radio" value="'+i+'"><div class="box-text">'+tags[4].list[i]+'</div></li>');
         }
     }); 
+    QFH5.getUserInfo(function(state,data){
+      if(state==1){
+        uid = data.uid;
+      }
+    })
 });
  
 
