@@ -308,10 +308,10 @@ class PlotController extends ApiController{
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
+				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image)];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490)];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
@@ -347,7 +347,7 @@ class PlotController extends ApiController{
 		if($hxs = $info->hxs) {
 			foreach ($hxs as $key => $value) {
 				$tmp = $value->attributes;
-				$tmp['image'] = $tmp['image']?ImageTools::fixImage($tmp['image']):$info_no_pic;
+				$tmp['image'] = $tmp['image']?ImageTools::fixImage($tmp['image'],274,208):$info_no_pic;
 				$hxarr[] = $tmp;
 			}
 		}
