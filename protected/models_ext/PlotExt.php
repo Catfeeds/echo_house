@@ -283,7 +283,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'updated desc';
+                    $criteria->order = 'sort desc,updated desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
@@ -349,7 +349,7 @@ class PlotExt extends Plot{
                             $criteria = new CDbCriteria;
                             $criteria->addCondition('area='.$area->id);
                             $criteria->limit = 20;
-                            $criteria->order = 'sort desc,ff_num desc,updated desc';
+                            $criteria->order = 'sort desc,updated desc';
                             $plots = PlotExt::model()->normal()->getList($criteria);
                             if($datares = $plots->data) {
                                 foreach ($datares as $key => $value) {
