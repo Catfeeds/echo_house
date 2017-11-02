@@ -16,6 +16,7 @@ cuslistapp.controller("cuslistCtrl",function($scope,$http) {
 				$scope.cuntomerlist=response.data.data.list;
 			}
 			if (response.data.data.num==0) {
+				$('.customerlist').css('background-color','#f5f5f5');
 	            $('.nomore').css('display','block');
 	        }else{
 	            $('.nomore').css('display','none');

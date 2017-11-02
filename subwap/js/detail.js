@@ -74,9 +74,9 @@ $(document).ready(function(){
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
-            // if(detail.is_alert==1) {
-            //     $('.detail-top-img-alert').css('display','block');
-            // }
+            if(detail.is_alert==1) {
+                $('.detail-top-img-alert').css('display','block');
+            }
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');
@@ -237,7 +237,7 @@ $(document).ready(function(){
                         icon = "fbusernew.png";
                         // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/fuzeuser.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                     } else {
-                        console.log(detail.ff_phones.contains(detail.phonesnum[i]));
+                        // console.log(detail.ff_phones.contains(detail.phonesnum[i]));
                         if(detail.owner_phone && detail.phones[i].indexOf(detail.owner_phone)>-1) {
                             icon = "fbusernew.png";
                             word = '<div class="fbuser">发布人</div>'

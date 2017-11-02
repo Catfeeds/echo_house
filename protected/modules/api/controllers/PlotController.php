@@ -412,7 +412,7 @@ class PlotController extends ApiController{
 			}
 		}
 		$is_alert = 0;
-		if($info->uid && !Yii::app()->db->createCommand("select id from plot_makert_user where uid=".$info->uid." and hid=".$info->id)->queryScalar()) {
+		if($info->uid && $info->status==0) {
 			$is_alert = 1;
 		}
 		$data = [

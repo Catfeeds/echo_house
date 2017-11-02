@@ -112,7 +112,7 @@
                 <?php if(!$this->staff->cid):?>
                 location.href = 'subwap/joincompany.html';
                 <?php else:?>
-                var r=confirm("您确定要离开<?=$this->staff->companyinfo->name?>，吗？");
+                var r=confirm("您确定要离开<?=$this->staff->companyinfo->name?>吗？");
                 if(r==true){
                     $.get("/api/plot/leave?id=<?=$this->staff->id?>",function(data) {
                     if(data.status=='success') {
