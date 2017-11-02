@@ -1147,6 +1147,7 @@ class PlotController extends ApiController{
     			$user->name = $post['pname'];
     			$user->type = 1;
     			$user->cid = $company->id;
+    			$user->qf_uid = $post['qf_uid'];
     			$user->phone = $pphone;
     			$user->status = 0;
     			$user->save();

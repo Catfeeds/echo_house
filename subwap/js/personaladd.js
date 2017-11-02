@@ -1,6 +1,13 @@
 var tags='';
 var delimgindex='';
+var uid = '';
 $(document).ready(function() {
+  // 获取千帆uid
+   QFH5.getUserInfo(function(state,data){
+      if(state==1){
+        uid = data.uid;
+      }
+    })
     $.get('/api/config/index',function(data) {
       if(data.status=='success') {
         if(data.data.user.phone!=undefined) {
@@ -55,7 +62,7 @@ function submitBtn()
 {  
     $( '#form' ).validate({
       submitHandler:function() {
-          
+
         
         var wylx = new Array;
         var zxzt = new Array;
@@ -102,6 +109,7 @@ function submitBtn()
             'dk_rule':$('textarea[name="dk_rule"]').val(),
             'peripheral':$('textarea[name="peripheral"]').val(),
             'image[]':imgs,
+            'qf_uid':uid,
             'wylx':wylx,
             'zxzt':zxzt,
           },function(data){
