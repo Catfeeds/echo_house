@@ -1135,6 +1135,7 @@ class PlotController extends ApiController{
     				$company = new CompanyExt;
     				$company->name = $comname;
     				$company->phone = $post['pphone'];
+    				$company->type = 1;
     				$company->status = 0;
     				$company->save();
     			}
