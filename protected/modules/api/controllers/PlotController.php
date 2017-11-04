@@ -778,7 +778,15 @@ class PlotController extends ApiController{
 	}
 	public function actionDo()
     {
-    	Yii::app()->cache->flush();  
+    	// Yii::app()->cache->flush();  
+    	// $infos = PlotMarketUserExt::model()->findAll('expire<'.time());
+    	// foreach ($infos as $key => $value) {
+    	// 	if($value->user&&$value->user->qf_uid) {
+    	// 		if($p = $value->plot)
+    	// 			Yii::app()->controller->sendNotice('您的项目'.$p->title.'已到期，请点击下面链接成为会员，成为会员后项目将继续展现您的号码。 http://house.jj58.com/subwap/duijierennew.html',$value->user->qf_uid);
+    	// 	}
+    	// }
+    	Yii::app()->controller->sendNotice('您的项目已到期，请点击下面链接成为会员，成为会员后项目将继续展现您的号码。 http://house.jj58.com.cn/api/index/vip',7187);
         // var_dump(Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1));
         // Yii::app()->redis->getClient()->hSet('test','id','222');
         exit;

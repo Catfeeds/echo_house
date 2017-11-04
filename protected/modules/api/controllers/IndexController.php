@@ -24,6 +24,11 @@ class IndexController extends ApiController
         $this->showUser();
         $this->redirect('/subwap/register.html');
     }
+    public function actionVip()
+    {
+        $this->showUser();
+        $this->redirect('/subwap/duijierennew.html');
+    }
 
     public function actionPlace()
     {
