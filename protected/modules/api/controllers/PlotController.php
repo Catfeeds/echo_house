@@ -1137,7 +1137,9 @@ class PlotController extends ApiController{
     				$company->phone = $post['pphone'];
     				$company->type = 1;
     				$company->status = 0;
-    				$company->save();
+    				if(!($company->save())){
+	    				return $this->returnError(current(current($company->getErrors())));
+	    			}
     			}
     		}
     		unset($post['pcompany']);
@@ -1150,7 +1152,9 @@ class PlotController extends ApiController{
     			$user->qf_uid = $post['qf_uid'];
     			$user->phone = $pphone;
     			$user->status = 1;
-    			$user->save();
+    			if(!($user->save())){
+    				return $this->returnError(current(current($user->getErrors())));
+    			}
     		}
     		$obj = new PlotExt;
     		$obj->attributes = $post;
