@@ -31,14 +31,8 @@ class ChangeStatusAction extends CAction{
 			if(!$model->save()) {
 				$this->controller->setMessage(current(current($model->getErrors())),'error');
 			} else {
-				if($class == 'PlotExt') {
-					if($user = $model->owner) {
-						if($user->cid!=$model->company_id) {
-							$user->cid = $model->company_id;
-							$user->save();
-						}
-					}
-					$model->status == 1 && $model->changeS();
+				if($class == 'PlotExt' && $model->status == 1) {
+					$model->changeS();
 				}
 			}
 		}
