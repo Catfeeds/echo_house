@@ -242,6 +242,10 @@ class PlotExt extends Plot{
                 }
             }
         }
+        if($this->company_id && $this->owner->cid!=$this->company_id) {
+            $this->owner->cid = $this->company_id;
+            $this->owner->save();
+        }
         CacheExt::delete('wap_init_plotlist');  
         CacheExt::delete('wap_area_plotlist');  
         // PlotExt::setPlotCache(); 
