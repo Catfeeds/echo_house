@@ -242,7 +242,8 @@ class PlotExt extends Plot{
                 }
             }
         }
-        if($this->company_id && $this->owner->cid!=$this->company_id) {
+        if($this->company_id && $this->owner && $this->owner->cid!=$this->company_id) {
+
             $this->owner->cid = $this->company_id;
             $this->owner->save();
         }
