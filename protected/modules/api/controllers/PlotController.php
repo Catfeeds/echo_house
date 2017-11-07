@@ -1144,6 +1144,7 @@ class PlotController extends ApiController{
     				$company->name = $comname;
     				$company->phone = $post['pphone'];
     				$company->type = 1;
+    				$company->adduid = $post['qf_uid'];
     				$company->status = 0;
     				if(!($company->save())){
 	    				return $this->returnError(current(current($company->getErrors())));
