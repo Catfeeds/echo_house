@@ -1186,7 +1186,7 @@ class PlotController extends ApiController{
     			$mak->hid = $obj->id;
     			$mak->is_manager = 1;
     			$mak->status = 1;
-    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+30*86400);
+    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
     			$mak->save();
     			if($imgs && count($imgs)>1) {
     				unset($imgs[0]);
@@ -1511,11 +1511,29 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
 			if($title = $this->cleanXss($_POST['title'])) {
 				$num = $this->cleanXss($_POST['num']);
-				if(strstr($title, '1')) {
-					$time = 365*86400*$num;
-				} elseif (strstr($title, '2')) {
-					$time = 365*86400*2*$num;
+				switch ($title) {
+					case '299':
+						$time = 90*86400*$num;
+						break;
+					case '499':
+						$time = 180*86400*$num;
+						break;
+					case '699':
+						$time = 365*86400*$num;
+						break;
+					case '1099':
+						$time = 365*86400*2*$num;
+						break;
+					
+					default:
+						# code...
+						break;
 				}
+				// if(strstr($title, '1')) {
+				// 	$time = 365*86400*$num;
+				// } elseif (strstr($title, '2')) {
+				// 	$time = 365*86400*2*$num;
+				// }
 				if($obj = $this->staff) {
 					if($obj->vip_expire<time()) {
 						$obj->vip_expire = time()+$time;

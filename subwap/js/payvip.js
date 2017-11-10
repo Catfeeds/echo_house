@@ -91,7 +91,7 @@ $('.gotopay').click(function () {
                         alert('支付成功');
                         $.post("/api/plot/setVip", {
                                 'num': 1,
-                                'title': $('#finp').html()?1:2,
+                                'title': $('#finp').html(),
                             },
                             function(data, status) {
                                 if (data.status == "success") {
