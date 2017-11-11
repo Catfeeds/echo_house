@@ -46,19 +46,20 @@ function findprices (obj) {
     $('.vipli').attr('class','tag vipli');
     $(obj).attr('class','active vipli');
     var nownum = $(obj).find('.nowp').html();
-    if(num>0){
-        $('#note').html(nownum+'-'+num);
-        if(nownum.indexOf(',')>-1) {
-            $('#finp').html(1099-num);
-        }else
-            $('#finp').html($(obj).find('.nowp').html()-num);
-    } else {
+    
+    // if(num>0){
+    //     $('#note').html(nownum+'-'+num);
+    //     if(nownum.indexOf(',')>-1) {
+    //         $('#finp').html(1099-num);
+    //     }else
+    //         $('#finp').html($(obj).find('.nowp').html()-num);
+    // } else {
         if(nownum.indexOf(',')>-1) {
             $('#finp').html('1099');
         } else {
             $('#finp').html($(obj).find('.nowp').html());
         }
-    }
+    // }
 }
 $('.gotopay').click(function () {
     var qftype=new Object();
