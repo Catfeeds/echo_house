@@ -377,6 +377,7 @@ class IndexController extends ApiController
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
 
         if ($errCode == 0) {
+            $data = json_decode($data,true);
             $this->frame['data'] = $data['phoneNumber'];
             // print($data . "\n");
         } else {
