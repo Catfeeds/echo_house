@@ -404,7 +404,7 @@ class IndexController extends ApiController
             $cont = $res['content'];
             if($cont) {
                 $cont = json_decode($cont,true);
-                echo json_encode($cont['session_key']);
+                echo $cont['session_key'];
                 Yii::app()->end();
                 // $this->frame['data'] = $cont['session_key'];
             }
