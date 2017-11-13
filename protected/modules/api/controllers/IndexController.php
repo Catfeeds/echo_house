@@ -1,4 +1,5 @@
 <?php
+include_once "wxBizDataCrypt.php";
 class IndexController extends ApiController
 {
     public function actionIndex($cid=0,$area='')
@@ -364,5 +365,22 @@ class IndexController extends ApiController
                 }
                 // }
             }
+    }
+
+    public function actionDecode()
+    {
+        $appid = 'wx19afb796cba063c0';
+        $sessionKey = $_POST['sessionKey'];
+        $encryptedData = $_POST['encryptedData'];
+        $iv = $_POST['iv'];
+        $pc = new WXBizDataCrypt($appid, $sessionKey);
+        $errCode = $pc->decryptData($encryptedData, $iv, $data );
+
+        if ($errCode == 0) {
+            $this->frame['data'] = $data['phoneNumber'];
+            // print($data . "\n");
+        } else {
+            $this->returnError('操作失败');
+        }
     }
 }
