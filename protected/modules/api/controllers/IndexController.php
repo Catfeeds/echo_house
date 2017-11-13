@@ -146,8 +146,16 @@ class IndexController extends ApiController
                 // $model->obj = $user->attributes
                 $model->login();
                 $this->staff = $user;
+                $data = [
+                    'id'=>$this->staff->id,
+                    'phone'=>$this->staff->phone,
+                    'name'=>$this->staff->name,
+                    'type'=>$this->staff->type,
+                    'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
+                ];
+                $this->frame['data'] = $data;
             } else {
-                Yii::app()->user->logout();
+                $this->returnError('用户尚未登录');
             }
         }
     }
