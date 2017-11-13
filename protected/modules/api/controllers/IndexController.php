@@ -370,7 +370,7 @@ class IndexController extends ApiController
     public function actionDecode()
     {
         $appid = 'wx19afb796cba063c0';
-        $sessionKey = $_POST['sessionKey'];
+        $sessionKey = $this->getSessionKey($_POST['js_code']);
         $encryptedData = $_POST['encryptedData'];
         $iv = $_POST['iv'];
         $pc = new WXBizDataCrypt($appid, $sessionKey);
@@ -382,5 +382,15 @@ class IndexController extends ApiController
         } else {
             $this->returnError('操作失败');
         }
+    }
+
+    public function getSessionKey($code='')
+    {
+        $appid='wx19afb796cba063c0';$apps='6fd6b825a0095a5bd3edc8cae562b1e2';
+        $res = CHttpHelper::get("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
+        if($res){
+            return $res['content']['session_key'];
+        }
+
     }
 }
