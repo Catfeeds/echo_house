@@ -1,5 +1,5 @@
 <?php
-include_once "wxBizDataCrypt.php";
+
 class IndexController extends ApiController
 {
     public function actionIndex($cid=0,$area='')
@@ -369,6 +369,7 @@ class IndexController extends ApiController
 
     public function actionDecode()
     {
+        include_once "wxBizDataCrypt.php";
         $appid = 'wxe3d10351e5d6a0ae';
         $sessionKey = $_POST['accessKey'];
         $encryptedData = $_POST['encryptedData'];
@@ -411,4 +412,5 @@ class IndexController extends ApiController
             }
                 
         }
-    }}
+    }
+}
