@@ -132,4 +132,229 @@ class IndexController extends ApiController
             $this->returnError('UID错误');
         }
     }
+
+    public function actionXcxLogin()
+    {
+        if(Yii::app()->request->getIsPostRequest()) {
+            $phone = Yii::app()->request->getPost('phone','');
+        // $phone = '13861242596';
+            if($user = UserExt::model()->normal()->find("phone='$phone'")) {
+                $model = new ApiLoginForm();
+                $model->isapp = true;
+                $model->username = $user->phone;
+                $model->password = $user->pwd;
+                // $model->obj = $user->attributes
+                $model->login();
+                $this->staff = $user;
+            } else {
+                Yii::app()->user->logout();
+            }
+        }
+    }
+
+    public function actionGetUserInfo()
+    {
+        if(!Yii::app()->user->getIsGuest()) {
+            $data = [
+                'id'=>$this->staff->id,
+                'phone'=>$this->staff->phone,
+                'name'=>$this->staff->name,
+                'type'=>$this->staff->type,
+                'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
+            ];
+            $this->frame['data'] = $data;
+        } else {
+            $this->returnError('用户尚未登录');
+        }
+    }
+
+    public function actionAddCo()
+    {
+        if(Yii::app()->request->getIsPostRequest()) {
+            $hid = Yii::app()->request->getPost('hid','');
+            $uid = Yii::app()->request->getPost('uid','');
+            $phone = Yii::app()->request->getPost('phone','');
+            $name = Yii::app()->request->getPost('name','');
+            $userphone = Yii::app()->request->getPost('userphone','');
+            $usercompany = Yii::app()->request->getPost('usercompany','');
+            $plot = PlotExt::model()->findByPk($hid);
+            if(!$uid) {
+                if($usercompany && !($com = CompanyExt::model()->normal()->find("name='$usercompany'"))) {
+                    $com = new CompanyExt;
+                    $com->name = $usercompany;
+                    $com->type = 2;
+                    $com->phone = $userphone;
+                    $com->save();
+                }
+                if(!($user = UserExt::model()->normal()->find("phone='$phone'"))){
+                    $user = new UserExt;
+                    $user->name = $name;
+                    $user->type = $usercompany?2:3;
+                    $user->pwd = md5('jjqxftv587');
+                    $user->status = 1;
+                    $user->cid = $usercompany?$com->id:0;
+                    $user->save();
+                }
+            } else {
+                $user = $this->staff;
+            }
+            if($user->type>1 && $plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=$uid and hid=$hid")->queryScalar()) {
+                    $company = $user->companyinfo?$user->companyinfo->name:'';
+                    
+                    $obj = new CooperateExt;
+                    // $obj->attributes = $tmp;
+                    $obj->com_phone = $phone;
+                    $obj->hid = $hid;
+                    $obj->uid = $user->id;
+                    $obj->status = 0;
+                    if($obj->save()) {
+                        SmsExt::sendMsg('分销',$phone,['staff'=>$company.$user->name.$user->phone,'plot'=>$plot->title]);
+                        $noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='".$phone."'")->queryScalar();
+                        $noticeuid && Yii::app()->controller->sendNotice('分销合同签约申请：'.$company.$user->name.$user->phone.'，正在经纪圈APP中申请合作（'.$plot->title.'）项目，请尽快联系哦！',$noticeuid);
+                    }
+                } elseif($user->type<=1) {
+                    $this->returnError('您的账户类型为总代公司，不支持申请分销签约');
+                } else {
+                    $this->returnError('您已经提交申请，请勿重复提交');
+                }
+            // $tmp['uid'] = $this->staff->id;
+
+        }
+    }
+
+    public function actionAddSave($hid='')
+    {
+        if(!Yii::app()->user->getIsGuest()&&$hid) {
+            if($save = SaveExt::model()->find('hid='.(int)$hid.' and uid='.$this->staff->id)) {
+                SaveExt::model()->deleteAllByAttributes(['hid'=>$hid,'uid'=>$this->staff->id]);
+                $this->returnSuccess('取消收藏成功');
+            } else {
+                $save = new SaveExt;
+                $save->uid = $this->staff->id;
+                $save->hid = $hid;
+                $save->save();
+                $this->returnSuccess('收藏成功');
+            }
+        }else {
+            $this->returnError('请登录后操作');
+        }
+    }
+
+    public function actionCompleteInfo()
+    {
+        $name = Yii::app()->request->getPost('name','');
+        $userphone = Yii::app()->request->getPost('userphone','');
+        $usercompany = Yii::app()->request->getPost('usercompany','');
+        if($usercompany && !($com = CompanyExt::model()->normal()->find("name='$usercompany'"))) {
+            $com = new CompanyExt;
+            $com->name = $usercompany;
+            $com->type = 2;
+            $com->phone = $userphone;
+            $com->save();
+        }
+        if(!($user = UserExt::model()->normal()->find("phone='$phone'"))){
+            $user = new UserExt;
+            $user->name = $name;
+            $user->type = $usercompany?2:3;
+            $user->pwd = md5('jjqxftv587');
+            $user->status = 1;
+            $user->cid = $usercompany?$com->id:0;
+            $user->save();
+        }
+    }
+
+    public function actionSub()
+    {
+        $name = Yii::app()->request->getPost('name','');
+        $userphone = Yii::app()->request->getPost('userphone','');
+        $usercompany = Yii::app()->request->getPost('usercompany','');
+        $uid = Yii::app()->request->getPost('uid','');
+        if(!$uid) {
+            if($usercompany && !($com = CompanyExt::model()->normal()->find("name='$usercompany'"))) {
+                $com = new CompanyExt;
+                $com->name = $usercompany;
+                $com->type = 2;
+                $com->phone = $userphone;
+                $com->save();
+            }
+            if(!($user = UserExt::model()->normal()->find("phone='$phone'"))){
+                $user = new UserExt;
+                $user->name = $name;
+                $user->type = $usercompany?2:3;
+                $user->pwd = md5('jjqxftv587');
+                $user->status = 1;
+                $user->cid = $usercompany?$com->id:0;
+                $user->save();
+            }
+        } else {
+            $user = $this->staff;
+        }
+        if(($tmp['hid'] = $this->cleanXss($_POST['hid'])) && ($plot = PlotExt::model()->findByPk($_POST['hid'])) && ($tmp['phone'] = $this->cleanXss($_POST['phone']))) {
+                $tmp['name'] = $this->cleanXss($_POST['name']);
+                $tmp['time'] = strtotime($this->cleanXss($_POST['time']));
+                $tmp['sex'] = $this->cleanXss($_POST['sex']);
+                $tmp['note'] = $this->cleanXss(Yii::app()->request->getPost('note',''));
+                $tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
+                $tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
+                $tmp['notice'] = $notice = $this->cleanXss($_POST['notice']);
+                $tmp['uid'] = $user->id;
+
+                if($user->type<=1) {
+                    return $this->returnError('您的账户类型为总代公司，不支持快速报备');
+                } 
+
+                if(Yii::app()->db->createCommand("select id from sub where uid=".$tmp['uid']." and hid=".$tmp['hid']." and deleted=0 and phone='".$tmp['phone']."' and created<=".TimeTools::getDayEndTime()." and created>=".TimeTools::getDayBeginTime())->queryScalar()) {
+                    return $this->returnError("同一组客户每天最多报备一次，请勿重复操作");
+                }
+                $obj = new SubExt;
+                $obj->attributes = $tmp;
+                $obj->status = 0;
+                if($tmp['uid']) {
+                    $companyname = Yii::app()->db->createCommand("select c.name from company c left join user u on u.cid=c.id where u.id=".$tmp['uid'])->queryScalar();
+                    $obj->company_name = $companyname;
+                }
+                // 新增6位客户码 不重复
+                $code = 700000+rand(0,99999);
+                // var_dump($code);exit;
+                while (SubExt::model()->find('code='.$code)) {
+                    $code = 700000+rand(0,99999);
+                }
+                $obj->code = $code;
+                if($obj->save()) {
+                    $pro = new SubProExt;
+                    $pro->sid = $obj->id;
+                    $pro->uid = $user->id;
+                    $pro->note = '新增客户报备';
+                    $pro->save();
+                    SmsExt::sendMsg('客户通知',$user->phone,['pro'=>$plot->title,'pho'=>substr($tmp['phone'], -4,4),'code'=>$code]);
+                    
+                    $user->qf_uid && Yii::app()->controller->sendNotice('您好，你对'.$plot->title.'的报备已经成功，客户的尾号是'.substr($tmp['phone'], -4,4).'，客户码为'.$code.'，请牢记您的客户码。',$user->qf_uid);
+
+                    if($notice) {
+                        $noticename = Yii::app()->db->createCommand("select name from user where phone='$notice'")->queryScalar();
+                        SmsExt::sendMsg('报备',$notice,['staff'=>($user->cid?CompanyExt::model()->findByPk($user->cid)->name:'独立经纪人').$user->name.$user->phone,'user'=>$tmp['name'].$tmp['phone'],'time'=>$_POST['time'],'project'=>$plot->title,'type'=>($obj->visit_way==1?'自驾':'班车')]);
+
+                        $noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='$notice'")->queryScalar();
+                        // $noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice('项目名称：'.$plot->title.'；客户：'.$tmp['name'].$tmp['phone'].'；来访时间：'.$_POST['time'].'；来访方式：'.($obj->visit_way==1?'自驾':'班车').'；业务员：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,$noticeuid);
+                        $noticeuid && $user->qf_uid && Yii::app()->controller->sendNotice(
+                            '报备项目：'.$plot->title.'
+客户姓名：'.$tmp['name'].'
+客户电话： '.$tmp['phone'].'
+公司门店：'.($user->cid?CompanyExt::model()->findByPk($user->cid)->name:'独立经纪人').'
+业务员姓名：'.$user->name.'
+业务员电话：'.$user->phone.'
+市场对接人：'.$noticename.'
+对接人电话：'.$notice.'
+带看时间：'.$_POST['time'].'
+来访方式：'.($obj->visit_way==1?'自驾':'班车'),$noticeuid);
+
+                    }
+                        
+                    
+                } else {
+                    $this->returnError(current(current($obj->getErrors())));
+                }
+                // }
+            }
+    }
 }
