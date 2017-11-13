@@ -401,7 +401,11 @@ class IndexController extends ApiController
         // $res = HttpHelper::get("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         $res = HttpHelper::getHttps("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         if($res){
-            var_dump($res);exit;
-            // return $res['content']['session_key'];
+            $cont = $res['content'];
+            if($cont) {
+                $cont = json_decode($cont,true);
+                $this->frame['data'] = $cont['session_key'];
+            }
+                
         }
     }}
