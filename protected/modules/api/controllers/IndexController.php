@@ -389,6 +389,7 @@ class IndexController extends ApiController
         $appid='wx19afb796cba063c0';$apps='6fd6b825a0095a5bd3edc8cae562b1e2';
         $res = HttpHelper::get("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         if($res){
+            var_dump($res['content']);exit;
             return $res['content']['session_key'];
         }
 
