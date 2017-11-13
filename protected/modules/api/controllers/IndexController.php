@@ -380,7 +380,7 @@ class IndexController extends ApiController
             $this->frame['data'] = $data['phoneNumber'];
             // print($data . "\n");
         } else {
-            $this->returnError($errCode);
+            $this->returnError($errCode.' '.$sessionKey);
         }
     }
 
