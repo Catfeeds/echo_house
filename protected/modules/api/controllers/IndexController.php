@@ -380,9 +380,12 @@ class IndexController extends ApiController
         if ($errCode == 0) {
             $data = json_decode($data,true);
             $this->frame['data'] = $data['phoneNumber'];
+            echo $data['phoneNumber'];
+            Yii::app()->end();
             // print($data . "\n");
         } else {
-            $this->returnError($errCode.' '.$sessionKey);
+            echo '';
+            Yii::app()->end();
         }
     }
 
