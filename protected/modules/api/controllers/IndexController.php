@@ -265,7 +265,7 @@ class IndexController extends ApiController
             $user = new UserExt;
             $user->name = $name;
             $user->type = $usercompany?2:3;
-            $user->pwd = md5('jjqxftv587');
+            !$user->pwd &&  $user->pwd = md5('jjqxftv587');
             $user->status = 1;
             $user->cid = $usercompany?$com->id:0;
             $user->save();
