@@ -145,7 +145,7 @@ class IndexController extends ApiController
                 $model->username = $user->phone;
                 $model->password = $user->pwd;
                 // $model->obj = $user->attributes
-                $model->login();
+                var_dump($model->login());exit;
                 $this->staff = $user;
                 $data = [
                     'id'=>$this->staff->id,
