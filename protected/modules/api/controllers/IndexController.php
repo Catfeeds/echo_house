@@ -145,7 +145,7 @@ class IndexController extends ApiController
                 $model->username = $user->phone;
                 $model->password = $user->pwd;
                 // $model->obj = $user->attributes
-                var_dump($model->login());exit;
+                $model->login();
                 $this->staff = $user;
                 $data = [
                     'id'=>$this->staff->id,
@@ -231,15 +231,16 @@ class IndexController extends ApiController
         }
     }
 
-    public function actionAddSave($hid='')
+    public function actionAddSave($hid='',$uid='')
     {
-        if(!Yii::app()->user->getIsGuest()&&$hid) {
-            if($save = SaveExt::model()->find('hid='.(int)$hid.' and uid='.$this->staff->id)) {
-                SaveExt::model()->deleteAllByAttributes(['hid'=>$hid,'uid'=>$this->staff->id]);
+        if($uid&&$hid) {
+            $staff = UserExt::model()->findByPk($uid);
+            if($save = SaveExt::model()->find('hid='.(int)$hid.' and uid='.$staff->id)) {
+                SaveExt::model()->deleteAllByAttributes(['hid'=>$hid,'uid'=>$staff->id]);
                 $this->returnSuccess('取消收藏成功');
             } else {
                 $save = new SaveExt;
-                $save->uid = $this->staff->id;
+                $save->uid = $staff->id;
                 $save->hid = $hid;
                 $save->save();
                 $this->returnSuccess('收藏成功');
