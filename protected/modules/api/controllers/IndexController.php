@@ -205,7 +205,7 @@ class IndexController extends ApiController
                     $user->save();
                 }
             } else {
-                $user = $this->staff;
+                $user = UserExt::model()->findByPk($uid);
             }
             if($user->type>1 && $plot && !Yii::app()->db->createCommand("select id from cooperate where deleted=0 and uid=$uid and hid=$hid")->queryScalar()) {
                     $company = $user->companyinfo?$user->companyinfo->name:'';
@@ -297,7 +297,7 @@ class IndexController extends ApiController
                 $user->save();
             }
         } else {
-            $user = $this->staff;
+            $user = UserExt::model()->findByPk($uid);
         }
         if(($tmp['hid'] = $this->cleanXss($_POST['hid'])) && ($plot = PlotExt::model()->findByPk($_POST['hid'])) && ($tmp['phone'] = $this->cleanXss($_POST['phone']))) {
                 $tmp['name'] = $this->cleanXss($_POST['name']);
