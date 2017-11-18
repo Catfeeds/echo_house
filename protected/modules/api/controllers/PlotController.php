@@ -16,6 +16,7 @@ class PlotController extends ApiController{
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
+		$myuid = (int)Yii::app()->request->getQuery('myuid',0);
 		$status = Yii::app()->request->getQuery('status','');
 		$minprice = (int)Yii::app()->request->getQuery('minprice',0);
 		$maxprice = (int)Yii::app()->request->getQuery('maxprice',0);
@@ -32,25 +33,31 @@ class PlotController extends ApiController{
 		}
 		$criteria = new CDbCriteria;
 		if($uid>0) {
-			if($this->staff && $this->staff->type==1 && $this->staff->companyinfo) {
-				$init = 0;
-				$criteria->addCondition('uid=:uid');
-				$criteria->params[':uid'] = $this->staff->id;
-				if(is_numeric($status)) {
-					$criteria->addCondition('status=:status');
-					$criteria->params[':status'] = $status;
+			if(!$save) {
+				if($this->staff && $this->staff->type==1 && $this->staff->companyinfo) {
+					$init = 0;
+					$criteria->addCondition('uid=:uid');
+					$criteria->params[':uid'] = $this->staff->id;
+					if(is_numeric($status)) {
+						$criteria->addCondition('status=:status');
+						$criteria->params[':status'] = $status;
+					}
+				} else {
+					// $criteria->addCondition('uid=');
+					return $this->returnError('未登录');
 				}
-			} else {
-				// $criteria->addCondition('uid=');
-				return $this->returnError('未登录');
 			}
-			
 		} else {
 			$criteria->addCondition('status=1');
 		}
-		if($save>0&&$this->staff) {
+		if(($save>0&&$this->staff)||($save>0&&$myuid)) {
+			if($this->staff) {
+				$thisuid = $this->staff->id;
+			} else {
+				$thisuid = $myuid;
+			}
 			$savehidsarr = [];
-			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$this->staff->id)->queryAll();
+			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$thisuid)->queryAll();
 			if($savehids) {
 				foreach ($savehids as $savehid) {
 					$savehidsarr[] = $savehid['hid'];

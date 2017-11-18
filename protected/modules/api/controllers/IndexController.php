@@ -417,4 +417,49 @@ class IndexController extends ApiController
                 
         }
     }
+
+    public function actionUserList()
+    {
+        if($uid = Yii::app()->request->getQuery('uid',0)) {
+            $user = UserExt::model()->findByPk($uid);
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('uid='.$user->id);
+            $kw = Yii::app()->request->getQuery('kw','');
+            $status = Yii::app()->request->getQuery('status','');
+            if($kw) {
+                if(is_numeric($kw)) {
+                    $criteria->addSearchCondition('phone',$kw);
+                } else {
+                    $criteria->addSearchCondition('name',$kw);
+                }
+            }
+            if(is_numeric($status)) {
+                $criteria->addCondition('status=:status');
+                $criteria->params[':status'] = $status;
+            }
+            $criteria->order = 'created desc';
+            $subs = SubExt::model()->undeleted()->getList($criteria);
+            $data = $data['list'] = [];
+            if($subs->data) {
+
+                foreach ($subs->data as $key => $value) {
+                    
+                    $itsstaff = $user;
+                    $tmp['id'] = $value->id;
+                    $tmp['user_name'] = $value->name;
+                    $tmp['user_phone'] = $value->phone;
+                    $tmp['staff_name'] = Yii::app()->db->createCommand("select name from user where phone='".$value->notice."'")->queryScalar();
+                    $tmp['staff_phone'] = $value->notice;
+                    $tmp['time'] = date('m-d H:i',$value->updated);
+                    $tmp['status'] = SubExt::$status[$value->status];
+                    $tmp['staff_company'] = $value->plot?$value->plot->title:'';
+                    $data['list'][] = $tmp;
+                }
+            }
+            $data['num'] = $subs->pagination->itemCount;
+            $this->frame['data'] = $data;
+        } else {
+            $this->returnError('用户类型错误，只支持分销或独立经纪人访问');
+        }
+    }
 }
