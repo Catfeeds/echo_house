@@ -299,7 +299,7 @@ class PlotController extends ApiController{
         return $s;
 	}
 
-	public function actionInfo($id='',$phone='')
+	public function actionInfo($id='',$phone='',$uid='')
 	{
 		if($id && strstr($id,'_')) {
 			list($id,$phone) = explode('_', $id);
@@ -422,6 +422,13 @@ class PlotController extends ApiController{
 		if($info->uid && $info->status==0) {
 			$is_alert = 1;
 		}
+		if($this->staff) {
+			$thisuid = $staff->id;
+		} elseif($uid) {
+			$thisuid = $uid;
+		} else {
+			$thisuid = 0;	
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -454,7 +461,7 @@ class PlotController extends ApiController{
 			'owner_phone'=>$info->owner?$info->owner->phone:'',
 			'ff_phones'=>$ffphones,
 			'is_alert'=>$is_alert,
-			'is_save'=>$this->staff&&Yii::app()->db->createCommand('select id from save where uid='.$this->staff->id.' and hid='.$info->id)->queryScalar()?1:0,
+			'is_save'=>$thisuid&&Yii::app()->db->createCommand('select id from save where uid='.$thisuid.' and hid='.$info->id)->queryScalar()?1:0,
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {
