@@ -465,4 +465,9 @@ class IndexController extends ApiController
             $this->returnError('用户类型错误，只支持分销或独立经纪人访问');
         }
     }
+
+    public function actionGetPhone()
+    {
+        $phone = SiteExt::getAttr('qjpz','site_phone');
+    }
 }

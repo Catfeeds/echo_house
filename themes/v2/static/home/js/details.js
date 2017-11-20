@@ -184,7 +184,7 @@ function mapRoundSearch(type) {
                     // if()
                     console.log(results.getPoi(i));
                     var tpl = '';
-                    tpl += '<div class="nearby_r"><img src="img/tubiao.png" alt=""><p>' + results.getPoi(i).title + '<span style="color: #a0a0a0"></span></p><p style="color: #a0a0a0">' + results.getPoi(i).address + '</p><div class="nearby_line"></div></div>';
+                    tpl += '<div class="nearby_r"><img style="width:20px;height:20px" src="../themes/v2/static/home/img/tubiao.png" alt=""><p>' + results.getPoi(i).title + '<span style="color: #a0a0a0"></span></p><p style="color: #a0a0a0">' + results.getPoi(i).address + '</p><div class="nearby_line"></div></div>';
                     // tpl += '打开';
                     // tpl += '</a>';
                     $('#list').append(tpl);

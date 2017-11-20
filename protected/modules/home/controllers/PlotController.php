@@ -8,7 +8,8 @@ class PlotController extends HomeController
 	{
 		$py = Yii::app()->request->getQuery('py','');
 		$info = PlotExt::model()->find("pinyin='$py'");
-		$this->render('info',['info'=>$info]);
+		$user = UserExt::model()->findByPk(1300);
+		$this->render('info',['info'=>$info,'user'=>$user]);
 		// var_dump($info);exit;
 	}
 }

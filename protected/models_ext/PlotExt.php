@@ -456,4 +456,20 @@ class PlotExt extends Plot{
         }
     }
 
+    public function getTags()
+    {
+        $tagsid = array_merge($this->wylx,$this->zxzt);
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id',$tagsid);
+        $data = [];
+        if($tagsr = TagExt::model()->findAll($criteria)) {
+            foreach ($tagsr as $key => $value) {
+                $data[] = ['id'=>$value->id,'name'=>$value->name];
+            }
+        }
+        // $this->dllx && array_unshift($data, ['id'=>0,'name'=>Yii::app()->params['dllx'][$this->dllx]]);
+        
+        return $data;
+    }
+
 }

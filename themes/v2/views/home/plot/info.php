@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title><?=$info->title?></title>
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/jquery-1.8.3.min.js"></script>
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/idangerous.swiper.min.js"></script>
     <link rel="stylesheet" href="<?=Yii::app()->theme->baseUrl.'/static/home/'?>css/idangerous.swiper.css">
@@ -11,6 +11,7 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
+<?php $hxs = $info->hxs?>
 <div class="wrap">
     <!--弹框-->
     <div class="tankuang">
@@ -20,7 +21,7 @@
                 <p class="tankuang_tel">我们的顾问将与您专线联系</p>
                 <input type="text" placeholder="请输入您的手机号" class="tankuang_text">
                 <button class="tankuang_btn">免费咨询</button>
-                <p class="tankuang_tel2">直接拨打电话：400-861-5575</p>
+                <p class="tankuang_tel2">直接拨打电话：<?=$user->phone?></p>
                 <button class="cha">关闭</button>
             </div>
         </div>
@@ -29,15 +30,15 @@
     <div class="hide_nav">
         <div class="hidelist_wrap">
             <ul>
-                <li class="hide_list"><b>最近动态</b></li>
-                <li class="hide_list"><a href="#a"><b>户型介绍</b></a></li>
+                <!-- <li class="hide_list"><b>最近动态</b></li> -->
+                <?php if($hxs):?><li class="hide_list"><a href="#a"><b>户型介绍</b></a></li><?php endif;?>
                 <li class="hide_list"><a href="#b"><b>楼盘优势</b></a></li>
                 <li class="hide_list"><a href="#c"><b>周边配套</b></a></li>
                 <li class="hide_list"><a href="#d"><b>楼盘参数</b></a></li>
                 <li class="hide_list"><a href="#e"><b>楼盘点评</b></a></li>
             </ul>
             <p class="hide_tel">
-                <span>400-889-6675</span>
+                <span><?=$user->phone?></span>
                 <button class="nav_btn open">免费电话咨询</button>
             </p>
         </div>
@@ -46,9 +47,9 @@
     <!--头部-->
     <div class="logo">
         <div class="logo_nav">
-            <span style="font-size: 30px;"><b>碧桂园三千邑</b></span>
+            <span style="font-size: 30px;"><b><?=$info->title?></b></span>
             <p class="hide_tel nav_tel">
-                <span>400-889-6675</span>
+                <span><?=$user->phone?></span>
                 <button class="nav_btn open">免费电话咨询</button>
             </p>
             <div class="clear"></div>
@@ -63,24 +64,19 @@
                     <div class="view">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
+                            <?php $imgs = $info->images; if($imgs) {
+                            foreach($imgs as $im) {
+                                $imgarr[] = $im['url'];
+                            }
+                            if($imgarr) {
+                            foreach($imgarr as $img) {
+                            ?>
+                            <div class="swiper-slide">
+                                    <img src="<?=ImageTools::fixImage($img,480,400)?>" alt="">
                                 </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/b-pic.png" alt="">
-                                </div>
+                            <?php }
+                            }
+                            } ?>
                             </div>
                         </div>
                     </div>
@@ -89,24 +85,12 @@
                         <a class="arrow-right" href="#"></a>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide active-nav">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
+                            <?php foreach($imgarr as $img) {
+                            ?>
+                            <div class="swiper-slide">
+                                    <img src="<?=ImageTools::fixImage($img,72,66)?>" alt="">
                                 </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
-                                </div>
-                                <div class="swiper-slide slide6">
-                                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-pic.png" alt="">
-                                </div>
+                            <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -114,23 +98,35 @@
             </div>
             <!--右边-->
             <div class="right">
-                <span style="font-size: 30px;"><b>碧桂园三千邑</b></span>
-                <span>[住宅][别墅|洋房]</span>
+                <span style="font-size: 30px;"><b><?=$info->title?></b></span>
+                <span><?php
+                $tags = $info->getTags();
+                if($tags) {
+
+                    foreach($tags as $tag ) {
+                    if(in_array($tag['id'],$info->wylx))
+                        echo '['.$tag['name'].']';
+                    }
+                } 
+                
+                ?></span>
                 <div class="clear"></div>
                 <div class="kuang bg1">品牌地产</div>
-                <div class="kuang bg2">品牌地产</div>
-                <div class="kuang bg3">品牌地产</div>
-                <div class="kuang bg4">品牌地产</div>
+                <?php if($tags) {
+                    foreach($tags as $k=>$t){?>
+                        <div class="kuang bg<?=$k+2?>"><?=$t['name']?></div>
+                    <?php }
+                 } ?>
                 <div class="clear"></div>
                 <div class="price">
-                    <span style="font-size: 24px;float: left;margin-left: 10px"><b>13000</b></span><span
+                    <span style="font-size: 24px;float: left;margin-left: 10px"><b><?=$info->price?$info->price:'待定'?></b></span><span
                         style="font-size: 14px;float: left;">元/平米</span>
                     <span style="font-size: 14px;float: left;margin-left: 160px">经纪圈独家红包3000元</span>
                     <button class="btn">立即领取</button>
                 </div>
                 <div>
-                    <p class="word">开 发 商：苏州吴中城投万科置业有限公司</p>
-                    <p class="word">项目地址：湖滨路9号东山驿馆精品酒店1楼查看地图
+                    <p class="word">开 发 商：<?=$info->developer?$info->developer:'暂无'?></p>
+                    <p class="word">项目地址：<?=$info->address?>
                         <a href="#c"><span style="color: #7c82b9;vertical-align: middle;">
                             <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/icon.png" style="margin-left: 15px">
                         查看地图
@@ -138,14 +134,22 @@
                     </p>
                     <div class="word2 ">
                         <span style="float: left">主推户型：</span>
-                        <div class="word_model hover">3室2厅2卫(105㎡)</div>
-                        <div class="word_model hover1">3室2厅2卫(105㎡)</div>
-                        <div class="word_model hover2">3室2厅2卫(105㎡)</div>
-                        <div class="word_model1 hover3"><a href="#a">更多</a></div>
+                        <?php if($hxs) {
+                            foreach($hxs as $hx) {?>
+                                <div class="word_model hover2"><?=$hx->bedroom?>室<?=$hx->livingroom?>厅<?=$hx->bathroom?>卫(<?=$hx->size?>)</div>
+                        <?php    }?>
+                            <div class="word_model1 hover3"><a href="#a" style="font-size: 14px">更多</a></div>
+                        
+                            
+                            
+                        <?php } else {
+                            echo '暂无';
+                        }?>
+                        
                     </div>
                     <div class="clear"></div>
                     <div class="line"></div>
-                    <p style="font-size: 22px;color: red"><b>售楼部电话：400-889-6675</b></p>
+                    <p style="font-size: 22px;color: red"><b>预约看房电话：<?=$user->phone?></b></p>
                     <p class="box box1">预约看房有红包</p>
                     <p class="box box2 open">免费电话咨询</p>
                     <marquee height="80" direction=up scrollamount="2" behavior="scroll">
@@ -164,8 +168,8 @@
             <div class="nav_ul">
                 <div>
                     <ul>
-                        <li class="head_list"><b>最近动态</b></li>
-                        <li class="head_list"><a href="#a"><b>户型介绍</b></a></li>
+                        <!-- <li class="head_list"><b>最近动态</b></li> -->
+                        <?php if($hxs):?><li class="head_list"><a href="#a"><b>户型介绍</b></a></li><?php endif;?>
                         <li class="head_list"><a href="#b"><b>楼盘优势</b></a></li>
                         <li class="head_list"><a href="#c"><b>周边配套</b></a></li>
                         <li class="head_list"><a href="#d"><b>楼盘参数</b></a></li>
@@ -177,19 +181,27 @@
         <!--户型介绍-->
         <div class="introduce_wrap">
             <!--户型介绍-->
+            <?php if($hxs):?>
             <div class="house_wrap" id="a">
                 <p class="title_wrap">
                     <span class="title"><b>户型介绍</b></span>
                     <span class="comment">查看全部户型></span>
                 </p>
-                <div class="clear"></div>
-                <div class="house_type">
-                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/door.png" class="house_pic">
+                <div class="clear"></div><div class="line"></div>
+                <?php if(count($hxs)>2) {
+                $fishxs = array_slice($hxs,0,2); $sechxs = array_slice($hxs,2,count($hxs)-2);
+                } else {
+                $fishxs = $hxs;
+                $sechxs = [];
+                } ?>
+                <?php foreach($fishxs as $v) {?>
+                    <div class="house_type">
+                    <img src="<?=ImageTools::fixImage($v->image,190,140)?>" class="house_pic">
                     <div class="house_r">
-                        <p class="house_word"><b>4室2厅3卫，约143平米</b></p>
+                        <p class="house_word"><b><?=$v->bedroom?>室<?=$v->livingroom?>厅<?=$v->bathroom?>卫，约<?=$v->size?></b></p>
                         <p class="parlour">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
+                        <!-- <p class="parlour parlour1">客厅朝南</p>
+                        <p class="parlour parlour1">客厅朝南</p> -->
                     </div>
                     <div class="bespeak">
                         <p style="font-size: 16px;"><b>一房一价</b></p>
@@ -197,43 +209,39 @@
                     </div>
 
                 </div>
-                <div class="line"></div>
-                <div class="house_type">
-                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/door.png" class="house_pic">
+                
+                <?php }?>
+                <?php if($sechxs) {?>
+                <?php foreach($sechxs as $v) {?>
+                    <div class="house_type more_house">
+                    <img src="<?=ImageTools::fixImage($v->image,190,140)?>" class="house_pic">
                     <div class="house_r">
-                        <p class="house_word"><b>4室2厅3卫，约143平米</b></p>
+                        <p class="house_word"><b><?=$v->bedroom?>室<?=$v->livingroom?>厅<?=$v->bathroom?>卫，约<?=$v->size?></b></p>
                         <p class="parlour">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
+                        <!-- <p class="parlour parlour1">客厅朝南</p>
+                        <p class="parlour parlour1">客厅朝南</p> -->
                     </div>
                     <div class="bespeak">
-                        <p style="font-size: 16px"><b>一房一价</b></p>
+                        <p style="font-size: 16px;"><b>一房一价</b></p>
                         <p class="bespeak_red">预约看房有红包</p>
                     </div>
-                </div>
 
-                <div class="house_type more_house">
-                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/door.png" class="house_pic">
-                    <div class="house_r">
-                        <p class="house_word"><b>4室2厅3卫，约143平米</b></p>
-                        <p class="parlour">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
-                        <p class="parlour parlour1">客厅朝南</p>
-                    </div>
-                    <div class="bespeak">
-                        <p style="font-size: 16px"><b>一房一价</b></p>
-                        <p class="bespeak_red">预约看房有红包</p>
-                    </div>
                 </div>
+                
+                <?php }?>
                 <div class="more">
                     <p class="down">更多户型</p>
                     <p class="up">收起</p>
                 </div>
+               <?php  }?>
+                
                 <div class="line"></div>
             </div>
             <div class="clear"></div>
+        <?php endif;?>
+        <div class="clear"></div>
             <!--楼盘优势-->
-            <div class="advantage" id="b">
+            <div class="advantage" style="padding-top: 30px" id="b">
                 <span class="title"><b>楼盘优势</b></span>
                 <div class="clear"></div>
                 <div style="width: 860px;height: 753px;margin: 40px auto">
@@ -245,7 +253,7 @@
             <div class="address_wrap" id="c">
                 <p class="title_wrap">
                     <span class="title"><b>周边配套</b></span>
-                    <span class="comment1"><b>电话指路：400-889-6675</b></span>
+                    <span class="comment1"><b>电话指路：<?=$user->phone?></b></span>
                 </p>
                 <div class="clear"></div>
                 <div class="map">
@@ -453,6 +461,6 @@
 <script>
     // 百度地图API功能
     var map = new BMap.Map("dituContent");
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 14);
+    map.centerAndZoom(new BMap.Point(<?=$info->map_lng?>, <?=$info->map_lat?>), <?=$info->map_zoom?>);
 </script>
 </html>
