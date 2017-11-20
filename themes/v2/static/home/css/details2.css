@@ -1,0 +1,454 @@
+
+.wrap {
+    width: 100%;
+}
+
+.header_wrap {
+    width: 750px;
+    margin: 0 auto;
+    background: #f5f5f5;
+}
+
+.tit {
+    font-size: 28px;
+}
+
+.header {
+    width: 750px;
+    height: 490px;
+    background: url("../img/details2/banner.png") no-repeat center;
+    position: relative;
+}
+
+.headerBack {
+    width: 700px;
+    margin: 0 auto;
+    padding-top: 30px;
+
+}
+
+.header_back {
+    width: 19px;
+    height: 32px;
+    background: url("../img/details2/back.png") no-repeat;
+    float: left;
+}
+
+.header_tit {
+    font-size: 30px;
+    color: white;
+    float: left;
+    margin-left: 195px;
+}
+
+.header_tit2 {
+    float: left;
+    color: white;
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    font-size: 24px;
+}
+
+.header_tit3 {
+    float: right;
+    color: white;
+    font-size: 24px;
+    width: 80px;
+    height: 35px;
+    background: rgba(0, 0, 0, 0.60);
+    border-radius: 70px;
+    text-align: center;
+    line-height: 35px;
+    bottom: 25px;
+    right: 25px;
+    position: absolute;
+}
+
+.sales {
+    /*width: 700px;*/
+    /*margin: 30px auto;*/
+    background: #fff;
+    padding: 30px 25px 0 25px;
+    position: relative;
+}
+
+.title {
+    font-size: 32px;
+}
+
+.title span {
+    font-size: 24px;
+    color: #666666;
+    margin-left: 20px;
+}
+
+.jaiqian {
+    font-size: 36px;
+    color: red;
+}
+
+.jaiqian span {
+    font-size: 24px;
+}
+
+.sales_btn {
+    width: 180px;
+    height: 40px;
+    border: 1px solid #cccccc;
+    border-radius: 50px;
+    outline: none;
+    background: none;
+    font-size: 22px;
+    color: #7a7a7a;
+    float: right;
+    margin-top: -40px;
+}
+
+.sales_tel {
+    font-size: 26px;
+}
+
+.sales_tel span {
+    margin-left: 20px;
+}
+
+.dizhi {
+    font-size: 26px;
+    padding-bottom: 20px;
+}
+
+.dizhi span {
+    margin-left: 20px;
+}
+
+.dizhi_btn {
+    width: 120px;
+    height: 40px;
+    background: #ffa100;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-size: 26px;
+    border-radius: 5px;
+    line-height: 40px;
+    float: right;
+    margin-top: -10px;
+}
+
+.hongbao {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.red {
+    width: 520px;
+    height: 180px;
+    background: url("../img/details2/red.png") no-repeat;
+    float: left;
+}
+
+.red p {
+    font-size: 44px;
+    color: white;
+}
+
+.red_word {
+    font-size: 26px;
+    color: white;
+}
+
+.money {
+    padding: 30px;
+}
+
+.yellow {
+    width: 180px;
+    height: 180px;
+    background: url("../img/details2/yellow.png") no-repeat;
+    float: left;
+    position: relative;
+
+}
+
+.tiao_wrap {
+    width: 66%;
+    padding-top: 40px;
+    margin: 0 auto;
+}
+
+.tiao {
+    width: 120px;
+    height: 10px;
+    background: #ba9a07;
+    border-radius: 50px;
+}
+
+.tiao2 {
+    display: block;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.yellow p {
+    font-size: 24px;
+    color: #ffae00;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.yellow button {
+    width: 120px;
+    height: 40px;
+    border-radius: 50px;
+    border: 2px solid #ff9b01;
+    background: white;
+    color: #ff9b01;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    outline: none;
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.dynamic {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.dynamic_fl {
+    font-size: 28px;
+    float: left;
+}
+
+.dynamic_rl {
+    float: right;
+    font-size: 24px;
+    color: #a0a0a0;
+}
+
+.dynamic_con {
+    font-size: 26px;
+    color: #858585;
+}
+
+.house {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.house_pic {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.house_style {
+    float: left;
+    margin-right: 20px;
+}
+
+.house_style p {
+    font-size: 26px;
+    color: #999999;
+    line-height: 50px;
+}
+
+.details {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.message {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.message p {
+    font-size: 28px;
+    line-height: 70px;
+}
+
+.message .mes_rl {
+    margin-right: 80px;
+}
+
+.message span {
+    color: #999999;
+    margin-right: 50px;
+
+}
+
+.map {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.comment {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.user_pic {
+    float: left;
+}
+
+.user {
+    float: left;
+    margin-left: 20px;
+    font-size: 22px;
+    line-height: 30px;
+    color: #999999;
+}
+
+.comment_word {
+    font-size: 24px;
+    margin-top: 20px;
+    line-height: 40px;
+}
+
+.comment_pic1 img {
+    float: left;
+
+}
+
+.comment_pic1 {
+    margin-left: 20px;
+}
+
+.youhui {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.flow_wrap {
+    margin-top: 50px;
+}
+
+.foot_flow {
+    float: left;
+    margin-left: 35px;
+    text-align: center;
+
+}
+
+.foot_flow1 {
+    width: 104px;
+    /*height: 135px;*/
+    line-height: 30px;
+}
+
+.foot_flow2 {
+    line-height: 80px;
+}
+
+.big_word {
+    font-size: 26px;
+    color: #858585;
+}
+
+.serve {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.serve_pic {
+    float: left;
+    margin-top: 30px;
+}
+
+.serve_word {
+    width: 645px;
+    float: left;
+    margin-left: 30px;
+    line-height: 40px;
+}
+
+.serve_title {
+    font-size: 26px;
+}
+
+.serve_text {
+    font-size: 22px;
+    color: #999999;
+    font-weight: 100;
+}
+
+.serve_baopei {
+    margin: 30px 0;
+}
+
+.like {
+    overflow: hidden;
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.foot {
+    background: #fff;
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+}
+.foot_bot{
+    width: 750px;
+    height: 100px;
+    border-top: 1px solid #999999;
+
+}
+.foot_tel{
+    width: 70%;
+    text-align: center;
+    line-height: 100px;
+    font-size: 30px;
+    float: left;
+}
+.foot_btn{
+    float: left;
+    width: 30%;
+    text-align: center;
+    background: #00b9f4;
+    font-size: 24px;
+    padding: 20px 0;
+    color: white;
+}
+
+
+.ditu{
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    background-color: rgb(243, 241, 236);
+    color: rgb(0, 0, 0);
+    text-align: left;
+}
+#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+
+.map_list li{
+    float: left;
+}

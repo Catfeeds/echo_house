@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wrap {
+    width: 100%;
+}
+
+.down-wrap {
+    width: 750px;
+    margin: 0 auto;
+}
+
+.iphone {
+    width: 750px;
+    height: 1000px;
+    background: url("../img/iphone.png") no-repeat;
+}
+
+.iphone p {
+    color: white;
+    text-align: center;
+}
+.iphone_word{
+    font-size: 46px;
+    padding-top: 188px;
+}
+.iphone_word2{
+    font-size: 34px;
+    padding-top: 45px;
+}
+.deploy{
+    width: 750px;
+    height: 1150px;
+}
+.deploy p{
+    text-align: center;
+}
+.deploy_word{
+    font-size: 42px;
+    padding-top: 105px;
+}
+.deploy-1{
+    width: 137px;
+    height: 142px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+.server{
+    width: 750px;
+    height: 940px;
+    background: url("../img/sologan.png") no-repeat;
+}
+.server p{
+    text-align: center;
+    color: white;
+    font-size: 28px;
+}
+.data{
+    width: 750px;
+    height: 820px;
+    background: url("../img/slogan.png") no-repeat;
+}
+.data p{
+    text-align: center;
+    color: #b3b3b3;
+    font-size: 26px;
+}
+.code{
+    width: 750px;
+    height: 780px;
+    background: url("../img/down-erweima.png") no-repeat;
+}
+.code p{
+    text-align: center;
+    color: #0293f2;
+    font-size: 40px;
+    line-height: 70px;
+}

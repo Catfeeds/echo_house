@@ -421,6 +421,7 @@ class IndexController extends ApiController
     public function actionUserList()
     {
         if($uid = Yii::app()->request->getQuery('uid',0)) {
+            $page = Yii::app()->request->getQuery('page',1);
             $user = UserExt::model()->findByPk($uid);
             $criteria = new CDbCriteria;
             $criteria->addCondition('uid='.$user->id);
@@ -456,6 +457,8 @@ class IndexController extends ApiController
                     $data['list'][] = $tmp;
                 }
             }
+            $data['page'] = $page;
+            $data['page_count'] = $subs->pagination->pageCount;
             $data['num'] = $subs->pagination->itemCount;
             $this->frame['data'] = $data;
         } else {
