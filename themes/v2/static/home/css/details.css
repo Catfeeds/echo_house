@@ -90,10 +90,12 @@ body {
     cursor: pointer;
 }
 .logo{
-    width: 1150px;
+    width: 100%;
     /*height: 90px;*/
     margin: 0 auto;
     background: white;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f3f3f3;
 }
 .logo_nav{
     width: 1070px;
@@ -102,26 +104,32 @@ body {
     background: white;
 }
 .nav{
-    width: 100%;
+    width: 1150px;
+    height: 55px;
+    margin-top: 20px;
+    background: #f8f8f8;
     /*background: white;*/
 }
 .nav_ul{
     width: 1150px;
-    margin: 0 auto;
-    background: white;
-
+    margin: 30px auto;
+    background: #f8f8f8;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
 }
 
 .header_wrap {
     width: 1150px;
     margin: 0 auto;
     background: white;
+    border-top: 2px solid #f3f3f3;
 }
 
 .header {
     width: 1070px;
-    height: 480px;
-    margin: 0 auto;
+    /*height: 480px;*/
+    margin: 30px auto;
+    /*border-bottom: 2px solid #f3f3f3;*/
 }
 
 .left {
@@ -384,7 +392,7 @@ body {
     float: left;
     /*background: #e5e5e5;*/
     /*border: 1px solid #e5e5e5;*/
-    /*border-right: 1px solid #e5e5e5;*/
+    border-right: 1px solid #e5e5e5;
     text-align: center;
     line-height: 55px;
     font-size: 16px;
@@ -403,7 +411,7 @@ a:hover {
 
 .head_list:hover {
     color: red;
-    /*border-top: 3px solid red;*/
+    /*border-top: 1px solid red;*/
     /*margin-top: -2px;*/
 }
 
@@ -413,7 +421,7 @@ a:hover {
 
 .house_wrap {
     width: 1000px;
-    margin: 30px auto;
+    margin: 0 auto;
 }
 
 .house_type {
@@ -862,9 +870,10 @@ table {
 /*尾*/
 .foot {
     width: 1000px;
-    height: 400px;
-    margin: 60px auto;
-    border: 1px solid #eeeeee;
+    /*height: 400px;*/
+    margin: 40px auto;
+    /*border: 1px solid #eeeeee;*/
+    padding-bottom: 30px;
 }
 
 .foot_title {
@@ -876,6 +885,8 @@ table {
 .flow {
     width: 1000px;
     height: 300px;
+    border: 1px solid #eeeeee;
+    border-bottom: none;
 }
 
 .flow_wrap {
@@ -887,6 +898,8 @@ table {
     width: 1000px;
     height: 100px;
     background: #f8f8f8;
+    border: 1px solid #eeeeee;
+    border-top: none;
 }
 
 .foot_flow {
@@ -950,8 +963,8 @@ table {
 
 /*返回顶部*/
 .back {
-    width: 510px;
-    height: 70px;
+    /*width: 510px;*/
+    /*height: 70px;*/
     float: right;
     position: fixed;
     bottom: 0;
@@ -959,16 +972,17 @@ table {
 }
 
 .back_l {
-    width: 315px;
-    height: 70px;
-    background: #ff4932;
+    width: 240px;
+    height: 40px;
+    background: #f83d3d;
     float: left;
+    padding: 3px;
 }
 
 .back_tel {
-    width: 295px;
-    height: 50px;
-    padding: 10px;
+    width: 225px;
+    height: 40px;
+    padding: 5px;
 }
 
 .back_tel p {
@@ -976,55 +990,56 @@ table {
 }
 
 .back_text {
-    width: 185px;
-    height: 50px;
+    width: 140px;
+    height: 30px;
     border: 0;
     float: left;
     outline: none;
-    padding: 0 0 0 5px;
+    /*padding: 0 0 0 5px;*/
 }
 
 .back_tel p {
-    width: 98px;
-    height: 48px;
+    width: 78px;
+    height: 28px;
     border: 1px solid white;
     float: left;
     margin-left: 5px;
     text-align: center;
-    line-height: 48px;
+    line-height: 28px;
     color: white;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .bank_btn {
-    width: 190px;
-    height: 70px;
+    width: 131px;
+    height: 40px;
     background: #4e4e4e;
     float: left;
+    padding: 3px 0;
 }
 
 .back_btn_l {
-    width: 119px;
-    height: 70px;
+    width: 90px;
+    height: 40px;
     float: left;
     border-right: 1px solid #707070;
     cursor: pointer;
 }
 
 .s-erweima {
-    width: 80px;
+    width: 70px;
     height: 20px;
     margin: 0 auto;
-    line-height: 70px;
+    line-height: 40px;
     color: white;
-    font-size: 16px;
+    font-size: 12px;
     position: relative;
 }
 
 .back_show {
     position: absolute;
     top: -205px;
-    right: 50px;
+    right: 15px;
     display: none;
 
 }
@@ -1044,10 +1059,11 @@ table {
 }
 
 .back_wtop {
-    width: 70px;
-    height: 70px;
+    width: 40px;
+    height: 40px;
     float: left;
     position: relative;
+    cursor: pointer;
 }
 
 .back_top {
@@ -1055,8 +1071,8 @@ table {
     height: 26px;
     background: url("../img/top.png") no-repeat;
     position: absolute;
-    top: 25px;
-    left: 20px;
+    top: 10px;
+    left: 7px;
 }
 
 /*弹框*/
@@ -1134,9 +1150,10 @@ table {
     cursor: pointer;
 }
 .last{
-    width: 1000px;
+    width: 100%;
     margin: 0 auto;
-    background: #f8f8f8;
+    background: black;
+    padding: 30px 0;
 }
 .last ul{
     width: 500px;

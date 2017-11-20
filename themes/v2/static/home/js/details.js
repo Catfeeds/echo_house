@@ -204,6 +204,8 @@ function mapRoundSearch(type) {
     var local = new BMap.LocalSearch(map, options);
     local.search(type);
     local.searchInBounds(type, map.getBounds());
+
+
 }
 
 

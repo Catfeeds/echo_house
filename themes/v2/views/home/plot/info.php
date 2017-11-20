@@ -54,22 +54,6 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!--顶部导航-->
-    <div class="nav">
-        <div class="nav_ul">
-            <div style="height: 55px;padding: 10px 0">
-                <ul>
-                    <li class="head_list"><b>最近动态</b></li>
-                    <li class="head_list"><a href="#a"><b>户型介绍</b></a></li>
-                    <li class="head_list"><a href="#b"><b>楼盘优势</b></a></li>
-                    <li class="head_list"><a href="#c"><b>周边配套</b></a></li>
-                    <li class="head_list"><a href="#d"><b>楼盘参数</b></a></li>
-                    <li class="head_list"><a href="#e"><b>楼盘点评</b></a></li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
     <div class="header_wrap">
         <!--头-->
         <div class="header">
@@ -175,6 +159,21 @@
             </div>
             <div class="clear"></div>
         </div>
+        <!--顶部导航-->
+        <div class="nav">
+            <div class="nav_ul">
+                <div>
+                    <ul>
+                        <li class="head_list"><b>最近动态</b></li>
+                        <li class="head_list"><a href="#a"><b>户型介绍</b></a></li>
+                        <li class="head_list"><a href="#b"><b>楼盘优势</b></a></li>
+                        <li class="head_list"><a href="#c"><b>周边配套</b></a></li>
+                        <li class="head_list"><a href="#d"><b>楼盘参数</b></a></li>
+                        <li class="head_list"><a href="#e"><b>楼盘点评</b></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <!--户型介绍-->
         <div class="introduce_wrap">
             <!--户型介绍-->
@@ -260,8 +259,7 @@
                             <li onclick="mapRoundSearch('医疗')">医疗</li>
                             <li onclick="mapRoundSearch('商业')">商业</li>
                         </ul>
-                        <div id="list">
-                        </div>
+                        <div id="list"></div>
                     </div>
                 </div>
             </div>
@@ -399,7 +397,7 @@
             </div>
             <div class="tel">
                 <input type="text" class="text" placeholder="留下电话，一小时内会有一对一咨询师与您联系">
-                <button class="tel_btn">免费电话咨询</button>
+                <button class="tel_btn open">免费电话咨询</button>
                 <p class="telephone"><b>或者<span style="color: #f83d3d">免费咨询：400-859-7977</span></b></p>
             </div>
         </div>

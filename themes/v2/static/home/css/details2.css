@@ -4,247 +4,262 @@
 }
 
 .header_wrap {
-    width: 750px;
+    /*width: 46.875rem;*/
     margin: 0 auto;
     background: #f5f5f5;
 }
 
 .tit {
-    font-size: 28px;
+    font-size: 1.75rem;
 }
 
 .header {
-    width: 750px;
-    height: 490px;
-    background: url("../img/details2/banner.png") no-repeat center;
-    position: relative;
+    /*width: 46.875rem;*/
+    /*height: 30.625rem;*/
+    /*background: url("../img/details2/banner.png") no-repeat center;*/
+    /*position: relative;*/
 }
 
+.banner img {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: relative;
+}
+.show img{
+    display: block;
+}
 .headerBack {
-    width: 700px;
+    width: 43.75rem;
     margin: 0 auto;
-    padding-top: 30px;
-
+    padding-top: 1.875rem;
 }
 
 .header_back {
-    width: 19px;
-    height: 32px;
+    width: 1.1875rem;
+    height: 2rem;
     background: url("../img/details2/back.png") no-repeat;
     float: left;
+    position: absolute;
+    top: 1.25rem;
+    left: 1.875rem ;
 }
 
 .header_tit {
-    font-size: 30px;
+    font-size: 1.875rem;
     color: white;
     float: left;
-    margin-left: 195px;
+    /*margin-left: 12.1875rem;*/
+    position: absolute;
+    top: 2.8125rem ;
+    left: 34%;
 }
 
 .header_tit2 {
     float: left;
     color: white;
     position: absolute;
-    left: 25px;
-    bottom: 25px;
-    font-size: 24px;
+    left: 1.5625rem;
+    bottom: 1.5625rem;
+    font-size: 1.5rem;
 }
 
 .header_tit3 {
     float: right;
     color: white;
-    font-size: 24px;
-    width: 80px;
-    height: 35px;
+    font-size: 1.5rem;
+    width: 5rem;
+    height: 2.1875rem;
     background: rgba(0, 0, 0, 0.60);
-    border-radius: 70px;
+    border-radius: 4.375rem;
     text-align: center;
-    line-height: 35px;
-    bottom: 25px;
-    right: 25px;
+    line-height: 2.1875rem;
+    bottom: 1.5625rem;
+    right: 1.5625rem;
     position: absolute;
 }
 
 .sales {
-    /*width: 700px;*/
-    /*margin: 30px auto;*/
+    /*width: 43.75rem;
+     */
+    /*margin: 1.875rem auto;
+     */
     background: #fff;
-    padding: 30px 25px 0 25px;
+    padding: 1.875rem 1.5625rem 0 1.5625rem;
     position: relative;
 }
 
 .title {
-    font-size: 32px;
+    font-size: 2rem;
 }
 
 .title span {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #666666;
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 
 .jaiqian {
-    font-size: 36px;
+    font-size: 2.25rem;
     color: red;
 }
 
 .jaiqian span {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .sales_btn {
-    width: 180px;
-    height: 40px;
+    width: 11.25rem;
+    height: 2.5rem;
     border: 1px solid #cccccc;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     outline: none;
     background: none;
-    font-size: 22px;
+    font-size: 1.375rem;
     color: #7a7a7a;
     float: right;
-    margin-top: -40px;
+    margin-top: -2.5rem;
 }
 
 .sales_tel {
-    font-size: 26px;
+    font-size: 1.625rem;
 }
 
 .sales_tel span {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 
 .dizhi {
-    font-size: 26px;
-    padding-bottom: 20px;
+    font-size: 1.625rem;
+    padding-bottom: 1.25rem;
 }
 
 .dizhi span {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 
 .dizhi_btn {
-    width: 120px;
-    height: 40px;
+    width: 7.5rem;
+    height: 2.5rem;
     background: #ffa100;
     border: 0;
     outline: none;
     cursor: pointer;
     color: white;
-    font-size: 26px;
-    border-radius: 5px;
-    line-height: 40px;
+    font-size: 1.625rem;
+    border-radius: 0.3125rem;
+    line-height: 2.5rem;
     float: right;
-    margin-top: -10px;
+    margin-top: -0.625rem;
 }
 
 .hongbao {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .red {
-    width: 520px;
-    height: 180px;
+    width: 32.5rem;
+    height: 11.25rem;
     background: url("../img/details2/red.png") no-repeat;
     float: left;
 }
 
 .red p {
-    font-size: 44px;
+    font-size: 2.75rem;
     color: white;
 }
 
 .red_word {
-    font-size: 26px;
+    font-size: 1.625rem;
     color: white;
 }
 
 .money {
-    padding: 30px;
+    padding: 1.875rem;
 }
 
 .yellow {
-    width: 180px;
-    height: 180px;
+    width: 11.25rem;
+    height: 11.25rem;
     background: url("../img/details2/yellow.png") no-repeat;
     float: left;
     position: relative;
-
 }
 
 .tiao_wrap {
     width: 66%;
-    padding-top: 40px;
+    padding-top: 2.5rem;
     margin: 0 auto;
 }
 
 .tiao {
-    width: 120px;
-    height: 10px;
+    width: 7.5rem;
+    height: 0.625rem;
     background: #ba9a07;
-    border-radius: 50px;
+    border-radius: 3.125rem;
 }
 
 .tiao2 {
     display: block;
     height: 100%;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 }
 
 .yellow p {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #ffae00;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 1.25rem;
 }
 
 .yellow button {
-    width: 120px;
-    height: 40px;
-    border-radius: 50px;
+    width: 7.5rem;
+    height: 2.5rem;
+    border-radius: 3.125rem;
     border: 2px solid #ff9b01;
     background: white;
     color: #ff9b01;
-    font-size: 24px;
+    font-size: 1.5rem;
     text-align: center;
-    line-height: 40px;
+    line-height: 2.5rem;
     cursor: pointer;
     outline: none;
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-left: 1.875rem;
+    margin-top: 0.9375rem;
 }
 
 .dynamic {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .dynamic_fl {
-    font-size: 28px;
+    font-size: 1.75rem;
     float: left;
 }
 
 .dynamic_rl {
     float: right;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #a0a0a0;
 }
 
 .dynamic_con {
-    font-size: 26px;
+    font-size: 1.625rem;
     color: #858585;
 }
 
 .house {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .house_pic {
@@ -256,56 +271,55 @@
 
 .house_style {
     float: left;
-    margin-right: 20px;
+    margin-right: 1.25rem;
 }
 
 .house_style p {
-    font-size: 26px;
+    font-size: 1.625rem;
     color: #999999;
-    line-height: 50px;
+    line-height: 3.125rem;
 }
 
 .details {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .message {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .message p {
-    font-size: 28px;
-    line-height: 70px;
+    font-size: 1.75rem;
+    line-height: 4.375rem;
 }
 
 .message .mes_rl {
-    margin-right: 80px;
+    margin-right: 5rem;
 }
 
 .message span {
     color: #999999;
-    margin-right: 50px;
-
+    margin-right: 3.125rem;
 }
 
 .map {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .comment {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .user_pic {
@@ -314,98 +328,97 @@
 
 .user {
     float: left;
-    margin-left: 20px;
-    font-size: 22px;
-    line-height: 30px;
+    margin-left: 1.25rem;
+    font-size: 1.375rem;
+    line-height: 1.875rem;
     color: #999999;
 }
 
 .comment_word {
-    font-size: 24px;
-    margin-top: 20px;
-    line-height: 40px;
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    line-height: 2.5rem;
 }
 
 .comment_pic1 img {
     float: left;
-
 }
 
 .comment_pic1 {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 
 .youhui {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .flow_wrap {
-    margin-top: 50px;
+    margin-top: 3.125rem;
 }
 
 .foot_flow {
     float: left;
-    margin-left: 35px;
+    margin-left: 2.1875rem;
     text-align: center;
-
 }
 
 .foot_flow1 {
-    width: 104px;
-    /*height: 135px;*/
-    line-height: 30px;
+    width: 6.5rem;
+    /*height: 8.4375rem;
+     */
+    line-height: 1.875rem;
 }
 
 .foot_flow2 {
-    line-height: 80px;
+    line-height: 5rem;
 }
 
 .big_word {
-    font-size: 26px;
+    font-size: 1.625rem;
     color: #858585;
 }
 
 .serve {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .serve_pic {
     float: left;
-    margin-top: 30px;
+    margin-top: 1.875rem;
 }
 
 .serve_word {
-    width: 645px;
+    width: 40.3125rem;
     float: left;
-    margin-left: 30px;
-    line-height: 40px;
+    margin-left: 1.875rem;
+    line-height: 2.5rem;
 }
 
 .serve_title {
-    font-size: 26px;
+    font-size: 1.625rem;
 }
 
 .serve_text {
-    font-size: 22px;
+    font-size: 1.375rem;
     color: #999999;
     font-weight: 100;
 }
 
 .serve_baopei {
-    margin: 30px 0;
+    margin: 1.875rem 0;
 }
 
 .like {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 1.875rem;
     background: #fff;
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
 }
 
 .foot {
@@ -414,41 +427,51 @@
     z-index: 999;
     bottom: 0;
 }
-.foot_bot{
-    width: 750px;
-    height: 100px;
-    border-top: 1px solid #999999;
 
+.foot_bot {
+    width: 46.875rem;
+    height: 6.25rem;
+    border-top: 0.0625rem solid #999999;
 }
-.foot_tel{
+
+.foot_tel {
     width: 70%;
     text-align: center;
-    line-height: 100px;
-    font-size: 30px;
+    line-height: 6.25rem;
+    font-size: 1.875rem;
     float: left;
 }
-.foot_btn{
+
+.foot_btn {
     float: left;
     width: 30%;
     text-align: center;
     background: #00b9f4;
-    font-size: 24px;
-    padding: 20px 0;
+    font-size: 1.5rem;
+    padding: 1.25rem 0;
     color: white;
 }
 
-
-.ditu{
-    height: 150px;
-    overflow: hidden;
+.ditu {
+    height: 18.75rem;
+    /*overflow: hidden;
+     */
     position: relative;
     z-index: 0;
     background-color: rgb(243, 241, 236);
     color: rgb(0, 0, 0);
     text-align: left;
 }
-#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
 
-.map_list li{
+#dituContent {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: "微软雅黑";
+}
+
+.map_list li {
     float: left;
+    margin-left: 20px;
 }
