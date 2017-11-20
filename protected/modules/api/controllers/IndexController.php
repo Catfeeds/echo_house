@@ -138,8 +138,13 @@ class IndexController extends ApiController
     {
         if(Yii::app()->request->getIsPostRequest()) {
             $phone = Yii::app()->request->getPost('phone','');
+            $openid = Yii::app()->request->getPost('openid','');
         // $phone = '13861242596';
             if($user = UserExt::model()->normal()->find("phone='$phone'")) {
+                if($openid&&$user->openid!=$openid){
+                    $user->openid==$openid;
+                    $user->save();
+                }
                 $model = new ApiLoginForm();
                 $model->isapp = true;
                 $model->username = $user->phone;
@@ -422,7 +427,7 @@ class IndexController extends ApiController
                     ];
                     echo json_encode($data);
                 } else {
-                    echo $cont['session_key'];
+                    echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
                 }
                 // echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
                 // echo $cont['session_key'];
