@@ -142,7 +142,7 @@ class IndexController extends ApiController
         // $phone = '13861242596';
             if($user = UserExt::model()->normal()->find("phone='$phone'")) {
                 if($openid&&$user->openid!=$openid){
-                    $user->openid==$openid;
+                    $user->openid=$openid;
                     $user->save();
                 }
                 $model = new ApiLoginForm();
