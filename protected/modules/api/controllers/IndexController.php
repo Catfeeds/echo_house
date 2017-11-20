@@ -410,7 +410,22 @@ class IndexController extends ApiController
             $cont = $res['content'];
             if($cont) {
                 $cont = json_decode($cont,true);
-                echo $cont['session_key'];
+                $openid = $cont['openid'];
+                $user = UserExt::model()->find("openid='$openid'");
+                if($user) {
+                    $data = [
+                        'id'=>$user->id,
+                        'phone'=>$user->phone,
+                        'name'=>$user->name,
+                        'type'=>$user->type,
+                        'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
+                    ];
+                    echo json_encode($data);
+                } else {
+                    echo $cont['session_key'];
+                }
+                // echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
+                // echo $cont['session_key'];
                 Yii::app()->end();
                 // $this->frame['data'] = $cont['session_key'];
             }
