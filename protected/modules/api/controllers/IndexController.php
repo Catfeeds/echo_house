@@ -371,7 +371,7 @@ class IndexController extends ApiController
     public function actionDecode()
     {
         include_once "wxBizDataCrypt.php";
-        $appid = 'wxe3d10351e5d6a0ae';
+        $appid = 'wxc4b995f8ee3ef609';
         $sessionKey = $_POST['accessKey'];
         $encryptedData = $_POST['encryptedData'];
         $iv = $_POST['iv'];
@@ -392,7 +392,7 @@ class IndexController extends ApiController
 
     public function getSessionKey($code='' )
     {
-        $appid='wxe3d10351e5d6a0ae';$apps='f61900bb6f211135acecc43124b172ed';
+        $appid='wxc4b995f8ee3ef609';$apps='48d79f6b24890a88ef5b53a5e5119f5a';
         $res = HttpHelper::get("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         if($res){
             var_dump("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");exit;
@@ -403,7 +403,7 @@ class IndexController extends ApiController
 
     public function actionGetOpenId($code='')
     {
-        $appid='wxe3d10351e5d6a0ae';$apps='f61900bb6f211135acecc43124b172ed';
+        $appid='wxc4b995f8ee3ef609';$apps='48d79f6b24890a88ef5b53a5e5119f5a';
         // $res = HttpHelper::get("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         $res = HttpHelper::getHttps("https://api.weixin.qq.com/sns/jscode2session?appid=$appid&secret=$apps&js_code=$code&grant_type=authorization_code");
         if($res){
