@@ -51,10 +51,10 @@ class PlotController extends ApiController{
 			$criteria->addCondition('status=1');
 		}
 		if(($save>0&&$this->staff)||($save>0&&$myuid)) {
-			if($this->staff) {
-				$thisuid = $this->staff->id;
-			} else {
+			if($myuid) {
 				$thisuid = $myuid;
+			} else {
+				$thisuid = $this->staff->id;
 			}
 			$savehidsarr = [];
 			$savehids = Yii::app()->db->createCommand("select hid from save where uid=".$thisuid)->queryAll();
