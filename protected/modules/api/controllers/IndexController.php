@@ -269,12 +269,13 @@ class IndexController extends ApiController
                 return $this->returnError(current(current($com->getErrors())));
             }
         }
-        if(!($user = UserExt::model()->normal()->find("phone='$phone'"))){
+        if(!($user = UserExt::model()->normal()->find("phone='$userphone'"))){
             $user = new UserExt;
             $user->name = $name;
             $user->type = $usercompany?2:3;
             !$user->pwd &&  $user->pwd = md5('jjqxftv587');
             $user->status = 1;
+            $user->phone = $userphone;
             $user->cid = $usercompany?$com->id:0;
             if(!$user->save()){
                 return $this->returnError(current(current($user->getErrors())));
