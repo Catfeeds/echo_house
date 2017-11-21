@@ -261,7 +261,14 @@ class IndexController extends ApiController
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
         $openid = Yii::app()->request->getPost('openid','');
-        if($usercompany && !($com = CompanyExt::model()->normal()->find("name='$usercompany'"))) {
+        if($usercompany) {
+            if(is_numeric($usercompany)) {
+                $com = CompanyExt::model()->normal()->find("code='$usercompany'");
+            } else {
+                $com = CompanyExt::model()->normal()->find("name='$usercompany'");
+            }
+        }
+        if($usercompany && !$com) {
             $com = new CompanyExt;
             $com->name = $usercompany;
             $com->type = 2;
@@ -423,7 +430,7 @@ class IndexController extends ApiController
             if($cont) {
                 $cont = json_decode($cont,true);
                 $openid = $cont['openid'];
-                $user = UserExt::model()->find("openid='$openid'");
+                $user = UserExt::model()->normal()->find("openid='$openid'");
                 if($user) {
                     $data = [
                         'id'=>$user->id,
