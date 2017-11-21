@@ -260,6 +260,7 @@ class IndexController extends ApiController
         $name = Yii::app()->request->getPost('name','');
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
+        $openid = Yii::app()->request->getPost('openid','');
         if($usercompany && !($com = CompanyExt::model()->normal()->find("name='$usercompany'"))) {
             $com = new CompanyExt;
             $com->name = $usercompany;
@@ -276,7 +277,7 @@ class IndexController extends ApiController
             !$user->pwd &&  $user->pwd = md5('jjqxftv587');
             $user->status = 1;
             $user->phone = $userphone;
-            $user->openid = Yii::app()->request->getPost('openid','');
+            $user->openid = $openid;
             $user->cid = $usercompany?$com->id:0;
             if(!$user->save()){
                 return $this->returnError(current(current($user->getErrors())));
