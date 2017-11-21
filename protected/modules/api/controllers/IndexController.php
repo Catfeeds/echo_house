@@ -430,18 +430,20 @@ class IndexController extends ApiController
             if($cont) {
                 $cont = json_decode($cont,true);
                 $openid = $cont['openid'];
-                $user = UserExt::model()->normal()->find("openid='$openid'");
-                if($user) {
-                    $data = [
-                        'id'=>$user->id,
-                        'phone'=>$user->phone,
-                        'name'=>$user->name,
-                        'type'=>$user->type,
-                        'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
-                    ];
-                    echo json_encode($data);
-                } else {
-                    echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
+                if($openid) {
+                    $user = UserExt::model()->normal()->find("openid='$openid'");
+                    if($user) {
+                        $data = [
+                            'id'=>$user->id,
+                            'phone'=>$user->phone,
+                            'name'=>$user->name,
+                            'type'=>$user->type,
+                            'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
+                        ];
+                        echo json_encode($data);
+                    } else {
+                        echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
+                    }
                 }
                 // echo json_encode(['open_id'=>$cont['openid'],'session_key'=>$cont['session_key']]);
                 // echo $cont['session_key'];
