@@ -276,6 +276,7 @@ class IndexController extends ApiController
             !$user->pwd &&  $user->pwd = md5('jjqxftv587');
             $user->status = 1;
             $user->phone = $userphone;
+            $user->openid = Yii::app()->request->getPost('openid','');
             $user->cid = $usercompany?$com->id:0;
             if(!$user->save()){
                 return $this->returnError(current(current($user->getErrors())));
