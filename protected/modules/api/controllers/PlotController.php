@@ -158,6 +158,9 @@ class PlotController extends ApiController{
 				case '4':
 					$criteria->order = 'created desc';
 					break;
+					case '4':
+				$criteria->order = 'views desc';
+					break;
 				default:
 					# code...
 					break;
