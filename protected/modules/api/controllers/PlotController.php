@@ -1241,8 +1241,8 @@ class PlotController extends ApiController{
     		return $this->returnError('仅支持总代公司发布房源，您可以至用户中心更换公司');
     	}
     	if($staff && $staff->vip_expire<time()) {
-    		if($staff->plots)
-    			return $this->returnError('普通用户仅可免费发布一条项目信息，VIP会员可无限发布');
+    		// if($staff->plots)
+    			return $this->returnError('普通用户暂不支持房源发布，请成为VIP会员后操作');
     	}
     	// if(!$this->staff || $this->staff->type!=1) {
     	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
