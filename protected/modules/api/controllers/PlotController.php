@@ -174,18 +174,18 @@ class PlotController extends ApiController{
 		} else {	
 			$criteria->order = 'sort desc,created desc';
 		}
-		if($areainit) {
-			$dats = PlotExt::getFirstListFromArea();
-			if(isset($dats[$area])&& isset($dats[$area]['list']) && $dats[$area]['list']) {
-				foreach ($dats[$area]['list'] as $key => $value) {
-					// var_dump($value);exit;
-					$dats[$area]['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
-				}
-			}
-			$this->frame['data'] = $dats[$area];
-		}
+		// if($areainit) {
+		// 	$dats = PlotExt::getFirstListFromArea();
+		// 	if(isset($dats[$area])&& isset($dats[$area]['list']) && $dats[$area]['list']) {
+		// 		foreach ($dats[$area]['list'] as $key => $value) {
+		// 			// var_dump($value);exit;
+		// 			$dats[$area]['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
+		// 		}
+		// 	}
+		// 	$this->frame['data'] = $dats[$area];
+		// }
 		// 走缓存拿初始数据
-		elseif($init) {
+		if($init) {
 			$dats = PlotExt::setPlotCache();
 			if(isset($dats['list']) && $dats['list']) {
 				foreach ($dats['list'] as $key => $value) {
