@@ -280,7 +280,7 @@ class IndexController extends ApiController
         if(!($user = UserExt::model()->normal()->find("phone='$userphone'"))){
             $user = new UserExt;
             $user->name = $name;
-            $user->type = $usercompany?2:3;
+            $user->type = $usercompany?$com->type:3;
             !$user->pwd &&  $user->pwd = md5('jjqxftv587');
             $user->status = 1;
             $user->phone = $userphone;
