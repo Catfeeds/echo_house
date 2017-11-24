@@ -19,7 +19,7 @@ class PlotMarketUserController extends AdminController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$expire='')
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
@@ -48,9 +48,16 @@ class PlotMarketUserController extends AdminController{
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		if(is_numeric($expire)) {
+			if($expire)
+				$criteria->addCondition('expire<=:ex');
+			else
+				$criteria->addCondition('expire>=:ex');
+			$criteria->params[':ex'] = time();
+		}
 		$criteria->order = 'updated desc';
 		$infos = $modelName::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'expire'=>$expire]);
 	}
 
 	public function actionEdit($id='')
