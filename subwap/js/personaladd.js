@@ -21,11 +21,13 @@ $(document).ready(function() {
           $('#pname').attr('readonly','readonly');
           $('#pphone').attr('readonly','readonly');
           $('#pcompany').attr('readonly','readonly');
+        } else {
+          if(data.is_user==false) {
+            alert('请登录后操作');
+            location.href = 'list.html';
+          }
         }
         // 
-      } else {
-        alert('请登录后操作');
-          location.href = 'list.html';
       }
     });
       
