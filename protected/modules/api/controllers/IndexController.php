@@ -197,6 +197,7 @@ class IndexController extends ApiController
                     $com = new CompanyExt;
                     $com->name = $usercompany;
                     $com->type = 2;
+                    $com->status = 1;
                     $com->phone = $userphone;
                     $com->save();
                 }
@@ -272,6 +273,7 @@ class IndexController extends ApiController
             $com = new CompanyExt;
             $com->name = $usercompany;
             $com->type = 2;
+            $com->status = 1;
             $com->phone = $userphone;
             if(!$com->save()){
                 return $this->returnError(current(current($com->getErrors())));
@@ -303,6 +305,7 @@ class IndexController extends ApiController
                 $com = new CompanyExt;
                 $com->name = $usercompany;
                 $com->type = 2;
+                $com->status = 1;
                 $com->phone = $userphone;
                 $com->save();
             }
