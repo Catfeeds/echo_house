@@ -5,27 +5,27 @@ $(document).ready(function() {
   // 获取千帆uid
     $.get('/api/config/index',function(data) {
       if(data.status=='success') {
-        if(data.data.user.phone!=undefined) {
-          $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
-            if(data.status=='error') {
-              alert(data.msg);
-              if(data.msg=='用户类型错误，只支持总代公司发布房源') 
-                location.href = 'list.html';
-              else
-                location.href = 'duijierennew.html';
-            }
-          });
-          $('#pname').val(data.data.user.name);
-          $('#pphone').val(data.data.user.phone);
-          $('#pcompany').val(data.data.companyname);
-          $('#pname').attr('readonly','readonly');
-          $('#pphone').attr('readonly','readonly');
-          $('#pcompany').attr('readonly','readonly');
+          if(data.data.user.phone!=undefined) {
+            $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
+              if(data.status=='error') {
+                alert(data.msg);
+                if(data.msg=='用户类型错误，只支持总代公司发布房源') 
+                  location.href = 'list.html';
+                else
+                  location.href = 'duijierennew.html';
+              }
+            });
+            $('#pname').val(data.data.user.name);
+            $('#pphone').val(data.data.user.phone);
+            $('#pcompany').val(data.data.companyname);
+            $('#pname').attr('readonly','readonly');
+            $('#pphone').attr('readonly','readonly');
+            $('#pcompany').attr('readonly','readonly');
+          }
         }
         if(data.is_user==false||data.is_user==0||data.is_user=="0") {
             alert('请登录后操作');
             location.href = 'list.html';
-          }
         }
         // 
       }
