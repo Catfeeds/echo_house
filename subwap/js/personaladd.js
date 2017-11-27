@@ -21,8 +21,8 @@ $(document).ready(function() {
           $('#pname').attr('readonly','readonly');
           $('#pphone').attr('readonly','readonly');
           $('#pcompany').attr('readonly','readonly');
-        } else {
-          if(data.is_user==false) {
+        }
+        if(data.is_user==false||data.is_user==0||data.is_user=="0") {
             alert('请登录后操作');
             location.href = 'list.html';
           }
