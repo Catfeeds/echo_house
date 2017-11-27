@@ -263,9 +263,9 @@ class IndexController extends ApiController
         $openid = Yii::app()->request->getPost('openid','');
         if($usercompany) {
             if(is_numeric($usercompany)) {
-                $com = CompanyExt::model()->normal()->find("code='$usercompany'");
+                $com = CompanyExt::model()->find("code='$usercompany'");
             } else {
-                $com = CompanyExt::model()->normal()->find("name='$usercompany'");
+                $com = CompanyExt::model()->find("name='$usercompany'");
             }
         }
         if($usercompany && !$com) {
