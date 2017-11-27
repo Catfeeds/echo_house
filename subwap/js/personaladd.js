@@ -5,8 +5,8 @@ $(document).ready(function() {
   // 获取千帆uid
     $.get('/api/config/index',function(data) {
         if(data.data.is_user==false||data.data.is_user==0||data.data.is_user=="0") {
-            alert('请登录后操作');
-            location.href = 'list.html';
+            alert('请认证后操作');
+            location.href = 'register.html';
         }
         if(data.status=='success') {
           if(data.data.user.phone!=undefined) {
