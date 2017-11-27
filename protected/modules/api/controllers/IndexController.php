@@ -368,17 +368,20 @@ class IndexController extends ApiController
 
                         $noticeuid = Yii::app()->db->createCommand("select qf_uid from user where phone='$notice'")->queryScalar();
                         // $noticeuid && $this->staff->qf_uid && Yii::app()->controller->sendNotice('项目名称：'.$plot->title.'；客户：'.$tmp['name'].$tmp['phone'].'；来访时间：'.$_POST['time'].'；来访方式：'.($obj->visit_way==1?'自驾':'班车').'；业务员：'.($this->staff->cid?CompanyExt::model()->findByPk($this->staff->cid)->name:'独立经纪人').$this->staff->name.$this->staff->phone,$noticeuid);
-                        $noticeuid && $user->qf_uid && Yii::app()->controller->sendNotice(
-                            '报备项目：'.$plot->title.'
-客户姓名：'.$tmp['name'].'
-客户电话： '.$tmp['phone'].'
-公司门店：'.($user->cid?CompanyExt::model()->findByPk($user->cid)->name:'独立经纪人').'
-业务员姓名：'.$user->name.'
-业务员电话：'.$user->phone.'
-市场对接人：'.$noticename.'
-对接人电话：'.$notice.'
-带看时间：'.$_POST['time'].'
-来访方式：'.($obj->visit_way==1?'自驾':'班车'),$noticeuid);
+                        if($noticeuid && $user->qf_uid) {
+                            Yii::app()->controller->sendNotice(
+                                '报备项目：'.$plot->title.'
+    客户姓名：'.$tmp['name'].'
+    客户电话： '.$tmp['phone'].'
+    公司门店：'.($user->cid?CompanyExt::model()->findByPk($user->cid)->name:'独立经纪人').'
+    业务员姓名：'.$user->name.'
+    业务员电话：'.$user->phone.'
+    市场对接人：'.$noticename.'
+    对接人电话：'.$notice.'
+    带看时间：'.$_POST['time'].'
+    来访方式：'.($obj->visit_way==1?'自驾':'班车'),$noticeuid);
+                        }
+                            
 
                     }
                         
