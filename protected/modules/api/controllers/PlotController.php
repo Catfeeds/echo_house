@@ -1128,6 +1128,9 @@ class PlotController extends ApiController{
     public function actionAddPlot()
     {
     	if(Yii::app()->request->getIsPostRequest()) {
+    		if(!$this->staff) {
+    			return $this->returnError('请登录后操作');
+    		}
     		if($this->staff && $this->staff->type!=1) {
     			return $this->returnError('用户类型错误，只支持总代公司发布房源');
     		}

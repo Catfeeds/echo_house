@@ -135,7 +135,8 @@
                     <div class="word2 ">
                         <span style="float: left">主推户型：</span>
                         <?php if($hxs) {
-                            foreach($hxs as $hx) {?>
+                            $nowhxs = array_slice($hxs, 0,3);
+                            foreach($nowhxs as $hx) {?>
                                 <div class="word_model hover2"><?=$hx->bedroom?>室<?=$hx->livingroom?>厅<?=$hx->bathroom?>卫(<?=$hx->size?>)</div>
                         <?php    }?>
                             <div class="word_model1 hover3"><a href="#a" style="font-size: 14px">更多</a></div>

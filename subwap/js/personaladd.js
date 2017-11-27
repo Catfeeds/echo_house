@@ -23,7 +23,10 @@ $(document).ready(function() {
           $('#pcompany').attr('readonly','readonly');
         }
         // 
-      } 
+      } else {
+        alert('请登录后操作');
+          location.href = 'list.html';
+      }
     });
       
      //validata
