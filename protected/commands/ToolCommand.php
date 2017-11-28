@@ -68,9 +68,12 @@ class ToolCommand extends CConsoleCommand
     {
         $infos = PlotMarketUserExt::model()->findAll('expire>'.time().' and expire<'.time()+86400*3);
         foreach ($infos as $key => $value) {
-            if($value->user&&$value->user->qf_uid) {
-                if($p = $value->plot)
-                    Yii::app()->controller->sendNotice('您的项目'.$p->title.'即将到期，请点击下面链接成为会员，成为会员后您的号码将继续展现，并且可以无限次数发布项目。 http://house.jj58.com.cn/api/index/vip',$value->user->qf_uid);
+            $user = $value->user;
+            if($user&&$user->qf_uid) {
+                if($p = $value->plot) {
+                    
+                    Yii::app()->controller->sendNotice('您的项目'.$p->title.'即将到期，请点击下面链接成为会员，成为会员后您的号码将继续展现，并且可以无限次数发布项目。 http://house.jj58.com.cn/api/index/vip',$user->qf_uid);
+                }
             }
         }
     }
