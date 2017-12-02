@@ -692,7 +692,7 @@ marquee {
 .foot {
     width: 100%;
     background: #fff;
-    /*position: fixed;*/
+    position: fixed;
     z-index: 999;
     bottom: 0;
 }

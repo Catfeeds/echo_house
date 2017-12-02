@@ -300,6 +300,7 @@
                 </div>
             </div>
         </div>
+        <div style="height: 1.6rem;clear: both;overflow: hidden;"></div>
         <!--隐藏尾部-->
         <div class="foot">
             <div class="foot_bot">
@@ -307,16 +308,6 @@
                 <div class="foot_btn">
                     <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/details2/qiang.png" alt="">
                     <p>抢优惠</p>
-                </div>
-            </div>
-        </div>
-        <!--尾部-->
-        <div class="foot1 open">
-            <div class="foot_bot">
-                <p class="foot_tel">免费咨询：<?=$user->phone?></p>
-                <div class="foot_btn">
-                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/details2/qiang.png" alt="">
-                    <p class="open">抢优惠</p>
                 </div>
             </div>
         </div>
