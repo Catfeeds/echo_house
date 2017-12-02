@@ -9,74 +9,148 @@
 }
 
 .down-wrap {
-    width: 750px;
     margin: 0 auto;
 }
 
 .iphone {
-    width: 750px;
-    height: 1000px;
-    background: url("../img/iphone.png") no-repeat;
+    position: relative;
+}
+
+.iphone img {
+    width: 100%;
+    height: 100%;
 }
 
 .iphone p {
     color: white;
     text-align: center;
 }
-.iphone_word{
+
+.iphone_word {
     font-size: 46px;
-    padding-top: 188px;
+    position: absolute;
+    top: 8rem;
+    left: 25%;
 }
-.iphone_word2{
+
+.iphone_word2 {
     font-size: 34px;
-    padding-top: 45px;
+    position: absolute;
+    top: 16rem;
+    left: 30%;
 }
-.deploy{
-    width: 750px;
+
+.deploy {
     height: 1150px;
 }
-.deploy p{
+
+.deploy p {
     text-align: center;
 }
-.deploy_word{
+
+.deploy_word {
     font-size: 42px;
     padding-top: 105px;
 }
-.deploy-1{
+
+.deploy-1 {
     width: 137px;
     height: 142px;
     margin: 0 auto;
     padding-top: 80px;
     padding-bottom: 30px;
 }
-.server{
-    width: 750px;
-    height: 940px;
-    background: url("../img/sologan.png") no-repeat;
+
+.server {
+    position: relative;
 }
-.server p{
+
+.server img {
+    width: 100%;
+    height: 100%;
+}
+
+.server p {
     text-align: center;
     color: white;
     font-size: 28px;
 }
-.data{
-    width: 750px;
-    height: 820px;
-    background: url("../img/slogan.png") no-repeat;
+
+.server .server_word {
+    color: #f6ff6a;
+    font-size: 42px;
+    position: absolute;
+    top: 3rem;
+    left: 37%;
 }
-.data p{
+
+.server_word2 {
+    position: absolute;
+    top: 10rem;
+    left: 31%;
+}
+
+.server_word3 {
+    position: absolute;
+    top: 15rem;
+    left: 35%;
+}
+
+.data {
+    position: relative;
+}
+
+.data img {
+    width: 100%;
+    height: 100%;
+}
+
+.data p {
     text-align: center;
     color: #b3b3b3;
     font-size: 26px;
 }
-.code{
-    width: 750px;
-    height: 780px;
-    background: url("../img/down-erweima.png") no-repeat;
+
+.data .data_word {
+    font-size: 42px;
+    color: black;
+    position: absolute;
+    top: 10rem;
+    left: 25%;
 }
-.code p{
+
+.data_word2 {
+    position: absolute;
+    top: 15rem;
+    left: 40%;
+}
+
+.data_word3 {
+    position: absolute;
+    top: 20rem;
+    left: 35%;
+}
+.code{
+    position: relative;
+}
+.code img {
+    width: 100%;
+    height: 100%;
+}
+
+.code p {
     text-align: center;
     color: #0293f2;
     font-size: 40px;
     line-height: 70px;
+}
+.code_word{
+    position: absolute;
+    bottom: 15rem;
+    left: 32%;
+}
+.code_word2{
+    position: absolute;
+    bottom: 10rem;
+    left: 27%;
 }

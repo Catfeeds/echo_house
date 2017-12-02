@@ -19,8 +19,10 @@
             <div class="tankuang_content">
                 <p class="tankuang_tit">免费电话咨询</p>
                 <p class="tankuang_tel">我们的顾问将与您专线联系</p>
-                <input type="text" placeholder="请输入您的手机号" class="tankuang_text">
-                <button class="tankuang_btn">免费咨询</button>
+                <input type="hidden" id="uhid" name="PlotUser[hid]" value="<?=$info->id?>">
+                <input type="text" name="PlotUser[name]" id="uname" placeholder="请输入您姓名" class="tankuang_text">
+                <input type="text" name="PlotUser[phone]" id="uphone" placeholder="请输入您的手机号" class="tankuang_text">
+                <button onclick="checkword()" class="tankuang_btn">免费咨询</button>
                 <p class="tankuang_tel2">直接拨打电话：<?=$user->phone?></p>
                 <button class="cha">关闭</button>
             </div>
@@ -121,8 +123,8 @@
                 <div class="price">
                     <span style="font-size: 24px;float: left;margin-left: 10px"><b><?=$info->price?$info->price:'待定'?></b></span><span
                         style="font-size: 14px;float: left;">元/平米</span>
-                    <span style="font-size: 14px;float: left;margin-left: 160px">经纪圈独家红包3000元</span>
-                    <button class="btn">立即领取</button>
+                    <span style="font-size: 14px;float: left;margin-left: 160px">独家红包3000元</span>
+                    <button class="btn open">立即领取</button>
                 </div>
                 <div>
                     <p class="word">开 发 商：<?=$info->developer?$info->developer:'暂无'?></p>
@@ -151,14 +153,12 @@
                     <div class="clear"></div>
                     <div class="line"></div>
                     <p style="font-size: 22px;color: red"><b>预约看房电话：<?=$user->phone?></b></p>
-                    <p class="box box1">预约看房有红包</p>
+                    <p class="box box1 open">预约看房有红包</p>
                     <p class="box box2 open">免费电话咨询</p>
-                    <marquee height="80" direction=up scrollamount="2" behavior="scroll">
-                        <p>要输入的文字</p>
-                        <p>要输入的文字</p>
-                        <p>要输入的文字</p>
-                        <p>要输入的文字</p>
-                        <p>要输入的文字</p>
+                    <marquee height="80" direction=up scrollamount="2" behavior="scroll" style="margin-left: 10px">
+                    <?php foreach ($userdata as $key => $value) { ?>
+                        <p><?=$value['name'].'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'.$value['phone'].'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'.$value['time']?></p>
+                    <?php } ?>
                     </marquee>
                 </div>
             </div>
@@ -186,7 +186,7 @@
             <div class="house_wrap" id="a">
                 <p class="title_wrap">
                     <span class="title"><b>户型介绍</b></span>
-                    <span class="comment">查看全部户型></span>
+                    <!-- <span class="comment">查看全部户型></span> -->
                 </p>
                 <div class="clear"></div><div class="line"></div>
                 <?php if(count($hxs)>2) {
@@ -206,7 +206,7 @@
                     </div>
                     <div class="bespeak">
                         <p style="font-size: 16px;"><b>一房一价</b></p>
-                        <p class="bespeak_red">预约看房有红包</p>
+                        <p class="bespeak_red open">预约看房有红包</p>
                     </div>
 
                 </div>
@@ -224,7 +224,7 @@
                     </div>
                     <div class="bespeak">
                         <p style="font-size: 16px;"><b>一房一价</b></p>
-                        <p class="bespeak_red">预约看房有红包</p>
+                        <p class="bespeak_red open">预约看房有红包</p>
                     </div>
 
                 </div>
@@ -245,8 +245,9 @@
             <div class="advantage" style="padding-top: 30px" id="b">
                 <span class="title"><b>楼盘优势</b></span>
                 <div class="clear"></div>
-                <div style="width: 860px;height: 753px;margin: 40px auto">
-                    <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/merit.png">
+                <div style="width: 860px;margin: 40px auto">
+                    <?=$info->peripheral?>
+                    <!-- <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/merit.png"> -->
                 </div>
             </div>
             <div class="clear"></div>
@@ -281,32 +282,36 @@
                     <table class="parameter_table">
                         <tr>
                             <td class="parameter_w110">项目名称：</td>
-                            <td>万通中心</td>
+                            <td><?=$info->title?></td>
                             <td class="parameter_w110">开发商：</td>
-                            <td>杭州万通时尚置业有限公司</td>
+                            <td><?=$info->developer?></td>
                         </tr>
                         <tr>
                             <td class="parameter_w110">项目地址：</td>
-                            <td>上塘路与大关路交叉口</td>
+                            <td><?=$info->address?></td>
                             <td class="parameter_w110">物业公司：</td>
-                            <td>北京万通鼎安国际物业服务有限公司</td>
+                            <td><?=$info->manage_company?></td>
                         </tr>
                         <tr>
-                            <td class="parameter_w110">教育：</td>
+                            <td class="parameter_w110">容积率：</td>
+                            <td><?=$info->capacity?></td>
+                            <td class="parameter_w110">绿化率：</td>
+                            <td><?=$info->green?></td>
+                        </tr>
+                        <tr>
+                            <td class="parameter_w110">楼层状况：</td>
                             <td colspan="3">
-                                学校：杭州育才中学，紫荆幼儿园，紫荆幼儿园大关园区，长乐幼儿园，杭州市文华幼儿园，行知中学，杭州市树人小学
+                               <?=$info->floor_desc?>
                             </td>
                         </tr>
                         <tr>
                             <td class="parameter_w110">交通：</td>
-                            <td colspan="3">公交：公交：36路; 58路; 77路; 93路; 134路; 151路; 227路; 251路</td>
+                            <td colspan="3"><?=$info->transit?></td>
                         </tr>
                         <tr>
                             <td class="parameter_w110">项目简介：</td>
                             <td colspan="3">
-                                项目由LEED金级国际5A甲级写字楼、品牌企业总部大厦、SOHO办公、精品商业组成。作为杭州“十二五”规划的重点支持项目，杭州万通中心
-                                立足杭州重点规划、支持建设的高端商业商务金融区运河商务区，携手日本久米建筑设计、英国迈进机电顾问、美国EMSI绿色
-                                建筑顾问、仲量联行物业管理顾问等国际知名团队强强联合，将打造成为杭州高标准的都市综合体。
+                                <?=$info->content?>
                             </td>
                         </tr>
                     </table>
@@ -317,7 +322,7 @@
             <div class="review_wrap" id="e">
                 <p class="title_wrap">
                     <span class="title"> <b>楼盘点评</b></span>
-                    <span class="comment">查看全部10条评论</span>
+                    <!-- <span class="comment">查看全部10条评论</span> -->
                 </p>
                 <div class="clear"></div>
                 <div class="review">
@@ -326,41 +331,29 @@
                     <div class="review_word review_color1">置业顾问很热情</div>
                     <div class="review_word review_color2">样板间很精致</div>
                     <div class="review_word review_color3">发展空间大</div>
-                    <div class="review_word review_color4">发展空间大</div>
+                    <!-- <div class="review_word review_color4">发展空间大</div> -->
                     <div class="clear"></div>
                     <div class="line"></div>
                 </div>
                 <div>
                     <div class="user">
                         <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/user.png" alt="">
-                        <p>用户00001</p>
+                        <p>用户 **vt</p>
                     </div>
                     <div class="detailed_comment">
                         <p style="color: #454545"><b>TA已到访售楼部</b></p>
-                        <p>杭州万通中心旁边就是远洋国际中心和远洋公馆，周边配套非常成熟，而且万通中心本身就是带一部分商业，投资一套酒店式公寓还是
-                            很划算的。</p>
-                        <div class="detailed_pic">
-                            <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                            <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                            <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                        </div>
+                        <p><?=$info->dp1?></p>
                     </div>
                     <div class="clear"></div>
                     <div class="line"></div>
                     <div>
                         <div class="user">
                             <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/user.png" alt="">
-                            <p>用户00001</p>
+                            <p>用户 ***明</p>
                         </div>
                         <div class="detailed_comment">
                             <p style="color: #454545"><b>TA已到访售楼部</b></p>
-                            <p>杭州万通中心旁边就是远洋国际中心和远洋公馆，周边配套非常成熟，而且万通中心本身就是带一部分商业，投资一套酒店式公寓
-                                还是很划算的。</p>
-                            <div class="detailed_pic">
-                                <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                                <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                                <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/review.png" alt="">
-                            </div>
+                            <p><?=$info->dp2?></p>
                         </div>
                     </div>
                 </div>
@@ -405,50 +398,33 @@
                 </div>
             </div>
             <div class="tel">
-                <input type="text" class="text" placeholder="留下电话，一小时内会有一对一咨询师与您联系">
+                <input type="text" class="text open" placeholder="留下电话，一小时内会有一对一咨询师与您联系">
                 <button class="tel_btn open">免费电话咨询</button>
-                <p class="telephone"><b>或者<span style="color: #f83d3d">免费咨询：400-859-7977</span></b></p>
+                <p class="telephone"><b>或者<span style="color: #f83d3d">免费咨询：<?=$user->phone?></span></b></p>
             </div>
         </div>
     </div>
     <!--最后-->
     <div class="last">
-        <ul>
-            <li>企业官网</li>
-            <li>|</li>
-            <li>诚聘英才</li>
-            <li>|</li>
-            <li>友情链接</li>
-            <li>|</li>
-            <li>法律声明</li>
-            <li>|</li>
-            <li>商业合作</li>
-            <li>|</li>
-            <li>帮助中心</li>
-            <li>|</li>
-            <li>WAP版</li>
-        </ul>
         <div class="clear"></div>
-        <p>广告热线：400 970 0519 转 8888 传真：0519-86601957 投诉受理：400 970 0519 转 9999 法律顾问：江苏正气浩然律师事务所 周建斌律师</p>
-        <p>版权所有:常州化龙网络科技股份有限公司 信息产业部备案/许可证编号：苏ICP备06048007号
-            <img src="http://www.hualongxiang.com/images/beian.png">
-            苏公网安备 32041102000005号 经营性ICP：苏B2-20120430号 </p>
+        <p><?=$user->companyinfo?('版权所有:'.$user->companyinfo->name):''?> 信息产业部备案/许可证编号：<?=$url->beian?>
+            <img src="http://www.hualongxiang.com/images/beian.png"></p>
     </div>
     <!--返回顶部-->
     <div class="back">
         <div class="back_l">
             <div class="back_tel">
-                <input type="text" placeholder="请输入手机号码" class="back_text">
+                <input type="text" placeholder="请输入手机号码" class="back_text open">
                 <p class="open">免费咨询</p>
             </div>
         </div>
         <div class="bank_btn">
-            <div class="back_btn_l">
+            <!-- <div class="back_btn_l">
                 <div class="s-erweima">
                     <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/s-erweima.png" alt="">
                     <span>公众号</span>
                 </div>
-            </div>
+            </div> -->
             <div class="back_show">
                 <img src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>img/erweima.png" alt="">
             </div>
@@ -463,5 +439,23 @@
     // 百度地图API功能
     var map = new BMap.Map("dituContent");
     map.centerAndZoom(new BMap.Point(<?=$info->map_lng?>, <?=$info->map_lat?>), <?=$info->map_zoom?>);
+    function checkword() {
+        if($('#uname').val()=='') {
+            alert('请输入姓名');
+            return false;
+        }else if($('#uphone').val()=='') {
+            alert('请输入手机号');
+            return false;
+        }else {
+            $.post('/home/plot/addUser',{'PlotUser[hid]':$('#uhid').val(),'PlotUser[name]':$('#uname').val(),'PlotUser[phone]':$('#uphone').val()},function(data) {
+                // console.log(data);
+                data = JSON.parse(data);
+                alert(data.msg);
+            });
+        }
+            
+        // alert('提交成功！');
+        // return true;
+    }
 </script>
 </html>

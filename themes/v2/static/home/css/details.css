@@ -24,7 +24,6 @@ body {
     width: 100%;
     background: #f8f8f8;
     position: relative;
-
 }
 
 .hide_nav {
@@ -46,7 +45,6 @@ body {
     width: 125px;
     height: 55px;
     float: left;
-    /*background: #f5f5f5;*/
     border: 2px solid white;
     text-align: center;
     line-height: 55px;
@@ -55,7 +53,6 @@ body {
 .hide_list:hover {
     color: red;
     border-top: 2px solid red;
-    /*margin-top: -2px;*/
 }
 
 .hide_list1:hover {
@@ -69,9 +66,11 @@ body {
     text-align: center;
     line-height: 40px;
 }
-.nav_tel{
+
+.nav_tel {
     margin-top: -15px;
 }
+
 .hide_tel span {
     font-size: 16px;
     font-weight: bold;
@@ -89,28 +88,30 @@ body {
     margin-top: 10px;
     cursor: pointer;
 }
-.logo{
+
+.logo {
     width: 100%;
-    /*height: 90px;*/
     margin: 0 auto;
     background: white;
     margin-bottom: 10px;
     border-bottom: 2px solid #f3f3f3;
 }
-.logo_nav{
+
+.logo_nav {
     width: 1070px;
     margin: 0 auto;
     padding: 15px 0;
     background: white;
 }
-.nav{
+
+.nav {
     width: 1150px;
     height: 55px;
     margin-top: 20px;
     background: #f8f8f8;
-    /*background: white;*/
 }
-.nav_ul{
+
+.nav_ul {
     width: 1150px;
     margin: 30px auto;
     background: #f8f8f8;
@@ -127,24 +128,19 @@ body {
 
 .header {
     width: 1070px;
-    /*height: 480px;*/
     margin: 30px auto;
-    /*border-bottom: 2px solid #f3f3f3;*/
 }
 
 .left {
     width: 480px;
     height: 480px;
     float: left;
-    /*background: red;*/
 }
 
 /*图片切换*/
-
 .pc-slide {
     width: 480px;
     height: 480px;
-    /*margin: 0 auto;*/
 }
 
 .view .swiper-container {
@@ -205,7 +201,6 @@ body {
 }
 
 /*图片切换*/
-
 .right {
     width: 560px;
     height: 480px;
@@ -245,30 +240,6 @@ body {
 }
 
 .bg4 {
-    border: 1px solid #a88dc1;
-    color: #a88dc1;
-    margin-left: 10px;
-}
-
-.bg5 {
-    border: 1px solid #aadcbb;
-    color: #aadcbb;
-    margin-left: 10px;
-}
-
-.bg6 {
-    border: 1px solid #6d9cd1;
-    color: #6d9cd1;
-    margin-left: 10px;
-}
-
-.bg7 {
-    border: 1px solid #ffc062;
-    color: #ffc062;
-    margin-left: 10px;
-}
-
-.bg8 {
     border: 1px solid #a88dc1;
     color: #a88dc1;
     margin-left: 10px;
@@ -391,14 +362,6 @@ body {
     border: 1px solid red;
 }
 
-/*.nav {*/
-    /*width: 1150px;*/
-    /*height: 55px;*/
-    /*border-top: 1px solid #e5e5e5;*/
-    /*border-right: 1px solid #e5e5e5;*/
-    /*background: #f8f8f8;*/
-/*}*/
-
 .fixnav {
     position: fixed;
     top: 0;
@@ -414,8 +377,6 @@ body {
     width: 125px;
     height: 55px;
     float: left;
-    /*background: #e5e5e5;*/
-    /*border: 1px solid #e5e5e5;*/
     border-right: 1px solid #e5e5e5;
     text-align: center;
     line-height: 55px;
@@ -435,8 +396,6 @@ a:hover {
 
 .head_list:hover {
     color: red;
-    /*border-top: 1px solid red;*/
-    /*margin-top: -2px;*/
 }
 
 .list1:hover {
@@ -509,11 +468,13 @@ a:hover {
     margin-top: 30px;
     position: relative;
 }
-.more p{
+
+.more p {
     left: 50%;
     display: none;
     position: absolute;
 }
+
 .more .down {
     display: block;
 }
@@ -546,18 +507,15 @@ a:hover {
 }
 
 /*地图*/
-
 .concent {
     width: 630px;
     height: 380px;
-    /*margin: 50px auto;*/
 }
 
 .concent_ditu {
     width: 630px;
     height: 380px;
     float: left;
-    /*margin-top: 30px;*/
 }
 
 .connect_write {
@@ -572,10 +530,6 @@ a:hover {
     white-space: nowrap;
 }
 
-/*span{*/
-/*color: rgba(165, 184, 185, 0.98);*/
-/*background-size: 10px;*/
-/*}*/
 .concent_phone h3 {
     font-weight: 500;
     white-space: nowrap;
@@ -620,9 +574,8 @@ a:hover {
     height: 378px;
     float: left;
     border: 1px solid #e1e1e1;
-    /*position: relative;*/
-    overflow:scroll;
-    overflow-x:hidden ;
+    overflow: scroll;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -644,22 +597,13 @@ a:hover {
 
 .nearby ul li:hover {
     border-bottom: 2px solid red;
-    /*margin-top: -1px;*/
 }
-
-/*.map_show {*/
-/*display: block;*/
-/*}*/
 
 .nearby_r p {
     line-height: 30px;
 }
 
 .nearby_r {
-    /*width: 328px;*/
-    /*height: 75px;*/
-    /*display: none;*/
-    /*position: absolute;*/
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -680,7 +624,7 @@ a:hover {
 .nearby_r img {
     float: left;
     margin-right: 10px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .message {
@@ -745,12 +689,6 @@ a:hover {
     margin-top: 55px;
 }
 
-/*table {*/
-/*border-color: #eeeeee;*/
-/*width: 1000px;*/
-/*margin-top: 30px;*/
-/*border-width: 1px;*/
-/*}*/
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -758,20 +696,14 @@ table {
 }
 
 .parameter_table td {
-    /*padding: 15px;*/
     font-size: 14px;
     line-height: 30px;
     border: 1px solid #e5e5e5;
     padding: 15px;
     color: #333;
-    /*width: 38%;*/
-    /*line-height: 1.8;*/
 }
 
 .parameter_table .parameter_w110 {
-    /*width: 95px;*/
-    /*background: #f5f5f5;*/
-    /*font-weight: 700;*/
     text-align: left;
     background-color: #f5f5f5;
     color: #666;
@@ -894,9 +826,7 @@ table {
 /*尾*/
 .foot {
     width: 1000px;
-    /*height: 400px;*/
     margin: 40px auto;
-    /*border: 1px solid #eeeeee;*/
     padding-bottom: 30px;
 }
 
@@ -987,8 +917,6 @@ table {
 
 /*返回顶部*/
 .back {
-    /*width: 510px;*/
-    /*height: 70px;*/
     float: right;
     position: fixed;
     bottom: 0;
@@ -1019,7 +947,6 @@ table {
     border: 0;
     float: left;
     outline: none;
-    /*padding: 0 0 0 5px;*/
 }
 
 .back_tel p {
@@ -1068,10 +995,6 @@ table {
 
 }
 
-/*.bank_btn1:hover .back_show {*/
-/*display: block;*/
-/*}*/
-
 .s-erweima img {
     width: 20px;
     height: 20px;
@@ -1100,9 +1023,6 @@ table {
 }
 
 /*弹框*/
-
-
-
 .tankuang {
     width: 100%;
     height: 100%;
@@ -1124,31 +1044,34 @@ table {
     bottom: 0;
 }
 
-.tankuang_content{
+.tankuang_content {
     width: 320px;
-    /*height: 380px;*/
     margin: 0 auto;
 }
-.tankuang_tit{
+
+.tankuang_tit {
     font-size: 20px;
     color: #000;
     padding: 50px 0 3px 0;
     text-align: center;
 }
-.tankuang_tel{
+
+.tankuang_tel {
     font-size: 15px;
     color: #787878;
     padding: 30px 0 3px 0;
     text-align: center;
 }
-.tankuang_text{
+
+.tankuang_text {
     width: 320px;
     height: 50px;
     outline: none;
     text-align: center;
     margin-top: 30px;
 }
-.tankuang_btn{
+
+.tankuang_btn {
     width: 320px;
     height: 50px;
     outline: none;
@@ -1159,12 +1082,14 @@ table {
     color: white;
     font-size: 16px;
 }
-.tankuang_tel2{
+
+.tankuang_tel2 {
     font-size: 18px;
     color: #f73d3d;
     margin-top: 30px;
 }
-.cha{
+
+.cha {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -1173,24 +1098,28 @@ table {
     outline: none;
     cursor: pointer;
 }
-.last{
+
+.last {
     width: 100%;
     margin: 0 auto;
     background: black;
     padding: 30px 0;
 }
-.last ul{
+
+.last ul {
     width: 500px;
     margin: 0 auto;
 }
-.last li{
+
+.last li {
     float: left;
     padding: 0 5px;
     line-height: 26px;
     color: #666;
     font-size: 12px;
 }
-.last p{
+
+.last p {
     line-height: 26px;
     color: #666;
     font-size: 12px;

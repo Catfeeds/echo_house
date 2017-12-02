@@ -471,6 +471,23 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="col-md-2 control-label text-nowrap">楼盘点评1</label>
+                    <div class="col-md-6">
+                        <?php echo $form->textarea($plot,'dp1',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="col-md-2 control-label text-nowrap">楼盘点评2</label>
+                    <div class="col-md-6">
+                        <?php echo $form->textarea($plot,'dp2',array('class'=>'form-control')); ?>
+                    </div>
+                </div>
+            </div>
             
 
         </div>

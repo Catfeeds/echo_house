@@ -82,6 +82,11 @@ class AdminController extends Controller
             ['label'=>'举报管理','icon'=>'icon-speedometer','url'=>['/admin/report/list'],'active'=>$this->route=='admin/report/edit'],
             ['label'=>'标签管理','icon'=>'icon-speedometer','url'=>['/admin/tag/list'],'active'=>$this->route=='admin/tag/edit'],
             ['label'=>'用户管理','icon'=>'icon-speedometer','url'=>['/admin/user/list']],
+            ['label' => '推广管理', 'icon' => 'icon-speedometer', 'items' => [
+                ['label' => '域名管理', 'url' => ['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
+                ['label' => '客户管理', 'url' => ['/admin/plotUser/list'],'active'=>$this->route=='admin/plotUser/edit'],
+            ]],
+            // ['label'=>'推广管理','icon'=>'icon-speedometer','url'=>['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
             ['label'=>'站点配置','icon'=>'icon-speedometer','url'=>['/admin/site/list'],'active'=>$this->route=='admin/site/edit'||$this->route=='admin/site/list'],
             // ['label'=>'ahalist','icon'=>'icon-speedometer','url'=>['/admin/aha/list']],
 
