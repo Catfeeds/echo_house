@@ -800,7 +800,8 @@ table {
 
 .detailed_comment {
     width: 896px;
-    height: 178px;
+    /*height: 178px;*/
+    margin-bottom: 10px
     background: url("../img/comment_03.png") no-repeat;
     float: left;
     margin-left: 10px;
@@ -1034,7 +1035,7 @@ table {
 
 .tankuang_con {
     width: 380px;
-    height: 390px;
+    height: 380px;
     background: white;
     margin: auto;
     position: absolute;
@@ -1059,16 +1060,16 @@ table {
 .tankuang_tel {
     font-size: 15px;
     color: #787878;
-    padding: 30px 0 3px 0;
+    padding: 16px 0 3px 0;
     text-align: center;
 }
 
 .tankuang_text {
     width: 320px;
-    height: 50px;
+    height: 36px;
     outline: none;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 16px;
 }
 
 .tankuang_btn {
