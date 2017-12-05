@@ -21,9 +21,9 @@ capp.controller("customerCtrl",function($scope,$http) {
 		}else{
 			$('#phone').attr('href','tel:'+response.data.data.phone);
 		}
-		if(response.data.data.can_edit<1) {
-			$('.process ul li').removeAttr("onclick");
-		}
+		// if(response.data.data.can_edit<1) {
+		// 	$('.process ul li').removeAttr("onclick");
+		// }
 		if(response.data.data.sale=='') {
 			$.get('/api/plot/getAcsales',function(data) {
 				if(data.status=='success'&&data.data.length>0) {

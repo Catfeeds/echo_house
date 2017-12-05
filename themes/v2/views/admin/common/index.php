@@ -1,6 +1,11 @@
 <?php
 $this->pageTitle = '经纪圈新房通后台欢迎您';
 ?>
+<style>
+    .hid{
+        display: none;
+    }
+</style>
 <?php 
 	$thishits = $allhits = $thissubs = $allsubs = $thisreports = $allreports = $thiscoos = $allcoos = $thiszd = $allzd = $thisfx = $allfx = $thiszduser = $allzduser = $thisfxuser = $allfxuser = $thisdl = $alldl = 0;
 	$hids = [];
@@ -75,7 +80,9 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
     $thisdl = UserExt::model()->undeleted()->count($criteria);
 
 ?>
-<div class="row">
+<div class="btn default" onclick="show()">显示/隐藏数据</div>
+
+<div class="row info hid">
     <div class="col-lg-4 col-md-4">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
@@ -131,7 +138,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row info hid">
     <div class="col-lg-4 col-md-4">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
@@ -187,7 +194,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row info hid">
     <div class="col-lg-4 col-md-4">
         <div class="dashboard-stat blue-madison">
             <div class="visual">
@@ -243,3 +250,12 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
         </div>
     </div>
 </div>
+<script>
+    function show() {
+        if($('.info').attr('class')=='row info') {
+            $('.info').attr('class','row info hid');
+        } else {
+            $('.info').attr('class','row info');
+        }
+    }
+</script>
