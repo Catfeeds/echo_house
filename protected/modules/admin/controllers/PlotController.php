@@ -47,7 +47,7 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='')
 	{
 		$modelName = 'PlotExt';
 		$criteria = new CDbCriteria;
@@ -86,6 +86,9 @@ class PlotController extends AdminController{
         }
 		$this->controllerName = '楼盘';
 		$criteria->order = 'sort desc,updated desc,id desc';
+		if($sort) {
+			$criteria->order = $sort.' desc';
+		}
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
 		$this->render('list',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
 	}
