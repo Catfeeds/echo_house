@@ -220,7 +220,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo $thisfxuser.'/'.$allfxuser ?>
+                    <?php echo $thisfxuser.'/'.($allfxuser+ImportUserExt::model()->count()) ?>
                 </div>
                 <div class="desc">
                     今日分销经纪人新增数量/总数
