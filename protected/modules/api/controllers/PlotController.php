@@ -921,16 +921,20 @@ class PlotController extends ApiController{
     	if(Yii::app()->user->getIsGuest()) {
     		return $this->returnError('暂无权限查看');
     	} else {
-    		$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id)->queryScalar();
+    		$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id.' order by updated desc')->queryAll();
     		if(!$hid) {
     			return $this->returnError('暂无权限查看');
     		} else {
-    			$plot = PlotExt::model()->findByPk($hid);
+    			$ids = [];
+    			foreach ($hid as $key => $value) {
+    				$ids[] = $value['hid'];
+    			}
+    			// $plot = PlotExt::model()->findByPk($hid);
     		}
-    		// var_dump($hid);exit;
+    		// var_dump($ids);exit;
     		// $subs = $plot->subs;
     		$criteria = new CDbCriteria;
-    		$criteria->addCondition('hid='.$hid);
+    		$criteria->addInCondition('hid',$ids);
     		$kw = Yii::app()->request->getQuery('kw','');
     		$status = Yii::app()->request->getQuery('status','');
     		if($kw) {
@@ -951,7 +955,7 @@ class PlotController extends ApiController{
     		if($subs->data) {
 
     			foreach ($subs->data as $key => $value) {
-    				
+    				// var_dump($value->uid);
     				$itsstaff = $value->user;
     				if(!$itsstaff) {
     					continue;
