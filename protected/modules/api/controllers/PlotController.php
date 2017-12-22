@@ -981,16 +981,20 @@ class PlotController extends ApiController{
     	if(Yii::app()->user->getIsGuest()) {
     		return $this->returnError('暂无权限查看');
     	} else {
-    		$hid = Yii::app()->db->createCommand("select hid from plot_sale where uid=".Yii::app()->user->id)->queryScalar();
+    		$hid = Yii::app()->db->createCommand("select hid from plot_sale where uid=".Yii::app()->user->id)->queryAll();
     		if(!$hid) {
     			return $this->returnError('暂无权限查看');
     		} else {
-    			$plot = PlotExt::model()->findByPk($hid);
+    			// $plot = PlotExt::model()->findByPk($hid);
+    			$ids = [];
+    			foreach ($hid as $key => $value) {
+    				$ids[] = $value['hid'];
+    			}
     		}
     		// var_dump($hid);exit;
     		// $subs = $plot->subs;
     		$criteria = new CDbCriteria;
-    		$criteria->addCondition('hid='.$hid);
+    		$criteria->addInCondition('hid',$ids);
     		$criteria->addCondition('sale_uid='.$this->staff->id);
     		$kw = Yii::app()->request->getQuery('kw','');
     		$status = Yii::app()->request->getQuery('status','');
