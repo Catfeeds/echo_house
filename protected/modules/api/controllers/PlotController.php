@@ -1040,12 +1040,21 @@ class PlotController extends ApiController{
     	if(!$code) {
     		return $this->returnError('客户码不能为空');
     	}
-    	$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id)->queryScalar();
-    	$hisplot = PlotExt::model()->normal()->findByPk($hid);
+    	$hid = Yii::app()->db->createCommand("select hid from plot_place where uid=".Yii::app()->user->id)->queryAll();
+    	$hids = [];
+    	if(!$hid) {
+    		return $this->returnError('项目不存在');
+    	}
+    	foreach ($hid as $key => $value) {
+    		$hids[] = $hid['hid'];
+    	}
+    	// $hisplot = PlotExt::model()->normal()->findByPk($hid);
 
-    	if($hisplot) {
-    		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code' and hid=".$hisplot->id);
-
+    	if($hids) {
+    		$obj = SubExt::model()->undeleted()->find("is_check=0 and code='$code'");
+    		if(!in_array($obj->hid, $hids)) {
+    			return $this->returnError('暂无权限操作');
+    		}
     		if($acxs) {
     			$obj->sale_uid = $acxs;
     		}
@@ -1063,11 +1072,11 @@ class PlotController extends ApiController{
     			$obj->save();
     			$this->frame['data'] = $obj->id;
     			if($acxs && $sale = UserExt::model()->findByPk($acxs)) {
-    				$sale->qf_uid && $this->sendNotice('您好，'.$hisplot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
+    				$sale->qf_uid && $this->sendNotice('您好，'.$obj->plot->title.'有新的客户来访，请登录案场销售后台查看。',$sale->qf_uid);
     			}
     		}
     	} else {
-    		$this->returnError('项目不存在');
+    		$this->returnError('暂无权限操作');
     	}
     	
     }
