@@ -1046,7 +1046,7 @@ class PlotController extends ApiController{
     		return $this->returnError('项目不存在');
     	}
     	foreach ($hid as $key => $value) {
-    		$hids[] = $hid['hid'];
+    		$hids[] = $value['hid'];
     	}
     	// $hisplot = PlotExt::model()->normal()->findByPk($hid);
 
