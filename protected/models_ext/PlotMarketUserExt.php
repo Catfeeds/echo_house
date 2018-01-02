@@ -49,6 +49,10 @@ class PlotMarketUserExt extends PlotMakertUser{
         if(strstr($this->expire,'-')) {
             $this->expire = strtotime($this->expire);
         }
+        if($this->is_manager==1&&(!$this->plot->uid)) {
+            $this->plot->uid = $this->uid;
+            $this->plot->save();
+        }
         if($this->getIsNewRecord()) {
             if($this->is_manager && ($plot = $this->plot) && ($user = $this->user) && $user->qf_uid) {
                 Yii::app()->controller->sendNotice('恭喜您，您已经成为'.$plot->title.'的付费对接人！
