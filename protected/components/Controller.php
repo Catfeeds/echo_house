@@ -448,4 +448,12 @@ class Controller extends CController
         return $data;
     }
 
+    public function get_rand_str($limit=10)
+    {
+    	$str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
+		str_shuffle($str);
+		$name=substr(str_shuffle($str),26,$limit);
+		return $name;
+    }
+
 }

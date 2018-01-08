@@ -140,29 +140,40 @@ class IndexController extends ApiController
             $phone = Yii::app()->request->getPost('phone','');
             $openid = Yii::app()->request->getPost('openid','');
         // $phone = '13861242596';
-            if($user = UserExt::model()->normal()->find("phone='$phone'")) {
+            if($user = UserExt::model()->find("phone='$phone'")) {
                 if($openid&&$user->openid!=$openid){
                     $user->openid=$openid;
                     $user->save();
                 }
-                $model = new ApiLoginForm();
-                $model->isapp = true;
-                $model->username = $user->phone;
-                $model->password = $user->pwd;
-                // $model->obj = $user->attributes
-                $model->login();
-                $this->staff = $user;
-                $data = [
-                    'id'=>$this->staff->id,
-                    'phone'=>$this->staff->phone,
-                    'name'=>$this->staff->name,
-                    'type'=>$this->staff->type,
-                    'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
-                ];
-                $this->frame['data'] = $data;
+                
             } else {
-                $this->returnError('用户尚未登录');
+                $user = new UserExt;
+                $user->phone = $phone;
+                $user->openid = $openid;
+                $user->name = get_rand_str();
+                $user->status = 1;
+                $user->is_true = 0;
+                $user->type = 3;
+                $user->pwd = md5('jjqxftv587');
+                $user->save();
+
+                // $this->returnError('用户尚未登录');
             }
+            $model = new ApiLoginForm();
+            $model->isapp = true;
+            $model->username = $user->phone;
+            $model->password = $user->pwd;
+            // $model->obj = $user->attributes
+            $model->login();
+            $this->staff = $user;
+            $data = [
+                'id'=>$this->staff->id,
+                'phone'=>$this->staff->phone,
+                'name'=>$this->staff->name,
+                'type'=>$this->staff->type,
+                'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
+            ];
+            $this->frame['data'] = $data;
         }
     }
 
@@ -279,19 +290,21 @@ class IndexController extends ApiController
                 return $this->returnError(current(current($com->getErrors())));
             }
         }
-        if(!($user = UserExt::model()->normal()->find("phone='$userphone'"))){
+        if(!($user = UserExt::model()->find("phone='$userphone'"))){
             $user = new UserExt;
-            $user->name = $name;
-            $user->type = $usercompany?$com->type:3;
-            !$user->pwd &&  $user->pwd = md5('jjqxftv587');
-            $user->status = 1;
-            $user->phone = $userphone;
-            $user->openid = $openid;
-            $user->cid = $usercompany?$com->id:0;
-            if(!$user->save()){
-                return $this->returnError(current(current($user->getErrors())));
-            }
         }
+        $user->name = $name;
+        $user->type = $usercompany?$com->type:3;
+        !$user->pwd &&  $user->pwd = md5('jjqxftv587');
+        $user->status = 1;
+        $user->phone = $userphone;
+        $user->openid = $openid;
+        $user->is_true = 1;
+        $user->cid = $usercompany?$com->id:0;
+        if(!$user->save()){
+            return $this->returnError(current(current($user->getErrors())));
+        }
+
     }
 
     public function actionSub()
@@ -438,7 +451,7 @@ class IndexController extends ApiController
                 $openid = $cont['openid'];
                 if($openid) {
                     $user = UserExt::model()->normal()->find("openid='$openid'");
-                    if($user) {
+                    if($user&&$user->is_true==1) {
                         $data = [
                             'id'=>$user->id,
                             'phone'=>$user->phone,
