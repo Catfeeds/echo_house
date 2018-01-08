@@ -456,13 +456,14 @@ class IndexController extends ApiController
                 $cont = json_decode($cont,true);
                 $openid = $cont['openid'];
                 if($openid) {
-                    $user = UserExt::model()->normal()->find("openid='$openid'");
+                    $user = UserExt::model()->find("openid='$openid'");
                     if($user&&$user->is_true==1) {
                         $data = [
                             'id'=>$user->id,
                             'phone'=>$user->phone,
                             'name'=>$user->name,
                             'type'=>$user->type,
+                            'is_true'=>$user->is_true,
                             'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
                         ];
                         echo json_encode($data);
