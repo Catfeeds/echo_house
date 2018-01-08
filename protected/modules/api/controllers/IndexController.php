@@ -139,6 +139,10 @@ class IndexController extends ApiController
         if(Yii::app()->request->getIsPostRequest()) {
             $phone = Yii::app()->request->getPost('phone','');
             $openid = Yii::app()->request->getPost('openid','');
+            if(!$phone) {
+                $this->returnError('参数错误');
+                return false;
+            }
         // $phone = '13861242596';
             if($user = UserExt::model()->find("phone='$phone'")) {
                 if($openid&&$user->openid!=$openid){
