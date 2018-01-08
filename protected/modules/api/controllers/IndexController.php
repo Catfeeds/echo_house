@@ -171,6 +171,7 @@ class IndexController extends ApiController
                 'phone'=>$this->staff->phone,
                 'name'=>$this->staff->name,
                 'type'=>$this->staff->type,
+                'is_true'=>$this->staff->is_true,
                 'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
             ];
             $this->frame['data'] = $data;
