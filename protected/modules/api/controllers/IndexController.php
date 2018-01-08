@@ -195,7 +195,7 @@ class IndexController extends ApiController
                 'phone'=>$this->staff->phone,
                 'name'=>$this->staff->name,
                 'type'=>$this->staff->type,
-                'is_user'=>$this->staff->is_user,
+                'is_true'=>$this->staff->is_true,
                 'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
@@ -320,7 +320,7 @@ class IndexController extends ApiController
                 'phone'=>$user->phone,
                 'name'=>$user->name,
                 'type'=>$user->type,
-                'is_user'=>$user->is_user,
+                'is_true'=>$user->is_true,
                 'company_name'=>$user->is_true==1?($user->companyinfo?$user->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
