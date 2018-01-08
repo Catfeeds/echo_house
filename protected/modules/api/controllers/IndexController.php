@@ -150,7 +150,7 @@ class IndexController extends ApiController
                 $user = new UserExt;
                 $user->phone = $phone;
                 $user->openid = $openid;
-                $user->name = get_rand_str();
+                $user->name = $this->get_rand_str();
                 $user->status = 1;
                 $user->is_true = 0;
                 $user->type = 3;
