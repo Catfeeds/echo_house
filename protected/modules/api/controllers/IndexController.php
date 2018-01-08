@@ -139,12 +139,17 @@ class IndexController extends ApiController
         if(Yii::app()->request->getIsPostRequest()) {
             $phone = Yii::app()->request->getPost('phone','');
             $openid = Yii::app()->request->getPost('openid','');
-            if(!$phone) {
+            if(!$phone||!$openid) {
                 $this->returnError('参数错误');
                 return false;
             }
+            if($phone) {
+                $user = UserExt::model()->find("phone='$phone'");
+            } elseif($openid) {
+                $user = UserExt::model()->find("openid='$openid'");
+            }
         // $phone = '13861242596';
-            if($user = UserExt::model()->find("phone='$phone'")) {
+            if($user) {
                 if($openid&&$user->openid!=$openid){
                     $user->openid=$openid;
                     $user->save();
@@ -191,7 +196,7 @@ class IndexController extends ApiController
                 'name'=>$this->staff->name,
                 'type'=>$this->staff->type,
                 'is_user'=>$this->staff->is_user,
-                'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
+                'company_name'=>$this->staff->is_user==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
         } else {
