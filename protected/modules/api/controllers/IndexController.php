@@ -314,6 +314,16 @@ class IndexController extends ApiController
         $user->cid = $usercompany?$com->id:0;
         if(!$user->save()){
             return $this->returnError(current(current($user->getErrors())));
+        } else {
+            $data = [
+                'id'=>$user->id,
+                'phone'=>$user->phone,
+                'name'=>$user->name,
+                'type'=>$user->type,
+                'is_user'=>$user->is_user,
+                'company_name'=>$user->is_true==1?($user->companyinfo?$user->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+            ];
+            $this->frame['data'] = $data;
         }
 
     }
