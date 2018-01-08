@@ -181,7 +181,7 @@ class IndexController extends ApiController
                 'name'=>$this->staff->name,
                 'type'=>$this->staff->type,
                 'is_true'=>$this->staff->is_true,
-                'company_name'=>$this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人',
+                'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
         }
@@ -196,7 +196,7 @@ class IndexController extends ApiController
                 'name'=>$this->staff->name,
                 'type'=>$this->staff->type,
                 'is_user'=>$this->staff->is_user,
-                'company_name'=>$this->staff->is_user==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+                'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
         } else {
