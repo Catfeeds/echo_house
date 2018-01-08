@@ -139,6 +139,7 @@ class IndexController extends ApiController
         if(Yii::app()->request->getIsPostRequest()) {
             $phone = Yii::app()->request->getPost('phone','');
             $openid = Yii::app()->request->getPost('openid','');
+            $name = Yii::app()->request->getPost('name','');
             if(!$phone||!$openid) {
                 $this->returnError('参数错误');
                 return false;
@@ -159,7 +160,7 @@ class IndexController extends ApiController
                 $user = new UserExt;
                 $user->phone = $phone;
                 $user->openid = $openid;
-                $user->name = $this->get_rand_str();
+                $user->name = $name?$name:$this->get_rand_str();
                 $user->status = 1;
                 $user->is_true = 0;
                 $user->type = 3;
