@@ -52,30 +52,34 @@ function subthis() {
 		// 	alert(data.msg);		
 		// } else {
 			QFH5.createOrder(10001,item,0,additem,12,function(state,data){
-		        order_id = data.order_id;
-		        QFH5.jumpPayOrder(order_id,function(state,data){
-				    if(state==1){
-				    	alert('支付成功');
-				    	$.post("/api/plot/addMakert", {
-						        'hid': hid,
-						        'num': $('#housenum').val(),
-						        'title': $('#housename').val(),
-						    },
-						    function(data, status) {
-						        if (data.status == "success") {
-						            alert("申请成功！");
-						            location.href = 'detail.html?id='+hid;
-						        } else {
-						            alert(data.msg);
-						        }
+				if(state!=1) {
+					 alert(data.error);
+					} else {
+						order_id = data.order_id;
+				        QFH5.jumpPayOrder(order_id,function(state,data){
+						    if(state==1){
+						    	alert('支付成功');
+						    	$.post("/api/plot/addMakert", {
+								        'hid': hid,
+								        'num': $('#housenum').val(),
+								        'title': $('#housename').val(),
+								    },
+								    function(data, status) {
+								        if (data.status == "success") {
+								            alert("申请成功！");
+								            location.href = 'detail.html?id='+hid;
+								        } else {
+								            alert(data.msg);
+								        }
+								    }
+								);
+						        //支付成功
+						    }else{
+						        //支付失败、用户取消支付
+						        alert(data.error);//data.error  string
 						    }
-						);
-				        //支付成功
-				    }else{
-				        //支付失败、用户取消支付
-				        alert(data.error);//data.error  string
-				    }
-				});
+						});
+					}
 		    });
 		// }
 	// });
