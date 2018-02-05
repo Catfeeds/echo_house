@@ -1145,6 +1145,9 @@ class PlotController extends ApiController{
     public function actionAddPlot()
     {
     	if(Yii::app()->request->getIsPostRequest()) {
+    		if(isset($_POST['openid'])) {
+    			$this->staff = UserExt::model()->find("openid='".$_POST['openid']."'");
+    		}
     		if(!$this->staff) {
     			return $this->returnError('请登录后操作');
     		}
