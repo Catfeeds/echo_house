@@ -582,7 +582,7 @@ class IndexController extends ApiController
             'out_trade_no'=>$out_trade_no,
             'nonce_str'=>$nonce_str,
             // 'sign'=>$sign,
-            'total_fee'=>(int)$price*100,
+            'total_fee'=>(int)($price*100),
             'spbill_create_ip'=>$spbill_create_ip,
             'trade_type'=>'JSAPI',
             'notify_url'=>$notify_url,
