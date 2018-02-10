@@ -567,7 +567,7 @@ class IndexController extends ApiController
         $mch_id=1439540602;
         $body='经纪圈新房通会员支付';
         $out_trade_no='jjq'.time();
-        $nonce_str=$this->createNoncestr();
+        $nonce_str=$this->createNoncestr(20);
         $notify_url=Yii::app()->request->getHostInfo().'/api/index/pay';
         $spbill_create_ip = $_SERVER["REMOTE_ADDR"];
 
@@ -640,7 +640,7 @@ class IndexController extends ApiController
         $parameters = array(
             'appId' => $this->appid, //小程序ID
             'timeStamp' => '' . time() . '', //时间戳
-            'nonceStr' => $this->createNoncestr(20), //随机串
+            'nonceStr' => $this->createNoncestr(), //随机串
             'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
             'signType' => 'MD5'//签名方式
         );
