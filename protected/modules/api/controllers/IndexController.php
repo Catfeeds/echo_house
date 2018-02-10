@@ -594,7 +594,17 @@ class IndexController extends ApiController
         // $res = $this->post('https://api.mch.weixin.qq.com/pay/unifiedorder',$dataxml);
         $xmlData = $this->arrayToXml($data);
         $return = $this->xmlToArray($this->postXmlCurl($xmlData, 'https://api.mch.weixin.qq.com/pay/unifiedorder', 60));
-        var_dump($return);;exit;
+         $parameters = array(
+            'appId' => $appid, //小程序ID
+            'timeStamp' => '' . time() . '', //时间戳
+            'nonceStr' => $this->createNoncestr(20), //随机串
+            'package' => 'prepay_id=' . $return['prepay_id'], //数据包
+            'signType' => 'MD5'//签名方式
+        );
+        //签名
+        $parameters['paySign'] = $this->getSign($parameters);
+        $this->frame['data'] = $parameters;
+
         
     }
 
