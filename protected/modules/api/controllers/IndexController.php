@@ -589,7 +589,7 @@ class IndexController extends ApiController
             'openid'=>$openid,
         ];
         $data['sign'] = $this->getSign($data);
-        var_dump($data);
+        // var_dump($data);
          // $this->frame['data'] = $dataxml;
         // $res = $this->post('https://api.mch.weixin.qq.com/pay/unifiedorder',$dataxml);
         $xmlData = $this->arrayToXml($data);
