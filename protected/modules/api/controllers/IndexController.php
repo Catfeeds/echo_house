@@ -553,7 +553,7 @@ class IndexController extends ApiController
     public function actionGetExpire($uid='')
     {
         $user = UserExt::model()->findByPk($uid);
-        if($user && $user->vip_expire)
+        if($user && $user->vip_expire>time())
             $this->frame['data'] = date('Y-m-d',$user->vip_expire);
     }
 }
