@@ -558,7 +558,7 @@ class IndexController extends ApiController
             $this->frame['data'] = date('Y-m-d',$user->vip_expire);
     }
 
-    public function actionSetPay($price='',$openid='')
+    public function actionSetPay($price=0,$openid='')
     {
         $appid = 'wxc4b995f8ee3ef609';
         // $apps = '48d79f6b24890a88ef5b53a5e5119f5a';
@@ -582,7 +582,7 @@ class IndexController extends ApiController
             'out_trade_no'=>$out_trade_no,
             'nonce_str'=>$nonce_str,
             // 'sign'=>$sign,
-            'total_fee'=>(string)$price,
+            'total_fee'=>(int)$price,
             'spbill_create_ip'=>$spbill_create_ip,
             'trade_type'=>'JSAPI',
             'notify_url'=>$notify_url,
