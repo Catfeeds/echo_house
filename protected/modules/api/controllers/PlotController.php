@@ -1146,7 +1146,7 @@ class PlotController extends ApiController{
     {
     	if(Yii::app()->request->getIsPostRequest()) {
     		if(isset($_POST['uid'])) {
-    			$this->staff = UserExt::model()->find("uid=".$_POST['uid']);
+    			$this->staff = UserExt::model()->findByPk($_POST['uid']);
     		}
     		if(!$this->staff) {
     			return $this->returnError('请登录后操作');
