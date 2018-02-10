@@ -556,4 +556,20 @@ class IndexController extends ApiController
         if($user && $user->vip_expire>time())
             $this->frame['data'] = date('Y-m-d',$user->vip_expire);
     }
+
+    public function actionPayFields()
+    {
+        $this->frame['data'] = [
+            'appid'=>SiteExt::getAttr('qjpz','appid'),
+            'mch_id'=>1439540602,
+            'body'=>'经纪圈新房通会员支付',
+            'out_trade_no'=>'jjq'.time(),
+            'notify_url'=>Yii::app()->request->getHostInfo().'/api/index/pay',
+        ];
+    }
+
+    public function actionPay()
+    {
+       Yii::log($_GET);
+    }
 }
