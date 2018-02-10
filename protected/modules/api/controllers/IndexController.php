@@ -577,19 +577,19 @@ class IndexController extends ApiController
 
         $data = [
             'appid'=>$appid,
-            'mch_id'=>1439540602,
+            'mch_id'=>'1439540602',
             'body'=>'经纪圈新房通会员支付',
             'out_trade_no'=>$out_trade_no,
             'nonce_str'=>$nonce_str,
             // 'sign'=>$sign,
-            'total_fee'=>$price,
+            'total_fee'=>(string)$price,
             'spbill_create_ip'=>$spbill_create_ip,
             'trade_type'=>'JSAPI',
             'notify_url'=>$notify_url,
             'openid'=>$openid,
         ];
         $data['sign'] = $this->getSign($data);
-        // var_dump($data['sign']);;exit;
+        var_dump($data);
          // $this->frame['data'] = $dataxml;
         // $res = $this->post('https://api.mch.weixin.qq.com/pay/unifiedorder',$dataxml);
         $xmlData = $this->arrayToXml($data);
