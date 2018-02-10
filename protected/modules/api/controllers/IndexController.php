@@ -549,4 +549,11 @@ class IndexController extends ApiController
         $phone = SiteExt::getAttr('qjpz','site_phone');
         $this->frame['data'] = $phone;
     }
+
+    public function actionGetExpire($openid='')
+    {
+        $user = UserExt::model()->find("openid='$openid'");
+        if($user && $user->vip_expire)
+            $this->frame['data'] = date('Y-m-d',$user->vip_expire);
+    }
 }
