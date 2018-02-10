@@ -1548,9 +1548,10 @@ class PlotController extends ApiController{
 
     public function actionSetVip()
     {
-    	if(!Yii::app()->user->getIsGuest() && Yii::app()->request->getIsPostRequest()) {
+    	if(Yii::app()->request->getIsPostRequest()) {
 			if($title = $this->cleanXss($_POST['title'])) {
 				$num = $this->cleanXss($_POST['num']);
+				$uid = Yii::app()->request->getPost('uid','');
 				switch ($title) {
 					case '299':
 						$time = 90*86400*$num;
@@ -1574,6 +1575,9 @@ class PlotController extends ApiController{
 				// } elseif (strstr($title, '2')) {
 				// 	$time = 365*86400*2*$num;
 				// }
+				if($uid) {
+					$this->staff = UserExt::model()->findByPk($uid);
+				}
 				if($obj = $this->staff) {
 					if($obj->vip_expire<time()) {
 						$obj->vip_expire = time()+$time;
