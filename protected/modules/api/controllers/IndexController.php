@@ -550,9 +550,9 @@ class IndexController extends ApiController
         $this->frame['data'] = $phone;
     }
 
-    public function actionGetExpire($openid='')
+    public function actionGetExpire($uid='')
     {
-        $user = UserExt::model()->find("openid='$openid'");
+        $user = UserExt::model()->findByPk($uid);
         if($user && $user->vip_expire)
             $this->frame['data'] = date('Y-m-d',$user->vip_expire);
     }
