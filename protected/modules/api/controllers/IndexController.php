@@ -640,7 +640,7 @@ class IndexController extends ApiController
         $parameters = array(
             'appId' => $this->appid, //小程序ID
             'timeStamp' => '' . time() . '', //时间戳
-            'nonceStr' => $this->createNoncestr(), //随机串
+            'nonceStr' => $this->createNoncestr(20), //随机串
             'package' => 'prepay_id=' . $unifiedorder['prepay_id'], //数据包
             'signType' => 'MD5'//签名方式
         );
