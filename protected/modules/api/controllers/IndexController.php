@@ -561,7 +561,7 @@ class IndexController extends ApiController
     public function actionSetPay($price='',$openid='')
     {
         $appid = 'wxc4b995f8ee3ef609';
-        $apps = '48d79f6b24890a88ef5b53a5e5119f5a';
+        // $apps = '48d79f6b24890a88ef5b53a5e5119f5a';
         
         // $appid=SiteExt::getAttr('qjpz','appid');
         $mch_id=1439540602;
@@ -607,7 +607,7 @@ class IndexController extends ApiController
         ksort($Parameters);
         $String = $this->formatBizQueryParaMap($Parameters, false);
         //签名步骤二：在string后加入KEY
-        $String = $String . "&key=48d79f6b24890a88ef5b53a5e5119f5a";
+        $String = $String . "&key=jjqxftv587jjqxftv587jjqxftv587jj";
         //签名步骤三：MD5加密
         $String = md5($String);
         //签名步骤四：所有字符转为大写
