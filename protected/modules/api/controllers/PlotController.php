@@ -34,6 +34,9 @@ class PlotController extends ApiController{
 		$criteria = new CDbCriteria;
 		if($uid>0) {
 			if(!$save) {
+				if(!$this->staff) {
+					$this->staff = UserExt::model()->findByPk($uid);
+				}
 				if($this->staff && $this->staff->type==1 && $this->staff->companyinfo) {
 					$init = 0;
 					$criteria->addCondition('uid=:uid');
