@@ -556,6 +556,8 @@ class IndexController extends ApiController
         $user = UserExt::model()->findByPk($uid);
         if($user && $user->vip_expire>time())
             $this->frame['data'] = date('Y-m-d',$user->vip_expire);
+        else 
+            $this->returnError('您还不是会员');
     }
 
     public function actionSetPay($price=0,$openid='')
