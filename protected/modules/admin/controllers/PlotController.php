@@ -450,4 +450,14 @@ class PlotController extends AdminController{
 		}
 	}
 
+	public function actionRefresh($id='')
+	{
+		if($id) {
+			$obj = PlotExt::model()->findByPk($id);
+			$obj->updated = $obj->created = time();
+			$obj->save();
+			$this->setMessage('操作成功','success');
+		}
+	}
+
 }
