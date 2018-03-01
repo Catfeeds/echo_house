@@ -121,7 +121,7 @@ $config1 = array(
             }
         ],
         'wxPay' => [
-            'class' => 'application.components.wsxPay',
+            'class' => 'application.components.WxPay',
         ],
         'request' => array(
             'enableCsrfValidation' => false,
