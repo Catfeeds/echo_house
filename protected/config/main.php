@@ -120,6 +120,9 @@ $config1 = array(
                 return 'jjqxft';
             }
         ],
+        'wxPay' => [
+            'class' => 'application.components.wxPay',
+        ],
         'request' => array(
             'enableCsrfValidation' => false,
             'csrfTokenName' => 'CSRF_TOKEN'
