@@ -563,7 +563,7 @@ class IndexController extends ApiController
     public function actionSetPay($price=0,$openid='')
     {
         $res = Yii::app()->wxPay->setPay('经纪圈新房通会员支付',$price,$openid);
-        var_dump($res);exit;
+        // var_dump($res);exit;
         if($res) {
             $this->frame['data'] = $res;
         }
