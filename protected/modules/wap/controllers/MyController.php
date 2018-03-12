@@ -3,7 +3,7 @@ class MyController extends WapController{
     public function init()
     {
         parent::init();
-        $this->showUser();
+        // $this->showUser();
         $this->layout = '/layouts/base';
     }
     public function actionIndex()
