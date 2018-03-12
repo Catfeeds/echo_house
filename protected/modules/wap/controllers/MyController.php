@@ -22,7 +22,7 @@ class MyController extends WapController{
                 $data = $res['data'][$uid];
                 setcookie('phone',$data['user_phone']);
                 if($data['user_phone'] && $user = UserExt::model()->normal()->find("phone='".$data['user_phone']."'")) {
-                    $model = new ApiLoginForm();
+                    $model = new StaffLoginForm();
                     $model->isapp = true;
                     $model->username = $user->phone;
                     $model->password = $user->pwd;
