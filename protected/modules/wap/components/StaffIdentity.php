@@ -6,6 +6,7 @@
  */
 class StaffIdentity extends CUserIdentity
 {
+	public $isapp = false;
 	public function authenticate()
 	{
 		//内置帐号
