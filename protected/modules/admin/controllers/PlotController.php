@@ -444,6 +444,7 @@ class PlotController extends AdminController{
 	{
 		if($id) {
 			$obj = PlotExt::model()->findByPk($id);
+			PlotMarketUserExt::model()->deleteAllByAttributes(['uid'=>$obj->uid,'hid'=>$id]);
 			$obj->uid = 0;
 			$obj->save();
 			$this->setMessage('操作成功','success');
