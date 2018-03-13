@@ -31,7 +31,14 @@ class PlotMarketUserController extends AdminController{
             	if($plot) {
             		$criteria->addCondition('hid='.$plot->id);
             	}
-            } 
+            } elseif ($type=='phone') {
+            	$criter = new CDbCriteria;
+            	$criter->addSearchCondition('phone',$value);
+            	$plot = UserExt::model()->find($criter);
+            	if($plot) {
+            		$criteria->addCondition('uid='.$plot->id);
+            	}
+            }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
         {
