@@ -10,6 +10,7 @@ class StaffLoginForm extends CFormModel
 	public $username;
 	public $password;
 	public $rememberMe;
+	public $isapp = false;
 
 	private $_identity;
 
@@ -60,6 +61,7 @@ class StaffLoginForm extends CFormModel
 		if($this->_identity===null)
 		{
 			$this->_identity=new StaffIdentity($this->username,$this->password);
+			$this->_identity->isapp = $this->isapp;
 			$this->_identity->authenticate();
 		}
 		if($this->_identity->errorCode===StaffIdentity::ERROR_NONE)

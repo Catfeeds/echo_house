@@ -230,21 +230,21 @@ class PlotExt extends Plot{
                 }
             }
         }
-        if($this->company_id && $this->market_users) {
-            $mks = explode(' ', $this->market_users);
-            foreach ($mks as $key => $value) {
-                preg_match_all('/[0-9]+/', $value,$num);
-                if(isset($num[0][0])) {
-                    $num = $num[0][0];
-                    if($user = UserExt::model()->find("phone='$num'")){
-                        if($user->cid!=$this->company_id) {
-                            $user->cid = $this->company_id;
-                            $user->save();
-                        }
-                    }
-                }
-            }
-        }
+        // if($this->company_id && $this->market_users) {
+        //     $mks = explode(' ', $this->market_users);
+        //     foreach ($mks as $key => $value) {
+        //         preg_match_all('/[0-9]+/', $value,$num);
+        //         if(isset($num[0][0])) {
+        //             $num = $num[0][0];
+        //             if($user = UserExt::model()->find("phone='$num'")){
+        //                 if($user->cid!=$this->company_id) {
+        //                     $user->cid = $this->company_id;
+        //                     $user->save();
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         if($this->company_id && $this->owner && $this->owner->cid!=$this->company_id) {
 
             $this->owner->cid = $this->company_id;

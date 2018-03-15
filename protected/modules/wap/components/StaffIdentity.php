@@ -6,35 +6,41 @@
  */
 class StaffIdentity extends CUserIdentity
 {
-	/**
-	 * 验证身份
-	 * @return bool
-	 */
+	public $isapp = false;
 	public function authenticate()
 	{
 		//内置帐号
-		if($this->username=='航加调试'&&md5($this->password)=='ed6de327f1bd480a4c98ade520021ad1')
-		{
-			$this->errorCode = self::ERROR_NONE;
-			$this->setState('id',1);
-			$this->setState('username','admin');
-			return $this->errorCode;
-		}
+		// if($this->username=='admin' && ($this->password=='admin123'))
+		// {
+		// 	$this->errorCode = self::ERROR_NONE;
+		// 	$this->setState('id',1);
+		// 	$this->setState('username','管理员');
+		// 	return $this->errorCode;
+		// }
+		// var_dump(2);exit;
+		if(is_numeric($this->username)) {
+			$info = UserExt::model()->normal()->find("phone='{$this->username}'");
+		} else {
+			$info = UserExt::model()->normal()->find("name='{$this->username}'");
+		} 
+		// var_dump($info);exit;
+		if($info) {
 
-		$staff = StaffExt::model()->getLoginUserInfo($this->username, $this->password)->find();
-		if(empty($staff))
+			if($info->pwd!=($this->isapp?$this->password:md5($this->password))) {
+				$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+			} else {
+				$this->errorCode = self::ERROR_NONE;
+				$this->setState('id',$info->id);
+				$this->setState('phone',$info->phone);
+				$this->setState('username',$info->name);
+				return $this->errorCode;
+			}
+		}else {
 			$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
-		else
-		{
-			$this->errorCode = self::ERROR_NONE;
-			//为该登录用户设置全局变量信息
-			$this->setState('id', $staff->id);
-			$this->setState('username', $staff->username);
-			$staff->login_time = time();
-			$staff->login_ip = ip2long(Yii::app()->request->getUserHostAddress());
-			$staff->save();
 		}
 
+		$this->errorCode = self::ERROR_UNKNOWN_IDENTITY;
+		// exit;
 		return $this->errorCode;
 	}
 
@@ -47,4 +53,19 @@ class StaffIdentity extends CUserIdentity
 	{
 		return $this->getState('username');
 	}
+
+	public function getIp()
+    {
+        $ip = '127.0.0.1';
+        if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
+            $ip = getenv('HTTP_CLIENT_IP');
+        } elseif(getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown')) {
+            $ip = getenv('HTTP_X_FORWARDED_FOR');
+        } elseif(getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown')) {
+            $ip = getenv('REMOTE_ADDR');
+        } elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
 }

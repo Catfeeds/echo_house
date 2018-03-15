@@ -25,6 +25,11 @@ class IndexController extends ApiController
         $this->showUser();
         $this->redirect('/subwap/register.html');
     }
+    public function actionMy()
+    {
+        $this->showUser();
+        $this->redirect('/wap/my/index');
+    }
     public function actionVip()
     {
         $this->showUser();
@@ -562,53 +567,62 @@ class IndexController extends ApiController
 
     public function actionSetPay($price=0,$openid='')
     {
-        $appid = 'wxc4b995f8ee3ef609';
-        // $apps = '48d79f6b24890a88ef5b53a5e5119f5a';
-        
-        // $appid=SiteExt::getAttr('qjpz','appid');
-        $mch_id=1439540602;
-        $body='经纪圈新房通会员支付';
-        $out_trade_no='jjq'.time();
-        $nonce_str=$this->createNoncestr(20);
-        $notify_url=Yii::app()->request->getHostInfo().'/api/index/pay';
-        $spbill_create_ip = $_SERVER["REMOTE_ADDR"];
-
-        // $stringA="appid=$appid&body=$body&mch_id=$mch_id&nonce_str=$nonce_str&notify_url=$notify_url&out_trade_no=$out_trade_no&spbill_create_ip=$spbill_create_ip&trade_type=JSAPI&total_fee=$price";
-        // $stringSignTemp=$stringA+$apps;
-        // $sign=strtoupper(MD5($stringSignTemp));
-
-        $data = [
-            'appid'=>$appid,
-            'mch_id'=>'1439540602',
-            'body'=>'经纪圈新房通会员支付',
-            'out_trade_no'=>$out_trade_no,
-            'nonce_str'=>$nonce_str,
-            // 'sign'=>$sign,
-            'total_fee'=>(int)($price*100),
-            'spbill_create_ip'=>$spbill_create_ip,
-            'trade_type'=>'JSAPI',
-            'notify_url'=>$notify_url,
-            'openid'=>$openid,
-        ];
-        $data['sign'] = $this->getSign($data);
-        // var_dump($data);
-         // $this->frame['data'] = $dataxml;
-        // $res = $this->post('https://api.mch.weixin.qq.com/pay/unifiedorder',$dataxml);
-        $xmlData = $this->arrayToXml($data);
-        $return = $this->xmlToArray($this->postXmlCurl($xmlData, 'https://api.mch.weixin.qq.com/pay/unifiedorder', 60));
-         $parameters = array(
-            'appId' => $appid, //小程序ID
-            'timeStamp' => '' . time() . '', //时间戳
-            'nonceStr' => $this->createNoncestr(20), //随机串
-            'package' => 'prepay_id=' . $return['prepay_id'], //数据包
-            'signType' => 'MD5'//签名方式
-        );
-        //签名
-        $parameters['paySign'] = $this->getSign($parameters);
-        $this->frame['data'] = $parameters;
-
-        
+        $res = Yii::app()->wxPay->setPay('经纪圈新房通会员支付',$price,$openid);
+        // var_dump($res);exit;
+        if($res) {
+            $this->frame['data'] = $res;
+        }
     }
+
+    // public function actionSetPay($price=0,$openid='')
+    // {
+    //     $appid = 'wxc4b995f8ee3ef609';
+    //     // $apps = '48d79f6b24890a88ef5b53a5e5119f5a';
+        
+    //     // $appid=SiteExt::getAttr('qjpz','appid');
+    //     $mch_id=1439540602;
+    //     $body='经纪圈新房通会员支付';
+    //     $out_trade_no='jjq'.time();
+    //     $nonce_str=$this->createNoncestr(20);
+    //     $notify_url=Yii::app()->request->getHostInfo().'/api/index/pay';
+    //     $spbill_create_ip = $_SERVER["REMOTE_ADDR"];
+
+    //     // $stringA="appid=$appid&body=$body&mch_id=$mch_id&nonce_str=$nonce_str&notify_url=$notify_url&out_trade_no=$out_trade_no&spbill_create_ip=$spbill_create_ip&trade_type=JSAPI&total_fee=$price";
+    //     // $stringSignTemp=$stringA+$apps;
+    //     // $sign=strtoupper(MD5($stringSignTemp));
+
+    //     $data = [
+    //         'appid'=>$appid,
+    //         'mch_id'=>'1439540602',
+    //         'body'=>'经纪圈新房通会员支付',
+    //         'out_trade_no'=>$out_trade_no,
+    //         'nonce_str'=>$nonce_str,
+    //         // 'sign'=>$sign,
+    //         'total_fee'=>(int)($price*100),
+    //         'spbill_create_ip'=>$spbill_create_ip,
+    //         'trade_type'=>'JSAPI',
+    //         'notify_url'=>$notify_url,
+    //         'openid'=>$openid,
+    //     ];
+    //     $data['sign'] = $this->getSign($data);
+    //     // var_dump($data);
+    //      // $this->frame['data'] = $dataxml;
+    //     // $res = $this->post('https://api.mch.weixin.qq.com/pay/unifiedorder',$dataxml);
+    //     $xmlData = $this->arrayToXml($data);
+    //     $return = $this->xmlToArray($this->postXmlCurl($xmlData, 'https://api.mch.weixin.qq.com/pay/unifiedorder', 60));
+    //      $parameters = array(
+    //         'appId' => $appid, //小程序ID
+    //         'timeStamp' => '' . time() . '', //时间戳
+    //         'nonceStr' => $this->createNoncestr(20), //随机串
+    //         'package' => 'prepay_id=' . $return['prepay_id'], //数据包
+    //         'signType' => 'MD5'//签名方式
+    //     );
+    //     //签名
+    //     $parameters['paySign'] = $this->getSign($parameters);
+    //     $this->frame['data'] = $parameters;
+
+        
+    // }
 
     //作用：生成签名
     private function getSign($Obj) {
