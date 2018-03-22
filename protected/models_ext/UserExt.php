@@ -97,6 +97,7 @@ class UserExt extends User{
             $this->vip_expire = strtotime($this->vip_expire);
         }
         if($this->getIsNewRecord()) {
+            SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'phone'=>SiteExt::getAttr('qjpz','site_wx')]);
             if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {
                 $this->qf_uid = $_COOKIE['qf_uid'];
             }
