@@ -18,8 +18,8 @@
 				<span>满足条件的房源共有 <b style="color: rgb(223,82,37)">{{item.num}}</b> 条</span>
 			</div>
 			<ul class="tags clearfloat">
-				<li class="tag color1">{{item.wylx}}</li>
-				<li class="tag color2">{{item.zxzt}}</li>
+				<li class="tag color1" ng-if="item.wylx=item.wylx?item.wylx:'不限类型'">{{item.wylx}}</li>
+				<li class="tag color2" ng-if="item.wylx=item.wylx?item.wylx:'不限装修'">{{item.zxzt}}</li>
 				<!-- <li class="tag color3"></li> -->
 			</ul>
 			<img class="detail" src="./img/).png">

@@ -1462,20 +1462,42 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest()) {
     		$subss = $this->staff->subscribes;
     		$data = [];
+    		$ids = [];
     		if($subss) {
     			foreach ($subss as $key => $value) {
-    				$w = '';
-    				foreach (['area','street','wylx','zxzt'] as $m) {
-    					$value->$m && $w.=" $m=".$value->$m." and";
+    				$criteria = new CDbCriteria;
+
+    				// $w = '';
+    				foreach (['area','street'] as $m) {
+    					$value->$m && $criteria->addCondition("$m=".$value->$m);
     				}
-    				$w .= ' 1=1';
+    				foreach (['wylx','zxzt'] as $t) {
+						if($value->$t) {
+							$idarr = Yii::app()->db->createCommand("select hid from plot_tag where tid=".$value->$t)->queryAll();
+							// var_dump($idarr);exit;
+							if($idarr) {
+								$tmp = [];
+								foreach ($idarr as $hid) {
+									$tmp[] = $hid['hid'];
+								}
+								if($ids) {
+									$ids = array_intersect($ids,$tmp);
+								} else {
+									$ids = $tmp;
+								}
+							}
+							$criteria->addInCondition('id',$ids);
+							
+						}
+					}
+    				// $w .= ' 1=1';
     				$data[] = [
     				'id'=>$value->id,
     				'area'=>$value->area?$value->areainfo->name:'',
     				'area_id'=>$value->area,
     				'street'=>$value->street?$value->streetinfo->name:'',
     				'street_id'=>$value->street,
-    				'num'=>PlotExt::model()->normal()->count($w),
+    				'num'=>PlotExt::model()->normal()->count($criteria),
     				'minprice'=>$value->minprice,
     				'maxprice'=>$value->maxprice,
     				'wylx'=>$value->wylx?TagExt::model()->findByPk($value->wylx)->name:'',
