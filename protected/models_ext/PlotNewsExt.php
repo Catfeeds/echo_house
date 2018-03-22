@@ -11,7 +11,7 @@ class PlotNewsExt extends PlotNews{
     public function relations()
     {
         return array(
-            'team'=>array(self::BELONGS_TO, 'TeamExt', 'tid'),
+            'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }
@@ -45,6 +45,15 @@ class PlotNewsExt extends PlotNews{
     public function beforeValidate() {
         if($this->getIsNewRecord()) {
             $this->status = 1;
+            $plot = $this->plot;
+            $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
+            if($users) {
+                foreach ($users as $key => $value) {
+                    $value['phone'] && SmsExt::sendMsg('楼盘动态新增',$value['phone'],['name'=>$value['name'],'pro'=>$plot->title]);
+                    $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/subwap/detail.html?id='.$this->hid,$value['qf_uid']);
+                }
+            }
+
             $this->created = $this->updated = time();
         }
         else

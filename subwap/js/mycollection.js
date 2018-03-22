@@ -48,9 +48,9 @@ app.controller('listCtrl',function($scope,$http){
 			
 		});
 	}
-//取消收藏
+//取消关注
 	$scope.notsave=function($event){	
-		var r=confirm("确定取消收藏吗？");
+		var r=confirm("确定取消关注吗？");
 		if(r==true){
 			$($event.target).parent().remove();
 			hid=$($event.target).attr('data-id');
