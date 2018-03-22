@@ -55,6 +55,7 @@ class SiteExt extends Site{
             'ouruids'=>['type'=>'text','name'=>'业务部uid'],
             'kfuid'=>['type'=>'text','name'=>'客服uid'],
             'site_phone'=>['type'=>'text','name'=>'站点客服'],
+            'site_wx'=>['type'=>'text','name'=>'客服微信'],
             'siteqq'=>['type'=>'text','name'=>'站点qq'],
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
             'map_lat'=>['type'=>'text','name'=>'默认纬度'],

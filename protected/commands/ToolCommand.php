@@ -66,14 +66,19 @@ class ToolCommand extends CConsoleCommand
 
     public function actionSendNo()
     {
-        $infos = PlotMarketUserExt::model()->findAll('expire>'.time().' and expire<'.time()+86400*3);
+        $infos = UserExt::model()->findAll('vip_expire>'.time().' and vip_expire<'.time()+86400*3);
+        // $infos = PlotMarketUserExt::model()->findAll('expire>'.time().' and expire<'.time()+86400*3);
         foreach ($infos as $key => $value) {
-            $user = $value->user;
+            if($user && $user->phone) {
+                SmsExt::sendMsg('会员到期通知',$user->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$user->name]);
+            }
+            // $user = $value->user;
             if($user&&$user->qf_uid) {
-                if($p = $value->plot) {
-                    SmsExt::sendMsg('到期通知',$user->phone,['pro'=>$p->title]);
-                    Yii::app()->controller->sendNotice('您的项目'.$p->title.'即将到期，请点击下面链接成为会员，成为会员后您的号码将继续展现，并且可以无限次数发布项目。 http://house.jj58.com.cn/api/index/vip',$user->qf_uid);
-                }
+                Yii::app()->controller->sendNotice($user->name.'您好，您的新房通VIP会员即将到期，请点击以下链接自助续费: http://house.jj58.com.cn/api/index/vip ，或者联系客服微信:'.SiteExt::getAttr('qjpz','site_wx').'协助续费。',$user->qf_uid);
+                // if($p = $value->plot) {
+                //     SmsExt::sendMsg('到期通知',$user->phone,['pro'=>$p->title]);
+                //     Yii::app()->controller->sendNotice('您的项目'.$p->title.'即将到期，请点击下面链接成为会员，成为会员后您的号码将继续展现，并且可以无限次数发布项目。 http://house.jj58.com.cn/api/index/vip',$user->qf_uid);
+                // }
             }
         }
     }

@@ -1410,13 +1410,13 @@ class PlotController extends ApiController{
     {
     	if(Yii::app()->request->getIsPostRequest()&&!Yii::app()->user->getIsGuest()) {
     		$params = Yii::app()->request->getPost('SubscribeExt',[]);
-    		if($usu = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id)){
-    			if($usu->num<=count($this->staff->subscribes)) {
-    				return $this->returnError('您的订阅数已达上线');
-    			}
-    		} else {
-    			return $this->returnError('您的订阅已到期，请先支付');
-    		}
+    		// if($usu = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id)){
+    		// 	if($usu->num<=count($this->staff->subscribes)) {
+    		// 		return $this->returnError('您的订阅数已达上线');
+    		// 	}
+    		// } else {
+    		// 	return $this->returnError('您的订阅已到期，请先支付');
+    		// }
     		if($params) {
     			$criteria = new CDbCriteria;
     			$tmp = "uid=:uid and";
@@ -1504,14 +1504,7 @@ class PlotController extends ApiController{
 
     public function actionCheckCanSubscribe()
     {
-    	if(!Yii::app()->user->getIsGuest()) {
-    		$obj = UserSubscribeExt::model()->normal()->find('uid='.$this->staff->id);
-    		if(!$obj) {
-				$this->returnError('订阅上新房源仅需9.9元/月');
-    		}
-    	} else {
-    		$this->returnError('请登录后操作');
-    	}
+    	$this->returnSuccess('bingo');
     }
 
     public function actionAddSubscribePay()
