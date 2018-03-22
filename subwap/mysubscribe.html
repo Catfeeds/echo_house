@@ -11,13 +11,11 @@
 	<ul>
 		<li class="subscribelist" ng-cloak ng-repeat="item in list" data-id="{{item.id}}" ng-click="turnlist(item)">
 			<div class="location clearfloat">
-				<span ng-if="item.area=item.area?item.area:'不限省份'">{{item.area}}</span>
-				<span ng-if="item.street=item.street?item.street:'不限城市'">{{item.street}}</span>
+				<span ng-if="item.area=item.area?item.area:'不限城市'">{{item.area}}</span>
+				<span ng-if="item.street=item.street?item.street:'不限区域'">{{item.street}}</span>
 			</div>
 			<div class="price clearfloat">
-				<span ng-if="item.minprice=item.minprice?item.minprice:'0'">{{item.minprice}}K</span>
-				<span>-</span>
-				<span ng-if="item.maxprice=item.maxprice?item.maxprice:'不限'">{{item.maxprice}}K</span>
+				<span>满足条件的房源共有 <b style="color: rgb(223,82,37)">{{item.num}}</b> 条</span>
 			</div>
 			<ul class="tags clearfloat">
 				<li class="tag color1">{{item.wylx}}</li>

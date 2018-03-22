@@ -1464,12 +1464,18 @@ class PlotController extends ApiController{
     		$data = [];
     		if($subss) {
     			foreach ($subss as $key => $value) {
+    				$w = '';
+    				foreach (['area','street','wylx','zxzt'] as $m) {
+    					$value->$m && $w.=" $m=".$value->$m." and";
+    				}
+    				$w .= ' 1=1';
     				$data[] = [
     				'id'=>$value->id,
     				'area'=>$value->area?$value->areainfo->name:'',
     				'area_id'=>$value->area,
     				'street'=>$value->street?$value->streetinfo->name:'',
     				'street_id'=>$value->street,
+    				'num'=>PlotExt::model()->normal()->count($w),
     				'minprice'=>$value->minprice,
     				'maxprice'=>$value->maxprice,
     				'wylx'=>$value->wylx?TagExt::model()->findByPk($value->wylx)->name:'',
