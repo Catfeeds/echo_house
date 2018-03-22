@@ -12,6 +12,7 @@ function sub(){
 				alert(data.msg);
 			} else {
 				alert(data.msg);
+				location.href = '/wap/my/index';
 				history.back();
 			}
 		});
