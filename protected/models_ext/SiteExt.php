@@ -33,6 +33,7 @@ class SiteExt extends Site{
         'mzsm'=>'',
         'vipNotice'=>'',
         'ouruids'=>'',
+        'site_wx'=>'',
         'kfuid'=>'',
     ];
     public static $cateName = [
