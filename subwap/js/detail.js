@@ -209,7 +209,7 @@ $(document).ready(function(){
             //顶部图片  
             if(detail.images!=''&&detail.images!=undefined){    
                 for (var i = 0; i < detail.images.length; i++) {
-                    topimglist.push(detail.images[i].url);
+                    topimglist.push(detail.images[i].content);
                 }
             }
             if(detail.images!=''&&detail.images!=undefined){    

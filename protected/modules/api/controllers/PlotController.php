@@ -322,9 +322,13 @@ class PlotController extends ApiController{
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+				if($value['url']) {
+					$images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+					$images[$key]['content'] = ImageTools::fixImage($value['url']);
+				}
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490)];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490),'content'=>ImageTools::fixImage($info->image)];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
