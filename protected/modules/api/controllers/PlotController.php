@@ -324,6 +324,13 @@ class PlotController extends ApiController{
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 				if($value['url']) {
 					$images[$key]['url'] = ImageTools::fixImage($value['url']);
+					if($value['type']) {
+						$images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
+					} else {
+						$images[$key]['type'] = '效果图';
+					}
+
+					
 					$images[$key]['content'] = ImageTools::fixImage($value['url']);
 				}
 			}
