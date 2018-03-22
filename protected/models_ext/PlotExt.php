@@ -177,6 +177,7 @@ class PlotExt extends Plot{
     }
 
     public function beforeValidate() {
+        !$this->pinyin && $this->pinyin = 'pinyin';
         if(!$this->company_id && $cms = $this->companys) {
             $this->company_id = $cms[0]['id'];
             $this->company_name = $cms[0]['name'];
