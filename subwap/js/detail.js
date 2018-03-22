@@ -80,11 +80,11 @@ $(document).ready(function(){
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');
-                $('.detail-button-save-text').html('已收藏');
+                $('.detail-button-save-text').html('已关注');
             } else {
                 $('#save').attr('css','notsave');
                 $('#save').attr('src','./img/notsave.png');
-                $('.detail-button-save-text').html('收藏');
+                $('.detail-button-save-text').html('关注');
             }
             //底部按钮变化
             if (detail.is_contact_only==1) {
@@ -472,19 +472,19 @@ $('.fufei-detail').click(function() {
 $('.shutoff-img').click(function() {
     $('.rules-bg').css('display','none');
 });
-//收藏
+//关注
 $('#save').click(function() {
     $.get('/api/plot/addSave?hid='+hid,function(data) {
         if(data.status=='success') {
             if ($('#save').hasClass('notsave')) {
                 $('#save').removeClass('notsave');
                 $('#save').addClass('save');
-                $('.detail-button-save-text').html('已收藏');
+                $('.detail-button-save-text').html('已关注');
                 $('#save').attr('src','./img/save.png');
             } else {
                 $('#save').removeClass('save');
                 $('#save').addClass('notsave');
-                $('.detail-button-save-text').html('收藏');
+                $('.detail-button-save-text').html('关注');
                 $('#save').attr('src','./img/notsave.png');
             }
         }
