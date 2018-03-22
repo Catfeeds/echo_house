@@ -110,6 +110,9 @@ class UserExt extends User{
             $this->updated = time();
             if($this->type==1 && $this->vip_expire && $this->status==1 && Yii::app()->db->createCommand('select vip_expire from user where id='.$this->id)->queryScalar()!=$this->vip_expire) {
                 Yii::app()->db->createCommand("update plot_makert_user set expire=".$this->vip_expire." where status=1 and uid=".$this->id)->execute();
+                SmsExt::sendMsg('充值会员成功',$this->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$this->name]);
+                Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire),'',1);
+
             }
             if($this->type==3 && $this->status==1 && $this->qf_uid && ((Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0)) {
                 $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
