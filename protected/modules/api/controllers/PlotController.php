@@ -260,7 +260,7 @@ class PlotController extends ApiController{
 						'unit'=>PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
-						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
 						'wylx'=>$wyw,
 						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
@@ -321,14 +321,14 @@ class PlotController extends ApiController{
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 				if($value['url']) {
-					$images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+					$images[$key]['url'] = ImageTools::fixImage($value['url']);
 					$images[$key]['content'] = ImageTools::fixImage($value['url']);
 				}
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490),'content'=>ImageTools::fixImage($info->image)];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image),'content'=>ImageTools::fixImage($info->image)];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
