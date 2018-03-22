@@ -33,7 +33,7 @@ body{
 	font-size: 0.8rem
 }
 .report-report{
-	/*position: fixed;*/
+	position: absolute;
 	bottom:0rem;
 	background-color: #fff;
 	height: 3.733rem;
