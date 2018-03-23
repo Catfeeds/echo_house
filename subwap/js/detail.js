@@ -130,6 +130,8 @@ $(document).ready(function(){
             $('.detail-daikanrules-message').append(detail.dk_rule?detail.dk_rule:'暂无');
             if (detail.news!=''&&detail.news!=undefined) {
                 $('.detail-laststate-message').append(detail.news);
+                $('.detail-laststate-time').append(detail.news_time);
+                $('.detail-laststate-num').append('(' + detail.new_num + ')');
             }else{
                 $('.detail-laststate-message').append('暂无');
                 $('#laststate-img').css('display','none');
