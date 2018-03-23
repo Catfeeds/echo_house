@@ -62,6 +62,8 @@ function checkUser() {
 }
 $(document).ready(function(){
     var clipboard = new Clipboard('.copy-weixin');  
+    $('.detail-laststate-time').empty();
+    $('.detail-laststate-num').empty();
     $.get('/api/config/index',function(data) {
         is_jy = data.data.is_jy;
         if(data.data.is_user == true) {
@@ -135,8 +137,6 @@ $(document).ready(function(){
             }else{
                 $('.detail-laststate-message').append('暂无');
                 $('#laststate-img').css('display','none');
-                $('.detail-laststate-time').empty();
-                $('.detail-laststate-num').empty();
             }
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');

@@ -827,6 +827,8 @@ function cleardetail() {
     $('.swiper-wrapper').empty();
     $('.telephone-consult li').not('#showadd').remove();
     $('#samearea ul').empty();
+    $('.detail-laststate-time').empty();
+    $('.detail-laststate-num').empty();
     topimglist = [];
     hximglist = [];
 }
@@ -915,8 +917,6 @@ function showdetail(id) {
             }else{
                 $('.detail-laststate-message').append('暂无');
                 $('#laststate-img').css('display','none');
-                $('.detail-laststate-time').empty();
-                $('.detail-laststate-num').empty();
             }
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');
