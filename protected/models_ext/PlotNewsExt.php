@@ -44,7 +44,7 @@ class PlotNewsExt extends PlotNews{
 
     public function beforeValidate() {
         if($this->getIsNewRecord()) {
-            $this->status = 1;
+            // $this->status = 1;
             $plot = $this->plot;
             $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
             if($users) {

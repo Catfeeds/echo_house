@@ -486,7 +486,7 @@ class PlotController extends ApiController{
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {
-			if(($data['owner_phone']==$this->staff->phone&&Yii::app()->db->createCommand("select id from plot_makert_user where is_manager=1 and status=1 and deleted=0 and expire>".time()." and uid=".$this->staff->id." and hid=".$info->id)->queryScalar())||strstr($info->market_user,$this->staff->phone)) {
+			if((Yii::app()->db->createCommand("select id from plot_makert_user where status=1 and deleted=0 and expire>".time()." and uid=".$this->staff->id." and hid=".$info->id)->queryScalar())||strstr($info->market_user,$this->staff->phone)) {
 				$data['can_edit'] = 1;
 			} else {
 				$data['can_edit'] = 0;

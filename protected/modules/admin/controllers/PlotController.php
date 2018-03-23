@@ -132,6 +132,68 @@ class PlotController extends AdminController{
 		$houses = PlotNewsExt::model()->undeleted()->getList($criteria,20);
 		$this->render('newslist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
+	/**
+	 * [actionList 动态列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionNewslistnew($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='')
+	{
+		$modelName = 'PlotExt';
+		$criteria = new CDbCriteria;
+		if($value = trim($value))
+            if ($type=='title') {
+            	$cre = new CDbCriteria;
+                $cre->addSearchCondition('title', $value);
+                $ids = [];
+                if($ress = PlotExt::model()->findAll($cre)) {
+                	// var_dump($ress);
+                	foreach ($ress as $res) {
+                		$ids[] = $res['id'];
+                	}
+                }
+                // var_dump($ids);
+                $criteria->addInCondition('hid',$ids);
+            } elseif($type=='author') {
+            	$criteria->addSearchCondition('author',$value);
+            }
+        //添加时间、刷新时间筛选
+        if($time_type!='' && $time!='')
+        {
+            list($beginTime, $endTime) = explode('-', $time);
+            $beginTime = (int)strtotime(trim($beginTime));
+            $endTime = (int)strtotime(trim($endTime));
+            $criteria->addCondition("{$time_type}>=:beginTime");
+            $criteria->addCondition("{$time_type}<:endTime");
+            $criteria->params[':beginTime'] = TimeTools::getDayBeginTime($beginTime);
+            $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
+
+        }
+        if(Yii::app()->user->id>1) {
+        	$company=Yii::app()->user->cid;
+        }
+        if($company) {
+        	$criteria->addCondition('company_id=:comid');
+        	$criteria->params[':comid'] = $company;
+        }
+        if(is_numeric($status)) {
+        	$criteria->addCondition('status=:status');
+        	$criteria->params[':status'] = $status;
+        }
+         if(is_numeric($is_uid)) {
+         	if($is_uid)
+        		$criteria->addCondition('uid>0');
+        	else
+        		$criteria->addCondition('uid=0');
+        }
+		$this->controllerName = '项目动态';
+		$criteria->order = 'sort desc,created desc';
+		if($sort) {
+			$criteria->order = $sort.' desc';
+		}
+		$infos = PlotNewsExt::model()->undeleted()->getList($criteria,20);
+		$this->render('newslistnew',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
+	}
 
 	/**
 	 * [actionList 问答列表]
@@ -400,6 +462,25 @@ class PlotController extends AdminController{
 		$this->render('hxedit',['article'=>$info,'hid'=>$hid]);
 	}
 
+	public function actionNewseditnew()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$modelName = 'PlotNewsExt';
+		$this->controllerName = '楼盘动态';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['newslistnew']);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('newseditnew',['article'=>$info]);
+	}
+
 	public function actionEditNews()
 	{
 		$id = Yii::app()->request->getQuery('id','');
@@ -410,6 +491,7 @@ class PlotController extends AdminController{
 		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->status = 1;
 			// var_dump($info->attributes);exit;
 			if($info->save()) {
 				$this->setMessage('操作成功','success',['newslist?hid='.$hid]);
