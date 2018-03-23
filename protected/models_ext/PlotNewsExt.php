@@ -47,18 +47,29 @@ class PlotNewsExt extends PlotNews{
             // $this->status = 1;
             $plot = $this->plot;
             Yii::app()->controller->sendNotice($plot->title.'更新了最新动态，请登陆后台审核','',1);
-            $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
-            if($users) {
-                foreach ($users as $key => $value) {
-                    $value['phone'] && SmsExt::sendMsg('楼盘动态新增',$value['phone'],['name'=>$value['name'],'pro'=>$plot->title]);
-                    $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/subwap/detail.html?id='.$this->hid,$value['qf_uid']);
-                }
-            }
+            // $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
+            // if($users) {
+            //     foreach ($users as $key => $value) {
+            //         $value['phone'] && SmsExt::sendMsg('楼盘动态新增',$value['phone'],['name'=>$value['name'],'pro'=>$plot->title]);
+            //         $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/subwap/detail.html?id='.$this->hid,$value['qf_uid']);
+            //     }
+            // }
 
             $this->created = $this->updated = time();
         }
-        else
+        else {
+            if($this->status==1 && Yii::app()->db->createCommand('select status from plot_news where id='.$this->id)->queryScalar()==0) {
+                $plot = $this->plot;
+                $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
+                if($users) {
+                    foreach ($users as $key => $value) {
+                        $value['phone'] && SmsExt::sendMsg('楼盘动态新增',$value['phone'],['name'=>$value['name'],'pro'=>$plot->title]);
+                        $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/api/index/detail?id='.$this->hid,$value['qf_uid']);
+                    }
+                }
+            }
             $this->updated = time();
+        }
         return parent::beforeValidate();
     }
 
