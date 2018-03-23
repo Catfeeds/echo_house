@@ -188,7 +188,7 @@ $(document).ready(function(){
             } else {
                 $('.detail-sailpoint').css('display','none');
             }
-            $('.fuzhiwenan').addAttr('data-clipboard-text',detail.sell_point);
+            $('.fuzhiwenan').attr('data-clipboard-text',detail.sell_point);
             //插入主力户型
             if(detail.hx!=''&&detail.hx!=undefined){    
                 for (var i = 0; i < detail.hx.length; i++) {
