@@ -447,6 +447,7 @@ class PlotController extends ApiController{
 		} else {
 			$thisuid = 0;	
 		}
+		$sell_desc = str_replace('&nbsp;', ' ', strip_tags($info->peripheral.$info->surround_peripheral));
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -463,6 +464,7 @@ class PlotController extends ApiController{
 			'news_time'=>$news_time,
 			'new_num'=>$news_num,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
+			'sell_point_des'=>$sell_desc,
 			'hx'=>$hxarr,
 			'phones'=>$phone?[$phone]:$phones,
 			'phone'=>$phone?$phone:($this->staff?$major_phone:''),

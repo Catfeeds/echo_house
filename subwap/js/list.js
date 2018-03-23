@@ -837,7 +837,7 @@ function cleardetail() {
 function showdetail(id) {
     cleardetail();
     window.scrollTo(0,0);
-    var clipboard = new Clipboard('.copy-weixin');  
+    var clipboard = new Clipboard('.fuzhiwenan');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
             is_user = true;
@@ -964,6 +964,7 @@ function showdetail(id) {
             } else {
                 $('.detail-sailpoint').css('display','none');
             }
+            $('.fuzhiwenan').attr('data-clipboard-text',detail.sell_point_des);
             //插入主力户型
             if(detail.hx!=''&&detail.hx!=undefined){    
                 for (var i = 0; i < detail.hx.length; i++) {
