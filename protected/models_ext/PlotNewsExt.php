@@ -51,7 +51,7 @@ class PlotNewsExt extends PlotNews{
             // if($users) {
             //     foreach ($users as $key => $value) {
             //         $value['phone'] && SmsExt::sendMsg('楼盘动态新增',$value['phone'],['name'=>$value['name'],'pro'=>$plot->title]);
-            //         $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/subwap/detail.html?id='.$this->hid,$value['qf_uid']);
+            //         $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'更新了最新动态，请点击以下链接查看: http://house.jj58.com.cn/api/index/detail?id='.$this->hid,$value['qf_uid']);
             //     }
             // }
 
