@@ -360,8 +360,9 @@ class PlotController extends ApiController{
 		} else {
 			$pay = [];
 		}
-		
+		$news_num = 0;
 		if($news = $info->news) {
+			$news_num = count($news);
 			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
 			$news = $news[0]['content'];
 		} else {
@@ -460,6 +461,7 @@ class PlotController extends ApiController{
 			'pay'=>$pay,
 			'news'=>$news,
 			'news_time'=>$news_time,
+			'new_num'=>$news_num,
 			'sell_point'=>$info->peripheral.$info->surround_peripheral,
 			'hx'=>$hxarr,
 			'phones'=>$phone?[$phone]:$phones,
