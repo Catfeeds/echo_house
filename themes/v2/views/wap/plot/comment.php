@@ -8,7 +8,7 @@
 	<title></title>
 </head>
 <body>
-<?php if($infos = $info->news) foreach ($infos as $key => $value) {?>
+<?php if($infos = $info->used_news) foreach ($infos as $key => $value) {?>
 	<div class="comment-item">
 		<div class="line"></div>
 		<img class="user-pic" src="../../../../../../../subwap/img/user-pic.png">

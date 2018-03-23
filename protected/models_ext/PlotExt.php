@@ -148,6 +148,7 @@ class PlotExt extends Plot{
             'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid','condition'=>'hxs.deleted=0','order'=>'hxs.updated desc'),
             'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0','order'=>'images.sort desc'),
             'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0','order'=>'news.updated desc'),
+            'used_news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'used_news.deleted=0 and used_news.status=1','order'=>'used_news.updated desc'),
             'place_user_info'=>array(self::HAS_ONE, 'UserExt', ['id'=>'place_user']),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),
@@ -444,17 +445,17 @@ class PlotExt extends Plot{
         $zxzt = $this->zxzt?$this->zxzt[0]:0;
         $price = $this->price/1000;
 
-        $sql = "select distinct u.qf_uid from user u left join subscribe s on s.uid=u.id where u.qf_uid>0 and (s.area=$area or s.area=0) and (s.street=$street or s.street=0) and (s.wylx=$wylx or s.wylx=0) and (s.zxzt=$zxzt or s.zxzt=0) and s.maxprice>=$price and s.minprice<=$price";
+        $sql = "select distinct u.qf_uid from user u left join subscribe s on s.uid=u.id where u.qf_uid>0 and (s.area=$area or s.area=0) and (s.street=$street or s.street=0) and (s.wylx=$wylx or s.wylx=0) and (s.zxzt=$zxzt or s.zxzt=0)";
         
         $uids = Yii::app()->db->createCommand($sql)->queryAll();
         // var_dump($uids);exit;
         if($uids) {
             foreach ($uids as $key => $value) {
-                Yii::app()->controller->sendNotice('有新的项目符合您的订阅条件：'.$this->title.' 已上线，欢迎前往经纪圈新房通查看。点这里查看项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$value['qf_uid']);
+                Yii::app()->controller->sendNotice('有新的项目符合您的订阅条件：'.$this->title.' 已上线，欢迎前往经纪圈新房通查看。点这里查看项目详情：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->id,$value['qf_uid']);
             }
         }
         if($owner = $this->owner) {
-            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$this->id,$owner->qf_uid);
+            $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->id,$owner->qf_uid);
             SmsExt::sendMsg('项目通过审核',$owner->phone,['lpmc'=>$this->title]);
             // 恭喜您，${lpmc}已通过后台编辑的完善和审核，请登录经纪圈APP消息列表查看付费链接。
         }

@@ -361,7 +361,7 @@ class PlotController extends ApiController{
 			$pay = [];
 		}
 		$news_num = 0;
-		if($news = $info->news) {
+		if($news = $info->used_news) {
 			$news_num = count($news);
 			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
 			$news = $news[0]['content'];
@@ -486,7 +486,7 @@ class PlotController extends ApiController{
 			// 'share_phone'=>$share_phone,
 		];
 		if($this->staff) {
-			if(($data['owner_phone']==$this->staff->phone&&Yii::app()->db->createCommand("select id from plot_makert_user where is_manager=1 and status=1 and deleted=0 and expire>".time()." and uid=".$this->staff->id." and hid=".$info->id)->queryScalar())||strstr($info->market_user,$this->staff->phone)) {
+			if((Yii::app()->db->createCommand("select id from plot_makert_user where status=1 and deleted=0 and expire>".time()." and uid=".$this->staff->id." and hid=".$info->id)->queryScalar())||strstr($info->market_user,$this->staff->phone)) {
 				$data['can_edit'] = 1;
 			} else {
 				$data['can_edit'] = 0;
