@@ -46,6 +46,7 @@ class PlotNewsExt extends PlotNews{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $plot = $this->plot;
+            Yii::app()->controller->sendNotice($plot->title.'更新了最新动态，请登陆后台审核','',1);
             $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
             if($users) {
                 foreach ($users as $key => $value) {
