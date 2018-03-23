@@ -64,6 +64,7 @@ $(document).ready(function(){
     var clipboard = new Clipboard('.copy-weixin');  
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
+    $('#laststate-img').css('display','none');
     $.get('/api/config/index',function(data) {
         is_jy = data.data.is_jy;
         if(data.data.is_user == true) {
@@ -134,9 +135,9 @@ $(document).ready(function(){
                 $('.detail-laststate-message').append(detail.news);
                 $('.detail-laststate-time').append(detail.news_time);
                 $('.detail-laststate-num').append('(' + detail.new_num + ')');
+                $('#laststate-img').css('display','block');
             }else{
                 $('.detail-laststate-message').append('暂无');
-                $('#laststate-img').css('display','none');
             }
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');

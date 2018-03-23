@@ -829,6 +829,7 @@ function cleardetail() {
     $('#samearea ul').empty();
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
+    $('#laststate-img').css('display','none');
     topimglist = [];
     hximglist = [];
 }
@@ -914,9 +915,9 @@ function showdetail(id) {
                 $('.detail-laststate-message').append(detail.news);
                 $('.detail-laststate-time').append(detail.news_time);
                 $('.detail-laststate-num').append('(' + detail.new_num + ')');
+                $('#laststate-img').css('display','block');
             }else{
                 $('.detail-laststate-message').append('暂无');
-                $('#laststate-img').css('display','none');
             }
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');
