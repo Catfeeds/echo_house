@@ -361,7 +361,7 @@ class PlotController extends ApiController{
 			$pay = [];
 		}
 		$news_num = 0;
-		if($news = $info->news) {
+		if($news = $info->used_news) {
 			$news_num = count($news);
 			$news_time = date('Y-m-d H:i:s',$news[0]['updated']);
 			$news = $news[0]['content'];

@@ -148,6 +148,7 @@ class PlotExt extends Plot{
             'hxs'=>array(self::HAS_MANY, 'PlotHxExt', 'hid','condition'=>'hxs.deleted=0','order'=>'hxs.updated desc'),
             'images'=>array(self::HAS_MANY, 'PlotImageExt', 'hid','condition'=>'images.deleted=0','order'=>'images.sort desc'),
             'news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'news.deleted=0','order'=>'news.updated desc'),
+            'used_news'=>array(self::HAS_MANY, 'PlotNewsExt', 'hid','condition'=>'used_news.deleted=0 and used_news.status=1','order'=>'used_news.updated desc'),
             'place_user_info'=>array(self::HAS_ONE, 'UserExt', ['id'=>'place_user']),
             'wds'=>array(self::HAS_MANY, 'PlotWdExt', 'pid','condition'=>'wds.deleted=0'),
             'pays'=>array(self::HAS_MANY, 'PlotPayExt', 'hid','condition'=>'pays.deleted=0 and pays.status=1','order'=>'pays.updated desc'),
