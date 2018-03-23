@@ -985,3 +985,12 @@ body{
 	left: 9rem;
 	top: 27rem;
 }
+
+.fuzhiwenan{
+	position: absolute;
+	bottom: 0.5rem;
+	left: 16.4rem;
+	font-size: 0.747rem;
+	color: #ccc;
+	display: block;
+}

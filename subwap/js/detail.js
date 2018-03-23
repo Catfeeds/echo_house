@@ -61,7 +61,11 @@ function checkUser() {
             });
 }
 $(document).ready(function(){
-    var clipboard = new Clipboard('.copy-weixin');  
+    var clipboard = new Clipboard('.fuzhiwenan');  
+    // var clipboard1 = new Clipboard('.fuzhiwenan');  
+    // 复制文案
+    // data-clipboard-text="'+detail.phonesnum[i]+'" clas
+    
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
     $('#laststate-img').css('display','none');
@@ -184,6 +188,7 @@ $(document).ready(function(){
             } else {
                 $('.detail-sailpoint').css('display','none');
             }
+            $('.fuzhiwenan').addAttr('data-clipboard-text',detail.sell_point);
             //插入主力户型
             if(detail.hx!=''&&detail.hx!=undefined){    
                 for (var i = 0; i < detail.hx.length; i++) {
