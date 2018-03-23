@@ -1292,14 +1292,7 @@ function becomeDuijieren(){
 
 //分享页面
 function share(){
-    if(is_user==true)
-    { 
-        url=window.location.href+'_'+thisphone+'&id='+hid;
-        location.href='qrcode.html?url='+url;
-    }
-    else {
-        checkUser();
-    }
+    QFH5.openShareDialog();
 }
 
 
