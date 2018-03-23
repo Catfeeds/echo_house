@@ -915,6 +915,8 @@ function showdetail(id) {
             }else{
                 $('.detail-laststate-message').append('暂无');
                 $('#laststate-img').css('display','none');
+                $('.detail-laststate-time').empty();
+                $('.detail-laststate-num').empty();
             }
             if(detail.pay.length<=1) {
                 $('#fangannum').css('display','none');
