@@ -445,7 +445,7 @@ class PlotExt extends Plot{
         $zxzt = $this->zxzt?$this->zxzt[0]:0;
         $price = $this->price/1000;
 
-        $sql = "select distinct u.qf_uid from user u left join subscribe s on s.uid=u.id where u.qf_uid>0 and (s.area=$area or s.area=0) and (s.street=$street or s.street=0) and (s.wylx=$wylx or s.wylx=0) and (s.zxzt=$zxzt or s.zxzt=0) and s.maxprice>=$price and s.minprice<=$price";
+        $sql = "select distinct u.qf_uid from user u left join subscribe s on s.uid=u.id where u.qf_uid>0 and (s.area=$area or s.area=0) and (s.street=$street or s.street=0) and (s.wylx=$wylx or s.wylx=0) and (s.zxzt=$zxzt or s.zxzt=0)";
         
         $uids = Yii::app()->db->createCommand($sql)->queryAll();
         // var_dump($uids);exit;
