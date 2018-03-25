@@ -305,7 +305,7 @@ class PlotController extends ApiController{
         return $s;
 	}
 
-	public function actionInfo($id='',$phone='',$uid='')
+	public function actionInfo($id='',$phone='',$uid='',$ask_limit='1')
 	{
 		if($id && strstr($id,'_')) {
 			list($id,$phone) = explode('_', $id);
@@ -324,9 +324,7 @@ class PlotController extends ApiController{
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 				if($value['url']) {
 					$images[$key]['url'] = ImageTools::fixImage($value['url']);
-					if($value['type']) {
-						$images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-					} else {
+					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
 					}
 
@@ -448,11 +446,38 @@ class PlotController extends ApiController{
 			$thisuid = 0;	
 		}
 		$sell_desc = str_replace('&nbsp;', ' ', strip_tags($info->peripheral.$info->surround_peripheral));
+		$dps = $asks = [];
+		if($dpsres = PlotDpExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
+			foreach ($dpsres as $re) {
+				$dpuser = $re->user;
+				$dps[] = ['id'=>$re->id,'name'=>$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100)];
+			}
+		}
+
+		if($askres = PlotAskExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
+			foreach ($askres as $re) {
+				$fis = [];
+				$firstA = PlotAnswerExt::model()->normal()->find(['condition'=>"aid=".$re->id,'order'=>'sort desc,updated desc']);
+				if($firstA) {
+					$fis = [
+						'name'=>$firstA->user->name,
+						'note'=>$firstA->note,
+						'time'=>date('Y-m-d',$firstA->updated)
+					];
+				}
+					
+				$asks[] = ['id'=>$re->id,'name'=>$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+			}
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
 			'area'=>$areaName,	
 			'street'=>$streetName,
+			'dps'=>$dps,
+			'dp_num'=>PlotDpExt::model()->normal()->count("hid=$id"),
+			'asks'=>$asks,
+			'ask_num'=>PlotAskExt::model()->normal()->count("hid=$id"),
 			'address'=>Tools::u8_title_substr($areaName.$streetName.$info->address,34),
 			'price'=>$info->price,
 			'unit'=>PlotExt::$unit[$info->unit],
@@ -1711,6 +1736,144 @@ class PlotController extends ApiController{
     		$this->frame['data'] = $num;
     	} else {
     		$this->returnError('未知错误');
+    	}
+    }
+
+    public function actionGetDpList($hid='',$page=1)
+    {
+    	$data = [];
+    	$criteria = new CDbCriteria;
+    	$criteria->addCondition("hid=$hid");
+    	if($ress = PlotDpExt::model()->normal()->getList($criteria,20)) {
+    		$datares = $ress->data;
+    		$page_count = $ress->pagination->pageCount;
+    		if($datares) {
+    			foreach ($datares as $key => $value) {
+    				$dpuser = $value->user;
+	    			$data[] = [
+	    				'id'=>$value->id,
+	    				'name'=>$dpuser->name,
+	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
+	    				'note'=>$value->note,
+	    				'time'=>date('Y-m-d',$value->updated),
+	    			];
+	    		}
+    		}
+	    		
+    	}
+    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count];
+    }
+
+    public function actionGetAskList($hid='')
+    {
+    	$data = [];
+    	$plot = PlotExt::model()->findByPk($hid);
+    	$ask_num = PlotAskExt::model()->normal()->count("hid=$hid");
+    	$criteria = new CDbCriteria;
+    	$criteria->addCondition("hid=$hid");
+    	if($ress = PlotAskExt::model()->normal()->getList($criteria,20)) {
+    		$datares = $ress->data;
+    		$page_count = $ress->pagination->pageCount;
+    		if($datares) {
+    			foreach ($datares as $key => $re) {
+    				$fis = [];
+					$firstA = PlotAnswerExt::model()->normal()->find(['condition'=>"aid=".$re->id,'order'=>'sort desc,updated desc']);
+					if($firstA) {
+						$fis = [
+							'name'=>$firstA->user->name,
+							'note'=>$firstA->note,
+							'time'=>date('Y-m-d',$firstA->updated)
+						];
+					}
+						
+					$data[] = ['id'=>$re->id,'name'=>$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+	    		}
+    		}
+	    		
+    	}
+    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count,'plot_title'=>$plot->title,'ask_num'=>$ask_num];
+    }
+
+    public function actionGetAnswerList($aid='')
+    {
+    	$data = [];
+    	$criteria = new CDbCriteria;
+    	$ask = PlotAskExt::model()->findByPk($aid);
+    	$plot = $ask->plot;
+    	$criteria->addCondition("aid=$aid");
+    	if($ress = PlotAnswerExt::model()->normal()->getList($criteria,20)) {
+    		$datares = $ress->data;
+    		$page_count = $ress->pagination->pageCount;
+    		if($datares) {
+    			foreach ($datares as $key => $value) {
+    				$dpuser = $value->user;
+	    			$data[] = [
+	    				'id'=>$value->id,
+	    				'name'=>$dpuser->name,
+	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
+	    				'note'=>$value->note,
+	    				'time'=>date('Y-m-d',$value->updated),
+	    			];
+	    		}
+    		}
+	    		
+    	}
+    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count,'plot_title'=>$plot->title,'hid'=>$plot->id,'ask_title'=>$ask->title,'ask_username'=>$ask->user->name,'ask_time'=>date("Y-m-d",$ask->updated)];
+    }
+
+    public function actionAddDp()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()) {
+    		$note = Yii::app()->request->getPost('note','');
+    		$is_nm = Yii::app()->request->getPost('is_nm',0);
+    		if(!$note) {
+    			return $this->returnError('参数错误');
+    		}
+    		$obj = new PlotDpExt;
+    		$obj->uid = $this->staff->id;
+    		$obj->is_num = $is_nm;
+    		$obj->note = $note;
+    		if(!$obj->save()) {
+    			return $this->returnError(current(current($obj->getErrors())));
+    		}
+    	}
+    }
+
+    public function actionAddAsk()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()) {
+    		$title = Yii::app()->request->getPost('title','');
+    		$is_nm = Yii::app()->request->getPost('is_nm',0);
+    		if(!$title) {
+    			return $this->returnError('参数错误');
+    		}
+    		$obj = new PlotAskExt;
+    		$obj->uid = $this->staff->id;
+    		$obj->is_num = $is_nm;
+    		$obj->title = $title;
+    		if(!$obj->save()) {
+    			return $this->returnError(current(current($obj->getErrors())));
+    		}
+    	}
+    }
+
+    public function actionAddAnswer()
+    {
+    	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()) {
+    		$note = Yii::app()->request->getPost('note','');
+    		$is_nm = Yii::app()->request->getPost('is_nm',0);
+    		$aid = Yii::app()->request->getPost('aid',0);
+    		if(!$note || !$aid) {
+    			return $this->returnError('参数错误');
+    		}
+    		$obj = new PlotAnswerExt;
+    		$obj->uid = $this->staff->id;
+    		$obj->is_num = $is_nm;
+    		$obj->note = $note;
+    		$obj->aid = $aid;
+    		if(!$obj->save()) {
+    			return $this->returnError(current(current($obj->getErrors())));
+    		}
     	}
     }
 
