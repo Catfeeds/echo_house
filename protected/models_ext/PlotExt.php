@@ -161,6 +161,7 @@ class PlotExt extends Plot{
             'sfMarkets'=>array(self::HAS_MANY, 'PlotMarketUserExt', 'hid','condition'=>'sfMarkets.deleted=0 and sfMarkets.status=1 and sfMarkets.expire>'.time(),'order'=>'sfMarkets.is_manager desc,sfMarkets.created asc'),
             'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
+            'company'=>array(self::BELONGS_TO, 'CompanyExt', 'company_id'),
         );
     }
 

@@ -40,6 +40,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
             <th class="text-center">楼盘发布人</th>
+            <th class="text-center">总代公司</th>
             <th class="text-center">对接人数</th>
             <th class="text-center">今日点击量/总点击量 <a href="list?sort=views"><i class="fa fa-arrow-down"></i></a></th>
             <th class="text-center">创建时间</th>
@@ -56,6 +57,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a></td>
             <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'会员':'')):'' ?></td>
+            <td  class="text-center"><?=$v->company?$v->company->name:'暂无'?></td>
             <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
