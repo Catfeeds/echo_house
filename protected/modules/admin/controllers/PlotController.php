@@ -216,6 +216,66 @@ class PlotController extends AdminController{
 	}
 
 	/**
+	 * [actionList 问答列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionDplist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/admin');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotDpExt::model()->normal()->getList($criteria,20);
+		$this->render('dplist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 问答列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionAsklist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/admin');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotAskExt::model()->normal()->getList($criteria,20);
+		$this->render('asklist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
+	 * [actionList 问答列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionAnswerlist($hid='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$house = PlotExt::model()->findByPk($hid);
+		if(!$house){
+			$this->redirect('/admin');
+		}
+		$criteria = new CDbCriteria;
+		$criteria->order = 'updated desc,id desc';
+		$criteria->addCondition('hid=:hid');
+		$criteria->params[':hid'] = $hid;
+		$houses = PlotAnswerExt::model()->normal()->getList($criteria,20);
+		$this->render('answerlist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
+	}
+
+	/**
 	 * [actionList 相册列表]
 	 * @param  string $title [description]
 	 * @return [type]        [description]
@@ -500,6 +560,68 @@ class PlotController extends AdminController{
 			}
 		} 
 		$this->render('newsedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionEditdp()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotDpExt';
+		$this->controllerName = '楼盘点评';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->status = 1;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['dplist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('dpedit',['article'=>$info,'hid'=>$hid]);
+	}
+	public function actionEditask()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotAskExt';
+		$this->controllerName = '楼盘提问';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->status = 1;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['asklist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('askedit',['article'=>$info,'hid'=>$hid]);
+	}
+
+	public function actionEditanswer()
+	{
+		$id = Yii::app()->request->getQuery('id','');
+		$hid = $_GET['hid'];
+		$modelName = 'PlotAnswerExt';
+		$this->controllerName = '楼盘回答';
+		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
+		$info->getIsNewRecord() && $info->status = 1;
+		if(Yii::app()->request->getIsPostRequest()) {
+			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->status = 1;
+			// var_dump($info->attributes);exit;
+			if($info->save()) {
+				$this->setMessage('操作成功','success',['answerlist?hid='.$hid]);
+			} else {
+				$this->setMessage(array_values($info->errors)[0][0],'error');
+			}
+		} 
+		$this->render('answeredit',['article'=>$info,'hid'=>$hid]);
 	}
 
 	public function actionEditPrice()

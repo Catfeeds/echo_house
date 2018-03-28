@@ -63,6 +63,9 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center">
             <?php echo CHtml::ajaxLink('清除发布人',$this->createUrl('cleanPublisher'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm yellow')); ?>
                 <?php echo CHtml::ajaxLink('刷新',$this->createUrl('refresh'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm blue')); ?>
+                <a href="<?=$this->createUrl('dplist',['hid'=>$v->id])?>" class="btn btn-xs default">点评</a>
+                <a href="<?=$this->createUrl('asklist',['hid'=>$v->id])?>" class="btn btn-xs red">提问</a>
+                <a href="<?=$this->createUrl('answerlist',['hid'=>$v->id])?>" class="btn btn-xs red">回答</a>
                 <a href="<?=$this->createUrl('imagelist',['hid'=>$v->id])?>" class="btn btn-xs red">相册</a>
                 <a href="<?=$this->createUrl('hxlist',['hid'=>$v->id])?>" class="btn btn-xs yellow">户型</a>
                 <a href="<?=$this->createUrl('newslist',['hid'=>$v->id])?>" class="btn btn-xs blue">动态</a>
