@@ -35,6 +35,7 @@ class SiteExt extends Site{
         'ouruids'=>'',
         'site_wx'=>'',
         'kfuid'=>'',
+        'usernopic'=>''
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -69,7 +70,7 @@ class SiteExt extends Site{
             'info_no_pic'=>['type'=>'image','max'=>1,'name'=>'房源默认图'],
             'mzsm'=>['type'=>'text','name'=>'免责声明'],
             'vipNotice'=>['type'=>'text','name'=>'后台须知'],
-
+            'usernopic'=>['type'=>'image','max'=>1,'name'=>'用户默认头像'],
 
             // 'wxgzh'=>['type'=>'text','name'=>'微信公众号'],
             // 'xmgs'=>['type'=>'text','name'=>'项目个数'],
