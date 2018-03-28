@@ -413,6 +413,101 @@ body{
 	line-height: 1.013rem;
 }
 
+.detail-comment{
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.detail-comment-message{
+	display: -webkit-box;
+	margin:0.747rem;
+}
+.detail-comment-message img{
+	position: relative;
+	display: block;
+	margin-right: 10px;
+	height: 30px;
+	width: 30px;
+}
+.detail-comment-info {
+	display: block;
+	width: 100%;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+.detail-comment-info .username{
+	position: relative;
+	font-size: 0.8rem;
+	display: inline-block;
+	color: #999;
+	height: 15px;
+	line-height: 15px;
+	margin-top: 5px;
+}
+.detail-comment-info .usercontent {
+	word-wrap: break-word;
+	font-size: 0.8rem;
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	white-space: inherit;
+	color: #333;
+}
+
+.remark{
+	display: -webkit-box;
+	height: 40px;
+	line-height: 40px;
+	background-color: #f6f6f6;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	margin:20px 0.7rem;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+.remark .remark-btn{
+	font-size: 0.8rem;
+	color: #8099af;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	text-align: center;
+}
+
+.detail-question{
+	background-color: #fff;
+	overflow: hidden;
+}
+.detail-question-container .detail-question-info{
+	display: -webkit-box;
+	margin:0.747rem;
+	font-size: 0.8rem;
+	position: relative;
+	color:#666;
+}
+.detail-question-info .icon{
+	display: inline-block;
+	width:1rem;
+	height:1rem;
+	color:#fff;
+	text-align: center;
+	margin-right:6px;
+	font-size: 0.7rem;
+	border-radius: 0.3rem;
+}
+.detail-question-info .icon-wen{
+	background-color: #e7631a;
+}
+.detail-question-info .icon-da{
+	background-color: #62ab00
+}
+.detail-question-info-num{
+	position: absolute;
+	top:0;
+	right:0.747rem;
+}
+
 .detail-mainstyle{
 	position: relative;
 	height: 12.853rem;
