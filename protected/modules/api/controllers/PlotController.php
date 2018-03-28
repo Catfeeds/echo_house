@@ -504,7 +504,7 @@ class PlotController extends ApiController{
 			'mzsm'=>SiteExt::getAttr('qjpz','mzsm'),
 			'areaid'=>$info->area,
 			'streetid'=>$info->street,
-			'owner_phone'=>$info->owner?$info->owner->phone:'',
+			'owner_phone'=>'',
 			'ff_phones'=>$ffphones,
 			'is_alert'=>$is_alert,
 			'is_save'=>$thisuid&&Yii::app()->db->createCommand('select id from save where uid='.$thisuid.' and hid='.$info->id)->queryScalar()?1:0,
