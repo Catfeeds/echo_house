@@ -93,7 +93,7 @@ class PlotExt extends Plot{
         $rules = parent::rules();
         return array_merge($rules, array(
             array(implode(',',array_keys(self::$tags)), 'safe'),
-            array('title','unique'),
+            array('title','titlerule'),
             // array('zd_company','required'),
         ));
     }
@@ -103,6 +103,13 @@ class PlotExt extends Plot{
         return array_merge($labels,[
             'price'=>'价格',
             ]);
+    }
+
+    public function titlerule($attribute,$params)
+    {
+        if(PlotExt::model()->find("title='".$this->title."' and company_id=".$this->company_id)) {
+            $this->addError($attribute, '楼盘名不能重复!'); 
+        }
     }
 
     public function __set($name='',$value='')
