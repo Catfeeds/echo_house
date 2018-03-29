@@ -69,6 +69,7 @@ $(document).ready(function(){
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
     $('#laststate-img').css('display','none');
+    $('#comment-img').css('display','none');
     $.get('/api/config/index',function(data) {
         is_jy = data.data.is_jy;
         if(data.data.is_user == true) {
@@ -262,7 +263,27 @@ $(document).ready(function(){
                     $('.telephone-consult ul').append('<li><a href="tel:'+detail.phonesnum[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                 }
             }
-            
+
+            // 用户点评
+            if(detail.dps.length > 0){
+                var askHtml = '';
+                for(var i = 0; i < detail.dps.length; i++){
+                    var aksEle = '<div class="detail-comment-message">' +
+                        '            <img src="' + detail.asks[i].image + '" />' +
+                        '            <div class="detail-comment-info">' +
+                        '                <span class="username">'+ detail.asks[i].name +'</span>' +
+                        '                <div class="usercontent">' + detail.asks[i].title +
+                        '                </div>' +
+                        '            </div>' +
+                        '        </div>';
+                    askHtml = askHtml + aksEle;
+                }
+                $('.detail-comment-message-container').append(askHtml);
+                $('#comment-img').css('display','block');
+                $('.detail-comment-num').html('(' + detail.dp_num + ')')
+            }else{
+                $('.detail-comment-message-container').append('<div class="detail-pricerules-message">暂无</div>');
+            }
         });
 
         
@@ -410,6 +431,10 @@ $('.tel-bg').click(function(){
     $('.telephone-consult').addClass('hide');
     $('.tel-bg').addClass('hide');
 });
+$('#comment-title').click(function(){
+    location.href='/subwap/commentList.html?hid='+hid;
+});
+
 
 function copyUrl2() {
     alert('已成功复制手机号，请至微信搜索添加');
