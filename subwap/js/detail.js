@@ -304,6 +304,7 @@ $(document).ready(function(){
                 }
                 $('.detail-question-container').append(askHtml);
                 $('#question-img').css('display','block');
+                $('.detail-question-num').html('(' + detail.ask_num + ')')
             }else{
                 $('.detail-question-container').append('<div class="detail-pricerules-message">暂无</div>');
             }
