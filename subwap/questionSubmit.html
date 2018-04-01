@@ -11,7 +11,7 @@
 <!--<div class="que-title">对<span>中国铁建香榭国际</span>的提问</div>-->
 <div class="que-panel">
     <form id="quepublish" action="" method="post">
-        <textarea class="writebox" name="content" placeholder="输入你的问题..."></textarea>
+        <textarea class="writebox" name="content" placeholder="输入你的问题..." maxlength="225"></textarea>
         <!--<div class="que-ops">-->
             <!--<span id="counter" class="counter">0/35</span>-->
         <!--</div>-->
@@ -35,11 +35,13 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function(){
+        var hid=GetQueryString('hid');
         $('.remark').click(function(){
             var title = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
             if(title){
                 $.post("/api/plot/addAsk", {
+                        hid: hid,
                         title: title,
                         is_nm: is_nm,
                     },
@@ -57,6 +59,12 @@
             }
         })
     })
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(decodeURI(r[2]));
+        return null;
+    }
 
 </script>
 </body>

@@ -459,7 +459,7 @@ $('.tel-bg').click(function(){
 $('#comment-title').click(function(){
     location.href='/subwap/commentList.html?hid='+hid;
 });
-$('.comment detail-question .remark').click(function(){
+$('.detail-comment .remark').click(function(){
     location.href='/subwap/commentSubmit.html?hid='+hid;
 });
 // 提问

@@ -10,7 +10,7 @@
 
 <div class="que-panel">
     <form>
-        <textarea class="writebox" name="content" placeholder="对本楼盘的环境、位置、配套设施满意吗？" maxlength="150"></textarea>
+        <textarea class="writebox" name="content" placeholder="对本楼盘的环境、位置、配套设施满意吗？" maxlength="225"></textarea>
         <!--<div class="que-ops">-->
             <!--<span id="counter" class="counter">0/35</span>-->
         <!--</div>-->
@@ -34,11 +34,12 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function(){
+        var hid=GetQueryString('hid');
         $('.remark').click(function(){
             var note = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
             if(note){
-                $.post("/api/plot/addDp", {
+                $.post("/api/plot/addDp?hid=" + hid, {
                         note: note,
                         is_nm: is_nm,
                     },
@@ -56,6 +57,12 @@
             }
         })
     })
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(decodeURI(r[2]));
+        return null;
+    }
 
 </script>
 </body>
