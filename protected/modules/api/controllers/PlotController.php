@@ -1826,12 +1826,14 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()) {
     		$note = Yii::app()->request->getPost('note','');
     		$is_nm = Yii::app()->request->getPost('is_nm',0);
-    		if(!$note) {
+    		$hid = Yii::app()->request->getPost('hid',0);
+    		if(!$note || !$hid) {
     			return $this->returnError('参数错误');
     		}
     		$obj = new PlotDpExt;
     		$obj->uid = $this->staff->id;
     		$obj->is_num = $is_nm;
+    		$obj->hid = $hid;
     		$obj->note = $note;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
@@ -1844,12 +1846,14 @@ class PlotController extends ApiController{
     	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()) {
     		$title = Yii::app()->request->getPost('title','');
     		$is_nm = Yii::app()->request->getPost('is_nm',0);
-    		if(!$title) {
+    		$hid = Yii::app()->request->getPost('hid',0);
+    		if(!$title || !$hid) {
     			return $this->returnError('参数错误');
     		}
     		$obj = new PlotAskExt;
     		$obj->uid = $this->staff->id;
     		$obj->is_num = $is_nm;
+    		$obj->hid = $hid;
     		$obj->title = $title;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
@@ -1863,13 +1867,15 @@ class PlotController extends ApiController{
     		$note = Yii::app()->request->getPost('note','');
     		$is_nm = Yii::app()->request->getPost('is_nm',0);
     		$aid = Yii::app()->request->getPost('aid',0);
-    		if(!$note || !$aid) {
+    		$hid = Yii::app()->request->getPost('hid',0);
+    		if(!$note || !$aid || !$hid) {
     			return $this->returnError('参数错误');
     		}
     		$obj = new PlotAnswerExt;
     		$obj->uid = $this->staff->id;
     		$obj->is_num = $is_nm;
     		$obj->note = $note;
+    		$obj->hid = $hid;
     		$obj->aid = $aid;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
