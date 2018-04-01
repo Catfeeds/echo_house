@@ -450,7 +450,7 @@ class PlotController extends ApiController{
 		if($dpsres = PlotDpExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
 			foreach ($dpsres as $re) {
 				$dpuser = $re->user;
-				$dps[] = ['id'=>$re->id,'name'=>$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100)];
+				$dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100)];
 			}
 		}
 
@@ -460,13 +460,13 @@ class PlotController extends ApiController{
 				$firstA = PlotAnswerExt::model()->normal()->find(['condition'=>"aid=".$re->id,'order'=>'sort desc,updated desc']);
 				if($firstA) {
 					$fis = [
-						'name'=>$firstA->user->name,
+						'name'=>$firstA->is_nm?'匿名用户':$firstA->user->name,
 						'note'=>$firstA->note,
 						'time'=>date('Y-m-d',$firstA->updated)
 					];
 				}
 					
-				$asks[] = ['id'=>$re->id,'name'=>$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+				$asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 			}
 		}
 		$data = [
@@ -1752,7 +1752,7 @@ class PlotController extends ApiController{
     				$dpuser = $value->user;
 	    			$data[] = [
 	    				'id'=>$value->id,
-	    				'name'=>$dpuser->name,
+	    				'name'=>$value->is_nm?'匿名':$dpuser->name,
 	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
 	    				'note'=>$value->note,
 	    				'time'=>date('Y-m-d',$value->updated),
@@ -1779,13 +1779,13 @@ class PlotController extends ApiController{
 					$firstA = PlotAnswerExt::model()->normal()->find(['condition'=>"aid=".$re->id,'order'=>'sort desc,updated desc']);
 					if($firstA) {
 						$fis = [
-							'name'=>$firstA->user->name,
+							'name'=>$firstA->is_nm?'匿名':$firstA->user->name,
 							'note'=>$firstA->note,
 							'time'=>date('Y-m-d',$firstA->updated)
 						];
 					}
 						
-					$data[] = ['id'=>$re->id,'name'=>$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+					$data[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 	    		}
     		}
 	    		
@@ -1808,7 +1808,7 @@ class PlotController extends ApiController{
     				$dpuser = $value->user;
 	    			$data[] = [
 	    				'id'=>$value->id,
-	    				'name'=>$dpuser->name,
+	    				'name'=>$value->is_nm?'匿名':$dpuser->name,
 	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
 	    				'note'=>$value->note,
 	    				'time'=>date('Y-m-d',$value->updated),
