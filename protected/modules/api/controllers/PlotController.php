@@ -439,7 +439,7 @@ class PlotController extends ApiController{
 			$is_alert = 1;
 		}
 		if($this->staff) {
-			$thisuid = $staff->id;
+			$thisuid = $this->staff->id;
 		} elseif($uid) {
 			$thisuid = $uid;
 		} else {
@@ -1761,8 +1761,7 @@ class PlotController extends ApiController{
     		}
 	    		
     	}
-    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count];
-    }
+    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count];    }
 
     public function actionGetAskList($hid='')
     {
