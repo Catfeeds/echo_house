@@ -1831,7 +1831,7 @@ class PlotController extends ApiController{
     		}
     		$obj = new PlotDpExt;
     		$obj->uid = $this->staff->id;
-    		$obj->is_num = $is_nm;
+    		$obj->is_nm = $is_nm;
     		$obj->hid = $hid;
     		$obj->note = $note;
     		if(!$obj->save()) {
@@ -1851,7 +1851,7 @@ class PlotController extends ApiController{
     		}
     		$obj = new PlotAskExt;
     		$obj->uid = $this->staff->id;
-    		$obj->is_num = $is_nm;
+    		$obj->is_nm = $is_nm;
     		$obj->hid = $hid;
     		$obj->title = $title;
     		if(!$obj->save()) {
@@ -1872,7 +1872,7 @@ class PlotController extends ApiController{
     		}
     		$obj = new PlotAnswerExt;
     		$obj->uid = $this->staff->id;
-    		$obj->is_num = $is_nm;
+    		$obj->is_nm = $is_nm;
     		$obj->note = $note;
     		$obj->hid = $hid;
     		$obj->aid = $aid;
