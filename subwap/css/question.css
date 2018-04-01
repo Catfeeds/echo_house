@@ -1,17 +1,14 @@
 /*提问列表*/
-html {
-	height: 100%;
-}
 body {
-	min-height: 100%;
-	display: flex;
-	flex-direction: column;
+	width:100%;
 	background-color: #efeff4;
 	margin:0;
 }
 .question-list{
-	position: relative;
-	height: auto;
+	margin-bottom:50px;
+}
+.loaddiv{
+	text-align: center;
 }
 .que-title{
 	height: 35px;
@@ -82,7 +79,6 @@ body {
 	display: -webkit-box;
 	width: 50%;
 	-webkit-box-flex: 1;
-	text-indent: 32px;
 }
 .que-ops .lookup-img{
 	color: #00b7ee;
@@ -120,7 +116,7 @@ body {
 
 /*问题详情*/
 .question-detail{
-	flex:1;
+	margin-bottom:50px;
 }
 .que-block {
 	padding: 15px;
@@ -148,7 +144,6 @@ body {
 .answ-block{
 	background-color: #fff;
 	color: #666;
-	padding: 0 15px;
 	font-size: 1rem;
 	margin-top: 15px;
 }
@@ -159,7 +154,7 @@ body {
 	line-height: 44px;
 	color: #666;
 	font-size: 1rem;
-	border-bottom: 1px solid #e6e6e6;
+	padding:0 15px;
 }
 .answ-block .answ-content {
 	font-size: 0.9rem;
@@ -174,19 +169,24 @@ body {
 	word-break: break-all;
 }
 .answ-block .answ-one {
-	padding-top: 15px;
+	padding: 15px;
+	border-top: 1px solid #e6e6e6;
 }
 .user-info {
 	height: 35px;
 	line-height: 35px;
+	position: relative;
 }
 .user-info .user-portrait {
 	height: 35px;
 	width: 35px;
+	position: absolute;
 }
 .user-info .user-name {
 	padding-left: 10px;
 	font-size: 0.9rem;
+	position: absolute;
+	left:38px;
 }
 .answ-block .creat-time {
 	color: #999;
@@ -194,7 +194,12 @@ body {
 	padding-bottom: 15px;
 }
 .que-detail-footer{
-	display: -webkit-box;
+	position: fixed;
+	width:100%;
+	left: 0;
+	bottom: 0;
+	height: 50px;
+	line-height: 50px;
 }
 .btn-box{
 	width:50%;
@@ -203,11 +208,13 @@ body {
 	line-height: 50px;
 	color:#fff;
 	font-size: 1rem;
+    display: inline-block;
 }
 .btn-wen{
 	background-color: #00b7ee;
 }
 .btn-da{
+	margin-left:-5px;
 	background-color: #e7631a;
 }
 .btn-box img{

@@ -5,6 +5,10 @@ body{
 }
 .comment-list{
 	background-color: #fff;
+	margin-bottom:50px;
+}
+.loaddiv{
+	text-align: center;
 }
 .comment-message{
 	display: -webkit-box;

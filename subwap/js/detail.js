@@ -295,12 +295,17 @@ $(document).ready(function(){
                         '            <span class="detail-question-info-num">' +
                         '                <span>'+ detail.ask_num +'</span>个回答' +
                         '            </span>' +
-                        '        </div>'+
-                        '<div class="detail-question-info">' +
-                        '            <span class="icon icon-da">答</span>' +
-                        '            <span>'+ detail.asks[i].first_answer.note +'</span>' +
                         '        </div>';
-                    askHtml = askHtml + aksEle;
+                    if(detail.asks[i].first_answer.note){
+                        var ansEle =
+                            '<div class="detail-question-info">' +
+                            '            <span class="icon icon-da">答</span>' +
+                            '            <span>'+ detail.asks[i].first_answer.note +'</span>' +
+                            '        </div>';
+                    }else{
+                        var ansEle = '';
+                    }
+                    askHtml = askHtml + aksEle + ansEle;
                 }
                 $('.detail-question-container').append(askHtml);
                 $('#question-img').css('display','block');

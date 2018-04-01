@@ -39,7 +39,8 @@
             var note = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
             if(note){
-                $.post("/api/plot/addDp?hid=" + hid, {
+                $.post("/api/plot/addDp", {
+                        hid: hid,
                         note: note,
                         is_nm: is_nm,
                     },

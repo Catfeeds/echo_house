@@ -35,12 +35,14 @@
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script>
     $(document).ready(function(){
+        var hid=GetQueryString('hid');
         var aid=GetQueryString('aid');
         $('.remark').click(function(){
-            var title = $('.writebox').val();
+            var note = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
-            if(title){
+            if(note){
                 $.post("/api/plot/addAnswer", {
+                        hid:hid,
                         aid:aid,
                         note: note,
                         is_nm: is_nm,
