@@ -22,7 +22,7 @@ var winH = $(window).height(); //页面可视区域高度
 var hid = '';
 var title='';
 var phone='';
-var areaid='';
+var arehid='';
 var streetid='';
 var url='';
 var our_uids = '';
@@ -101,27 +101,35 @@ function ajaxAddList(obj) {
         params += '&minprice=' + obj.minprice;
     }
 
-    $.get('/api/plot/getDpList?hid='+hid, function(data) {
-        var html = '';
+    $.get('/api/plot/getAskList?hid='+hid, function(data) {
         o.page = data.data.page;
         o.page_count = data.data.page_count;
         o.num = data.data.num;
         if (data.data.length == undefined) {
             var a=data.data.list;
             console.log(a)
-            var askHtml = '';
+            var Html = '';
             for(var i = 0; i < a.length; i++){
-                var aksEle =  '<div class="comment-message">'+
-                    '<img src="' + a[i].image +'" />'+
-                    '<div class="comment-info">'+
-                    '<span class="username">'+ a[i].name +'</span>'+
-                    '<div class="usercontent">'+ a[i].note +'</div>'+
-                    '<span class="time">'+ a[i].time +'</span>'+
-                    '</div>'+
-                    '</div>';
-                askHtml = askHtml + aksEle;
+                var Ele =  '<a class="question-info" href="/subwap/questionDetail.html?aid='+a[i].id +'">' +
+                    '            <div class="question-info-wen">' +
+                    '                <span class="icon icon-wen">问</span>' +
+                    '                <span>'+ a[i].title +'</span>' +
+                    '            </div>' +
+                    '            <div class="question-info-da">' +
+                    '                <span class="icon icon-da">答</span>' +
+                    '                <span>'+ a[i].first_answer.note +'</span>' +
+                    '            </div>' +
+                    '            <div class="que-ops">' +
+                    '                <span class="answ-entry">' +
+                    '                    查看'+ a[i].answers_count +'个回答' +
+                    '                    <img class="lookup-img" src="./img/).png">' +
+                    '                </span>' +
+                    '                <span class="time">'+ a[i].time +'</span>' +
+                    '            </div>' +
+                    '        </a>';
+                Html = Html + Ele;
             }
-            $('.comment-container').append(askHtml);
+            $('.question-container').append(Html);
         }
         $('#num').html(o.num);
         // 加载中消失
@@ -133,7 +141,7 @@ function ajaxAddList(obj) {
 $(document).ready(function() {
     ajaxAddList(o);
     $('.que-footer').click(function(){
-        location.href='/subwap/commentSubmit.html?hid='+hid;
+        location.href='/subwap/questionSubmit.html?hid='+hid;
     });
 });
 

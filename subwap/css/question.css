@@ -1,5 +1,11 @@
 /*提问列表*/
-body{
+html {
+	height: 100%;
+}
+body {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 	background-color: #efeff4;
 	margin:0;
 }
@@ -23,12 +29,14 @@ body{
 
 }
 .question-container .question-info{
+	display: block;
 	padding:0.747rem;
 	font-size: 0.8rem;
 	position: relative;
 	color:#666;
 	margin:0 0 1rem 0;
 	background-color: #fff;
+	text-decoration:none;
 }
 .question-info .question-info-wen{
 	font-size: 0.8rem;
@@ -59,24 +67,25 @@ body{
 	background-color: #e7631a;
 }
 .icon-da{
-	background-color: #62ab00
+	background-color: #00b7ee
 }
 .que-ops {
-	display: -webkit-box;
+	display: flex;
 	font-size: 0.6rem;
 	height: 14px;
 	line-height: 14px;
 	margin-top:10px;
+	justify-content: space-between;
 }
 .que-ops .answ-entry {
-	color: #62ab00;
+	color: #00b7ee;
 	display: -webkit-box;
 	width: 50%;
 	-webkit-box-flex: 1;
 	text-indent: 32px;
 }
 .que-ops .lookup-img{
-	color: #62ab00;
+	color: #00b7ee;
 	width:10px;
 	height:10px;
 }
@@ -95,21 +104,24 @@ body{
 	height: 50px;
 	line-height: 50px;
 	width: 100%;
-	font-size: 0.9rem;
 	color: #fff;
-	display: -webkit-box;
+	background-color: #00b7ee;
+	text-align: center;
+}
+.que-footer img {
+	width:1.2rem;
+	height:1.2rem;
+	color: #fff;
 }
 .que-footer a {
-	text-align: center;
-	display: -webkit-box;
-	-webkit-box-pack: center;
-	-webkit-box-align: center;
-	-webkit-box-flex: 1;
+	font-size: 1.2rem;
 	color: #fff;
-	background-color: #62ab00;
 }
 
 /*问题详情*/
+.question-detail{
+	flex:1;
+}
 .que-block {
 	padding: 15px;
 	background-color: #fff;
@@ -181,6 +193,27 @@ body{
 	font-size: 0.6rem;
 	padding-bottom: 15px;
 }
+.que-detail-footer{
+	display: -webkit-box;
+}
+.btn-box{
+	width:50%;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	color:#fff;
+	font-size: 1rem;
+}
+.btn-wen{
+	background-color: #00b7ee;
+}
+.btn-da{
+	background-color: #e7631a;
+}
+.btn-box img{
+	width:1rem;
+	height:1rem;
+}
 /*提交问题*/
 .que-panel{
 	background-color: #fff;
@@ -209,7 +242,7 @@ body{
 	display: -webkit-box;
 	height: 40px;
 	line-height: 40px;
-	background-color: #62ab00;
+	background-color: #00b7ee;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	margin:20px 0.7rem;
@@ -222,4 +255,19 @@ body{
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	text-align: center;
+}
+
+.anonymity-box{
+	display: -webkit-box;
+	position: relative;
+	border-top: 1px solid #ddd;
+	padding:10px;
+}
+.anonymity-box .radio-box{
+	position: absolute;
+	right:0;
+	display: -webkit-box;
+}
+.radio-box .radio-text{
+	padding-right:2rem;
 }

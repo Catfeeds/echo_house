@@ -19,7 +19,7 @@ function init() {
 //==============核心代码=============
 var winH = $(window).height(); //页面可视区域高度
 //获取传过来的ID的函数
-var hid = '';
+var aid = '';
 var title='';
 var phone='';
 var areaid='';
@@ -41,7 +41,7 @@ Array.prototype.contains = function ( needle ) {
     return false;
 }
 var scrollHandler = function() {
-    // if($('.detailshow').is('hide')) {
+    // if($('.detailshow').is('aide')) {
     var pageH = $('.comment-list').height();
     var scrollT = $(window).scrollTop(); //滚动条top
     var aa = (pageH - winH - scrollT) / winH;
@@ -63,7 +63,7 @@ function ajaxAddList(obj) {
     // 出现加载中
     $('.loaddiv').css('display','block');
     var params = '?t=1';
-    hid=GetQueryString('hid');
+    aid=GetQueryString('aid');
     if (obj.toptag != '' && obj.toptag != 'undefined') {
         params += '&toptag=' + obj.toptag;
     }
@@ -101,27 +101,38 @@ function ajaxAddList(obj) {
         params += '&minprice=' + obj.minprice;
     }
 
-    $.get('/api/plot/getDpList?hid='+hid, function(data) {
-        var html = '';
+    $.get('/api/plot/getAnswerList?aid='+aid, function(data) {
         o.page = data.data.page;
         o.page_count = data.data.page_count;
         o.num = data.data.num;
         if (data.data.length == undefined) {
-            var a=data.data.list;
+            var a=data.data;
             console.log(a)
-            var askHtml = '';
-            for(var i = 0; i < a.length; i++){
-                var aksEle =  '<div class="comment-message">'+
-                    '<img src="' + a[i].image +'" />'+
-                    '<div class="comment-info">'+
-                    '<span class="username">'+ a[i].name +'</span>'+
-                    '<div class="usercontent">'+ a[i].note +'</div>'+
-                    '<span class="time">'+ a[i].time +'</span>'+
-                    '</div>'+
-                    '</div>';
-                askHtml = askHtml + aksEle;
+            var detailHtml = '<div class="ques-wrap">' +
+                '            <span class="icon icon-wen">问</span>' +
+                '            <p class="ques-content">'+ a.ask_title +'</p>' +
+                '        </div>' +
+                '        <div class="que-ops">' +
+                '            <span>'+ a.ask_username + '</span>' +
+                '            <span>'+ a.ask_time + '</span>' +
+                '        </div>';
+
+            $('.que-block').append(detailHtml);
+            $('.block-header').html('共有' + data.data.page_count +'个回答');
+            var Html = '';
+            for(var i = 0; i < a.list.length; i++){
+                var Ele =  ' <div class="answ-one">' +
+                    '                <div class="user-info">' +
+                    '                    <img class="user-portrait" src="'+ a.list[i].image +'">' +
+                    '                    <span class="user-name">'+ a.list[i].name +'</span>' +
+                    '                </div>' +
+                    '                <div class="answ-content">' + a.list[i].note +'</div>' +
+                    '                <div class="creat-time">' + a.list[i].time +'</div>' +
+                    '                <div class="g-border-bottom"></div>' +
+                    '            </div>';
+                Html = Html + Ele;
             }
-            $('.comment-container').append(askHtml);
+            $('.block-content').append(Html);
         }
         $('#num').html(o.num);
         // 加载中消失
@@ -132,8 +143,11 @@ function ajaxAddList(obj) {
 
 $(document).ready(function() {
     ajaxAddList(o);
-    $('.que-footer').click(function(){
-        location.href='/subwap/commentSubmit.html?hid='+hid;
+    $('.btn-wen').click(function(){
+        location.href='/subwap/questionSubmit.html?aid='+aid;
+    });
+    $('.btn-da').click(function(){
+        location.href='/subwap/answerSubmit.html?aid='+aid;
     });
 });
 

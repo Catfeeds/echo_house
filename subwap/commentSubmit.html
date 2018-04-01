@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/question.css">
-    <title>大家都在问</title>
+    <link rel="stylesheet" type="text/css" href="css/commentList.css">
+    <title>点评</title>
 </head>
 <body>
 
-<!--<div class="que-title">对<span>中国铁建香榭国际</span>的提问</div>-->
 <div class="que-panel">
-    <form id="quepublish" action="" method="post">
-        <textarea class="writebox" name="content" placeholder="输入你的问题..."></textarea>
+    <form>
+        <textarea class="writebox" name="content" placeholder="对本楼盘的环境、位置、配套设施满意吗？" maxlength="150"></textarea>
         <!--<div class="que-ops">-->
             <!--<span id="counter" class="counter">0/35</span>-->
         <!--</div>-->
@@ -36,11 +35,11 @@
 <script>
     $(document).ready(function(){
         $('.remark').click(function(){
-            var title = $('.writebox').val();
+            var note = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
-            if(title){
-                $.post("/api/plot/addAsk", {
-                        title: title,
+            if(note){
+                $.post("/api/plot/addDp", {
+                        note: note,
                         is_nm: is_nm,
                     },
                     function(data, status) {
@@ -53,7 +52,7 @@
                     }
                 );
             }else{
-                alert('问题不能为空哦！')
+                alert('点评内容不能为空哦！')
             }
         })
     })

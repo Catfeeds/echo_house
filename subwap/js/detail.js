@@ -266,23 +266,46 @@ $(document).ready(function(){
 
             // 用户点评
             if(detail.dps.length > 0){
-                var askHtml = '';
+                var dpsHtml = '';
                 for(var i = 0; i < detail.dps.length; i++){
-                    var aksEle = '<div class="detail-comment-message">' +
-                        '            <img src="' + detail.asks[i].image + '" />' +
+                    var dpsEle = '<div class="detail-comment-message">' +
+                        '            <img src="' + detail.dps[i].image + '" />' +
                         '            <div class="detail-comment-info">' +
-                        '                <span class="username">'+ detail.asks[i].name +'</span>' +
-                        '                <div class="usercontent">' + detail.asks[i].title +
+                        '                <span class="username">'+ detail.dps[i].name +'</span>' +
+                        '                <div class="usercontent">' + detail.dps[i].note +
                         '                </div>' +
                         '            </div>' +
                         '        </div>';
-                    askHtml = askHtml + aksEle;
+                    dpsHtml = dpsHtml + dpsEle;
                 }
-                $('.detail-comment-message-container').append(askHtml);
+                $('.detail-comment-message-container').append(dpsHtml);
                 $('#comment-img').css('display','block');
                 $('.detail-comment-num').html('(' + detail.dp_num + ')')
             }else{
                 $('.detail-comment-message-container').append('<div class="detail-pricerules-message">暂无</div>');
+            }
+
+            // 用户问答
+            if(detail.asks.length > 0){
+                var askHtml = '';
+                for(var i = 0; i < detail.asks.length; i++){
+                    var aksEle = '<div class="detail-question-info">' +
+                        '            <span class="icon icon-wen">问</span>' +
+                        '            <span>'+ detail.asks[i].title +'</span>'+
+                        '            <span class="detail-question-info-num">' +
+                        '                <span>'+ detail.ask_num +'</span>个回答' +
+                        '            </span>' +
+                        '        </div>'+
+                        '<div class="detail-question-info">' +
+                        '            <span class="icon icon-da">答</span>' +
+                        '            <span>'+ detail.asks[i].first_answer.note +'</span>' +
+                        '        </div>';
+                    askHtml = askHtml + aksEle;
+                }
+                $('.detail-question-container').append(askHtml);
+                $('#question-img').css('display','block');
+            }else{
+                $('.detail-question-container').append('<div class="detail-pricerules-message">暂无</div>');
             }
         });
 
@@ -431,9 +454,22 @@ $('.tel-bg').click(function(){
     $('.telephone-consult').addClass('hide');
     $('.tel-bg').addClass('hide');
 });
+// 点评
 $('#comment-title').click(function(){
     location.href='/subwap/commentList.html?hid='+hid;
 });
+$('.comment detail-question .remark').click(function(){
+    location.href='/subwap/commentSubmit.html?hid='+hid;
+});
+// 提问
+$('#question-title').click(function(){
+    location.href='/subwap/questionList.html?hid='+hid;
+});
+$('.detail-question .remark').click(function(){
+    location.href='/subwap/questionSubmit.html?hid='+hid;
+});
+
+
 
 
 function copyUrl2() {

@@ -56,18 +56,18 @@ body{
 	height: 50px;
 	line-height: 50px;
 	width: 100%;
-	font-size: 0.9rem;
 	color: #fff;
-	display: -webkit-box;
+	background-color: #00b7ee;
+	text-align: center;
+}
+.que-footer img {
+	width:1.2rem;
+	height:1.2rem;
+	color: #fff;
 }
 .que-footer a {
-	text-align: center;
-	display: -webkit-box;
-	-webkit-box-pack: center;
-	-webkit-box-align: center;
-	-webkit-box-flex: 1;
+	font-size: 1.2rem;
 	color: #fff;
-	background-color: #62ab00;
 }
 /*提交问题*/
 .que-panel{
@@ -97,7 +97,7 @@ body{
 	display: -webkit-box;
 	height: 40px;
 	line-height: 40px;
-	background-color: #62ab00;
+	background-color: #00b7ee;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	margin:20px 0.7rem;
@@ -110,4 +110,19 @@ body{
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
 	text-align: center;
+}
+
+.anonymity-box{
+    display: -webkit-box;
+    position: relative;
+    border-top: 1px solid #ddd;
+    padding:10px;
+}
+.anonymity-box .radio-box{
+    position: absolute;
+    right:0;
+    display: -webkit-box;
+}
+.radio-box .radio-text{
+    padding-right:2rem;
 }
