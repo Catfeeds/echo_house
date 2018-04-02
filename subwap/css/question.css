@@ -1,4 +1,7 @@
 /*提问列表*/
+html{
+	font-size: 18.75px;
+}
 body {
 	width:100%;
 	background-color: #efeff4;
@@ -43,7 +46,7 @@ body {
 	text-overflow: ellipsis;
 }
 .question-info .question-info-da{
-	font-size: 0.5rem;
+	font-size: 0.8rem;
 	color: #666;
 	overflow: hidden;
 	white-space: nowrap;
@@ -110,7 +113,6 @@ body {
 	color: #fff;
 }
 .que-footer a {
-	font-size: 1.2rem;
 	color: #fff;
 }
 
@@ -128,7 +130,7 @@ body {
 }
 .ques-wrap .ques-content {
 	display: inline;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	line-height: 22px;
 	word-break: break-all;
 }
@@ -153,11 +155,11 @@ body {
 	height: 44px;
 	line-height: 44px;
 	color: #666;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	padding:0 15px;
 }
 .answ-block .answ-content {
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	color: #666;
 	line-height: 20px;
 	margin-top: 15px;
@@ -181,10 +183,11 @@ body {
 	height: 35px;
 	width: 35px;
 	position: absolute;
+	border-radius: 15px;
 }
 .user-info .user-name {
 	padding-left: 10px;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	position: absolute;
 	left:38px;
 }
@@ -214,7 +217,7 @@ body {
 	background-color: #00b7ee;
 }
 .btn-da{
-	margin-left:-5px;
+	margin-left:-6px;
 	background-color: #e7631a;
 }
 .btn-box img{
@@ -257,7 +260,6 @@ body {
 	-webkit-box-align: center;
 }
 .remark .remark-btn{
-	font-size: 0.8rem;
 	color: #fff;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;

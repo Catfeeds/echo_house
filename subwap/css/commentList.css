@@ -21,6 +21,7 @@ body{
 	margin-right: 10px;
 	height: 30px;
 	width: 30px;
+	border-radius: 15px;
 }
 .comment-info {
 	display: block;
