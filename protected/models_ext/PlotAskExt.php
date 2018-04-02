@@ -49,6 +49,7 @@ class PlotAskExt extends PlotAsk{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $this->created = $this->updated = time();
+            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行提问，请登陆后台审核','',1);
         }
         else
             $this->updated = time();

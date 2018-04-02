@@ -293,7 +293,7 @@ $(document).ready(function(){
                         '            <span class="icon icon-wen">问</span>' +
                         '            <span>'+ detail.asks[i].title +'</span>'+
                         '            <span class="detail-question-info-num">' +
-                        '                <span>'+ detail.ask_num +'</span>个回答' +
+                        '                <span>'+ detail.asks[i].answers_count +'</span>个回答' +
                         '            </span>' +
                         '        </div>';
                     if(detail.asks[i].first_answer.note){

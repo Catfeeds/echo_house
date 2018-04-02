@@ -48,6 +48,7 @@ class PlotAnswerExt extends PlotAnswer{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $this->created = $this->updated = time();
+            $res = Yii::app()->controller->sendNotice('有新的用户对关于'.$this->plot->title.'项目的'.$this->ask->title.'提问进行回答，请登陆后台审核','',1);
         }
         else
             $this->updated = time();
