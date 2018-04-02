@@ -41,7 +41,7 @@ class PlotController extends ApiController{
 					$init = 0;
 					$criteria->addCondition('uid=:uid');
 					$criteria->params[':uid'] = $this->staff->id;
-					if(is_numeric(var)($status)) {
+					if(is_numeric($status)) {
 						$criteria->addCondition('status=:status');
 						$criteria->params[':status'] = $status;
 					}
@@ -320,7 +320,7 @@ class PlotController extends ApiController{
 		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
-				is_numeric(var)($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
+				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
 				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
 				if($value['url']) {
 					$images[$key]['url'] = ImageTools::fixImage($value['url']);
@@ -981,13 +981,13 @@ class PlotController extends ApiController{
     		$kw = Yii::app()->request->getQuery('kw','');
     		$status = Yii::app()->request->getQuery('status','');
     		if($kw) {
-    			if(is_numeric(var)($kw)) {
+    			if(is_numeric($kw)) {
     				$criteria->addSearchCondition('phone',$kw);
     			} else {
     				$criteria->addSearchCondition('name',$kw);
     			}
     		}
-    		if(is_numeric(var)($status)) {
+    		if(is_numeric($status)) {
     			$criteria->addCondition('status=:status');
     			$criteria->params[':status'] = $status;
     		}
@@ -1042,13 +1042,13 @@ class PlotController extends ApiController{
     		$kw = Yii::app()->request->getQuery('kw','');
     		$status = Yii::app()->request->getQuery('status','');
     		if($kw) {
-    			if(is_numeric(var)($kw)) {
+    			if(is_numeric($kw)) {
     				$criteria->addSearchCondition('phone',$kw);
     			} else {
     				$criteria->addSearchCondition('name',$kw);
     			}
     		}
-    		if(is_numeric(var)($status)) {
+    		if(is_numeric($status)) {
     			$criteria->addCondition('status=:status');
     			$criteria->params[':status'] = $status;
     		}
@@ -1410,13 +1410,13 @@ class PlotController extends ApiController{
     		$kw = Yii::app()->request->getQuery('kw','');
     		$status = Yii::app()->request->getQuery('status','');
     		if($kw) {
-    			if(is_numeric(var)($kw)) {
+    			if(is_numeric($kw)) {
     				$criteria->addSearchCondition('phone',$kw);
     			} else {
     				$criteria->addSearchCondition('name',$kw);
     			}
     		}
-    		if(is_numeric(var)($status)) {
+    		if(is_numeric($status)) {
     			$criteria->addCondition('status=:status');
     			$criteria->params[':status'] = $status;
     		}
