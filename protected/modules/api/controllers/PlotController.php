@@ -450,7 +450,7 @@ class PlotController extends ApiController{
 		if($dpsres = PlotDpExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
 			foreach ($dpsres as $re) {
 				$dpuser = $re->user;
-				$dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100)];
+				$dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100)];
 			}
 		}
 
@@ -1753,7 +1753,7 @@ class PlotController extends ApiController{
 	    			$data[] = [
 	    				'id'=>$value->id,
 	    				'name'=>$value->is_nm?'匿名':$dpuser->name,
-	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
+	    				'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100),
 	    				'note'=>$value->note,
 	    				'time'=>date('Y-m-d',$value->updated),
 	    			];
