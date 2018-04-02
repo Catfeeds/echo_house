@@ -1817,7 +1817,7 @@ class PlotController extends ApiController{
     		}
 	    		
     	}
-    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count,'plot_title'=>$plot->title,'hid'=>$plot->id,'ask_title'=>$ask->title,'ask_username'=>$ask->user->name,'ask_time'=>date("Y-m-d",$ask->updated)];
+    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count,'plot_title'=>$plot->title,'hid'=>$plot->id,'ask_title'=>$ask->title,'ask_username'=>$ask->user->name,'ask_time'=>date("Y-m-d",$ask->updated),'item_count'=>$ress->pagination->itemCount];
     }
 
     public function actionAddDp()

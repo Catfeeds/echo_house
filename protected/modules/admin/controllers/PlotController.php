@@ -231,7 +231,7 @@ class PlotController extends AdminController{
 		$criteria->order = 'updated desc,id desc';
 		$criteria->addCondition('hid=:hid');
 		$criteria->params[':hid'] = $hid;
-		$houses = PlotDpExt::model()->normal()->getList($criteria,20);
+		$houses = PlotDpExt::model()->getList($criteria,20);
 		$this->render('dplist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 
@@ -251,7 +251,7 @@ class PlotController extends AdminController{
 		$criteria->order = 'updated desc,id desc';
 		$criteria->addCondition('hid=:hid');
 		$criteria->params[':hid'] = $hid;
-		$houses = PlotAskExt::model()->normal()->getList($criteria,20);
+		$houses = PlotAskExt::model()->getList($criteria,20);
 		$this->render('asklist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 
@@ -271,7 +271,7 @@ class PlotController extends AdminController{
 		$criteria->order = 'updated desc,id desc';
 		$criteria->addCondition('hid=:hid');
 		$criteria->params[':hid'] = $hid;
-		$houses = PlotAnswerExt::model()->normal()->getList($criteria,20);
+		$houses = PlotAnswerExt::model()->getList($criteria,20);
 		$this->render('answerlist',['infos'=>$houses->data,'pager'=>$houses->pagination,'house'=>$house]);
 	}
 

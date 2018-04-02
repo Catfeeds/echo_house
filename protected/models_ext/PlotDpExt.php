@@ -45,7 +45,7 @@ class PlotDpExt extends PlotDp{
 
     public function beforeValidate() {
         if($this->getIsNewRecord()) {
-            $this->status = 1;
+            // $this->status = 1;
             $this->created = $this->updated = time();
         }
         else
