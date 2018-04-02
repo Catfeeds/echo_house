@@ -68,7 +68,7 @@ class ToolCommand extends CConsoleCommand
     {
         $infos = UserExt::model()->findAll('vip_expire>'.time().' and vip_expire<'.time()+86400*3);
         // $infos = PlotMarketUserExt::model()->findAll('expire>'.time().' and expire<'.time()+86400*3);
-        foreach ($infos as $key => $value) {
+        foreach ($infos as $key => $user) {
             if($user && $user->phone) {
                 SmsExt::sendMsg('会员到期通知',$user->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$user->name]);
             }
