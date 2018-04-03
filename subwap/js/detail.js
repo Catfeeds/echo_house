@@ -282,7 +282,7 @@ $(document).ready(function(){
                 $('#comment-img').css('display','block');
                 $('.detail-comment-num').html('(' + detail.dp_num + ')')
             }else{
-                $('.detail-comment-message-container').append('<div class="detail-pricerules-message">暂无</div>');
+                $('.detail-comment-message-container').append('<div class="detail-dp-message">暂无</div>');
             }
 
             // 用户问答
@@ -311,7 +311,7 @@ $(document).ready(function(){
                 $('#question-img').css('display','block');
                 $('.detail-question-num').html('(' + detail.ask_num + ')')
             }else{
-                $('.detail-question-container').append('<div class="detail-pricerules-message">暂无</div>');
+                $('.detail-question-container').append('<div class="detail-ask-message">暂无</div>');
             }
         });
 

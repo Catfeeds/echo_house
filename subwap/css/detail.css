@@ -358,6 +358,26 @@ body{
 	overflow: hidden;
 }
 
+.detail-dp-message{
+	position: relative;
+	width: 18.72rem;
+	height: auto;
+	padding: 0.747rem;
+	font-size: 0.747rem;
+	color: #868686;
+	overflow: hidden;
+}
+
+.detail-ask-message{
+	position: relative;
+	width: 18.72rem;
+	height: auto;
+	padding: 0.747rem;
+	font-size: 0.747rem;
+	color: #868686;
+	overflow: hidden;
+}
+
 .detail-sailpoint{
 	position: relative;
 	width: 20.0rem;
