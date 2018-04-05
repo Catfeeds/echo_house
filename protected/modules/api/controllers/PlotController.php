@@ -469,6 +469,7 @@ class PlotController extends ApiController{
 				$asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 			}
 		}
+		shuffle($phones);
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,
@@ -894,6 +895,7 @@ class PlotController extends ApiController{
 				$phones && $phones = array_keys(array_flip($phones));
 
 				$phonesnum = [];
+				shuffle($phones);
 				if($phones) {
 					foreach ($phones as $k => $value) {
 						preg_match('/[0-9]+/', $value,$k);
