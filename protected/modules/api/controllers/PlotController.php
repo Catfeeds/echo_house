@@ -1811,7 +1811,7 @@ class PlotController extends ApiController{
 	    			$data[] = [
 	    				'id'=>$value->id,
 	    				'name'=>$value->is_nm?'匿名':$dpuser->name,
-	    				'image'=>ImageTools::fixImage($dpuser->image?$dpuser->image:SiteExt::getAttr('qjpz','usernopic'),100,100),
+	    				'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100),
 	    				'note'=>$value->note,
 	    				'time'=>date('Y-m-d',$value->updated),
 	    			];
