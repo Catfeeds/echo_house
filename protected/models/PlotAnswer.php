@@ -35,7 +35,7 @@ class PlotAnswer extends CActiveRecord
 		return array(
 			array('aid, created', 'required'),
 			array('hid, uid, aid, is_nm, sort, status, created, updated', 'numerical', 'integerOnly'=>true),
-			array('note', 'length', 'max'=>100),
+			array('note', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, hid, uid, aid, is_nm, note, sort, status, created, updated', 'safe', 'on'=>'search'),

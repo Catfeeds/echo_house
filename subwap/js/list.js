@@ -821,8 +821,8 @@ function cleardetail() {
     $('#zdtext').empty();
     $('.detail-laststate-message').empty();
     $('.detail-pricerules-message').empty();
-    $('.detail-dp-message').remove();
-    $('.detail-ask-message').remove();
+    $('.detail-comment-message-container').empty();
+    $('.detail-question-container').empty();
     $('.detail-sailpoint-message').empty();
     $('.detail-daikanrules-message').empty();
     $('#mainstyle ul').empty();
