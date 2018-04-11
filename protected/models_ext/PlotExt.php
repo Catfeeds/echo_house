@@ -107,7 +107,7 @@ class PlotExt extends Plot{
 
     public function titlerule($attribute,$params)
     {
-        if($this->getIsNewRecord()) {
+        if($this->getIsNewRecord() && $this->company_id && $this->title) {
             PlotExt::model()->normal()->find("title='".$this->title."' and company_id=".$this->company_id) && $this->addError($attribute, '楼盘名不能重复!'); 
         }
     }
