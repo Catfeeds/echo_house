@@ -388,13 +388,7 @@ class PlotController extends ApiController{
 		$phones && $phones = array_keys(array_flip($phones));
 
 		$phonesnum = [];
-		if($phones) {
-			foreach ($phones as $key => $value) {
-				preg_match('/[0-9]+/', $value,$tmp);
-				$phonesnum = array_merge($phonesnum,$tmp);
-			}
-		}
-			
+		
 		$major_phone = '';
 		if($info->market_user) {
 			preg_match('/[0-9]+/', $info->market_user,$major_phone);
@@ -470,6 +464,12 @@ class PlotController extends ApiController{
 			}
 		}
 		shuffle($phones);
+		if($phones) {
+			foreach ($phones as $key => $value) {
+				preg_match('/[0-9]+/', $value,$tmp);
+				$phonesnum = array_merge($phonesnum,$tmp);
+			}
+		}
 		$data = [
 			'id'=>$id,
 			'title'=>$info->title,

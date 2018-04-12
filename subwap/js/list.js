@@ -842,7 +842,7 @@ function cleardetail() {
 function showdetail(id) {
     cleardetail();
     window.scrollTo(0,0);
-    var clipboard = new Clipboard('.fuzhiwenan');  
+    var clipboard = new Clipboard('.copy-weixin');  
     $.get('/api/config/index',function(data) {
         if(data.data.is_user == true) {
             is_user = true;

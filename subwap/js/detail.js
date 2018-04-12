@@ -61,7 +61,7 @@ function checkUser() {
             });
 }
 $(document).ready(function(){
-    var clipboard = new Clipboard('.fuzhiwenan');  
+    var clipboard = new Clipboard('.copy-weixin');  
     // var clipboard1 = new Clipboard('.fuzhiwenan');  
     // 复制文案
     // data-clipboard-text="'+detail.phonesnum[i]+'" clas
