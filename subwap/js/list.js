@@ -822,6 +822,8 @@ function cleardetail() {
     $('.detail-laststate-message').empty();
     $('.detail-pricerules-message').empty();
     $('.detail-comment-message-container').empty();
+    $('.detail-comment-num').empty();
+    $('.detail-question-num').empty();
     $('.detail-question-container').empty();
     $('.detail-sailpoint-message').empty();
     $('.detail-daikanrules-message').empty();
