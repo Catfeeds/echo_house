@@ -223,12 +223,12 @@ $(document).ready(function() {
             }
             if (GetQueryString('area') != null) {
                 o.area = GetQueryString('area');
-                $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
-                setArea($('#areaul li[data-id="'+o.area+'"]')[0]); 
+                $('#city').append('<li onclick="setArea(this)" id="area0" data-id="0">不限</li>');
+                setArea($('#city li[data-id="'+o.area+'"]')[0]); 
                 
             } else {    
-                $('#areaul').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
-                setArea($('#areaul li')[0]); 
+                $('#city').append('<li onclick="setArea(this)" id="area0" data-id="0" class="filter1-left-active">不限</li>');
+                setArea($('#city li')[0]); 
             } 
             
             if(is_user==1) {
@@ -593,14 +593,14 @@ function getFilterId(obj) {
 }
 //显示列表1
 function getAreas(obj) {
-    if ($('#areaul').find('li').length == 1) {
+    if ($('#city').find('li').length == 1) {
         var html = '';    
         var list = filter[0].list;
         if (list.length > 0) {
             for (var j = 0; j < list.length; j++) {
                 if (GetQueryString('area')!=null) {
                     if (GetQueryString('area')==list[j].id) {
-                        html += '<li onclick="showStreet(this)" class="filter1-left-active" data-id="' + list[j].id + '">' + list[j].name + '</li>';
+                        html += '<li onclick="showStreet(this)" class="filter1-center-active" data-id="' + list[j].id + '">' + list[j].name + '</li>';
                     }else{
                         html += '<li onclick="showStreet(this)" data-id="' + list[j].id + '">' + list[j].name + '</li>';
                     }
@@ -611,28 +611,30 @@ function getAreas(obj) {
         }             
         $('#area0').after(html);
         if (obj.area != '' && obj.area != 'undefined') {
-            $('#obj.area').addClass('filter1-left-active');
+            $('#obj.area').addClass('filter1-center-active');
         }
     }
 }
 
 function showStreet(obj) {
-    $('.filter-filter1-left li').removeClass('filter1-left-active');
-    $(obj).addClass('filter1-left-active');
-    $('#streetul').empty();
-    $('#streetul').append('<li id="street0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '" data-name="' + $(obj).text() + '">不限<div class="line"></div></li>');
-    $('.filter-filter1-right').css('display', 'block');
+    $('.filter-filter1-right').css('display', 'none');
+    $('.filter-filter1-left li').removeClass('filter1-center-active');
+    $(obj).addClass('filter1-center-active');
+    $('#areaul').empty();
+    $('#areaul').append('<li id="street0" class="filter1-center-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '" data-name="' + $(obj).text() + '">不限<div class="line"></div></li>');
+    $('.filter-filter1-center').css('display', 'block');
     var areaid = $(obj).data('id');
     var arealist = filter[0];
     var html = '';
     var list = arealist.list;
+
     if (list.length > 0) {
         for (var i = 0; i < list.length; i++) {
             if (areaid == list[i].id) {
                 var streets = list[i].childAreas;
                 if (streets.length > 0) {
                     for (var j = 0; j < streets.length; j++) {
-                        html += '<li onclick="setArea(this)" data-type="street" data-id="' + streets[j].id + '">' + streets[j].name + '<div class="line"></div></li>';
+                        html += '<li onclick="showTown(this)" data-type="street" data-id="' + streets[j].id + '"data-city="' + areaid +'">' + streets[j].name + '<div class="line"></div></li>';
                     }
                 }
                 break;
@@ -640,6 +642,47 @@ function showStreet(obj) {
         }
     }
     $('#street0').after(html);
+}
+
+function showTown(obj) {
+    $('.filter-filter1-center li').removeClass('filter1-right-active');
+    $(obj).addClass('filter1-right-active');
+    $('#streetul').empty();
+    $('#streetul').append('<li id="town0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '" data-name="' + $(obj).text() + '">不限<div class="line"></div></li>');
+    $('.filter-filter1-right').css('display', 'block');
+    var cityid = $(obj).data('city');
+    var areaid = $(obj).data('id');
+    var arealist = filter[0];
+    var html = '';
+    var list = arealist.list;
+
+
+    if (list.length > 0) {
+        for (var i = 0; i < list.length; i++) {
+            if(cityid == list[i].id){
+                var streets = list[i].childAreas;
+                if (streets.length > 0) {
+                    for (var j = 0; j < streets.length; j++) {
+                        if (areaid == streets[j].id) {
+                            var towns = streets[j].childAreas;
+                            if(towns){
+                                 for (var k = 0; k < towns.length; k++) {
+                                    html += '<li onclick="setArea(this)" data-type="town" data-id="' + towns[k].id + '">' + towns[k].name + '<div class="line"></div></li>';
+                                }
+                            }else{
+                                setArea('<li id="town0" class="filter1-right-active" onclick="setArea(this)" data-type="area" data-id="' + $(obj).data('id') + '" data-name="' + $(obj).text() + '">不限<div class="line"></div></li>');
+                                $('.filter-filter1-right').css('display', 'none');
+                            }
+ 
+                        }
+                    }
+                }
+                break;
+            }
+               
+        }
+    }
+    $('#town0').after(html);
 }
 
 function setArea(obj) {
@@ -673,6 +716,12 @@ function setArea(obj) {
         o.street = '';
         $('.list-filter li:eq(0) a').html("区域");
     } else if ($(obj).attr('id') == 'street0') {
+        o.street = '';
+        o.area = $(obj).data('id');
+        if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
+            $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
+        } 
+    } else if ($(obj).attr('id') == 'town0') {
         o.street = '';
         o.area = $(obj).data('id');
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
