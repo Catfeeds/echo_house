@@ -160,6 +160,7 @@ function turnDetail(obj){
     // location.href="detail.html?id="+obj;
 }
 $(document).ready(function() {
+
     init();
     thisurl = '';
     var toptag = '';
@@ -889,6 +890,9 @@ function cleardetail() {
 }
 
 function showdetail(id) {
+     // 获取屏幕的高-遮罩层
+    var bodyHeight = $(document.body).height();
+    $('.background').css({'height':bodyHeight +300});
     cleardetail();
     window.scrollTo(0,0);
     var clipboard = new Clipboard('.copy-weixin');  
@@ -1560,4 +1564,26 @@ $('#save').click(function() {
         }
         // alert(data.msg);
     });
+});
+
+// 显示更多快捷图标
+$('.list-more').click(function() {
+    $('.list-more').hide();
+    $('.list-more-show').show();
+    $('.background').show();
+
+});
+// 隐藏更多快捷图标
+$('.close-img').click(function() {
+    $('.list-more').show();
+    $('.list-more-show').hide();
+    $('.background').hide();
+
+});
+
+$('.list-back-img').click(function(){
+    location.href='/subwap/list.html';
+});
+$('.home-img').click(function(){
+    location.href='/subwap/list.html';
 });

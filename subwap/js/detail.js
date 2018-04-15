@@ -61,6 +61,9 @@ function checkUser() {
             });
 }
 $(document).ready(function(){
+    // 获取屏幕的高-遮罩层
+    var bodyHeight = $(document.body).height();
+    $('.background').css({'height':bodyHeight +300});
     var clipboard = new Clipboard('.copy-weixin');  
     // var clipboard1 = new Clipboard('.fuzhiwenan');  
     // 复制文案
@@ -392,7 +395,23 @@ function becomeDuijieren(){
 function share(){
     QFH5.openShareDialog();
 }
-
+function toUser() {
+    $.get('/api/index/getQfUid',function(data) {
+            if(data.status=='error') {
+                alert('登录成功后请关闭本页面重新进入');
+                QFH5.jumpLogin(function(state,data){
+                  //未登陆状态跳登陆会刷新页面，无回调
+                  //已登陆状态跳登陆会回调通知已登录
+                  //用户取消登陆无回调
+                  if(state==2){
+                  alert("您已登陆");
+                  }
+              })
+            } else {
+                location.href = '/my';
+            }
+        });
+}
 
 //展开折叠
 $('.maidian-on-off').click(function(){
@@ -562,4 +581,24 @@ $('#save').click(function() {
     });
 });
 
+// 显示更多快捷图标
+$('.list-more').click(function() {
+    $('.list-more').hide();
+    $('.list-more-show').show();
+    $('.background').show();
 
+});
+// 隐藏更多快捷图标
+$('.close-img').click(function() {
+    $('.list-more').show();
+    $('.list-more-show').hide();
+    $('.background').hide();
+
+});
+
+$('.list-back-img').click(function(){
+    location.href='/subwap/list.html';
+});
+$('.home-img').click(function(){
+    location.href='/subwap/list.html';
+});

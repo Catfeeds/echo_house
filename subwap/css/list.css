@@ -460,8 +460,6 @@ color:#c3c3c3;
 	top: 0.747rem;
 }
 
-
-
 .houselist{
 	position: relative;
 }
@@ -667,4 +665,82 @@ color:#c3c3c3;
 	top: 12rem;
 	text-align: center;
 	font-size: 1rem;
+}
+
+
+/*更多快捷图标*/
+.more-box{
+	position: fixed;
+	top: 42%;
+	right: 1.067rem;
+	z-index: 1001;
+}
+.list-back{
+	position: fixed;
+	top: 68%;
+	left: 1.067rem;
+	height: 2.293rem;
+	width: 2.293rem;
+	/*background-color: #00b7ee;*/
+	border-radius: 1.147rem;
+	z-index: 999;
+}
+
+.list-back-img{
+	position: absolute;
+	width: 2.36rem;
+	height: 2.36rem;
+}
+
+.list-more{
+	position: fixed;
+	top: 68%;
+	right: 1.067rem;
+	height: 2.293rem;
+	width: 2.293rem;
+	border-radius: 1.147rem;
+	z-index: 999;
+}
+
+.list-more-img{
+	position: absolute;
+	width: 2.36rem;
+	height: 2.36rem;
+}
+
+.list-more-show{
+	display: none;
+}
+.list-more-show ul li{
+	width:150px;
+	height:2.36rem;
+	line-height: 2.36rem;
+	position: relative;
+	margin:10px 0;
+	/*display: none;*/
+}
+.list-more-show span{
+	position: absolute;
+	right:2.6rem;
+	margin:0 7px;
+	color:#fff;
+	font-size: 16px;
+}
+.list-more-show img{
+	position: absolute;
+	display: inline-block;
+	width: 2.36rem;
+	height: 2.36rem;
+	right:0.067rem;;
+
+}
+.background{
+	width:100%;
+	height:100%;
+	background-color: #000;
+	z-index: 1000;
+	position: absolute;
+    top: 0;
+    opacity: 0.4;
+    display:none;
 }
