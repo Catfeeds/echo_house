@@ -96,8 +96,9 @@ function submitBtn()
             'pphone':$('input[name="pphone"]').val(),
             'pcompany':$('input[name="pcompany"]').val(),
             'title':$('input[name="title"]').val(),
-            'area':$('select[name="area"]').val(),
-            'street':$('select[name="street"]').val(),
+            'city':$('select[name="area"]').val(),
+            'area':$('select[name="street"]').val(),
+            'street':$('select[name="town"]').val(),
             'address':$('input[name="address"]').val(),
             'price':$('input[name="price"]').val(),
             'unit':$('select[name="unit"]').val(),
@@ -168,6 +169,26 @@ function setStreets(){
 
       for (var j = 0; j < arealist[i].childAreas.length; j++) {
       $('#area2').append('<option value="'+arealist[i].childAreas[j].id+'">'+arealist[i].childAreas[j].name+'</option>');     
+      }
+      break;
+    }
+  }
+}
+function setTowns(){
+  $('#area3').empty();
+  var arealist = tags[3].list;
+  for(var i = 0; i < arealist.length; i++){
+    // console.log(tags[3][i]);
+    if($('#area1').val()==arealist[i].id){
+
+      for (var j = 0; j < arealist[i].childAreas.length; j++) {
+        if($('#area2').val()==arealist[i].childAreas[j].id) {
+          for (var k = 0; k < arealist[i].childAreas[j].childAreas.length; k++) {
+            $('#area3').append('<option value="'+arealist[i].childAreas[j].childAreas[k].id+'">'+arealist[i].childAreas[j].childAreas[k].name+'</option>');
+          }
+          
+        }
+           
       }
       break;
     }

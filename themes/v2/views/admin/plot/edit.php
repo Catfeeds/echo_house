@@ -9,8 +9,10 @@ $this->pageTitle = '编辑房源';
 $this->breadcrumbs = array($this->pageTitle);
 $maps = array('zoom' => 14, 'lat' => SiteExt::getAttr('qjpz','map_lat') ? SiteExt::getAttr('qjpz','map_lat') : "31.810077", 'lng' => SiteExt::getAttr('qjpz','map_lng') ? SiteExt::getAttr('qjpz','map_lng') : "119.974454");
 $parentArea = AreaExt::model()->parent()->normal()->findAll();
-$parent = $plot->area?$plot->area:(isset($parentArea[0])?$parentArea[0]->id:0);
+$parent = $plot->city?$plot->city:(isset($parentArea[0])?$parentArea[0]->id:0);
 $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll() : array(0=>'--无子分类--');
+$parent1 = $plot->area?$plot->area:(isset($childArea[0])?$childArea[0]->id:0);
+$childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->findAll() : array(0=>'--无子分类--');
 ?>
 <?php $this->widget('ext.ueditor.UeditorWidget',array('id'=>'PlotExt_peripheral','options'=>"toolbars:[['fullscreen','source','undo','redo','|','customstyle','paragraph','fontfamily','fontsize'],
         ['bold','italic','underline','fontborder','strikethrough','superscript','subscript','removeformat',
@@ -173,20 +175,27 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
                 <label class="col-md-2 control-label text-nowrap">所在区域<span class="required" aria-required="true">*</span></label>
                 <div class="col-md-10">
                     <?php
-                    echo $form->dropDownList($plot , 'area' ,CHtml::listData($parentArea,'id','name') , array(
+                    echo $form->dropDownList($plot , 'city' ,CHtml::listData($parentArea,'id','name') , array(
                             'class'=>'form-control input-inline',
                             'ajax' =>array(
                                 'url' => Yii::app()->createUrl('admin/area/ajaxGetArea'),
-                                'update' => '#PlotExt_street',
+                                'update' => '#PlotExt_area',
                                 'data'=>array('area'=>'js:this.value'),
                             )
                         )
                     );
                     ?>
                     <?php
-                    echo $form->dropDownList($plot , 'street' ,$childArea ? CHtml::listData($childArea,'id','name'):array(0=>'--无子分类--') , array('class'=>'form-control input-inline'));
+                    echo $form->dropDownList($plot , 'area' ,$childArea ? CHtml::listData($childArea,'id','name'):array(0=>'--无子分类--') , array(
+                            'class'=>'form-control input-inline',
+                            'ajax' =>array(
+                                'url' => Yii::app()->createUrl('admin/area/ajaxGetArea'),
+                                'update' => '#PlotExt_street',
+                                'data'=>array('area'=>'js:this.value'),
+                            )
+                        ));
+                    echo $form->dropDownList($plot , 'street' ,$childArea1 ? CHtml::listData($childArea1,'id','name'):array(0=>'--无子分类--') , array('class'=>'form-control input-inline'));
                     ?>
-                    <span class="help-block"><?php echo $form->error($plot, 'area').$form->error($plot, 'street'); ?></span>
                 </div>
             </div>
 

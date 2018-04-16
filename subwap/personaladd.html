@@ -63,10 +63,13 @@
         <div class="submit-textarea">
             <img class="asterisk-img" src="./img/asterisk.png">
             <div class="submit-textname">项目区域</div>
-            <select id="area1" name="area" class="submit-select" onchange="setStreets()">
+            <select id="area1" name="area" class="city-select" onchange="setStreets()">
                 <!-- <option value="volvo">Volvo</option> -->
             </select>
-            <select id="area2" name="street" class="area-select">
+            <select id="area2" name="street" class="street-select" onchange="setTowns()">
+                <!-- <option value="volvo">Volvo</option> -->
+            </select>
+            <select id="area3" name="town" class="town-select">
                 <!-- <option value="volvo">Volvo</option> -->
             </select>
         </div>

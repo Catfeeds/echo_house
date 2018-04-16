@@ -156,6 +156,7 @@ class AreaController extends AdminController {
         $data = AreaExt::model()->getByParent($area)->normal()->findAll();
         if($data)
         {
+            echo CHtml::tag('option', array('value'=>0), CHtml::encode('--无子分类--'), true);
             foreach($data as $v)
             {
                 echo CHtml::tag('option', array('value'=>$v->id), CHtml::encode($v->name), true);

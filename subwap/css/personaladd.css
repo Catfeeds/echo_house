@@ -100,6 +100,33 @@ body{
 	font-size: 0.8rem;
 	border:solid 0.027rem #c3c3c3;
 }
+.city-select{
+	position: absolute;
+	width: 3.3rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 6.5rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
+.street-select{
+	position: absolute;
+	width: 3.3rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 10.5rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
+.town-select{
+	position: absolute;
+	width: 4rem;
+	height: 1.5rem;
+	top: 0.55rem;
+	left: 14.5rem;
+	font-size: 0.8rem;
+	border:solid 0.027rem #c3c3c3;
+}
 
 .submit-textname{
 	position: absolute;
