@@ -45,6 +45,7 @@ $(document).ready(function() {
         for(var i=0;i<tags[3].list.length;i++){
           $('#area1').append('<option value="'+tags[3].list[i].id+'">'+tags[3].list[i].name+'</option>');
         }
+        $('#area2').append('<option value="0">请选择</option>');
         for(var i=0;i<tags[3].list[0].childAreas.length;i++){
           $('#area2').append('<option value="'+tags[3].list[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[i].name+'</option>');
         }
@@ -166,7 +167,7 @@ function setStreets(){
   for(var i = 0; i < arealist.length; i++){
     // console.log(tags[3][i]);
     if($('#area1').val()==arealist[i].id){
-
+      $('#area2').append('<option value="0">请选择</option>');
       for (var j = 0; j < arealist[i].childAreas.length; j++) {
       $('#area2').append('<option value="'+arealist[i].childAreas[j].id+'">'+arealist[i].childAreas[j].name+'</option>');     
       }
@@ -182,7 +183,9 @@ function setTowns(){
     if($('#area1').val()==arealist[i].id){
 
       for (var j = 0; j < arealist[i].childAreas.length; j++) {
+
         if($('#area2').val()==arealist[i].childAreas[j].id) {
+          $('#area3').append('<option value="0">请选择</option>');
           for (var k = 0; k < arealist[i].childAreas[j].childAreas.length; k++) {
             $('#area3').append('<option value="'+arealist[i].childAreas[j].childAreas[k].id+'">'+arealist[i].childAreas[j].childAreas[k].name+'</option>');
           }
