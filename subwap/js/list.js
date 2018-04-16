@@ -1,6 +1,7 @@
 var o = new Object();
 function init() {
     o.toptag = '';
+    o.city = '';
     o.area = '';
     o.street = '';
     o.aveprice = '';
@@ -293,6 +294,9 @@ function ajaxGetList(obj) {
     if (obj.street != '' && obj.street != 'undefined') {
         params += '&street=' + obj.street;
     }
+    if (obj.city != '' && obj.city != 'undefined') {
+        params += '&city=' + obj.city;
+    }
     if (obj.aveprice != '' && obj.aveprice != undefined) {
         params += '&aveprice=' + obj.aveprice;
     }
@@ -397,6 +401,9 @@ function ajaxAddList(obj) {
     }
     if (obj.street != '' && obj.street != 'undefined') {
         params += '&street=' + obj.street;
+    }
+    if (obj.city != '' && obj.city != 'undefined') {
+        params += '&city=' + obj.city;
     }
     if (obj.aveprice != '' && obj.aveprice != undefined) {
         params += '&aveprice=' + obj.aveprice;
@@ -715,15 +722,18 @@ function setArea(obj) {
     if ($(obj).attr('id') == 'area0') {
         o.area = '';
         o.street = '';
+        o.city = '';
         $('.list-filter li:eq(0) a').html("区域");
     } else if ($(obj).attr('id') == 'street0') {
         o.street = '';
-        o.area = $(obj).data('id');
+        o.area = '';
+        o.city = $(obj).data('id');
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
         } 
     } else if ($(obj).attr('id') == 'town0') {
         o.street = '';
+        o.city = '';
         o.area = $(obj).data('id');
         if ($(obj).attr("data-name")!=''&&$(obj).attr("data-name")!=undefined) {
             $('.list-filter li:eq(0) a').html($(obj).attr("data-name"));
