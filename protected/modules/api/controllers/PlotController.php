@@ -1,5 +1,16 @@
 <?php
 class PlotController extends ApiController{
+	public function is_HTTPS(){  //判断是不是https
+            if(!isset($_SERVER['HTTPS']))  return FALSE;  
+            if($_SERVER['HTTPS'] === 1){  //Apache  
+                return TRUE;  
+            }elseif($_SERVER['HTTPS'] === 'on'){ //IIS  
+                return TRUE;  
+            }elseif($_SERVER['SERVER_PORT'] == 443){ //其他  
+                return TRUE;  
+            }  
+                return FALSE;  
+   	}  
 	public function actionList()
 	{
 
@@ -31,6 +42,11 @@ class PlotController extends ApiController{
 		}
 		if($area&&$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$areainit = 1;
+		}
+		if($this->is_HTTPS()){
+			$city = $area;
+			$area = $street;
+			$street = 0;
 		}
 		$criteria = new CDbCriteria;
 		if($uid>0) {
