@@ -1923,7 +1923,8 @@ class PlotController extends ApiController{
     		return $this->returnError('您的刷新次数不够，请前往购买');
     	}
     	$plot = PlotExt::model()->findByPk($hid);
-    	$plot->
+    	$plot->refresh_time = time();
+    	$plot->save();
     	$this->staff->refresh_num -= 1;
     	$this->staff->save();
     }
