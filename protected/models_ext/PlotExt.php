@@ -319,7 +319,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'sort desc,created desc';
+                    $criteria->order = 'sort desc,refresh_time desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
