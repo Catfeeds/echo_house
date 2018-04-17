@@ -19,7 +19,7 @@ class HangjiaRedisConnection extends CApplicationComponent
      * redis连接地址
      * @var string
      */
-    public $hostname = '127.0.0.1';
+    public $hostname = '120.77.44.227';
     /**
      * redis端口号
      * @var string
