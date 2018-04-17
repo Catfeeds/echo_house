@@ -220,6 +220,9 @@ class PlotExt extends Plot{
         //     // $this->save();
         // }
         // var_dump($this->data_conf);exit;
+        if(!$this->refresh_time){
+            $this->refresh_time = $this->created;
+        }
         return parent::beforeValidate();
     }
 

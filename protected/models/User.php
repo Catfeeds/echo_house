@@ -15,6 +15,7 @@
  * @property integer $is_manage
  * @property integer $is_true
  * @property string $id_pic
+ * @property integer $refresh_num
  * @property integer $qf_uid
  * @property integer $cid
  * @property integer $vip_expire
@@ -47,13 +48,13 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pwd, name, created', 'required'),
-			array('parent, is_jl, is_manage, is_true, qf_uid, cid, vip_expire, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
+			array('parent, is_jl, is_manage, is_true, refresh_num, qf_uid, cid, vip_expire, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('pwd, openid, id_pic, company, ava, image', 'length', 'max'=>255),
 			array('wx, name', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, parent, openid, is_jl, is_manage, is_true, id_pic, qf_uid, cid, vip_expire, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, pwd, wx, phone, name, parent, openid, is_jl, is_manage, is_true, id_pic, refresh_num, qf_uid, cid, vip_expire, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +86,7 @@ class User extends CActiveRecord
 			'is_manage' => 'Is Manage',
 			'is_true' => 'Is True',
 			'id_pic' => 'Id Pic',
+			'refresh_num' => 'Refresh Num',
 			'qf_uid' => 'Qf Uid',
 			'cid' => 'Cid',
 			'vip_expire' => 'Vip Expire',
@@ -129,6 +131,7 @@ class User extends CActiveRecord
 		$criteria->compare('is_manage',$this->is_manage);
 		$criteria->compare('is_true',$this->is_true);
 		$criteria->compare('id_pic',$this->id_pic,true);
+		$criteria->compare('refresh_num',$this->refresh_num);
 		$criteria->compare('qf_uid',$this->qf_uid);
 		$criteria->compare('cid',$this->cid);
 		$criteria->compare('vip_expire',$this->vip_expire);

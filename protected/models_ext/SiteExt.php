@@ -35,7 +35,8 @@ class SiteExt extends Site{
         'ouruids'=>'',
         'site_wx'=>'',
         'kfuid'=>'',
-        'usernopic'=>''
+        'usernopic'=>'',
+        'toplimit'=>''
     ];
     public static $cateName = [
         'qjpz' => '全局配置',
@@ -62,6 +63,7 @@ class SiteExt extends Site{
             'map_lng'=>['type'=>'text','name'=>'默认经度'],
             'map_lat'=>['type'=>'text','name'=>'默认纬度'],
             'map_zoom'=>['type'=>'text','name'=>'默认缩放值'],
+            'toplimit'=>['type'=>'text','name'=>'置顶条数'],
             'appid'=>['type'=>'text','name'=>'开发者ID'],
             'appsecret'=>['type'=>'text','name'=>'开发者密码'],
             'mch_id'=>['type'=>'text','name'=>'商户ID'],

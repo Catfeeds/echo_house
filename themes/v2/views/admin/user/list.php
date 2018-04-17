@@ -44,6 +44,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">电话</th>
         <th class="text-center">公司名</th>
         <th class="text-center">会员到期时间</th>
+        <th class="text-center">刷新数</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -61,7 +62,8 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=UserExt::$ids[$v->type]?></td>
             <td class="text-center"><?=$v->phone?></td>
             <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>  
-            <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>       
+            <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>  
+            <td class="text-center"><?=$v->refresh_num?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->updated)?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>

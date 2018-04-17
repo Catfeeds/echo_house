@@ -43,6 +43,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">总代公司</th>
             <th class="text-center">对接人数</th>
             <th class="text-center">今日点击量/总点击量 <a href="list?sort=views"><i class="fa fa-arrow-down"></i></a></th>
+            <th class="text-center">刷新时间</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">状态</th>
             <th class="text-center">操作</th>
@@ -60,6 +61,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?=$v->company?$v->company->name:'暂无'?></td>
             <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
+            <td class="text-center"><?php echo date('Y-m-d H:i:s',$v->refresh_time); ?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
             <td  class="text-center">

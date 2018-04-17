@@ -196,7 +196,7 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'sort desc,created desc';
+			$criteria->order = 'sort desc,refresh_time desc';
 		}
 		// if($areainit) {
 		// 	$dats = PlotExt::getFirstListFromArea();
@@ -292,7 +292,7 @@ class PlotController extends ApiController{
 					];
 				}
 				$pager = $plots->pagination;
-				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,];
+				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,'refresh_num'=>$this->staff->refresh_num];
 			}
 		}
 		if($city+$area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
@@ -1904,5 +1904,30 @@ class PlotController extends ApiController{
     		}
     	}
     }
+
+    public function actionAddRefresh($num)
+    {
+    	if(!$this->staff) {
+    		return $this->returnError('尚未登录');
+    	}
+    	$this->staff->refresh_num += $num;
+    	$this->staff->save();
+    }
+
+    public function actionSetRefresh($hid)
+    {
+    	if(!$this->staff) {
+    		return $this->returnError('尚未登录');
+    	}
+    	if($this->staff->refresh_num<=0) {
+    		return $this->returnError('您的刷新次数不够，请前往购买');
+    	}
+    	$plot = PlotExt::model()->findByPk($hid);
+    	$plot->
+    	$this->staff->refresh_num -= 1;
+    	$this->staff->save();
+    }
+
+
 
 }
