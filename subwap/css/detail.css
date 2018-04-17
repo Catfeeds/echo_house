@@ -1137,9 +1137,9 @@ body{
 }
 
 .list-more{
-	position: fixed;
-	top: 68%;
-	right: 1.067rem;
+	position: absolute;
+	top: 9.08rem;
+	right: 0.067rem;
 	height: 2.293rem;
 	width: 2.293rem;
 	border-radius: 1.147rem;
@@ -1160,7 +1160,7 @@ body{
 	height:2.36rem;
 	line-height: 2.36rem;
 	position: relative;
-	margin:10px 0;
+	margin:0.5rem 0;
 	/*display: none;*/
 }
 .list-more-show span{
