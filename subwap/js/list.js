@@ -1456,7 +1456,8 @@ $('.detail-button-distribution').click(function(){
     else
         checkUser();
 });
-$('.detail-laststate-edit').click(function(){
+$('.detail-laststate-edit').click(function(e){
+    e.stopPropagation();
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
 });
 $('.detail-button-phone').click(function(){
