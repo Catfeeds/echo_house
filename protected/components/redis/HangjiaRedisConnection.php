@@ -19,7 +19,7 @@ class HangjiaRedisConnection extends CApplicationComponent
      * redis连接地址
      * @var string
      */
-    public $hostname = '127.0.0.1';
+    public $hostname;
     /**
      * redis端口号
      * @var string
@@ -35,11 +35,15 @@ class HangjiaRedisConnection extends CApplicationComponent
      * @var integer
      */
     public $database = 1;
-    public $password = 'jjqxftv587';
+    public $password;
     public $timeout = 0;
 
     public function __construct()
     {
+        $config = Spyc::YAMLLoad(__DIR__ . '../../../config/config.yaml');
+        $redisC = $config['redis'];
+        $this->hostname = $redisC['hostname'];
+        $this->password = $redisC['password'];
         $obj = $this->getClient();
         return $obj;
         Yii::app()->end();
