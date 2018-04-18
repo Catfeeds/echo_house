@@ -40,8 +40,9 @@ class HangjiaRedisConnection extends CApplicationComponent
 
     public function __construct()
     {
-        $config = Spyc::YAMLLoad(__DIR__ . '../../../config/config.yaml');
-        $redisC = $config['redis'];
+        $config = Yii::app()->redisConfig;
+        // var_dump($config->getConfigs());exit;
+        $redisC = $config->getConfigs();
         $this->hostname = $redisC['hostname'];
         $this->password = $redisC['password'];
         $obj = $this->getClient();
