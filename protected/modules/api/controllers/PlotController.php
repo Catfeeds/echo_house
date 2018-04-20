@@ -281,7 +281,7 @@ class PlotController extends ApiController{
 						'unit'=>PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
-						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic),
+						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,200,150),
 						'wylx'=>$wyw,
 						// 'status'=>$value->status?'已上线':'审核中',
 						'zd_company'=>$companydes,
@@ -337,24 +337,24 @@ class PlotController extends ApiController{
 		// $info->views += 1;
 		// $info->save();
 		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
-		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'));
+		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'),750,490);
 		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']);
+				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
 				if($value['url']) {
-					$images[$key]['url'] = ImageTools::fixImage($value['url']);
+					$images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
 					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
 					}
 
 					
-					$images[$key]['content'] = ImageTools::fixImage($value['url']);
+					$images[$key]['content'] = ImageTools::fixImage($value['url'],750,490);
 				}
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image),'content'=>ImageTools::fixImage($info->image)];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490),'content'=>ImageTools::fixImage($info->image,750,490)];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
