@@ -14,7 +14,7 @@ $(function() {
         flash_swf_url: 'bower_components/plupload/js/Moxie.swf',
         dragdrop: true,
         chunk_size: '4mb',
-        multi_selection: !(mOxie.Env.OS.toLowerCase()==="ios"),
+        multi_selection: true,
         uptoken_url: '/api/image/qnUpload',
         // uptoken_func: function(){
         //     var ajax = new XMLHttpRequest();
