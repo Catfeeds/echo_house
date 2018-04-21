@@ -1855,6 +1855,7 @@ class PlotController extends ApiController{
     		$obj = new PlotDpExt;
     		$obj->uid = $this->staff->id;
     		$obj->is_nm = $is_nm;
+    		$obj->status = 1;
     		$obj->hid = $hid;
     		$obj->note = $note;
     		if(!$obj->save()) {
@@ -1876,6 +1877,7 @@ class PlotController extends ApiController{
     		$obj->uid = $this->staff->id;
     		$obj->is_nm = $is_nm;
     		$obj->hid = $hid;
+    		$obj->status = 1;
     		$obj->title = $title;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
@@ -1898,6 +1900,7 @@ class PlotController extends ApiController{
     		$obj->is_nm = $is_nm;
     		$obj->note = $note;
     		$obj->hid = $hid;
+    		$obj->status = 1;
     		$obj->aid = $aid;
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
@@ -1929,6 +1932,49 @@ class PlotController extends ApiController{
     	$this->staff->save();
     }
 
+    public function actionDownPlot($hid='',$note='')
+    {
+    	if(!$this->staff) {
+    		return $this->returnError('尚未登录');
+    	}
 
+    	$plot = PlotExt::model()->findByPk($hid);
+    	if(!$note||!$plot) {
+    		return $this->returnError('参数错误');
+    	}
+    	if($plot->status==0) {
+    		return $this->returnError('该项目已下架，请勿重复操作');
+    	}
+    	$obj = new PlotDownExt;
+    	$obj->uid = $this->staff->id;
+    	$obj->hid = $hid;
+    	$obj->note = $note;
+    	$obj->save();
+    }
+
+    public function actionCheckCanTop()
+    {
+    	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
+    		return $this->returnError('置顶限额已满，请联系管理员');
+    	}
+    }
+
+    public function actionSetTop($hid='',$days='')
+    {
+    	if(!$this->staff) {
+    		return $this->returnError('尚未登录');
+    	}
+
+    	$plot = PlotExt::model()->findByPk($hid);
+    	if(!$days||!$plot) {
+    		return $this->returnError('参数错误');
+    	}
+    	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
+    		return $this->returnError('置顶限额已满，请联系管理员');
+    	}
+    	$plot->sort = 1;
+    	$plot->top_time = time() + $days*86400;
+    	$plot->save();
+    }
 
 }

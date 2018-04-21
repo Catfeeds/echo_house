@@ -4,7 +4,10 @@
  * @author steven.allen <[<email address>]>
  * @date(2017.2.12)
  */
-class PlotDpExt extends PlotDp{
+class PlotDownExt extends PlotDown{
+    public static $status = [
+        '未下架','已下架'
+    ];
 	/**
      * 定义关系
      */
@@ -47,10 +50,14 @@ class PlotDpExt extends PlotDp{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $this->created = $this->updated = time();
-            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行点评，内容为：'.$this->note.'，点击以下链接查看：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->plot->id.'，请登陆后台审核','',1);
+            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行下架操作，请登陆后台审核','',1);
         }
         else
             $this->updated = time();
+        if($this->status==1) {
+            $this->plot->status = 0;
+            $this->plot->save();
+        }
         return parent::beforeValidate();
     }
 

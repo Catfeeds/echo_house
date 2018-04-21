@@ -64,6 +64,23 @@ class ToolCommand extends CConsoleCommand
         echo "finished";
     }
 
+    public function actionClearTop()
+    {
+        $plots = PlotExt::model()->findAll('top_time<'.time());
+        if($plots) {
+            foreach ($plots as $key => $value) {
+                $value->sort = 0;
+                $value->save();
+            }
+        }
+    }
+
+    public function actionClearListCache()
+    {
+        // wap_init_plotlist
+        CacheExt::delete('wap_init_plotlist');
+    }
+
     public function actionSendNo()
     {
         $infos = UserExt::model()->findAll('vip_expire>'.time().' and vip_expire<'.time()+86400*3);

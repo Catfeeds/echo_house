@@ -42,7 +42,8 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">楼盘发布人</th>
             <th class="text-center">总代公司</th>
             <th class="text-center">对接人数</th>
-            <th class="text-center">今日点击量/总点击量 <a href="list?sort=views"><i class="fa fa-arrow-down"></i></a></th>
+            <th class="text-center">今日/总 <a href="list?sort=views"><i class="fa fa-arrow-down"></i></a></th>
+            <th class="text-center">置顶时间</th>
             <th class="text-center">刷新时间</th>
             <th class="text-center">创建时间</th>
             <th class="text-center">状态</th>
@@ -56,17 +57,18 @@ $this->breadcrumbs = array($this->pageTitle);
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a></td>
-            <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'-'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
-            <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'会员':'')):'' ?></td>
+            <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'<br>'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
+            <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
             <td  class="text-center"><?=$v->company?$v->company->name:'暂无'?></td>
             <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
+            <td class="text-center"><?php echo $v->top_time?date('Y-m-d H:i:s',$v->top_time):'-'; ?></td>
             <td class="text-center"><?php echo date('Y-m-d H:i:s',$v->refresh_time); ?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
             <td  class="text-center">
-            <?php echo CHtml::ajaxLink('清除发布人',$this->createUrl('cleanPublisher'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm yellow')); ?>
-                <?php echo CHtml::ajaxLink('刷新',$this->createUrl('refresh'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm blue')); ?>
+            <?php echo CHtml::ajaxLink('清除发布人',$this->createUrl('cleanPublisher'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-xs yellow')); ?>
+                <?php echo CHtml::ajaxLink('刷新',$this->createUrl('refresh'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-xs blue')); ?>
                 <a href="<?=$this->createUrl('dplist',['hid'=>$v->id])?>" class="btn btn-xs default">点评</a>
                 <a href="<?=$this->createUrl('asklist',['hid'=>$v->id])?>" class="btn btn-xs red">提问</a>
                 <a href="<?=$this->createUrl('answerlist',['hid'=>$v->id])?>" class="btn btn-xs red">回答</a>
