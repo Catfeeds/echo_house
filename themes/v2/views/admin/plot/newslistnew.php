@@ -42,7 +42,7 @@ $this->breadcrumbs = array($this->pageTitle);
     <?php foreach($infos as $k=>$v): ?>
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
-            <td class="text-center"><?=$v->plot->title?></td>
+            <td class="text-center"><?=$v->plot?$v->plot->title:''?></td>
             <td class="text-center"><?=$v->author?></td> 
             <td class="text-center"><?=Tools::u8_title_substr($v->content,100)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
