@@ -51,15 +51,15 @@ $this->breadcrumbs = array($this->pageTitle);
         </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $v): $owner = $v->owner; ?>
+    <?php foreach($infos as $v): $owner = $v->owner;$company = $v->company;$areaInfo = $v->areaInfo; $streetInfo = $v->streetInfo;?>
         <tr>
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a></td>
-            <td class="text-center"><?php echo ($v->areaInfo?$v->areaInfo->name:'').'<br>'.($v->streetInfo?$v->streetInfo->name:''); ?></td>
+            <td class="text-center"><?php echo ($areaInfo?$areaInfo->name:'').'<br>'.($streetInfo?$streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
-            <td  class="text-center"><?=$v->company?$v->company->name:'暂无'?></td>
+            <td  class="text-center"><?=$company?('<a href="'.$this->createUrl('list',['company'=>$company->id]).'">'.$company->name.'</a>'):'暂无'?></td>
             <td  class="text-center"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id))?></td>
             <td class="text-center"><?php echo $v->top_time?date('Y-m-d H:i:s',$v->top_time):'-'; ?></td>
