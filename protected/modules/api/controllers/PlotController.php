@@ -337,24 +337,24 @@ class PlotController extends ApiController{
 		// $info->views += 1;
 		// $info->save();
 		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
-		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic'),750,490);
+		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic')).'?imageslim';
 		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']).'?imageslim';
 				if($value['url']) {
-					$images[$key]['url'] = ImageTools::fixImage($value['url'],750,490);
+					$images[$key]['url'] = ImageTools::fixImage($value['url']).'?imageslim';
 					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
 					}
 
 					
-					$images[$key]['content'] = ImageTools::fixImage($value['url'],750,490);
+					$images[$key]['content'] = ImageTools::fixImage($value['url']).'?imageslim';
 				}
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image,750,490),'content'=>ImageTools::fixImage($info->image,750,490)];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image).'?imageslim','content'=>ImageTools::fixImage($info->image).'?imageslim'];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
