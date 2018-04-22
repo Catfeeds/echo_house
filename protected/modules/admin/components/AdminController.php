@@ -81,7 +81,7 @@ class AdminController extends Controller
             ['label'=>'区域管理','icon'=>'icon-speedometer','url'=>['/admin/area/arealist'],'active'=>$this->route=='admin/area/areaedit'],
             ['label'=>'推荐管理','icon'=>'icon-speedometer','url'=>['/admin/recom/list'],'active'=>$this->route=='admin/recom/edit'],
             ['label'=>'举报管理','icon'=>'icon-speedometer','url'=>['/admin/report/list'],'active'=>$this->route=='admin/report/edit'],
-            ['label'=>'下架管理','icon'=>'icon-speedometer','url'=>['/admin/down/list'],'active'=>$this->route=='admin/down/edit'],
+            ['label'=>'上下架管理','icon'=>'icon-speedometer','url'=>['/admin/down/list'],'active'=>$this->route=='admin/down/edit'],
             ['label'=>'标签管理','icon'=>'icon-speedometer','url'=>['/admin/tag/list'],'active'=>$this->route=='admin/tag/edit'],
             ['label'=>'用户管理','icon'=>'icon-speedometer','url'=>['/admin/user/list']],
             ['label'=>'中介库','icon'=>'icon-speedometer','url'=>['/admin/importUser/list']],

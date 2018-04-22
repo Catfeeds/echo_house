@@ -25,8 +25,9 @@ $this->breadcrumbs = array($this->pageTitle);
     <tr>
         <th class="text-center">ID</th>
         <th class="text-center">项目信息</th>
+        <th class="text-center">申请操作</th>
         <th class="text-center">申请者信息</th>
-        <th class="text-center">申请下架理由</th>
+        <th class="text-center">申请理由</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">状态</th>
@@ -38,6 +39,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->plot->title?></td>
+            <td class="text-center"><?=$v->type==1?'上架':'下架'?></td>
             <td class="text-center"><?=$v->user->name.'/'.$v->user->phone?></td> 
             <td class="text-center"><?=$v->note?></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>

@@ -6,7 +6,7 @@
  */
 class PlotDownExt extends PlotDown{
     public static $status = [
-        '未下架','已下架'
+        '未处理','已处理'
     ];
 	/**
      * 定义关系
@@ -54,8 +54,11 @@ class PlotDownExt extends PlotDown{
         }
         else
             $this->updated = time();
-        if($this->status==1) {
+        if($this->type==2&&$this->status==1) {
             $this->plot->status = 0;
+            $this->plot->save();
+        } elseif($this->type==1&&$this->status==1) {
+            $this->plot->status = 1;
             $this->plot->save();
         }
         return parent::beforeValidate();

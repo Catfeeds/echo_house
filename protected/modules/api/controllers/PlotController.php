@@ -1224,6 +1224,10 @@ class PlotController extends ApiController{
     		// 	return $this->returnError('尚未绑定公司');
     		// }
     		$post = $_POST;
+    		$up = 0;
+    		if(isset($post['id']) && $post['id']) {
+    			$up = 1;
+    		}
     		// if($post&&is_array($post) ){
     		// 	foreach ($post as $key => $value) {
     		// 		$post[$key] = $this->cleanXss($value);
@@ -1271,7 +1275,12 @@ class PlotController extends ApiController{
     				return $this->returnError(current(current($user->getErrors())));
     			}
     		}
-    		$obj = new PlotExt;
+    		if(!$up)
+    			$obj = new PlotExt;
+    		else {
+    			$obj = PlotExt::model()->findByPk($post['id']);
+    			unset($post['id']);
+    		}
     		$obj->attributes = $post;
     		$obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
@@ -1932,22 +1941,26 @@ class PlotController extends ApiController{
     	$this->staff->save();
     }
 
-    public function actionDownPlot($hid='',$note='')
+    public function actionDownPlot($hid='',$note='',$type='')
     {
     	if(!$this->staff) {
     		return $this->returnError('尚未登录');
     	}
 
     	$plot = PlotExt::model()->findByPk($hid);
-    	if(!$note||!$plot) {
+    	if(!$plot) {
     		return $this->returnError('参数错误');
     	}
-    	if($plot->status==0) {
+    	if($type==2&&$plot->status==0) {
     		return $this->returnError('该项目已下架，请勿重复操作');
+    	}
+    	if($type==1&&$plot->status==1) {
+    		return $this->returnError('该项目已上架，请勿重复操作');
     	}
     	$obj = new PlotDownExt;
     	$obj->uid = $this->staff->id;
     	$obj->hid = $hid;
+    	$obj->type = $type;
     	$obj->note = $note;
     	$obj->save();
     }

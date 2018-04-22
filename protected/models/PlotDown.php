@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $uid
  * @property integer $hid
+ * @property integer $type
  * @property string $note
  * @property integer $status
  * @property integer $created
@@ -31,11 +32,11 @@ class PlotDown extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('uid, hid, status, created, updated', 'numerical', 'integerOnly'=>true),
+			array('uid, hid, type, status, created, updated', 'numerical', 'integerOnly'=>true),
 			array('note', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, uid, hid, note, status, created, updated', 'safe', 'on'=>'search'),
+			array('id, uid, hid, type, note, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +60,7 @@ class PlotDown extends CActiveRecord
 			'id' => 'ID',
 			'uid' => 'Uid',
 			'hid' => 'Hid',
+			'type' => 'Type',
 			'note' => 'Note',
 			'status' => 'Status',
 			'created' => 'Created',
@@ -87,6 +89,7 @@ class PlotDown extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('uid',$this->uid);
 		$criteria->compare('hid',$this->hid);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('note',$this->note,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created);
