@@ -2,11 +2,30 @@ body{
 	background-color: #f5f5f5;
 	overflow-x: hidden;
 }
+#form input{
+	color: rgb(155,154,155);
+}
 .line{
 	position: relative;
 	background-color: #f5f5f5;
 	width: 20rem;
 	height: 0.054rem;
+}
+.img-box{
+
+}
+.addImg{
+	text-align:center;
+}
+.addImg img{
+	position:relative;
+	left:50%;
+	margin:10px 0px 10px -50px;
+}
+.add-img-text{
+	font-size:0.8rem;
+	color:#ccc;
+	margin:19px;
 }
 .report-small-tag{
 	position: relative;

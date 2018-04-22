@@ -907,12 +907,12 @@ body{
 
 .tip-off{
 	position: fixed;
-	bottom: 3rem;
+	bottom: 0.3rem;
 	background-color: #fff;
 	width: 20rem;
 	height: 15.2rem;
 	overflow: hidden;
-	z-index: 9999;
+	z-index: 10003;
 	display: none;
 }
 
@@ -976,7 +976,7 @@ body{
 
 .tip-off-tijiao{
 	position: fixed;
-	bottom: 2.7rem;
+	bottom: 0rem;
 	height: 2.613rem;
 	line-height: 2.613rem;
 	width: 20rem;

@@ -9,7 +9,7 @@
 </head>
 <body ng-app="perlist" ng-controller="perlistCtrl">
 
-	<div class="list-search-frame">
+	<!-- <div class="list-search-frame">
 		<div class="list-search-search" ng-click="search()">搜索</div>
 		<input type="text" name="kw" class="list-search-frame-text" placeholder="请输入项目名称">
 		<select class="statusselect" ng-change="search()" ng-model="myselect">
@@ -17,22 +17,40 @@
 			<option value="0">禁用</option>
 			<option value="1">启用</option>
 		</select>
+	</div> -->
+	<div class="header-box">
+		<span class="text">剩余刷新次数<b class="number">0</b>次</span>
+		<div ng-click="payRefresh($event)"  class="btn">购买刷新套餐</div>
 	</div>
-	<div class="count">共查找到 <b>0</b> 条</div>
+	<!-- <div class="count">共查找到 <b>0</b> 条</div> -->
 	<div class="customerlist">
 		<ul id="ul1">
-			<li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist">
-	            <div class="line"></div>
-	            <a href="detail.html?id={{item.id}}" onclick="checkId(this)">
-		            <img class="house-img" ng-Src="{{ item.image }}"/>
-		            <!-- <div class="house-jing">顶</div> -->
-		            <div ng-cloak class="house-text-head">{{item.title}}</div>
-	            </a>
-	            <div ng-cloak class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
+			<li class="list-house" style="list-style-type: none;" ng-repeat="item in houselist" ng-click="checkId(item.id)">
+	            <!-- <div class="line"></div> -->
+	            	<div class="house-text-left">
+						<img class="house-img" ng-Src="{{ item.image }}"/>
+						<div ng-cloak class="house-text-plot_name-2">{{item.area+' '+item.street}}</div>
+	            	</div>
+	            	<div class="house-text-right">
+ 						<div ng-cloak class="house-text-head">{{item.title}}</div>
+ 						<div ng-if="item.status == '1'" ng-cloak class="house-text-status zhanshi">展示中</div>
+ 						<div ng-if="item.status == '0'" ng-cloak class="house-text-status buzhanshi">待审核</div>
+ 						<!-- <div ng-cloak class="list-expire">{{item.expire}}</div> -->
+ 						<div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.zd_company.name}}</div>
+ 						<div class="btn-box">
+ 							<span ng-click="payTop($event,item.id)">置顶</span>
+							<span ng-click="refresh($event,item.id)">刷新</span>
+							<!-- <span class="house-btn-edit">编辑</span> -->
+							<span ng-if="item.status == '0'" ng-click="addHouse($event,item.id)">上架</span>
+							<span ng-if="item.status == '1'" ng-click="showClose($event,item.id)">下架</span>
+ 						</div>
+ 					
+	            	</div>
+	          
 	            <!-- <div ng-cloak class="house-text-price"><a style="color: rgb(223,82,37);" href="duijieren.html?hid={{item.id}}">对接人申请/续费</a></div> -->
-	            <div ng-cloak class="list-expire">{{item.expire}}</div>
+	        
 	            <!-- <div ng-cloak class="list-status">报备管理</div> -->
-	            <div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.zd_company.name}}</div>
+	            
             </li>
 		</ul>
 		<div class="nomore">
@@ -41,6 +59,34 @@
 			</div>
 	</div>
 	<div class="bottom-blank"></div>
+	<!-- 下架页面 -->
+	<div class="tip-off">
+	    <img class="tip-off-shutdown" src="./img/wrong.png">
+	    <div class="tip-off-head">请选择举报原因(信息隐私保护)</div>
+	    <div class="tip-off-select-window">
+	        <ul>
+	            <li class="tip-off-option">
+	                <div>已售罄</div>
+	                <img class="tip-off-select select-hide" src="./img/select.png">
+	            </li>
+	            <li class="tip-off-option">
+	                <div>已撤场</div>
+	                <img class="tip-off-select select-hide" src="./img/select.png">
+	            </li>
+	            <li class="tip-off-option">
+	                <div>暂停带看</div>
+	                <img class="tip-off-select select-hide" src="./img/select.png">
+	            </li>
+	            <li class="tip-off-option">
+	                <div>开发商自销</div>
+	                <img class="tip-off-select select-hide" src="./img/select.png">
+	            </li>
+	            <li class="tip-off-option">其他<img class="tip-off-select select-hide" src="./img/select.png"></li>
+	        </ul>
+	        <textarea class="tip-off-detail" type="textarea" name="" placeholder="您可在此写下具体描述..." maxlength="100"></textarea>
+	    </div>
+	    <div class="tip-off-tijiao" ng-click="close()">提 交</div>
+	</div>
 	<div class="add" onclick="location.href='personaladd.html'">
 		<div class="addimg">发布项目</div>
 	</div>

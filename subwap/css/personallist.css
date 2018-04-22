@@ -3,6 +3,32 @@ body{
 }
 /*解决{{}}*/
 @charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{clip:rect(0,auto,auto,0);-ms-zoom:1.0001;}.ng-animate-active{clip:rect(-1px,auto,auto,0);-ms-zoom:1;}
+.header-box{
+	height:70px;
+	/*line-height: 70px;*/
+	background-color:#fff;
+	position: relative;
+	color:rgb(134,134,134);
+
+}
+.header-box .text{
+	position: absolute;
+	left:1rem;
+	font-size:1.1rem;
+	margin:20px 0;
+}
+.text .number{
+	color:rgb(239,137,109);
+}
+.header-box .btn{
+	position: absolute;
+	right:1rem;
+	border:1px solid #ddd;
+	margin:10px 0;
+	padding:10px;
+	border-radius: 5px;
+	font-size: 0.8rem;
+}
 #ul1 li a{
 	color: #000000;
 }
@@ -17,7 +43,8 @@ body{
 	position: relative;
 	width: 20rem;
 	height: auto;
-	background-color: #fff;
+	/*background-color: #fff;*/
+	margin-top: 10px;
 }
 
 .add{
@@ -85,8 +112,15 @@ body{
 	color: #868686;
 }
 .list-house{
-	height: 5.333rem;
+	height: 7.333rem;
 	width: 20.0rem;
+	position: relative;
+	background-color:#fff;
+	margin-bottom:10px;
+	/*border-bottom: 1px solid #ddd*/
+}
+
+.house-text-left{
 	position: relative;
 }
 
@@ -130,12 +164,28 @@ body{
 	position: absolute;
 	top: 0.533rem;
 	left:6.8rem;
-	width: 8rem;
+	width: 12rem;
 	height: 1.068rem;
 	overflow: hidden;
 }
-.house-text-company{
+.house-text-status{
 	font-size: 0.64rem;
+	position: absolute;
+	top: 2.2rem;
+	left:6.8rem;
+
+	padding:2px 5px;
+}
+.zhanshi{
+	color:#868686;
+	background-color:rgb(235,242,254);
+}
+.buzhanshi{
+	color:rgb(239,139,111);
+	background-color:rgb(252,238,233);
+}
+.house-text-company{
+	font-size: 0.74rem;
 	position: absolute;
 	top: 3.7rem;
 	left:6.8rem;
@@ -153,10 +203,10 @@ body{
 .house-text-plot_name-2{
 	font-size: 0.64rem;
 	position: absolute;
-	top: 2.2rem;
-	left:6.8rem;
-	width: 9rem;
-	color:#868686;
+	top: 5.5rem;
+	left:0.667rem;
+	width: 5rem;
+	text-align: center;
 }
 .house-text-pay-yong{
 	position: absolute;
@@ -208,6 +258,20 @@ body{
 	color:#868686;
 	text-align: right;
 }
+.btn-box{
+	font-size: 0.64rem;
+	position: absolute;
+	top: 5.5rem;
+	left:6.8rem;
+	width: 12rem;
+	color:rgb(85,85,85);
+}
+.btn-box span{
+	padding:0.3rem 0.6rem;
+	border:1px solid #ddd;
+	margin:0 0.1rem;
+	border-radius: 5px;
+}
 .nomore{
 	display: none;
 	position: relative;
@@ -231,4 +295,87 @@ body{
 	top: 12rem;
 	text-align: center;
 	font-size: 1rem;
+}
+.select-hide{
+	display: none;
+}
+.tip-off{
+	position: fixed;
+	bottom: 0.3rem;
+	background-color: #fff;
+	width: 20rem;
+	height: 15.2rem;
+	overflow: hidden;
+	z-index: 10003;
+	display: none;
+}
+
+.tip-off-shutdown{
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	left: 18rem;
+	top: 0.65rem;
+	z-index: 10000;
+}
+
+.tip-off-head{
+	position: relative;
+	width: 20rem;
+	height: 2.347rem;
+	line-height: 2.347rem;
+	text-align: center;
+	color: #868686;
+	font-size: 0.8rem;
+}
+
+.tip-off-select-window{
+	position: absolute;
+	width: 20rem;
+	height: 10.213rem;
+	bottom: 2.613rem;
+	overflow-y: scroll;
+}
+
+.tip-off-option{
+	position: relative;
+	width: 20rem;
+	height: 2.053rem;
+	line-height: 2rem;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #000000;
+	border-bottom:1px solid #E8E8E9;
+}
+
+.tip-off-detail{
+	position: relative;
+	height: 6rem;
+	line-height: 1.8rem;
+	width: 16.87rem;
+	background-color: #F6F6F6;
+	margin:1rem;
+	border:0.053rem solid #c3c3c3;
+	border-radius: 0.4rem;
+	padding: 0rem 0.5rem;
+	display: none;
+}
+
+.tip-off-select{
+	position: absolute;
+	width: 1rem;
+	height: 1rem;
+	left: 18rem;
+	top: 0.5rem;
+}
+
+.tip-off-tijiao{
+	position: fixed;
+	bottom: 0rem;
+	height: 2.613rem;
+	line-height: 2.613rem;
+	width: 20rem;
+	background-color: #00B7F0;
+	color: #fff;
+	text-align: center;
 }
