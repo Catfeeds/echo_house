@@ -283,7 +283,7 @@ class PlotController extends ApiController{
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,200,150),
 						'wylx'=>$wyw,
-						// 'status'=>$value->status?'已上线':'审核中',
+						'status'=>$value->status,
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'sort'=>$value->sort,
@@ -1975,6 +1975,57 @@ class PlotController extends ApiController{
     	$plot->sort = 1;
     	$plot->top_time = time() + $days*86400;
     	$plot->save();
+    }
+
+    public function actionGetPlotInfo($id='')
+    {
+    	if(!$this->staff) {
+    		return $this->returnError('尚未登录');
+    	} else {
+    		$user = $this->staff;
+    	}
+    	$plot = PlotExt::model()->findByPk($id);
+    	if(!$plot) {
+    		return $this->returnError('房源不存在');
+    	}
+    	$data = [];
+    	$image = $image_url = [];
+    	$images = $plot->images;
+    	if($images) {
+    		foreach ($images as $key => $value) {
+    			$image[] = $value['url'];
+    			$image_url[] = ImageTools::fixImage($value['url']).'?imageslim';
+    		}
+    	}
+    	$data = [
+    		'id'=>$plot->id,
+    		'pname'=>$user->name,
+    		'pphone'=>$user->phone,
+    		'pcompany'=>$user->companyinfo?$user->companyinfo->name:'',
+    		'title'=>$plot->title,
+			'city'=>$plot->city,
+			'area'=>$plot->area,
+			'street'=>$plot->street,
+			'address'=>$plot->address,
+			'price'=>$plot->price,
+			'unit'=>$plot->unit,
+			'hxjs'=>$plot->hxjs,
+			'sfprice'=>$plot->sfprice,
+			'dllx'=>$plot->dllx,
+			'fm'=>$plot->image,
+			'fm_url'=>ImageTools::fixImage($plot->image).'?imageslim',
+			'yjfa'=>$plot->yjfa,
+			'jy_rule'=>$plot->jy_rule,
+			'dk_rule'=>$plot->dk_rule,
+			'peripheral'=>$plot->peripheral,
+			'qf_uid'=>$user->qf_uid,
+			'wylx'=>$plot->wylx,
+			'zxzt'=>$plot->zxzt,
+			'image'=>$image,
+			'image_url'=>$image_url,
+    	];
+    	$this->frame['data'] = $data;
+
     }
 
 }
