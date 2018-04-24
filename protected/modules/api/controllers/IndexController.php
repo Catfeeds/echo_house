@@ -373,7 +373,7 @@ class IndexController extends ApiController
                 $tmp['sex'] = $this->cleanXss($_POST['sex']);
                 $tmp['note'] = $this->cleanXss(Yii::app()->request->getPost('note',''));
                 $tmp['visit_way'] = $this->cleanXss($_POST['visit_way']);
-                $tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
+                // $tmp['is_only_sub'] = $this->cleanXss($_POST['is_only_sub']);
                 $tmp['notice'] = $notice = $this->cleanXss($_POST['notice']);
                 $tmp['uid'] = $user->id;
 
