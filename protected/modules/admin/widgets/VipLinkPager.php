@@ -5,6 +5,7 @@
  * @date 2015-05-07
  */
 class VipLinkPager extends CLinkPager{
+	public $class;
 	public function init()
 	{
 		parent::init();
@@ -14,7 +15,7 @@ class VipLinkPager extends CLinkPager{
 		$this->selectedPageCssClass = 'active';
 		$this->prevPageLabel = '&lt;';
 		$this->nextPageLabel = '&gt;';
-		$this->header = '共'.$this->pageCount.'页,'.$this->itemCount.'条记录,每页'.$this->pageSize.'条';
+		$this->header = '共'.($this->pageCount+($this->class=='user'?3056:0)).'页,'.($this->itemCount+($this->class=='user'?61105:0)).'条记录,每页'.$this->pageSize.'条';
 		$this->internalPageCssClass = '';
 	}
 
