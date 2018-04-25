@@ -1935,6 +1935,9 @@ class PlotController extends ApiController{
     		return $this->returnError('您的刷新次数不够，请前往购买');
     	}
     	$plot = PlotExt::model()->findByPk($hid);
+    	if($plot->status!=1) {
+    		return $this->returnError('该项目尚未上架');
+    	}
     	$plot->refresh_time = time();
     	$plot->save();
     	$this->staff->refresh_num -= 1;
@@ -1965,11 +1968,14 @@ class PlotController extends ApiController{
     	$obj->save();
     }
 
-    public function actionCheckCanTop()
+    public function actionCheckCanTop($hid='')
     {
     	// var_dump(PlotExt::model()->count('sort>0'),SiteExt::getAttr('qjpz','toplimit'));exit;
     	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
     		return $this->returnError('置顶限额已满，请联系管理员');
+    	}
+    	if(PlotExt::model()->findByPk($hid)->status!=1) {
+    		return $this->returnError('该项目尚未上架');
     	}
     }
 
