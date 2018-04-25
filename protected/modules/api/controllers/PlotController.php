@@ -43,7 +43,7 @@ class PlotController extends ApiController{
 		if($city&&$area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
-		if($this->is_HTTPS()){
+		if($this->is_HTTPS()&&$limit!=6){
 			$city = $area;
 			$area = $street;
 			$street = 0;

@@ -87,7 +87,7 @@ $this->breadcrumbs = array($this->pageTitle);
     <?php endforeach;?>
     </tbody>
 </table>
-<?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>
+<?php $this->widget('VipLinkPager', array('pages'=>$pager,'class'=>'user')); ?>
 
 <script>
 <?php Tools::startJs(); ?>

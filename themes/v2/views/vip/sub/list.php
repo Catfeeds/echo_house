@@ -57,7 +57,7 @@ $statusArr = SubExt::$status;
     <?php foreach($infos as $k=>$v): ?>
         <tr>
             <td class="text-center"><?=$v->plot->title?></td>
-            <td class="text-center"><?=$v->notice?(UserExt::model()->find("phone='".$v->notice."'")->name.$v->notice):''?></td>
+            <td class="text-center"><?=$v->notice&&UserExt::model()->find("phone='".$v->notice."'")?(UserExt::model()->find("phone='".$v->notice."'")->name.$v->notice):''?></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
             <td class="text-center"><?=$v->company_name?$v->company_name:'独立经纪人'?></td>
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
