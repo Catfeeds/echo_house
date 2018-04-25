@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>刷新次数套餐</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/payvip.css">
+</head>
+<body>
+	<div class="header-box">
+		<span class="text">剩余刷新次数<b class="refreshNum"></b>次</span>
+	</div>
+	<div class="choose">
+		<div class="choose-head">选择套餐</div>
+		 <div class="tag vipli" id="recom" onclick="findprices(this)">
+			<div class="tittle"><span class="number">40</span>次刷新(限时特惠)</div>
+			<!-- <div class="detail">原价2199</div> -->
+			<div class="tag-status">推荐</div>
+			<div class="price"><span class="nowp">300</span><span style="font-size:0.747rem">元</span></div>
+		</div>
+		<div class="tag vipli" onclick="findprices(this)">
+			<div class="tittle"><span class="number">25</span>次刷新</div>
+			<!-- <div class="detail">原价1299</div> -->
+			
+			<div class="price"><span class="nowp">200</span><span style="font-size:0.747rem">元</span></div>
+		</div>
+		<div class="tag vipli" onclick="findprices(this)">
+			<div class="tittle"><span class="number">10</span>次刷新</div>
+			<!-- <div class="detail">原价99</div> -->
+			
+			<div class="price"><span class="nowp">100</span><span style="font-size:0.747rem">元</span></div>
+		</div>
+		
+		
+		<!-- <div class="tag">
+			<div class="tittle">三年VIP会员(限时特惠)</div>
+			<div class="detail">另赠500元报告抵扣券</div>
+			<div class="price">720元</div>
+		</div> -->
+	</div>
+	<!-- <div class="register-attention">
+		<img class="register-attention-img" src="./img/i.png">
+		<div class="register-attention-text"></div>
+	</div> -->
+	<div class="pay">
+		<div class="left">
+			<div class="jine">金额:</div>
+			<div class="pricenum"><span id="finp">-</span><span style="font-size:0.747rem">元</span><span id="note" style="font-size: 0.64rem;color: #999;margin-left: 0.2rem"></span></div>
+		</div>
+		<div class="gotopay">去支付</div>
+	</div>
+
+
+
+
+
+
+
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/payRefresh.js"></script>
+	<script src="https://s22.cnzz.com/z_stat.php?id=1264496573&web_id=1264496573" language="JavaScript"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+</body>
+</html>
