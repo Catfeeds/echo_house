@@ -99,11 +99,7 @@ $('.gotopay').click(function () {
                 QFH5.jumpPayOrder(order_id,function(state,data){
                     if(state==1){
                         alert('支付成功');
-                        $.post("/api/plot/addRefresh", {
-                                'num': number,
-                                // 'title': $('#finp').html(),
-                            },
-                            function(data, status) {
+                        $.get("/api/plot/addRefresh?num="+number, function(data, status) {
                                 if (data.status == "success") {
                                     alert("操作成功！");
                                     // location.href = 'my';
