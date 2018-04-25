@@ -68,7 +68,7 @@ myapp.controller('perlistCtrl',function($scope,$http) {
         e.preventDefault();
         $http({
             method: 'GET',
-            url: '/api/plot/checkCanTop?hid='+id;
+            url: '/api/plot/checkCanTop?hid='+id,
         }).then(function successCallback(response) {
             if (response.data.status=='error') {
                 alert(response.data.msg);
