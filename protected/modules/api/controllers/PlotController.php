@@ -1967,6 +1967,7 @@ class PlotController extends ApiController{
 
     public function actionCheckCanTop()
     {
+    	// var_dump(PlotExt::model()->count('sort>0'),SiteExt::getAttr('qjpz','toplimit'));exit;
     	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
     		return $this->returnError('置顶限额已满，请联系管理员');
     	}

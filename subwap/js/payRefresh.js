@@ -76,12 +76,11 @@ $('.gotopay').click(function () {
     qftype.cover='';
     // qftype.num=1;
 
-    qftype.title='成为会员支付';
+    qftype.title='刷新支付';
     qftype.num=1;
     qftype.gold_cost=0;
 
-    qftype.cash_cost=$('#finp').html();
-    var qfarray=new Array();
+    qftype.cash_cost=$('#finp').html()/1000;
     qfarray[0]=qftype;
     var address=new Object();
     address.name='';
@@ -94,14 +93,14 @@ $('.gotopay').click(function () {
         // if (data.status=='error') {
         //  alert(data.msg);        
         // } else {
-            QFH5.createOrder(10005,item,0,additem,12,function(state,data){
+            QFH5.createOrder(10006,item,0,additem,12,function(state,data){
                 order_id = data.order_id;
                 QFH5.jumpPayOrder(order_id,function(state,data){
                     if(state==1){
                         alert('支付成功');
                         $.post("/api/plot/addRefresh", {
                                 'num': number,
-                                'title': $('#finp').html(),
+                                // 'title': $('#finp').html(),
                             },
                             function(data, status) {
                                 if (data.status == "success") {
