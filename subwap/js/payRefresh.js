@@ -80,7 +80,7 @@ $('.gotopay').click(function () {
     qftype.num=1;
     qftype.gold_cost=0;
 
-    qftype.cash_cost=0.1;
+    qftype.cash_cost=$('#finp').html();
     var qfarray=new Array();
     qfarray[0]=qftype;
     var address=new Object();
