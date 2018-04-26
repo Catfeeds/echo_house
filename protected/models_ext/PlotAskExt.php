@@ -56,7 +56,7 @@ class PlotAskExt extends PlotAsk{
                 $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
                 if($users) {
                     foreach ($users as $key => $value) {
-                        $value['phone'] && SmsExt::sendMsg('SMS_133155754',$value['phone'],['name'=>$value['name'],'lpmc'=>$plot->title]);
+                        $value['phone'] && SmsExt::sendMsg('提问提醒对接人',$value['phone'],['name'=>$value['name'],'lpmc'=>$plot->title]);
                         $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'有了新的提问，请点击以下链接查看: http://house.jj58.com.cn/api/index/detail?id='.$this->hid,$value['qf_uid']);
                     }
                 }

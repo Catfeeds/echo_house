@@ -54,7 +54,7 @@ class PlotAnswerExt extends PlotAnswer{
                 $res = Yii::app()->controller->sendNotice('有新的用户对关于'.$plot->title.'项目的'.$ask->title.'提问进行回答，内容为：'.$this->note.'，点击以下链接查看：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$plot->id.'，请登陆后台审核','',1);
                 $askuser = $ask->user;
                 if(isset($askuser['phone']))
-                    SmsExt::sendMsg('SMS_133155757',$askuser['phone'],['name'=>$askuser['name'],'lpmc'=>$plot->title]);
+                    SmsExt::sendMsg('回答提醒提问人',$askuser['phone'],['name'=>$askuser['name'],'lpmc'=>$plot->title]);
             }
             
         }

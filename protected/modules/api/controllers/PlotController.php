@@ -1925,7 +1925,7 @@ class PlotController extends ApiController{
     	}
     	$this->staff->refresh_num += $num;
     	// SMS_133170718
-    	SmsExt::sendMsg('SMS_133170718',$this->staff->phone,['name'=>$this->staff->name,'sxtc'=>$num.'条刷新套餐','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+    	SmsExt::sendMsg('刷新支付',$this->staff->phone,['name'=>$this->staff->name,'sxtc'=>$num.'条刷新套餐','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
     	$this->staff->save();
     }
 
@@ -2006,7 +2006,7 @@ class PlotController extends ApiController{
     	$plot->sort = 1;
     	$plot->top_time = time() + $days*86400;
     	$plot->save();
-    	SmsExt::sendMsg('SMS_133170715',$this->staff->phone,['name'=>$this->staff->name,'lpmc'=>$plot->title,'zdsj'=>$days.'天','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+    	SmsExt::sendMsg('置顶支付',$this->staff->phone,['name'=>$this->staff->name,'lpmc'=>$plot->title,'zdsj'=>$days.'天','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
     }
 
     public function actionGetPlotInfo($id='')
