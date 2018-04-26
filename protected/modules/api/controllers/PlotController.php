@@ -671,6 +671,7 @@ class PlotController extends ApiController{
 				} else {
 					$obj->content = $content;
 				}
+				// $obj->status = 1; 
 				// var_dump($obj->attributes);exit;
 				if(!$obj->save())
 					$this->returnError(current(current($obj->getErrors())));
@@ -1923,6 +1924,8 @@ class PlotController extends ApiController{
     		return $this->returnError('尚未登录');
     	}
     	$this->staff->refresh_num += $num;
+    	// SMS_133170718
+    	SmsExt::sendMsg('SMS_133170718',$this->staff->phone,['name'=>$this->staff->name,'sxtc'=>$num.'条刷新套餐','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
     	$this->staff->save();
     }
 
@@ -1960,6 +1963,14 @@ class PlotController extends ApiController{
     	if($type==1&&$plot->status==1) {
     		return $this->returnError('该项目已上架，请勿重复操作');
     	}
+    	// 重复下架申请
+    	if($type==2&&$plot->status==1&&Yii::app()->db->createCommand("select id from plot_down where status=0 and uid=".$this->staff->id." and hid = $hid")->queryScalar()) {
+    		return $this->returnError('您已申请下架，请勿重复操作');
+    	}
+    	// 重复上架申请
+    	if($type==1&&$plot->status==0&&Yii::app()->db->createCommand("select id from plot_down where status=0 and uid=".$this->staff->id." and hid = $hid")->queryScalar()) {
+    		return $this->returnError('您已申请上架，请勿重复操作');
+    	}
     	$obj = new PlotDownExt;
     	$obj->uid = $this->staff->id;
     	$obj->hid = $hid;
@@ -1995,6 +2006,7 @@ class PlotController extends ApiController{
     	$plot->sort = 1;
     	$plot->top_time = time() + $days*86400;
     	$plot->save();
+    	SmsExt::sendMsg('SMS_133170715',$this->staff->phone,['name'=>$this->staff->name,'lpmc'=>$plot->title,'zdsj'=>$days.'天','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
     }
 
     public function actionGetPlotInfo($id='')
