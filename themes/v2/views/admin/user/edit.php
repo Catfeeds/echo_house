@@ -35,6 +35,14 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'wx') ?></div>
 </div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">刷新数<span class="required" aria-required="true">*</span></label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'refresh_num', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'refresh_num') ?></div>
+</div>
 <div class="form-group">
     <label class="col-md-2 control-label">论坛id<span class="required" aria-required="true">*</span></label>
     <div class="col-md-4">
