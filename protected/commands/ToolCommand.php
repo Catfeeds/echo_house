@@ -1054,4 +1054,15 @@ echo 'finished';
         echo ($key+1).'/'.count($areas).'============================';
     }
     }
+
+
+    public function actionPlotRedis()
+    {
+        $allPlots = Yii::app()->db->createCommand("select id,title from plot")->queryAll();
+
+        foreach ($allPlots as $key => $value) {
+            Yii::app()->redis->getClient()->hSet('plot_title',$value['id'],$value['title']);
+        }
+
+    }
 }

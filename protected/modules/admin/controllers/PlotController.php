@@ -574,7 +574,14 @@ class PlotController extends AdminController{
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
+			$userphone = Yii::app()->request->getPost('userphone');
+			$uid = '';
+			if($userphone) {
+				$user = UserExt::model()->find("phone='$userphone'");
+				$uid = $user->id;
+			}
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->uid = $uid;
 			$info->status = 1;
 			// var_dump($info->attributes);exit;
 			if($info->save()) {
@@ -583,7 +590,7 @@ class PlotController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('dpedit',['article'=>$info,'hid'=>$hid]);
+		$this->render('dpedit',['article'=>$info,'hid'=>$hid,'userphone'=>isset($info->user->phone)?$info->user->phone:'']);
 	}
 	public function actionEditask()
 	{
@@ -594,7 +601,14 @@ class PlotController extends AdminController{
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
+			$userphone = Yii::app()->request->getPost('userphone');
+			$uid = '';
+			if($userphone) {
+				$user = UserExt::model()->find("phone='$userphone'");
+				$uid = $user->id;
+			}
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->uid = $uid;
 			$info->status = 1;
 			// var_dump($info->attributes);exit;
 			if($info->save()) {
@@ -603,7 +617,7 @@ class PlotController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('askedit',['article'=>$info,'hid'=>$hid]);
+		$this->render('askedit',['article'=>$info,'hid'=>$hid,'userphone'=>isset($info->user->phone)?$info->user->phone:'']);
 	}
 
 	public function actionEditanswer()
@@ -615,7 +629,14 @@ class PlotController extends AdminController{
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		$info->getIsNewRecord() && $info->status = 1;
 		if(Yii::app()->request->getIsPostRequest()) {
+			$userphone = Yii::app()->request->getPost('userphone');
+			$uid = '';
+			if($userphone) {
+				$user = UserExt::model()->find("phone='$userphone'");
+				$uid = $user->id;
+			}
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->uid = $uid;
 			$info->status = 1;
 			// var_dump($info->attributes);exit;
 			if($info->save()) {
@@ -624,7 +645,7 @@ class PlotController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('answeredit',['article'=>$info,'hid'=>$hid]);
+		$this->render('answeredit',['article'=>$info,'hid'=>$hid,'userphone'=>isset($info->user->phone)?$info->user->phone:'']);
 	}
 
 	public function actionEditPrice()

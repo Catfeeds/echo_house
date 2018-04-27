@@ -15,9 +15,9 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">作者<span class="required" aria-required="true">*</span></label>
+    <label class="col-md-2 control-label">作者电话<span class="required" aria-required="true">*</span></label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->findAll(),'id','name'),array('class' => 'form-control select2')); ?>
+        <input type="text" class="form-control" name="userphone" value="<?=$userphone?>"> 
         <input type="hidden" name="<?=get_class($article).'[hid]'?>" value="<?=$hid?>">
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>

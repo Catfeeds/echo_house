@@ -15,16 +15,15 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">经纪人</label>
+    <label class="col-md-2 control-label">经纪人电话</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control select2','empty'=>'')); ?>
+        <input type="text" class="form-control" name="userphone" value="<?=$userphone?>">       
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>
 </div>
 <div class="form-group">
     <label class="col-md-2 control-label">楼盘</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'hid', CHtml::listData(PlotExt::model()->findAll(),'id','title'), array('class' => 'form-control select2','empty'=>'')); ?>
+        <?php echo $form->dropDownList($article, 'hid', Yii::app()->redis->getClient()->hGetAll('plot_title'), array('class' => 'form-control select2','empty'=>'')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>

@@ -229,6 +229,9 @@ class PlotExt extends Plot{
     public function afterSave()
     {
         parent::afterSave();
+        if($this->getIsNewRecord()) {
+            Yii::app()->redis->getClient()->hSet('plot_title',$this->id,$this->title);
+        }
         if($this->deleted==1) {
             if($hxs = $this->hxs) {
                 foreach ($hxs as $key => $value) {
