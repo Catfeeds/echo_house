@@ -72,7 +72,15 @@ class PlotMarketUserController extends AdminController{
 		$modelName = $this->modelName;
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		if(Yii::app()->request->getIsPostRequest()) {
+			$userphone = Yii::app()->request->getPost('userphone');
+			$uid = '';
+			if($userphone) {
+				$user = UserExt::model()->find("phone='$userphone'");
+				$uid = $user->id;
+			}
+			
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
+			$info->uid = $uid;
 			// $info->time =  is_numeric($info->time)?$info->time : strtotime($info->time);
 			if($info->save()) {
 				$this->setMessage('操作成功','success',['list']);
@@ -80,7 +88,7 @@ class PlotMarketUserController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('edit',['cates'=>$this->cates,'article'=>$info,'cates1'=>$this->cates1,]);
+		$this->render('edit',['cates'=>$this->cates,'article'=>$info,'cates1'=>$this->cates1,'userphone'=>isset($info->user->phone)?$info->user->phone:'']);
 	}
 
 	public function actionAjaxStatus($kw='',$ids='')

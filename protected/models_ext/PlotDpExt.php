@@ -47,7 +47,19 @@ class PlotDpExt extends PlotDp{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $this->created = $this->updated = time();
-            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行点评，内容为：'.$this->note.'，点击以下链接查看：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->plot->id.'，请登陆后台审核','',1);
+            $plot = $this->plot;
+            if($plot) {
+                $res = Yii::app()->controller->sendNotice('有新的用户对'.$plot->title.'进行点评，内容为：'.$this->note.'，点击以下链接查看：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$plot->id.'，请登陆后台审核','',1);
+                // $plot = $this->plot;
+                $users = Yii::app()->db->createCommand("select u.qf_uid,u.phone,u.id,u.name from user u left join save s on u.id=s.uid where s.hid=".$this->hid)->queryAll();
+                if($users) {
+                    foreach ($users as $key => $value) {
+                        $value['phone'] && SmsExt::sendMsg('点评提醒对接人',$value['phone'],['name'=>$value['name'],'lpmc'=>$plot->title]);
+                        $value['qf_uid'] && Yii::app()->controller->sendNotice('尊敬的'.$value['name'].', '.$plot->title.'有了新的点评，请点击以下链接查看: http://house.jj58.com.cn/api/index/detail?id='.$this->hid,$value['qf_uid']);
+                    }
+                }
+            }
+                
         }
         else
             $this->updated = time();
