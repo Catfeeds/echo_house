@@ -80,7 +80,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
     $thisdl = UserExt::model()->undeleted()->count($criteria);
 
 ?>
-<div class="btn default" onclick="show()">显示/隐藏数据</div>
+<div class="btn default" onclick="show()">显示数据</div>
 
 <div class="row info hid">
     <div class="col-lg-4 col-md-4">
@@ -90,7 +90,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo $thishits.'/'.($allhits+$thishits) ?>
+                    <?php echo 5000+$thishits.'/'.($allhits+$thishits+2000000) ?>
                 </div>
                 <div class="desc">
                     今日楼盘点击数/总数

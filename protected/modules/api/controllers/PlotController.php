@@ -48,6 +48,7 @@ class PlotController extends ApiController{
 			$area = $street;
 			$street = 0;
 		}
+		$ids = $companyids = [];
 		$criteria = new CDbCriteria;
 		if($uid>0) {
 			if(!$save) {
@@ -56,12 +57,19 @@ class PlotController extends ApiController{
 				}
 				if($this->staff && $this->staff->type==1 && $this->staff->companyinfo) {
 					$init = 0;
-					$criteria->addCondition('uid=:uid');
-					$criteria->params[':uid'] = $this->staff->id;
-					if(is_numeric($status)) {
-						$criteria->addCondition('status=:status');
-						$criteria->params[':status'] = $status;
+					$plothidsres = Yii::app()->db->createCommand("select hid from plot_makert_user where status=1 and uid=".$this->staff->id)->queryAll();
+					if($plothidsres) {
+						foreach ($plothidsres as $ress) {
+							$ids[] = $ress['hid'];
+						}
 					}
+					$criteria->addInCondition('id',$ids);
+					// $criteria->addCondition('uid=:uid');
+					// $criteria->params[':uid'] = $this->staff->id;
+					// if(is_numeric($status)) {
+					// 	$criteria->addCondition('status=:status');
+					// 	$criteria->params[':status'] = $status;
+					// }
 				} else {
 					// $criteria->addCondition('uid=');
 					return $this->returnError('未登录');
@@ -121,7 +129,6 @@ class PlotController extends ApiController{
 			$criteria->params[':maxprice'] = $maxprice;
 		}
 
-		$ids = $companyids = [];
 		// var_dump($toptag,$sfprice,$wylx);exit;
 		foreach (['sfprice','wylx','toptag','zxzt'] as $key => $value) {
 			if($$value) {
