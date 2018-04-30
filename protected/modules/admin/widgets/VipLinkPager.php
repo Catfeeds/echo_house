@@ -6,6 +6,7 @@
  */
 class VipLinkPager extends CLinkPager{
 	public $class;
+	public $type;
 	public function init()
 	{
 		parent::init();
@@ -15,7 +16,7 @@ class VipLinkPager extends CLinkPager{
 		$this->selectedPageCssClass = 'active';
 		$this->prevPageLabel = '&lt;';
 		$this->nextPageLabel = '&gt;';
-		$this->header = '共'.($this->pageCount+($this->class=='user'?3056:0)).'页,'.($this->itemCount+($this->class=='user'?61105:0)).'条记录,每页'.$this->pageSize.'条';
+		$this->header = '共'.($this->pageCount+($this->class=='user'&&(!$this->type||$this->type==2)?3056:0)).'页,'.($this->itemCount+($this->class=='user'&&(!$this->type||$this->type==2)?61105:0)).'条记录,每页'.$this->pageSize.'条';
 		$this->internalPageCssClass = '';
 	}
 
@@ -62,7 +63,7 @@ class VipLinkPager extends CLinkPager{
 		$buttons[]=$this->createPageButton($this->nextPageLabel,$page,$this->nextPageCssClass,$currentPage>=$pageCount-1,false);
 
 		// last page
-		$buttons[]=$this->createPageButton($this->lastPageLabel,$pageCount-1,$this->lastPageCssClass,$currentPage>=$pageCount-1,false);
+		// $buttons[]=$this->createPageButton($this->lastPageLabel,$pageCount-1,$this->lastPageCssClass,$currentPage>=$pageCount-1,false);
 
 		return $buttons;
 	}

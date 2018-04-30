@@ -59,7 +59,7 @@ $this->breadcrumbs = array($this->pageTitle);
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->name?></td>
-            <td class="text-center"><?=UserExt::$ids[$v->type]?></td>
+            <td class="text-center"><?=$v->type?UserExt::$ids[$v->type]:''?></td>
             <td class="text-center"><?=$v->phone?></td>
             <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>  
             <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>  
@@ -87,7 +87,7 @@ $this->breadcrumbs = array($this->pageTitle);
     <?php endforeach;?>
     </tbody>
 </table>
-<?php $this->widget('VipLinkPager', array('pages'=>$pager,'class'=>'user')); ?>
+<?php $this->widget('VipLinkPager', array('pages'=>$pager,'class'=>'user','type'=>$cate)); ?>
 
 <script>
 <?php Tools::startJs(); ?>
