@@ -60,7 +60,7 @@ class CompanyExt extends Company{
         if(!$this->adduid&&$this->phone) {
             $p = $this->phone;
             $user = UserExt::model()->find("phone='$p'");
-            if($user->qf_uid) {
+            if($user && $user->qf_uid) {
                 $this->adduid = $user->qf_uid;
             }
         }
