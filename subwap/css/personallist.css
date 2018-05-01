@@ -177,18 +177,25 @@ body{
 	padding:2px 5px;
 }
 .zhanshi{
-	color:#868686;
+	color:rgb(124,168,255);
 	background-color:rgb(235,242,254);
 }
 .buzhanshi{
 	color:rgb(239,139,111);
 	background-color:rgb(252,238,233);
 }
+.house-img-address{
+	position: absolute;
+	top: 5.5rem;
+	left:0.667rem;
+	text-align: center;
+	color:#868686;
+}
 .house-text-company{
 	font-size: 0.74rem;
 	position: absolute;
 	top: 3.7rem;
-	left:6.8rem;
+	left:7rem;
 	width: 12rem;
 	color:#868686;
 }
@@ -203,10 +210,11 @@ body{
 .house-text-plot_name-2{
 	font-size: 0.64rem;
 	position: absolute;
-	top: 5.5rem;
-	left:0.667rem;
+	top: 5.6rem;
+	left:0.967rem;
 	width: 5rem;
 	text-align: center;
+	color:rgb(134,134,134);
 }
 .house-text-pay-yong{
 	position: absolute;

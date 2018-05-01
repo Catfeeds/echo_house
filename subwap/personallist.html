@@ -36,7 +36,10 @@
  						<div ng-if="item.status == '1'" ng-cloak class="house-text-status zhanshi">展示中</div>
  						<div ng-if="item.status == '0'" ng-cloak class="house-text-status buzhanshi">待审核</div>
  						<!-- <div ng-cloak class="list-expire">{{item.expire}}</div> -->
- 						<div ng-cloak class="house-text-company" data-id="' + companyid + '">{{item.zd_company.name}}</div>
+						<img class="house-img-address" src="img/address.png" width="20px" height="20px"/>
+ 						<div ng-cloak class="house-text-company" data-id="' + companyid + '">
+							{{item.zd_company.name}}
+						</div>
  						<div class="btn-box">
  							<span ng-click="payTop($event,item.id)">置顶</span>
 							<span ng-click="refresh($event,item.id)">刷新</span>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <script type="text/javascript" src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/weuix.min.css">
+    <link rel="stylesheet" type="text/css" href="css/personalEdit.css">
+
+    <title>发布房源</title>
+</head>
+
+<body>
+<div class="weui_cells weui_cells_form" id="form">
+    <div class="weui_cell img-box">
+        <div class="weui_cell_bd weui_cell_primary">
+            <div class="weui_uploader">
+                <div class="weui_uploader_bd">
+                    <ul class="weui_uploader_files" id='img'>
+                    </ul>
+                    <div class="weui_uploader_input_wrp">
+                        <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif"  onchange="previewImage(this)" multiple />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="img-text">
+        <div class="weui_cell_bd weui_cell_primary">只能上传九张哦，点击图片可以设置封面！</div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="pname" type="text" placeholder="请输入姓名" required>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">联系电话</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="pphone" type="text" placeholder="请输入联系方式" required>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">代理公司</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="pcompany" type="text" placeholder="请输入总代公司全称" required>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">项目名称</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="housename" type="text" placeholder="请输入项目名称" required>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">项目区域</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" value="" id="ssx" readonly="" placeholder="请选择项目区域" required>
+        </div>
+
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">项目地址</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="houseaddress" type="text" placeholder="请输入项目地址" required>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">物业类型</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" id="wylx" placeholder="请选择物业类型" readonly="">
+
+        </div>
+
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">装修情况</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" id="zxzt" placeholder="请选择装修情况" readonly="">
+
+        </div>
+
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">均价</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="houseaddress" type="text" placeholder="请输入销售均价" required>
+        </div>
+        <div class="weui_cell_ft">
+            <select class="weui_select" name="unit" id="unit">
+                <option value="1">元/㎡</option>
+                <option value="2">万元/套</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">首付金额</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" id="leastpay" placeholder="请选择首付金额" readonly="">
+
+        </div>
+
+    </div>
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label for="" class="weui_label">代理性质</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" type="text" id="mode" placeholder="请选择代理性质" readonly="">
+
+        </div>
+
+    </div>
+    <!--<div class="weui_cells_title">佣金方案</div>-->
+    <!--<div class="weui_cells weui_cells_form">-->
+        <!--<div class="weui_cell">-->
+            <!--<div class="weui_cell_bd weui_cell_primary">-->
+                <!--<textarea name="yjfa" id="" class="weui_textarea" placeholder="请输入佣金方案" rows="3"></textarea>-->
+                <!--&lt;!&ndash;<div class="weui_textarea_counter"><span id="count">0</span>/<span id="count_max">20</span></div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">佣金方案</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="" name="yjfa" type="text" placeholder="请输入佣金方案" required>
+        </div>
+    </div>
+    <!--<div class="weui_cells_title">结佣方式</div>-->
+    <!--<div class="weui_cells weui_cells_form">-->
+        <!--<div class="weui_cell">-->
+            <!--<div class="weui_cell_bd weui_cell_primary">-->
+                <!--<textarea name="jy_rule" id="" class="weui_textarea" placeholder="请输入结佣条件及时间" rows="3"></textarea>-->
+                <!--&lt;!&ndash;<div class="weui_textarea_counter"><span id="count">0</span>/<span id="count_max">20</span></div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">结佣方式</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="" name="jy_rule" type="text" placeholder="请输入结佣条件及时间" required>
+        </div>
+    </div>
+    <!--<div class="weui_cells_title">自驾油补</div>-->
+    <!--<div class="weui_cells weui_cells_form">-->
+        <!--<div class="weui_cell">-->
+            <!--<div class="weui_cell_bd weui_cell_primary">-->
+                <!--<textarea name="dk_rule" id="" class="weui_textarea" placeholder="请输入自驾油补及班车情况" rows="3"></textarea>-->
+                <!--&lt;!&ndash;<div class="weui_textarea_counter"><span id="count">0</span>/<span id="count_max">20</span></div>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="weui_cell">
+        <div class="weui_cell_hd"><label class="weui_label">自驾油补</label></div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" id="" name="dk_rule" type="text" placeholder="请输入自驾油补及班车情况" required>
+        </div>
+    </div>
+    <div class="weui_cells_title">项目介绍</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <textarea name="peripheral" id="" class="weui_textarea" placeholder="请输入项目介绍（推荐直接复制微信朋友圈转发的文案）" rows="3"></textarea>
+                <!--<div class="weui_textarea_counter"><span id="count">0</span>/<span id="count_max">20</span></div>-->
+            </div>
+        </div>
+    </div>
+    <div class="weui_btn_area">
+        <a id="formSubmitBtn" href="javascript:" class="weui_btn bg-blue">发布</a>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<!--<script type="text/javascript" src="js/jquery.validate.min.js"></script>-->
+<!--<script type="text/javascript" src="js/messages_zh.js"></script>-->
+<!--<script type="text/javascript" src="js/angular.min.js"></script>-->
+<!--<script src="https://s19.cnzz.com/z_stat.php?id=1265807816&web_id=1265807816" language="JavaScript"></script>-->
+<!--<script type="text/javascript" src="js/common.js"></script>-->
+<script type="text/javascript" src="js/weui/picker.js"></script>
+<script type="text/javascript" src="js/weui/picker-city.js"></script>
+<script type="text/javascript" src="js/weui/select.js"></script>
+<script type="text/javascript" src="js/weui/lrz.min.js"></script>
+<script type="text/javascript" src="js/personalEdit.js"></script>
+<script type="text/javascript">
+    // hljs.initHighlightingOnLoad();
+</script>
+</body>
+
+</html>

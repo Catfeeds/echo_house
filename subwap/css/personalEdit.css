@@ -1,0 +1,25 @@
+.weui_cells{
+    margin-top:0;
+}
+.img-text{
+    text-align: center;
+    padding:15px;
+}
+.weui_uploader_bd{
+    text-align: center;
+}
+.weui_cell_ft{
+    font-size: inherit!important;
+}
+.weui_select{
+    height: inherit!important;
+    line-height: inherit!important;
+    z-index: inherit;
+}
+.weui_cells_title{
+    font-size: 17px;
+    color:#000;
+    border-top: 1px solid #d9d9d9;
+    padding:10px 15px;
+    margin:0;
+}
