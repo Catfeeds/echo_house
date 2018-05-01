@@ -16,7 +16,7 @@ $this->breadcrumbs = array('后台管理',$this->pageTitle);
                     <?=$model?>
                 </div>
             </div>
-            <a class="more" href="<?=$this->createUrl('edit', ['type'=>$k]); ?>">点此进行配置<i class="m-icon-swapright"></i>
+            <a class="more" href="<?=$k=='app'?'http://jj58.adm.qianfanyun.com/admin/index/login/':$this->createUrl('edit', ['type'=>$k]); ?>">点此进行配置<i class="m-icon-swapright"></i>
             </a>
         </div>
     </div>
