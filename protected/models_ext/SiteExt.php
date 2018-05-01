@@ -41,6 +41,7 @@ class SiteExt extends Site{
     public static $cateName = [
         'qjpz' => '全局配置',
         'sen'=>'敏感词配置',
+        'app'=>'APP后台配置',
     ];
 
     // 属性分类
@@ -103,6 +104,9 @@ class SiteExt extends Site{
         'sen'=>[
             'sen'=>['type'=>'text','name'=>'敏感词'],
         ],
+        'app'=>[
+            'app'=>[],
+        ]
     ];
 
 	/**

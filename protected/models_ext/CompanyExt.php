@@ -60,7 +60,7 @@ class CompanyExt extends Company{
         if(!$this->adduid&&$this->phone) {
             $p = $this->phone;
             $user = UserExt::model()->find("phone='$p'");
-            if($user->qf_uid) {
+            if($user && $user->qf_uid) {
                 $this->adduid = $user->qf_uid;
             }
         }
@@ -70,7 +70,8 @@ class CompanyExt extends Company{
                 
                 $res = Yii::app()->controller->sendNotice('有新的公司提交合作申请，请登陆后台审核','',1);
             }
-            $this->created = $this->updated = time();
+            if(!$this->created && !$this->updated)
+                $this->created = $this->updated = time();
         }
         else
             $this->updated = time();
