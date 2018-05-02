@@ -205,6 +205,15 @@ class FileComponent extends CApplicationComponent
         return $key;
     }
 
+    public function createQiniuKeyJpg($file=null)
+    {
+        $path = $this->getFilePath();
+        $filename = $this->getRandFileName();
+        $ext = $file ? ('.'. $file->extensionName) : '.jpg';
+        $key = $path . $filename . $ext;
+        return $key;
+    }
+
     /**
      * 云存储单个文件
      * @param CUploadedFile[] $file 一个数组，包含CUploadedFile实例

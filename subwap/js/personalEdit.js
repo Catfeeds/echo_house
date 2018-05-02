@@ -1,10 +1,13 @@
 var tags = '';
+var fmindex = 0;
 var delimgindex = '';
+var imageindex = 0;
 var uid = '';
 var wylxList = [];//物业类型
 var zxztList = [];//装修情况
 var leastpayList = [];//首付金额
 var modeList = [];//代理性质
+var imgarr = [];
 $(document).ready(function () {
     // 获取千帆uid
     //   $.get('/api/config/index',function(data) {
@@ -252,9 +255,11 @@ function deleteimg(obj) {
 
 function setFm(obj) {
     $('.is_cover').remove();
-    var dataid = obj.data('id');
-    obj.append('<div class="is_cover"></div>');
-    $('.fm').val($('#' + dataid).html());
+    $('.fm').attr('class','weui_uploader_file');
+    // var dataid = obj.data('id');
+    $(obj).append('<div class="is_cover"></div>');
+    $(obj).attr('class','weui_uploader_file fm');
+    // $('.fm').val($('#' + dataid).html());
 }
 
 
@@ -271,13 +276,22 @@ function previewImage(file) {
         if (file.files && file.files[i]) {
             var reader = new FileReader();
             reader.onload = function (evt) {
-                $('#img').append('<li class="weui_uploader_file" style="background-image:url('+evt.target.result+')"></li>');
+
+                $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="'+evt.target.result+'" style="background-image:url('+evt.target.result+')"><img class="imgarr imgindex'+imageindex+'" style="/* position: absolute; */height: 30px;width: 30px;/* right: 0px; *//* top: 0px; */margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                imageindex++;
+
             };
             reader.readAsDataURL(file.files[i]);
         }
 
     }
 
+}
+
+function deleteimg(obj) {
+  delimgindex=$(obj).attr('class');
+  $('#'+delimgindex).remove();
+  $(obj).closest('li').remove();
 }
 var $form = $("#form");
 $form.form();
@@ -287,6 +301,53 @@ $("#formSubmitBtn").on("click", function(){
 
         }else{
 
+            // validate通过后处理这个 图片数组
+            // imgarr是图片数组 fmindex是封面下标
+            // post的时候也用这两个参数 原先的fm和image都不要传
+            if($('.weui_uploader_file').length>0) {
+                for (var i = 0; i < $('.weui_uploader_file').length; i++) {
+                    var tmpa = $('.weui_uploader_file')[i];
+                    imgarr.push($(tmpa).data('img'));
+                    if($(tmpa).hasClass('fm')) {
+                        fmindex = i;
+                    }
+                }
+            }
+            // $.post('/api/plot/addPlot',
+            //   {
+            //     'pname':$('#pname').val(),
+            //     'pphone':$('#pphone').val(),
+            //     'pcompany':$('#pcompany').val(),
+            //     'title':$('#housename').val(),
+            //     'city':$('select[name="area"]').val(),
+            //     'area':$('select[name="street"]').val(),
+            //     'street':$('select[name="town"]').val(),
+            //     'address':$('#houseaddress').val(),
+            //     'price':$('#price').val(),
+            //     'unit':$('select[name="unit"]').val(),
+            //     'hxjs':$('#hxjs').val(),
+            //     'sfprice':$('select[name="sfprice"]').val(),
+            //     'dllx':$('#dllx').val(),
+            //     'fm':$('#fm').val(),
+            //     // 'market_name':$('input[name="market_name"]').val(),
+            //     // 'market_phone':$('input[name="market_phone"]').val(),
+            //     'yjfa':$('#yjfa').val(),
+            //     'jy_rule':$('#jy_rule').val(),
+            //     'dk_rule':$('#dk_rule').val(),
+            //     'peripheral':$('#peripheral').val(),
+            //     'image[]':imgs,
+            //     'qf_uid':uid,
+            //     'wylx':wylx,
+            //     'zxzt':zxzt,
+            //   },function(data){
+            //     if(data.status=='success'){
+            //       alert('您好，您的房源信息已提交。');
+            //       // location.href = 'duijieren.html?hid='+data.data;
+            //       location.href = 'personallist.html';
+            //     } else {
+            //       alert(data.msg);
+            //     }
+            //   });
             $.toptips('验证通过提交','ok');
         }
     });

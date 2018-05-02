@@ -1,4 +1,5 @@
 <?php
+use Qiniu\Auth;
 class PlotController extends ApiController{
 	public function is_HTTPS(){  //判断是不是https
             if(!isset($_SERVER['HTTPS']))  return FALSE;  
@@ -1315,6 +1316,160 @@ class PlotController extends ApiController{
     			$mak->save();
     			if($imgs && count($imgs)>1) {
     				unset($imgs[0]);
+    				foreach ($imgs as $k) {
+    					$im = new PlotImageExt;
+    					$im->url = $k;
+    					$im->hid = $obj->id;
+    					$im->status = 1;
+    					$im->save();
+    				}
+    			}
+
+    			$user->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：'.SiteExt::getAttr('qjpz','site_phone'),$user->qf_uid);
+    			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
+    			$this->frame['data'] = $obj->id;
+    		}
+
+    	}
+    }
+
+        /**
+     * 新项目 会员免费发布 其余免费发布一条
+     */
+    public function actionAddPlotNew()
+    {
+    	if(Yii::app()->request->getIsPostRequest()) {
+    		if(isset($_POST['uid'])) {
+    			$this->staff = UserExt::model()->findByPk($_POST['uid']);
+    		}
+    		if(!$this->staff) {
+    			return $this->returnError('请登录后操作');
+    		}
+    		if($this->staff && $this->staff->type!=1) {
+    			return $this->returnError('用户类型错误，只支持总代公司发布房源');
+    		}
+    		// if(!($company = $this->staff->companyinfo)) {
+    		// 	return $this->returnError('尚未绑定公司');
+    		// }
+    		$post = $_POST;
+    		$up = 0;
+    		if(isset($post['id']) && $post['id']) {
+    			$up = 1;
+    		}
+    		// if($post&&is_array($post) ){
+    		// 	foreach ($post as $key => $value) {
+    		// 		$post[$key] = $this->cleanXss($value);
+    		// 	}
+    		// }
+    		// $mak = $post['market_name'].$post['market_phone'];
+    		// unset($post['market_name']);
+    		// unset($post['market_phone']);
+    		// $img = '';
+    		$keyarr = [];
+    		$imgs = $post['imgarr'];
+    		$fmindex = $post['fmindex'];
+    		unset($post['imgarr']);
+    		unset($post['fmindex']);
+    		if($imgs) {
+    			foreach ($imgs as $m=>$n) {
+    				// base64=>qiniu
+    				$auth = new Auth(Yii::app()->file->accessKey,Yii::app()->file->secretKey);
+			        $policy = array(
+			            'mimeLimit'=>'image/*',
+			            'fsizeLimit'=>10000000,
+			            'saveKey'=>Yii::app()->file->createQiniuKeyJpg(),
+			        );
+			        // var_dump(Yii::app()->file->createQiniuKey());exit;
+			        $token = $auth->uploadToken(Yii::app()->file->bucket,null,3600,$policy);
+			        $headers = array();
+			        $headers[] = 'Content-Type:image/png';
+			        $headers[] = 'Authorization:UpToken '.$token;
+			        $ch = curl_init();  
+			        curl_setopt($ch, CURLOPT_URL,'http://upload.qiniu.com/putb64/-1');  
+			        //curl_setopt($ch, CURLOPT_HEADER, 0);
+			        curl_setopt($ch, CURLOPT_HTTPHEADER ,$headers);
+			        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+			        //curl_setopt($ch, CURLOPT_POST, 1);
+			        curl_setopt($ch, CURLOPT_POSTFIELDS, $n);
+			        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+			        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+			        $data = curl_exec($ch);  
+			        curl_close($ch);  
+			        // var_dump($data);exit;
+			        $data = json_decode($data,true);
+			        if(isset($data['key'])) {
+			        	$keyarr[] = $data['key'];
+			        	if($fmindex==$m)
+    						$post['image'] = $data['key'];
+			        }
+    			}
+    		}
+    		// if(isset($post['fmindex']) && $post['fmindex']) {
+    		// 	$img = $post['fmindex'];
+    		// } else {
+    		// 	$img = $imgs[0];
+    		// }
+    		// unset($post['fm']);
+    		if($comname = $post['pcompany']) {
+    			$criteria = new CDbCriteria;
+    			$criteria->addSearchCondition('name',$comname);
+    			$company = CompanyExt::model()->find($criteria);
+    			if(!$company) {
+    				$company = new CompanyExt;
+    				$company->name = $comname;
+    				$company->phone = $post['pphone'];
+    				$company->type = 1;
+    				$company->adduid = $post['qf_uid'];
+    				$company->status = 0;
+    				if(!($company->save())){
+	    				return $this->returnError(current(current($company->getErrors())));
+	    			}
+    			}
+    		}
+    		unset($post['pcompany']);
+    		$pphone = $post['pphone'];
+    		if(!($user = UserExt::model()->find("phone='$pphone'"))) {
+    			$user = new UserExt;
+    			$user->name = $post['pname'];
+    			$user->type = 1;
+    			$user->cid = $company->id;
+    			$user->qf_uid = $post['qf_uid'];
+    			$user->phone = $pphone;
+    			$user->status = 1;
+    			if(!($user->save())){
+    				return $this->returnError(current(current($user->getErrors())));
+    			}
+    		}
+    		if(!$up)
+    			$obj = new PlotExt;
+    		else {
+    			$obj = PlotExt::model()->findByPk($post['id']);
+    			unset($post['id']);
+    		}
+    		$obj->attributes = $post;
+    		$obj->pinyin = Pinyin::get($obj->title);
+    		$obj->fcode = substr($obj->pinyin, 0,1);
+    		$obj->status = 0;
+    		// $obj->image = $img;
+    		// $obj->market_user = $mak;
+    		$obj->uid = $user->id;
+    		// $company = $this->staff->companyinfo;
+    		$obj->company_id = $company->id;
+    		$obj->company_name = $company->name;
+    		// var_dump($obj->attributes);exit;
+    		if(!$obj->save()) {
+    			return $this->returnError(current(current($obj->getErrors())));
+    		} else {
+    			// 对接人
+    			$mak = new PlotMarketUserExt;
+    			$mak->uid = $user->id;
+    			$mak->hid = $obj->id;
+    			$mak->is_manager = 1;
+    			$mak->status = 1;
+    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
+    			$mak->save();
+    			if($keyarr && count($keyarr)>1) {
+    				// unset($imgs[0]);
     				foreach ($imgs as $k) {
     					$im = new PlotImageExt;
     					$im->url = $k;
