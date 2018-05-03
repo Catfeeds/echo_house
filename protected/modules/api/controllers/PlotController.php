@@ -1,6 +1,12 @@
 <?php
 use Qiniu\Auth;
 class PlotController extends ApiController{
+	public function init()
+	{
+		parent::init();
+		// session_start();
+		header("Access-Control-Allow-Origin: *");
+	}
 	public function is_HTTPS(){  //判断是不是https
             if(!isset($_SERVER['HTTPS']))  return FALSE;  
             if($_SERVER['HTTPS'] === 1){  //Apache  
@@ -1372,6 +1378,10 @@ class PlotController extends ApiController{
     		unset($post['fmindex']);
     		if($imgs) {
     			foreach ($imgs as $m=>$n) {
+    				// var_dump($n);
+    				
+    				$n = str_replace('data:image/png;base64,', '', $n);
+    				// var_dump($n);exit;
     				// base64=>qiniu
     				$auth = new Auth(Yii::app()->file->accessKey,Yii::app()->file->secretKey);
 			        $policy = array(
@@ -1379,7 +1389,7 @@ class PlotController extends ApiController{
 			            'fsizeLimit'=>10000000,
 			            'saveKey'=>Yii::app()->file->createQiniuKeyJpg(),
 			        );
-			        // var_dump(Yii::app()->file->createQiniuKey());exit;
+			        // var_dump($auth);exit;
 			        $token = $auth->uploadToken(Yii::app()->file->bucket,null,3600,$policy);
 			        $headers = array();
 			        $headers[] = 'Content-Type:image/png';
@@ -1446,7 +1456,50 @@ class PlotController extends ApiController{
     			$obj = PlotExt::model()->findByPk($post['id']);
     			unset($post['id']);
     		}
+    		// 省市区
+    		$cityname = $post['city'];
+    		$areaname = $post['area'];
+    		$streetnameorigin = $post['street'];
+    		$streetname = trim($post['street'],'市');
+    		$streetname = trim($post['street'],'区');
+    		unset($post['city']);
+    		unset($post['area']);
+    		unset($post['street']);
+    		if($cityid = Yii::app()->db->createCommand("select id from area where name like '%$cityname%'")->queryScalar()) {
+    			$post['city'] = $cityid;
+    		} else {
+    			$areaobj = new AreaExt;
+    			$areaobj->name = $cityname;
+    			$areaobj->parent = 0;
+    			$areaobj->status = 1;
+    			$areaobj->save();
+    			$post['city'] = $areaobj->id;
+    		}
+
+    		if($areaid = Yii::app()->db->createCommand("select id from area where name like '%$areaname%'")->queryScalar()) {
+    			$post['area'] = $areaid;
+    		} else {
+    			$areaobj = new AreaExt;
+    			$areaobj->name = $areaname;
+    			$areaobj->parent = $post['city'];
+    			$areaobj->status = 1;
+    			$areaobj->save();
+    			$post['area'] = $areaobj->id;
+    		}
+
+    		if($streetid = Yii::app()->db->createCommand("select id from area where name like '%$streetname%'")->queryScalar()) {
+    			$post['street'] = $streetid;
+    		} else {
+    			$areaobj = new AreaExt;
+    			$areaobj->name = $streetnameorigin;
+    			$areaobj->parent = $post['area'];
+    			$areaobj->status = 1;
+    			$areaobj->save();
+    			$post['street'] = $areaobj->id;
+    		}
     		$obj->attributes = $post;
+    		$obj->wylx && $obj->wylx = explode(',', $obj->wylx);
+    		$obj->zxzt && $obj->zxzt = explode(',', $obj->zxzt);
     		$obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
     		$obj->status = 0;
