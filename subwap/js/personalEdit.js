@@ -3,38 +3,42 @@ var fmindex = 0;
 var delimgindex = '';
 var imageindex = 0;
 var uid = '';
-var wylxList = [];//物业类型
-var zxztList = [];//装修情况
-var leastpayList = [];//首付金额
-var modeList = [];//代理性质
+var wylxList = [];//物业类型列表
+var zxztList = [];//装修情况列表
+var leastpayList = [];//首付金额列表
+var modeList = [];//代理性质列表
 var imgarr = [];
+var wylxVal;//物业类型
+var zxztVal;//装修情况
+var leastpayVal;//首付金额
+var modeVal;//代理性质
 $(document).ready(function () {
     // 获取千帆uid
-    //   $.get('/api/config/index',function(data) {
-    //       if(data.data.is_user==false||data.data.is_user==0||data.data.is_user=="0") {
-    //           alert('请认证后操作');
-    //           location.href = 'register.html';
-    //       }
-    //       if(data.status=='success') {
-    //         if(data.data.user.phone!=undefined) {
-    //           $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
-    //             if(data.status=='error') {
-    //               alert(data.msg);
-    //               if(data.msg=='用户类型错误，只支持总代公司发布房源')
-    //                 location.href = 'list.html';
-    //               else
-    //                 location.href = 'duijierennew.html';
-    //             }
-    //           });
-    //           $('#pname').val(data.data.user.name);
-    //           $('#pphone').val(data.data.user.phone);
-    //           $('#pcompany').val(data.data.companyname);
-    //           $('#pname').attr('readonly','readonly');
-    //           $('#pphone').attr('readonly','readonly');
-    //           $('#pcompany').attr('readonly','readonly');
-    //         }
-    //       }
-    //   });
+      $.get('/api/config/index',function(data) {
+          if(data.data.is_user==false||data.data.is_user==0||data.data.is_user=="0") {
+              alert('请认证后操作');
+              location.href = 'register.html';
+          }
+          if(data.status=='success') {
+            if(data.data.user.phone!=undefined) {
+              $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
+                if(data.status=='error') {
+                  alert(data.msg);
+                  if(data.msg=='用户类型错误，只支持总代公司发布房源')
+                    location.href = 'list.html';
+                  else
+                    location.href = 'duijierennew.html';
+                }
+              });
+              $('#pname').val(data.data.user.name);
+              $('#pphone').val(data.data.user.phone);
+              $('#pcompany').val(data.data.companyname);
+              $('#pname').attr('readonly','readonly');
+              $('#pphone').attr('readonly','readonly');
+              $('#pcompany').attr('readonly','readonly');
+            }
+          }
+      });
     //
     //validata
     // $('#form').validate();
@@ -53,7 +57,7 @@ $(document).ready(function () {
             closeText: '完成',
             items: wylxList,
             onChange: function (d) {
-                // $.alert("你选择了"+d.values+d.titles);
+                wylxVal = d.values;
             }
         });
         for (var i = 0; i < tags[1].list.length; i++) {
@@ -63,12 +67,13 @@ $(document).ready(function () {
             zxztList.push(zxztData);
         }
         $("#zxzt").select({
-            title: "物业类型",
+            title: "装修情况",
             multi: true,
             split: ',',
             closeText: '完成',
             items: zxztList,
             onChange: function (d) {
+                zxztVal = d.values;
                 // $.alert("你选择了"+d.values+d.titles);
             }
         });
@@ -82,6 +87,7 @@ $(document).ready(function () {
             title: "首付金额",
             items: leastpayList,
             onChange: function (d) {
+                leastpayVal = d.values;
                 // $.alert("你选择了"+d.values);
             }
         });
@@ -95,6 +101,7 @@ $(document).ready(function () {
             title: "代理性质",
             items: modeList,
             onChange: function (d) {
+                modeVal = d.values;
                 // $.alert("你选择了"+d.values);
             }
         });
@@ -181,71 +188,6 @@ function submitBtn() {
 function sub() {
 }
 
-function checkName(obj) {
-    var name = $(obj).val();
-    if (name != '') {
-        $.get('/api/plot/checkName?name=' + name, function (data) {
-            if (data.status == 'error') {
-                alert(data.msg);
-                location.href = 'detail.html?id=' + data.data;
-            }
-        });
-    }
-}
-
-function checkPhone(obj) {
-    var name = $(obj).val();
-    if (name != '') {
-        $.get('/api/plot/checkCanSub?phone=' + name, function (data) {
-            if (data.status == 'error') {
-                alert(data.msg);
-                location.href = 'duijierennew.html';
-                // $(obj).val('');
-                // $(obj).focus();
-            }
-        });
-    }
-}
-
-//二级下拉框
-function setStreets() {
-    $('#area2').empty();
-    var arealist = tags[3].list;
-    for (var i = 0; i < arealist.length; i++) {
-        // console.log(tags[3][i]);
-        if ($('#area1').val() == arealist[i].id) {
-            $('#area2').append('<option value="0">请选择</option>');
-            for (var j = 0; j < arealist[i].childAreas.length; j++) {
-                $('#area2').append('<option value="' + arealist[i].childAreas[j].id + '">' + arealist[i].childAreas[j].name + '</option>');
-            }
-            break;
-        }
-    }
-}
-
-function setTowns() {
-    $('#area3').empty();
-    var arealist = tags[3].list;
-    for (var i = 0; i < arealist.length; i++) {
-        // console.log(tags[3][i]);
-        if ($('#area1').val() == arealist[i].id) {
-
-            for (var j = 0; j < arealist[i].childAreas.length; j++) {
-
-                if ($('#area2').val() == arealist[i].childAreas[j].id) {
-                    $('#area3').append('<option value="0">请选择</option>');
-                    for (var k = 0; k < arealist[i].childAreas[j].childAreas.length; k++) {
-                        $('#area3').append('<option value="' + arealist[i].childAreas[j].childAreas[k].id + '">' + arealist[i].childAreas[j].childAreas[k].name + '</option>');
-                    }
-
-                }
-
-            }
-            break;
-        }
-    }
-}
-
 //删除图片
 function deleteimg(obj) {
     delimgindex = $(obj).attr('class');
@@ -255,10 +197,10 @@ function deleteimg(obj) {
 
 function setFm(obj) {
     $('.is_cover').remove();
-    $('.fm').attr('class','weui_uploader_file');
+    $('.fm').attr('class', 'weui_uploader_file');
     // var dataid = obj.data('id');
     $(obj).append('<div class="is_cover"></div>');
-    $(obj).attr('class','weui_uploader_file fm');
+    $(obj).attr('class', 'weui_uploader_file fm');
     // $('.fm').val($('#' + dataid).html());
 }
 
@@ -271,15 +213,16 @@ $("#ssx").cityPicker({
 function previewImage(file) {
     var MAXWIDTH = 100;
     var MAXHEIGHT = 200;
-    for(var i=0;i<file.files.length;i++){
 
+    for (var i = 0; i < file.files.length; i++) {
         if (file.files && file.files[i]) {
             var reader = new FileReader();
             reader.onload = function (evt) {
-
-                $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="'+evt.target.result+'" style="background-image:url('+evt.target.result+')"><img class="imgarr imgindex'+imageindex+'" style="/* position: absolute; */height: 30px;width: 30px;/* right: 0px; *//* top: 0px; */margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;/* right: 0px; *//* top: 0px; */margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
                 imageindex++;
-
+                if (imageindex > 8) {
+                    $('.weui_uploader_input_wrp').css('display', 'none');
+                }
             };
             reader.readAsDataURL(file.files[i]);
         }
@@ -289,66 +232,79 @@ function previewImage(file) {
 }
 
 function deleteimg(obj) {
-  delimgindex=$(obj).attr('class');
-  $('#'+delimgindex).remove();
-  $(obj).closest('li').remove();
+    delimgindex = $(obj).attr('class');
+    $('#' + delimgindex).remove();
+    $(obj).closest('li').remove();
+    imageindex--;
+    if (imageindex <= 8) {
+        $('.weui_uploader_input_wrp').css('display', 'block');
+    }
 }
+
 var $form = $("#form");
 $form.form();
-$("#formSubmitBtn").on("click", function(){
-    $form.validate(function(error){
-        if(error){
-
-        }else{
+$("#formSubmitBtn").on("click", function () {
+    var imgarr = [];
+    $form.validate(function (error) {
+        if (error) {
+            console.log($('#ssx').val().split(" "))
+        } else {
 
             // validate通过后处理这个 图片数组
             // imgarr是图片数组 fmindex是封面下标
             // post的时候也用这两个参数 原先的fm和image都不要传
-            if($('.weui_uploader_file').length>0) {
+            if ($('.weui_uploader_file').length > 0) {
                 for (var i = 0; i < $('.weui_uploader_file').length; i++) {
                     var tmpa = $('.weui_uploader_file')[i];
                     imgarr.push($(tmpa).data('img'));
-                    if($(tmpa).hasClass('fm')) {
+                    if ($(tmpa).hasClass('fm')) {
                         fmindex = i;
                     }
                 }
             }
-            // $.post('/api/plot/addPlot',
-            //   {
-            //     'pname':$('#pname').val(),
-            //     'pphone':$('#pphone').val(),
-            //     'pcompany':$('#pcompany').val(),
-            //     'title':$('#housename').val(),
-            //     'city':$('select[name="area"]').val(),
-            //     'area':$('select[name="street"]').val(),
-            //     'street':$('select[name="town"]').val(),
-            //     'address':$('#houseaddress').val(),
-            //     'price':$('#price').val(),
-            //     'unit':$('select[name="unit"]').val(),
-            //     'hxjs':$('#hxjs').val(),
-            //     'sfprice':$('select[name="sfprice"]').val(),
-            //     'dllx':$('#dllx').val(),
-            //     'fm':$('#fm').val(),
-            //     // 'market_name':$('input[name="market_name"]').val(),
-            //     // 'market_phone':$('input[name="market_phone"]').val(),
-            //     'yjfa':$('#yjfa').val(),
-            //     'jy_rule':$('#jy_rule').val(),
-            //     'dk_rule':$('#dk_rule').val(),
-            //     'peripheral':$('#peripheral').val(),
-            //     'image[]':imgs,
-            //     'qf_uid':uid,
-            //     'wylx':wylx,
-            //     'zxzt':zxzt,
-            //   },function(data){
-            //     if(data.status=='success'){
-            //       alert('您好，您的房源信息已提交。');
-            //       // location.href = 'duijieren.html?hid='+data.data;
-            //       location.href = 'personallist.html';
-            //     } else {
-            //       alert(data.msg);
-            //     }
-            //   });
-            $.toptips('验证通过提交','ok');
+            if (imgarr.length < 1) {
+                alert('请上传封面图');
+                return false;
+            }
+            var ssxList = $('#ssx').val().split(" ");
+            var params = {
+                'pname': $('#pname').val(),
+                'pphone': $('#pphone').val(),
+                'pcompany': $('#pcompany').val(),
+                'title': $('#housename').val(),
+                'city': ssxList[0],
+                'area': ssxList[1],
+                'street': ssxList[2],
+                'address': $('#houseaddress').val(),
+                'wylx': wylxVal,
+                'zxzt': zxztVal,
+                'price': $('#price').val(),
+                'unit': $('select[name="unit"]').val(),
+                // 'hxjs':$('#hxjs').val(),
+                'sfprice': leastpayVal,
+                'dllx': modeVal,
+                // 'fm':$('#fm').val(),
+                // 'market_name':$('input[name="market_name"]').val(),
+                // 'market_phone':$('input[name="market_phone"]').val(),
+                'yjfa': $('#yjfa').val(),
+                'jy_rule': $('#jy_rule').val(),
+                'dk_rule': $('#dk_rule').val(),
+                'peripheral': $('#peripheral').val(),
+                'imgarr': imgarr,
+                'fmindex':fmindex,
+                'qf_uid': uid,
+            };
+            $.post('/api/plot/addPlotNew',params
+              ,function(data){
+                if(data.status=='success'){
+                  alert('您好，您的房源信息已提交。');
+                  // location.href = 'duijieren.html?hid='+data.data;
+                  location.href = 'personallist.html';
+                } else {
+                  alert(data.msg);
+                }
+              });
+            $.toptips('验证通过提交', 'ok');
         }
     });
 

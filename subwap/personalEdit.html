@@ -43,38 +43,38 @@
         <div class="weui_cell_bd weui_cell_primary">只能上传九张哦，点击图片可以设置封面！</div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*姓名</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="pname" type="text" placeholder="请输入姓名" required>
         </div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">联系电话</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*联系电话</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="pphone" type="text" placeholder="请输入联系方式" required>
         </div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">代理公司</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*代理公司</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="pcompany" type="text" placeholder="请输入总代公司全称" required>
         </div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">项目名称</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*项目名称</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="housename" type="text" placeholder="请输入项目名称" required>
         </div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label for="" class="weui_label">项目区域</label></div>
+        <div class="weui_cell_hd"><label for="" class="weui_label">*项目区域</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" type="text" value="" id="ssx" readonly="" placeholder="请选择项目区域" required>
         </div>
 
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">项目地址</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*项目地址</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="houseaddress" type="text" placeholder="请输入项目地址" required>
         </div>
@@ -96,21 +96,21 @@
 
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">均价</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*均价</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="houseaddress" type="text" placeholder="请输入销售均价" required>
+            <input class="weui_input" id="price" name="price"  type="text" placeholder="请输入销售均价" pattern="[0-9]*" required>
         </div>
         <div class="weui_cell_ft">
             <select class="weui_select" name="unit" id="unit">
-                <option value="1">元/㎡</option>
-                <option value="2">万元/套</option>
+                <option value=1>元/㎡</option>
+                <option value=2>万元/套</option>
             </select>
         </div>
     </div>
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label for="" class="weui_label">首付金额</label></div>
+        <div class="weui_cell_hd"><label for="" class="weui_label">*首付金额</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" id="leastpay" placeholder="请选择首付金额" readonly="">
+            <input class="weui_input" type="text" id="leastpay" name="sfprice" placeholder="请选择首付金额" readonly="" required>
 
         </div>
 
@@ -133,9 +133,9 @@
         <!--</div>-->
     <!--</div>-->
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">佣金方案</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*佣金方案</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="" name="yjfa" type="text" placeholder="请输入佣金方案" required>
+            <input class="weui_input" id="yjfa" name="yjfa" type="text" placeholder="请输入佣金方案" required>
         </div>
     </div>
     <!--<div class="weui_cells_title">结佣方式</div>-->
@@ -148,9 +148,9 @@
         <!--</div>-->
     <!--</div>-->
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">结佣方式</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*结佣方式</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="" name="jy_rule" type="text" placeholder="请输入结佣条件及时间" required>
+            <input class="weui_input" id="jy_rule" name="jy_rule" type="text" placeholder="请输入结佣条件及时间" required>
         </div>
     </div>
     <!--<div class="weui_cells_title">自驾油补</div>-->
@@ -163,16 +163,16 @@
         <!--</div>-->
     <!--</div>-->
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">自驾油补</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">*自驾油补</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="" name="dk_rule" type="text" placeholder="请输入自驾油补及班车情况" required>
+            <input class="weui_input" id="dk_rule" name="dk_rule" type="text" placeholder="请输入自驾油补及班车情况" required>
         </div>
     </div>
-    <div class="weui_cells_title">项目介绍</div>
+    <div class="weui_cells_title">*项目介绍</div>
     <div class="weui_cells weui_cells_form">
         <div class="weui_cell">
             <div class="weui_cell_bd weui_cell_primary">
-                <textarea name="peripheral" id="" class="weui_textarea" placeholder="请输入项目介绍（推荐直接复制微信朋友圈转发的文案）" rows="3"></textarea>
+                <textarea name="peripheral" id="peripheral" class="weui_textarea" placeholder="请输入项目介绍（推荐直接复制微信朋友圈转发的文案）" rows="3" required></textarea>
                 <!--<div class="weui_textarea_counter"><span id="count">0</span>/<span id="count_max">20</span></div>-->
             </div>
         </div>
@@ -180,7 +180,7 @@
     <div class="weui_btn_area">
         <a id="formSubmitBtn" href="javascript:" class="weui_btn bg-blue">发布</a>
     </div>
-
+    <input class="fm" type="hidden" name="fm" value="" />
 </div>
 <script type="text/javascript" src="js/zepto.min.js"></script>
 <!--<script type="text/javascript" src="js/jquery.validate.min.js"></script>-->
