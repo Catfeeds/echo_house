@@ -1376,6 +1376,9 @@ class PlotController extends ApiController{
     		$fmindex = isset($post['fmindex'])?$post['fmindex']:0;
     		unset($post['imgarr']);
     		unset($post['fmindex']);
+    		if(PlotExt::model()->find("title='".$post['title']."'")) {
+    			$this->returnError('您已提交发布，请勿重复操作');
+    		}
     		if($imgs) {
     			foreach ($imgs as $m=>$n) {
     				// var_dump($n);
