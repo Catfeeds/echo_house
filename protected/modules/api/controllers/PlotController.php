@@ -1405,6 +1405,7 @@ class PlotController extends ApiController{
 			        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 			        $data = curl_exec($ch);  
 			        curl_close($ch);  
+			        Yii::log($data);
 			        // var_dump($data);exit;
 			        $data = json_decode($data,true);
 			        if(isset($data['key'])) {
