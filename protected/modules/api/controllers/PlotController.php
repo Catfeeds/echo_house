@@ -1373,7 +1373,7 @@ class PlotController extends ApiController{
     		// $img = '';
     		$keyarr = [];
     		$imgs = $post['imgarr'];
-    		$fmindex = $post['fmindex'];
+    		$fmindex = isset($post['fmindex'])?$post['fmindex']:0;
     		unset($post['imgarr']);
     		unset($post['fmindex']);
     		if($imgs) {
