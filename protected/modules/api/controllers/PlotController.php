@@ -1384,6 +1384,9 @@ class PlotController extends ApiController{
     				// var_dump($n);
     				
     				$n = str_replace('data:image/png;base64,', '', $n);
+    				$n = str_replace('data:image/jpeg;base64,', '', $n);
+    				$n = str_replace('data:image/jpg;base64,', '', $n);
+    				$n = str_replace('data:image/gif;base64,', '', $n);
     				// var_dump($n);exit;
     				// base64=>qiniu
     				$auth = new Auth(Yii::app()->file->accessKey,Yii::app()->file->secretKey);
@@ -1418,6 +1421,7 @@ class PlotController extends ApiController{
 			        }
     			}
     		}
+    		// var_dump($keyarr);exit;
     		// if(isset($post['fmindex']) && $post['fmindex']) {
     		// 	$img = $post['fmindex'];
     		// } else {
@@ -1527,7 +1531,7 @@ class PlotController extends ApiController{
     			$mak->save();
     			if($keyarr && count($keyarr)>1) {
     				// unset($imgs[0]);
-    				foreach ($imgs as $k) {
+    				foreach ($keyarr as $k) {
     					$im = new PlotImageExt;
     					$im->url = $k;
     					$im->hid = $obj->id;

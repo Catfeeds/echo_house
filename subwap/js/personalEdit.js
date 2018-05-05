@@ -248,6 +248,17 @@ function deleteimg(obj) {
 
 var $form = $("#form");
 $form.form();
+function clear_arr_trim(array) {  
+    for(var i = 0 ;i<array.length;i++)  
+    {  
+        if(array[i] == "" || typeof(array[i]) == "undefined")  
+        {  
+            array.splice(i,1);  
+            i= i-1;  
+        }  
+    }  
+    return array;  
+}  
 $("#formSubmitBtn").on("click", function () {
     var imgarr = [];
     $form.validate(function (error) {
@@ -271,6 +282,8 @@ $("#formSubmitBtn").on("click", function () {
                 alert('请上传封面图');
                 return false;
             }
+            // 删除空值
+            imgarr = clear_arr_trim(imgarr);
             var ssxList = $('#ssx').val().split(" ");
             var params = {
                 'pname': $('#pname').val(),
