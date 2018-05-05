@@ -109,12 +109,6 @@ $(document).ready(function(){
             $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
                 $('body').append(data);
             });
-            if(is_user==true)
-                $('#subit').attr('href','report.html?hid='+detail.id+'&title='+detail.title);
-            else {
-                $('#subit').removeAttr('href');
-                $('#subit').attr('onclick','checkUser()');
-            }
             $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
             area=detail.area;
             title=detail.title;
@@ -602,4 +596,11 @@ $('.list-back-img').click(function(){
 });
 $('.home-img').click(function(){
     location.href='/subwap/list.html';
+});
+$('#subit').click(function(){
+    if(is_user==true){
+        location.href='report.html?hid='+detail.id+'&title='+detail.title;
+    }else{
+        checkUser();
+    }
 });

@@ -218,7 +218,12 @@ function previewImage(file) {
         if (file.files && file.files[i]) {
             var reader = new FileReader();
             reader.onload = function (evt) {
-                $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;/* right: 0px; *//* top: 0px; */margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                console.log(imageindex)
+                if(imageindex === 0){
+                    $('#img').append('<li class="weui_uploader_file fm" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');
+                }else{
+                    $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                }
                 imageindex++;
                 if (imageindex > 8) {
                     $('.weui_uploader_input_wrp').css('display', 'none');

@@ -5,6 +5,9 @@
     text-align: center;
     padding:15px;
 }
+.weui_input{
+    color: rgb(155,154,155);
+}
 .weui_uploader_bd{
     text-align: center;
 }
@@ -22,4 +25,11 @@
     border-top: 1px solid #d9d9d9;
     padding:10px 15px;
     margin:0;
+}
+.is_cover {
+    width: 38px;
+    height: 20px;
+    background: url(../img/cover.png) no-repeat;
+    background-size: 100%;
+    margin-top: -36px;
 }
