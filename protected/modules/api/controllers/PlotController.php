@@ -1468,8 +1468,8 @@ class PlotController extends ApiController{
     		$cityname = $post['city'];
     		$areaname = $post['area'];
     		$streetnameorigin = $post['street'];
-    		$streetname = trim($post['street'],'市');
-    		$streetname = trim($post['street'],'区');
+    		$streetname = str_replace('市', '', $post['street']);
+    		$streetname = str_replace('区', '', $streetname);
     		unset($post['city']);
     		unset($post['area']);
     		unset($post['street']);
