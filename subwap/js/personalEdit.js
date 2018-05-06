@@ -128,12 +128,12 @@ $(document).ready(function () {
             $('#area2').val(data.data.areaname);
             $('#area3').val(data.data.addressname);
             $('#houseaddress').val(data.data.address);
-            $('#wylx').val(data.data.wylx);
-            $('#zxzt').val(data.data.zxzt);
+            $('#wylx').val(data.data.wylxname);
+            $('#zxzt').val(data.data.zxztname);
             $('#price').val(data.data.price);
             $('#unit').val(data.data.unit);
-            $('#leastpay').val(data.data.sfprice);
-            $('#mode').val(data.data.dllx);
+            $('#leastpay').val(data.data.sfpricename);
+            $('#mode').val(data.data.dllxname);
             $('#yjfa').val(data.data.yjfa);
             $('#jy_rule').val(data.data.jy_rule);
             $('#dk_rule').val(data.data.dk_rule);
@@ -145,12 +145,12 @@ $(document).ready(function () {
             $('#houseaddress').attr('readonly','readonly');
             $('#wylx').attr('disabled','true');
             $('#zxzt').attr('disabled','true');
-            imageindex = data.data.image_url.length;
-            for (var i = 0; i < data.data.image_url.length; i++) {
-                if(data.data.fm_url == data.data.image_url[i]){ //判断封面
-                    $('#img').append('<li class="weui_uploader_file fm url" onclick="setFm(this)" data-img="' + data.data.image_url[i] + '" style="background-image:url(' + data.data.image_url[i] + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');  
+            imageindex = data.data.image.length;
+            for (var i = 0; i < data.data.image.length; i++) {
+                if(data.data.fm_url == data.data.image[i].value){ //判断封面
+                    $('#img').append('<li class="weui_uploader_file fm url" onclick="setFm(this)" data-img="' + data.data.image[i].key + '" style="background-image:url(' + data.data.image[i].value + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');  
                 }else{
-                   $('#img').append('<li class="weui_uploader_file url" onclick="setFm(this)" data-img="' + data.data.image_url[i] + '" style="background-image:url(' + data.data.image_url[i] + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                   $('#img').append('<li class="weui_uploader_file url" onclick="setFm(this)" data-img="' + data.data.image[i].key + '" style="background-image:url(' + data.data.image[i].value + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
                 }
             }
             console.log(data.data)
@@ -245,7 +245,6 @@ $("#formSubmitBtn").on("click", function () {
                 for (var i = 0; i < $('.weui_uploader_file').length; i++) {
                     var tmpa = $('.weui_uploader_file')[i];
                     var tmpaFun = {};
-              
                     if($($('.weui_uploader_file')[i]).hasClass('url')){
                         tmpaFun.type = 'url';
                     }else{
