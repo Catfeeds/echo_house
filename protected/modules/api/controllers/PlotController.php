@@ -1381,44 +1381,51 @@ class PlotController extends ApiController{
     		}
     		if($imgs) {
     			foreach ($imgs as $m=>$n) {
+    				if($n['type']=='key') {
+    					$keyarr[] = $n['url'];
+    					if($fmindex==$m)
+    						$post['image'] = $n['url'];
+    				} else {
+    					$tmpn = str_replace('data:image/png;base64,', '', $n['url']);
+	    				$tmpn = str_replace('data:image/jpeg;base64,', '', $tmpn);
+	    				$tmpn = str_replace('data:image/jpg;base64,', '', $tmpn);
+	    				$tmpn = str_replace('data:image/gif;base64,', '', $tmpn);
+	    				// var_dump($n);exit;
+	    				// base64=>qiniu
+	    				$auth = new Auth(Yii::app()->file->accessKey,Yii::app()->file->secretKey);
+				        $policy = array(
+				            'mimeLimit'=>'image/*',
+				            'fsizeLimit'=>10000000,
+				            'saveKey'=>Yii::app()->file->createQiniuKeyJpg(),
+				        );
+				        // var_dump($auth);exit;
+				        $token = $auth->uploadToken(Yii::app()->file->bucket,null,3600,$policy);
+				        $headers = array();
+				        $headers[] = 'Content-Type:image/png';
+				        $headers[] = 'Authorization:UpToken '.$token;
+				        $ch = curl_init();  
+				        curl_setopt($ch, CURLOPT_URL,'http://upload.qiniu.com/putb64/-1');  
+				        //curl_setopt($ch, CURLOPT_HEADER, 0);
+				        curl_setopt($ch, CURLOPT_HTTPHEADER ,$headers);
+				        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+				        //curl_setopt($ch, CURLOPT_POST, 1);
+				        curl_setopt($ch, CURLOPT_POSTFIELDS, $tmpn);
+				        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+				        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+				        $data = curl_exec($ch);  
+				        curl_close($ch);  
+				        Yii::log($data);
+				        // var_dump($data);exit;
+				        $data = json_decode($data,true);
+				        if(isset($data['key'])) {
+				        	$keyarr[] = $data['key'];
+				        	if($fmindex==$m)
+	    						$post['image'] = $data['key'];
+				        }
+    				}
     				// var_dump($n);
     				
-    				$n = str_replace('data:image/png;base64,', '', $n);
-    				$n = str_replace('data:image/jpeg;base64,', '', $n);
-    				$n = str_replace('data:image/jpg;base64,', '', $n);
-    				$n = str_replace('data:image/gif;base64,', '', $n);
-    				// var_dump($n);exit;
-    				// base64=>qiniu
-    				$auth = new Auth(Yii::app()->file->accessKey,Yii::app()->file->secretKey);
-			        $policy = array(
-			            'mimeLimit'=>'image/*',
-			            'fsizeLimit'=>10000000,
-			            'saveKey'=>Yii::app()->file->createQiniuKeyJpg(),
-			        );
-			        // var_dump($auth);exit;
-			        $token = $auth->uploadToken(Yii::app()->file->bucket,null,3600,$policy);
-			        $headers = array();
-			        $headers[] = 'Content-Type:image/png';
-			        $headers[] = 'Authorization:UpToken '.$token;
-			        $ch = curl_init();  
-			        curl_setopt($ch, CURLOPT_URL,'http://upload.qiniu.com/putb64/-1');  
-			        //curl_setopt($ch, CURLOPT_HEADER, 0);
-			        curl_setopt($ch, CURLOPT_HTTPHEADER ,$headers);
-			        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
-			        //curl_setopt($ch, CURLOPT_POST, 1);
-			        curl_setopt($ch, CURLOPT_POSTFIELDS, $n);
-			        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-			        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-			        $data = curl_exec($ch);  
-			        curl_close($ch);  
-			        Yii::log($data);
-			        // var_dump($data);exit;
-			        $data = json_decode($data,true);
-			        if(isset($data['key'])) {
-			        	$keyarr[] = $data['key'];
-			        	if($fmindex==$m)
-    						$post['image'] = $data['key'];
-			        }
+	    				
     			}
     		}
     		// var_dump($keyarr);exit;
@@ -1529,6 +1536,8 @@ class PlotController extends ApiController{
     			$mak->status = 1;
     			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
     			$mak->save();
+    			// 删除图片
+    			PlotImageExt::model()->deleteAllByAttributes(['hid'=>$obj->id]);
     			if($keyarr && count($keyarr)>1) {
     				// unset($imgs[0]);
     				foreach ($keyarr as $k) {
@@ -1539,9 +1548,12 @@ class PlotController extends ApiController{
     					$im->save();
     				}
     			}
-
-    			$user->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：'.SiteExt::getAttr('qjpz','site_phone'),$user->qf_uid);
-    			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
+    			if(!$up) {
+    				$user->qf_uid && $res = Yii::app()->controller->sendNotice('您好，'.$obj->title.'已成功提交至新房通后台，编辑会在2小时内（工作时间）完善项目资料后上线。如有其它疑问可致电：'.SiteExt::getAttr('qjpz','site_phone'),$user->qf_uid);
+	    			Yii::app()->controller->sendNotice('有新的房源录入，房源名为'.$obj->title.'，请登录后台查看','',1);
+    			}else {
+    				Yii::app()->controller->sendNotice('有房源产生修改，房源名为'.$obj->title.'，请登录后台查看','',1);
+    			}
     			$this->frame['data'] = $obj->id;
     		}
 
