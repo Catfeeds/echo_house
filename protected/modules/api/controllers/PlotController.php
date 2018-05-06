@@ -1465,46 +1465,46 @@ class PlotController extends ApiController{
     			unset($post['id']);
     		}
     		// 省市区
-    		$cityname = $post['city'];
-    		$areaname = $post['area'];
-    		$streetnameorigin = $post['street'];
-    		$streetname = str_replace('市', '', $post['street']);
-    		$streetname = str_replace('区', '', $streetname);
-    		unset($post['city']);
-    		unset($post['area']);
-    		unset($post['street']);
-    		if($cityid = Yii::app()->db->createCommand("select id from area where name like '%$cityname%'")->queryScalar()) {
-    			$post['city'] = $cityid;
-    		} else {
-    			$areaobj = new AreaExt;
-    			$areaobj->name = $cityname;
-    			$areaobj->parent = 0;
-    			$areaobj->status = 1;
-    			$areaobj->save();
-    			$post['city'] = $areaobj->id;
-    		}
+    		// $cityname = $post['city'];
+    		// $areaname = $post['area'];
+    		// $streetnameorigin = $post['street'];
+    		// $streetname = str_replace('市', '', $post['street']);
+    		// $streetname = str_replace('区', '', $streetname);
+    		// unset($post['city']);
+    		// unset($post['area']);
+    		// unset($post['street']);
+    		// if($cityid = Yii::app()->db->createCommand("select id from area where name like '%$cityname%'")->queryScalar()) {
+    		// 	$post['city'] = $cityid;
+    		// } else {
+    		// 	$areaobj = new AreaExt;
+    		// 	$areaobj->name = $cityname;
+    		// 	$areaobj->parent = 0;
+    		// 	$areaobj->status = 1;
+    		// 	$areaobj->save();
+    		// 	$post['city'] = $areaobj->id;
+    		// }
 
-    		if($areaid = Yii::app()->db->createCommand("select id from area where name like '%$areaname%'")->queryScalar()) {
-    			$post['area'] = $areaid;
-    		} else {
-    			$areaobj = new AreaExt;
-    			$areaobj->name = $areaname;
-    			$areaobj->parent = $post['city'];
-    			$areaobj->status = 1;
-    			$areaobj->save();
-    			$post['area'] = $areaobj->id;
-    		}
+    		// if($areaid = Yii::app()->db->createCommand("select id from area where name like '%$areaname%'")->queryScalar()) {
+    		// 	$post['area'] = $areaid;
+    		// } else {
+    		// 	$areaobj = new AreaExt;
+    		// 	$areaobj->name = $areaname;
+    		// 	$areaobj->parent = $post['city'];
+    		// 	$areaobj->status = 1;
+    		// 	$areaobj->save();
+    		// 	$post['area'] = $areaobj->id;
+    		// }
 
-    		if($streetid = Yii::app()->db->createCommand("select id from area where name like '%$streetname%'")->queryScalar()) {
-    			$post['street'] = $streetid;
-    		} else {
-    			$areaobj = new AreaExt;
-    			$areaobj->name = $streetnameorigin;
-    			$areaobj->parent = $post['area'];
-    			$areaobj->status = 1;
-    			$areaobj->save();
-    			$post['street'] = $areaobj->id;
-    		}
+    		// if($streetid = Yii::app()->db->createCommand("select id from area where name like '%$streetname%'")->queryScalar()) {
+    		// 	$post['street'] = $streetid;
+    		// } else {
+    		// 	$areaobj = new AreaExt;
+    		// 	$areaobj->name = $streetnameorigin;
+    		// 	$areaobj->parent = $post['area'];
+    		// 	$areaobj->status = 1;
+    		// 	$areaobj->save();
+    		// 	$post['street'] = $areaobj->id;
+    		// }
     		$obj->attributes = $post;
     		$obj->wylx && $obj->wylx = explode(',', $obj->wylx);
     		$obj->zxzt && $obj->zxzt = explode(',', $obj->zxzt);
