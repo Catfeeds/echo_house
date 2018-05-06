@@ -3,6 +3,7 @@ var fmindex = 0;
 var delimgindex = '';
 var imageindex = 0;
 var uid = '';
+var id = GetQueryString('id');
 var wylxList = [];//物业类型列表
 var zxztList = [];//装修情况列表
 var leastpayList = [];//首付金额列表
@@ -119,6 +120,11 @@ $(document).ready(function () {
         //   $('#area3').append('<option value="'+tags[3].list[0].childAreas[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[0].childAreas[i].name+'</option>');
         // }
     });
+
+    // //获取项目详情
+    // $.get('/api/plot/getPlotInfo?id=' + id, function(data){
+    //     console.log(data.data)
+    // })
     QFH5.getUserInfo(function (state, data) {
         if (state == 1) {
             uid = data.uid;
@@ -251,18 +257,18 @@ $("#formSubmitBtn").on("click", function () {
                 'qf_uid': uid,
             };
       
-            // $.showLoading('正在发布中');
-            console.log(params)
-            // $.post('/api/plot/addPlotNew',params
-            //   ,function(data){
-            //     $.hideLoading();
-            //     if(data.status=='success'){
-            //         alert('您好，您的房源信息已提交。');
-            //         location.href = 'personalSuccess.html';
-            //     } else {
-            //       alert(data.msg);
-            //     }
-            //   });
+            $.showLoading('正在发布中');
+            // console.log(params)
+            $.post('/api/plot/addPlotNew',params
+              ,function(data){
+                $.hideLoading();
+                if(data.status=='success'){
+                    alert('您好，您的房源信息已提交。');
+                    location.href = 'personalSuccess.html';
+                } else {
+                  alert(data.msg);
+                }
+              });
             // $.toptips('验证通过提交', 'ok');
         }
     });
@@ -306,4 +312,10 @@ function setTowns(){
       break;
     }
   }
+}
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(decodeURI(r[2]));
+    return null;
 }

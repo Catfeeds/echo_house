@@ -114,28 +114,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
         location.href='houseRefresh.html?num=' + refreshNum;     
     }
 
-    // 上架
-    $scope.addHouse=function(e,id){
+    // 编辑
+    $scope.edit=function(e,id){
         e.stopPropagation();
         e.preventDefault();
-        reason=reason==''?$('.tip-off-detail').val():reason;
-        $http({
-            method: 'GET',
-            url: '/api/plot/downPlot',
-            params:{
-                'type':1,
-                'hid':id,
-                'note':'上架'
-            }
-        }).then(function successCallback(response) {
-            if (response.data.status=='error') {
-                alert(response.data.msg);
-            }else{
-                alert('申请上架成功，等待后台人员审核!');
-            }
-
-        });
-     
+        location.href='personalEdit.html?id=' + id;   
     }
 
     // 下架弹框
