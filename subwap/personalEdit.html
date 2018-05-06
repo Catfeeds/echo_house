@@ -29,7 +29,8 @@
     </div>
     <div class="img-text">
         <div class="weui_cell_bd weui_cell_primary">只能上传九张哦，点击图片可以设置封面！</div>
-    </div>
+    </div>  
+
     <div class="weui_cell">
         <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
         <div class="weui_cell_bd weui_cell_primary">
@@ -54,59 +55,73 @@
             <input class="weui_input" id="housename" type="text" placeholder="请输入项目名称" required>
         </div>
     </div>
-    <div class="weui_cell">
+     <div class="weui_cell">
         <div class="weui_cell_hd"><label for="" class="weui_label">项目区域</label></div>
-        <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" value="" id="ssx" readonly="" placeholder="请选择项目区域" required>
+        <div class="weui_cell_bd weui_cell_primary weui-flex">
+            <div class="weui-flex-item selectBox">
+                <div class="weui-flex-item select">
+                    <select id="area1" name="area" class="city-select weui_select" onchange="setStreets()" required> </select>
+                </div>
+            </div>
+            <div class="weui-flex-item selectBox">
+                <div class="weui-flex-item select">
+                    <select id="area2" name="street" class="street-select weui_select select" onchange="setTowns()" required> </select>
+                </div> 
+            </div>
+            <div class="weui-flex-item selectBox">
+                <div class="weui-flex-item select">
+                    <select id="area3" name="town" class="town-select weui_select select" required> </select>
+                </div>
+            </div>
         </div>
-
-    </div>
+    </div> 
     <div class="weui_cell">
         <div class="weui_cell_hd"><label class="weui_label">项目地址</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" id="houseaddress" type="text" placeholder="请输入项目地址" required>
+            <input class="weui_input weui_select" id="houseaddress" type="text" placeholder="请输入项目地址" required>
         </div>
     </div>
-    <div class="weui_cell">
+    <div class="weui_cell weui_cell_select">
         <div class="weui_cell_hd"><label for="" class="weui_label">物业类型</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" id="wylx" placeholder="请选择物业类型" readonly="">
+            <input class="weui_input" type="text" id="wylx" placeholder="请选择物业类型" readonly="" required>
 
         </div>
 
     </div>
-    <div class="weui_cell">
+    <div class="weui_cell weui_cell_select">
         <div class="weui_cell_hd"><label for="" class="weui_label">装修情况</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" id="zxzt" placeholder="请选择装修情况" readonly="">
+            <input class="weui_input" type="text" id="zxzt" placeholder="请选择装修情况" readonly="" required>
 
         </div>
 
     </div>
-    <div class="weui_cell">
+    <div class="weui_cell weui_cell_select">
         <div class="weui_cell_hd"><label class="weui_label">均价</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="price" name="price"  type="text" placeholder="请输入销售均价" pattern="[0-9]*" required>
         </div>
-        <div class="weui_cell_ft">
-            <select class="weui_select" name="unit" id="unit">
+        <div class="weui_cell_ft "> 
+           <select class="weui_select" name="unit" id="unit" style="padding-right:0px;">
                 <option value=1>元/㎡</option>
                 <option value=2>万元/套</option>
-            </select>
+            </select> 
+
         </div>
     </div>
-    <div class="weui_cell">
-        <div class="weui_cell_hd"><label for="" class="weui_label">*首付金额</label></div>
+    <div class="weui_cell weui_cell_select">
+        <div class="weui_cell_hd"><label for="" class="weui_label">首付金额</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" type="text" id="leastpay" name="sfprice" placeholder="请选择首付金额" readonly="" required>
 
         </div>
 
     </div>
-    <div class="weui_cell">
+    <div class="weui_cell weui_cell_select">
         <div class="weui_cell_hd"><label for="" class="weui_label">代理性质</label></div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" type="text" id="mode" placeholder="请选择代理性质" readonly="">
+            <input class="weui_input" type="text" id="mode" placeholder="请选择代理性质" readonly="" required>
 
         </div>
 
@@ -136,7 +151,7 @@
         <!--</div>-->
     <!--</div>-->
     <div class="weui_cell">
-        <div class="weui_cell_hd"><label class="weui_label">*结佣方式</label></div>
+        <div class="weui_cell_hd"><label class="weui_label">结佣方式</label></div>
         <div class="weui_cell_bd weui_cell_primary">
             <input class="weui_input" id="jy_rule" name="jy_rule" type="text" placeholder="请输入结佣条件及时间" required>
         </div>
@@ -156,7 +171,7 @@
             <input class="weui_input" id="dk_rule" name="dk_rule" type="text" placeholder="请输入自驾油补及班车情况" required>
         </div>
     </div>
-    <div class="weui_cells_title">项目介绍</div>
+    <div class="weui_cell weui_cells_title">项目介绍</div>
     <div class="weui_cells weui_cells_form">
         <div class="weui_cell">
             <div class="weui_cell_bd weui_cell_primary">

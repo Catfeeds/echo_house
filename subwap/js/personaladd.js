@@ -67,7 +67,7 @@ function submitBtn()
     $( '#form' ).validate({
       submitHandler:function() {
 
-        
+         $.showLoading();
         var wylx = new Array;
         var zxzt = new Array;
         var imgs = new Array;

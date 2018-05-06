@@ -4,8 +4,9 @@
 .img-text{
     text-align: center;
     padding:15px;
+    color: rgb(155,154,155);
 }
-.weui_input{
+.weui_label{
     color: rgb(155,154,155);
 }
 .weui_uploader_bd{
@@ -14,15 +15,39 @@
 .weui_cell_ft{
     font-size: inherit!important;
 }
+.weui_cell_select{
+    padding: 10px 15px;
+}
 .weui_select{
     height: inherit!important;
     line-height: inherit!important;
     z-index: inherit;
+    padding-left:0px!important;
+}
+.selectBox{
+   position: relative;   
+}
+.select:after{
+    content: " ";
+    display: inline-block;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    height: 6px;
+    width: 6px;
+    border-width: 2px 2px 0 0;
+    border-color: #c8c8cd;
+    border-style: solid;
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -3px;
 }
 .weui_cells_title{
     font-size: 17px;
     color:#000;
-    border-top: 1px solid #d9d9d9;
+    /*border-top: 1px solid #d9d9d9;*/
     padding:10px 15px;
     margin:0;
 }

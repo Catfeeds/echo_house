@@ -105,6 +105,18 @@ $(document).ready(function () {
                 // $.alert("你选择了"+d.values);
             }
         });
+
+        //地区
+        for(var i=0;i<tags[3].list.length;i++){
+          $('#area1').append('<option value="'+tags[3].list[i].id+'">'+tags[3].list[i].name+'</option>');
+        }
+        // $('#area2').append('<option value="0">请选择</option>');
+        for(var i=0;i<tags[3].list[0].childAreas.length;i++){
+          $('#area2').append('<option value="'+tags[3].list[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[i].name+'</option>');
+        }
+        for(var i=0;i<tags[3].list[0].childAreas[0].childAreas.length;i++){
+          $('#area3').append('<option value="'+tags[3].list[0].childAreas[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[0].childAreas[i].name+'</option>');
+        }
     });
     QFH5.getUserInfo(function (state, data) {
         if (state == 1) {
@@ -204,11 +216,6 @@ function setFm(obj) {
     // $('.fm').val($('#' + dataid).html());
 }
 
-
-$("#ssx").cityPicker({
-    title: "选择省市县"
-});
-
 //多图上传
 function previewImage(file) {
     var MAXWIDTH = 100;
@@ -263,9 +270,9 @@ $("#formSubmitBtn").on("click", function () {
     var imgarr = [];
     $form.validate(function (error) {
         if (error) {
-            console.log($('#ssx').val().split(" "))
+            console.log(error)
+            console.log($('select[name="street"]').val())
         } else {
-
             // validate通过后处理这个 图片数组
             // imgarr是图片数组 fmindex是封面下标
             // post的时候也用这两个参数 原先的fm和image都不要传
@@ -282,17 +289,17 @@ $("#formSubmitBtn").on("click", function () {
                 alert('请上传封面图');
                 return false;
             }
+        
             // 删除空值
             imgarr = clear_arr_trim(imgarr);
-            var ssxList = $('#ssx').val().split(" ");
             var params = {
                 'pname': $('#pname').val(),
                 'pphone': $('#pphone').val(),
                 'pcompany': $('#pcompany').val(),
                 'title': $('#housename').val(),
-                'city': ssxList[0],
-                'area': ssxList[1],
-                'street': ssxList[2],
+                'city': $('select[name="area"]').val(),
+                'area': $('select[name="street"]').val(),
+                'street': $('select[name="town"]').val(),
                 'address': $('#houseaddress').val(),
                 'wylx': wylxVal,
                 'zxzt': zxztVal,
@@ -312,18 +319,58 @@ $("#formSubmitBtn").on("click", function () {
                 'fmindex':fmindex,
                 'qf_uid': uid,
             };
-            $.post('/api/plot/addPlotNew',params
-              ,function(data){
-                if(data.status=='success'){
-                  alert('您好，您的房源信息已提交。');
-                  // location.href = 'duijieren.html?hid='+data.data;
-                  location.href = 'personallist.html';
-                } else {
-                  alert(data.msg);
-                }
-              });
+            console.log(params)
+            $.showLoading('正在发布中');
+            // $.post('/api/plot/addPlotNew',params
+            //   ,function(data){
+            //     $.hideLoading();
+            //     if(data.status=='success'){
+            //         alert('您好，您的房源信息已提交。');
+            //         // location.href = 'duijieren.html?hid='+data.data;
+            //          location.href = 'personalSuccess.html';
+            //     } else {
+            //       alert(data.msg);
+            //     }
+            //   });
             $.toptips('验证通过提交', 'ok');
         }
     });
 
 });
+//二级下拉框
+function setStreets(){
+  $('#area2').empty();
+  var arealist = tags[3].list;
+  for(var i = 0; i < arealist.length; i++){
+    // console.log(tags[3][i]);
+    if($('#area1').val()==arealist[i].id){
+      // $('#area2').append('<option value="0">请选择</option>');
+      for (var j = 0; j < arealist[i].childAreas.length; j++) {
+      $('#area2').append('<option value="'+arealist[i].childAreas[j].id+'">'+arealist[i].childAreas[j].name+'</option>');     
+      }
+      break;
+    }
+  }
+}
+function setTowns(){
+  $('#area3').empty();
+  var arealist = tags[3].list;
+  for(var i = 0; i < arealist.length; i++){
+    // console.log(tags[3][i]);
+    if($('#area1').val()==arealist[i].id){
+
+      for (var j = 0; j < arealist[i].childAreas.length; j++) {
+
+        if($('#area2').val()==arealist[i].childAreas[j].id) {
+          // $('#area3').append('<option value="0">请选择</option>');
+          for (var k = 0; k < arealist[i].childAreas[j].childAreas.length; k++) {
+            $('#area3').append('<option value="'+arealist[i].childAreas[j].childAreas[k].id+'">'+arealist[i].childAreas[j].childAreas[k].name+'</option>');
+          }
+          
+        }
+           
+      }
+      break;
+    }
+  }
+}
