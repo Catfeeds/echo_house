@@ -235,19 +235,19 @@ color:#c3c3c3;
 }
 #filter1{
 	display: none;
-	z-index: 99;
+	z-index: 9999;
 }
 #filter2{
 	display: none;
-	z-index: 99;
+	z-index: 9999;
 }
 #filter3{
 	display: none;
-	z-index: 99;
+	z-index: 9999;
 }
 #filter4{
 	display: none;
-	z-index: 99;
+	z-index: 9999;
 }
 .filter1-left-active{
 	color: #00b7ee;
@@ -692,7 +692,7 @@ color:#c3c3c3;
 	position: fixed;
 	top: 42%;
 	right: 1.067rem;
-	z-index: 1001;
+	z-index: 1111;
 }
 .list-back{
 	position: fixed;

@@ -8,11 +8,14 @@ var wylxList = [];//物业类型列表
 var zxztList = [];//装修情况列表
 var leastpayList = [];//首付金额列表
 var modeList = [];//代理性质列表
-var imgarr = [];
+var imgarr = [];//总的img
+var imgarrBase64 = [];//base64img
+var imgarrUrl = [];//编辑时的img
 var wylxVal;//物业类型
 var zxztVal;//装修情况
 var leastpayVal;//首付金额
 var modeVal;//代理性质
+
 $(document).ready(function () {
     // 获取千帆uid
       $.get('/api/config/index',function(data) {
@@ -41,8 +44,6 @@ $(document).ready(function () {
           }
       });
     //
-    //validata
-    // $('#form').validate();
     $.get('/api/tag/publishtags', function (data) {
         tags = data.data;
         for (var i = 0; i < tags[0].list.length; i++) {
@@ -121,10 +122,12 @@ $(document).ready(function () {
         // }
     });
 
-    // //获取项目详情
-    // $.get('/api/plot/getPlotInfo?id=' + id, function(data){
-    //     console.log(data.data)
-    // })
+    //获取项目详情
+    $.get('/api/plot/getPlotInfo?id=' + id, function(data){
+        imgarrUrl = data.data.image;
+        
+        console.log(data.data)
+    })
     QFH5.getUserInfo(function (state, data) {
         if (state == 1) {
             uid = data.uid;
@@ -206,69 +209,93 @@ $("#formSubmitBtn").on("click", function () {
             console.log(error)
         } else {
             // validate通过后处理这个 图片数组
-            // imgarr是图片数组 fmindex是封面下标
+            // imgarrBase64是新选择的图片数组 fmindex是封面下标
             // post的时候也用这两个参数 原先的fm和image都不要传
+            
             if ($('.weui_uploader_file').length > 0) {
+               
                 for (var i = 0; i < $('.weui_uploader_file').length; i++) {
                     var tmpa = $('.weui_uploader_file')[i];
-                    imgarr.push($(tmpa).data('img'));
+                    var tmpaFun = {};
+                    tmpaFun.type = 'base64';
+                    tmpaFun.url = $(tmpa).data('img');
+                    imgarrBase64.push(tmpaFun);
                     if ($(tmpa).hasClass('fm')) {
                         fmindex = i;
                     }
                 }
+            
+                
             }
+            imgarr = imgarrUrl.concat(imgarrBase64);
             if (imgarr.length < 1) {
                 alert('请上传图片');
                 return false;
             }
-            console.log($('#area2').val())
-               console.log($('#area3').val())
+            
             if ($('#area2').val() == 0 || $('#area3').val() == 0) {
                 alert('请选择项目区域');
                 return false;
             }
             // 删除空值
             imgarr = clear_arr_trim(imgarr);
-            var params = {
-                'pname': $('#pname').val(),
-                'pphone': $('#pphone').val(),
-                'pcompany': $('#pcompany').val(),
-                'title': $('#housename').val(),
-                'city': $('select[name="area"]').val(),
-                'area': $('select[name="street"]').val(),
-                'street': $('select[name="town"]').val(),
-                'address': $('#houseaddress').val(),
-                'wylx': wylxVal,
-                'zxzt': zxztVal,
-                'price': $('#price').val(),
-                'unit': $('select[name="unit"]').val(),
-                // 'hxjs':$('#hxjs').val(),
-                'sfprice': leastpayVal,
-                'dllx': modeVal,
-                // 'fm':$('#fm').val(),
-                // 'market_name':$('input[name="market_name"]').val(),
-                // 'market_phone':$('input[name="market_phone"]').val(),
-                'yjfa': $('#yjfa').val(),
-                'jy_rule': $('#jy_rule').val(),
-                'dk_rule': $('#dk_rule').val(),
-                'peripheral': $('#peripheral').val(),
-                'imgarr': imgarr,
-                'fmindex':fmindex,
-                'qf_uid': uid,
-            };
-      
-            $.showLoading('正在发布中');
-            // console.log(params)
-            $.post('/api/plot/addPlotNew',params
-              ,function(data){
-                $.hideLoading();
-                if(data.status=='success'){
-                    alert('您好，您的房源信息已提交。');
-                    location.href = 'personalSuccess.html';
-                } else {
-                  alert(data.msg);
-                }
-              });
+            if(id){ //编辑
+                var params = {
+                    'price': $('#price').val(),
+                    'unit': $('select[name="unit"]').val(),
+                    'sfprice': leastpayVal,
+                    'dllx': modeVal,
+                    'yjfa': $('#yjfa').val(),
+                    'jy_rule': $('#jy_rule').val(),
+                    'dk_rule': $('#dk_rule').val(),
+                    'peripheral': $('#peripheral').val(),
+                    'imgarr': imgarr,
+                    'fmindex':fmindex,
+                    'qf_uid': uid,
+                    'id':id
+                };
+            }else{ //新增
+                var params = {
+                    'pname': $('#pname').val(),
+                    'pphone': $('#pphone').val(),
+                    'pcompany': $('#pcompany').val(),
+                    'title': $('#housename').val(),
+                    'city': $('select[name="area"]').val(),
+                    'area': $('select[name="street"]').val(),
+                    'street': $('select[name="town"]').val(),
+                    'address': $('#houseaddress').val(),
+                    'wylx': wylxVal,
+                    'zxzt': zxztVal,
+                    'price': $('#price').val(),
+                    'unit': $('select[name="unit"]').val(),
+                    // 'hxjs':$('#hxjs').val(),
+                    'sfprice': leastpayVal,
+                    'dllx': modeVal,
+                    // 'fm':$('#fm').val(),
+                    // 'market_name':$('input[name="market_name"]').val(),
+                    // 'market_phone':$('input[name="market_phone"]').val(),
+                    'yjfa': $('#yjfa').val(),
+                    'jy_rule': $('#jy_rule').val(),
+                    'dk_rule': $('#dk_rule').val(),
+                    'peripheral': $('#peripheral').val(),
+                    'imgarr': imgarr,
+                    'fmindex':fmindex,
+                    'qf_uid': uid,
+                };
+            }
+            
+            console.log(params)
+            // $.showLoading('正在发布中');
+            // $.post('/api/plot/addPlotNew',params
+            //   ,function(data){
+            //     $.hideLoading();
+            //     if(data.status=='success'){
+            //         alert('您好，您的房源信息已提交。');
+            //         location.href = 'personalSuccess.html';
+            //     } else {
+            //       alert(data.msg);
+            //     }
+            //   });
             // $.toptips('验证通过提交', 'ok');
         }
     });

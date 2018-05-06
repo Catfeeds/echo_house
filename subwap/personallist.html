@@ -43,7 +43,7 @@
  						<div class="btn-box">
  							<span ng-click="payTop($event,item.id)">置顶</span>
 							<span ng-click="refresh($event,item.id)">刷新</span>
-							<!-- <span ng-click="edit($event,item.id)" class="house-btn-edit">编辑</span> -->
+							<span ng-click="edit($event,item.id)" class="house-btn-edit">编辑</span>
 							<span ng-if="item.status == '0'" ng-click="addHouse($event,item.id)">上架</span>
 							<span ng-if="item.status == '1'" ng-click="showClose($event,item.id)">下架</span>
  						</div>
