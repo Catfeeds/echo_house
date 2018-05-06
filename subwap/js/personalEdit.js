@@ -3,6 +3,7 @@ var fmindex = 0;
 var delimgindex = '';
 var imageindex = 0;
 var uid = '';
+var id = GetQueryString('id');
 var wylxList = [];//物业类型列表
 var zxztList = [];//装修情况列表
 var leastpayList = [];//首付金额列表
@@ -110,14 +111,20 @@ $(document).ready(function () {
         for(var i=0;i<tags[3].list.length;i++){
           $('#area1').append('<option value="'+tags[3].list[i].id+'">'+tags[3].list[i].name+'</option>');
         }
-        // $('#area2').append('<option value="0">请选择</option>');
+        $('#area2').append('<option value="0">请选择</option>');
         for(var i=0;i<tags[3].list[0].childAreas.length;i++){
           $('#area2').append('<option value="'+tags[3].list[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[i].name+'</option>');
         }
-        for(var i=0;i<tags[3].list[0].childAreas[0].childAreas.length;i++){
-          $('#area3').append('<option value="'+tags[3].list[0].childAreas[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[0].childAreas[i].name+'</option>');
-        }
+        $('#area3').append('<option value="0">请选择</option>');
+        // for(var i=0;i<tags[3].list[0].childAreas[0].childAreas.length;i++){
+        //   $('#area3').append('<option value="'+tags[3].list[0].childAreas[0].childAreas[i].id+'">'+tags[3].list[0].childAreas[0].childAreas[i].name+'</option>');
+        // }
     });
+
+    // //获取项目详情
+    // $.get('/api/plot/getPlotInfo?id=' + id, function(data){
+    //     console.log(data.data)
+    // })
     QFH5.getUserInfo(function (state, data) {
         if (state == 1) {
             uid = data.uid;
@@ -125,80 +132,6 @@ $(document).ready(function () {
     })
 });
 
-
-function submitBtn() {
-    $('#form').validate({
-        submitHandler: function () {
-
-
-            var wylx = new Array;
-            var zxzt = new Array;
-            var imgs = new Array;
-            $(".wylx[type='checkbox']:checkbox:checked").each(function () {
-                wylx.push($(this).val());
-                //由于复选框一般选中的是多个,所以可以循环输出
-                // alert($(this).val());
-            });
-            $(".img-key").each(function () {
-                imgs.push($(this).html());
-                //由于复选框一般选中的是多个,所以可以循环输出
-                // alert($(this).val());
-            });
-            if (imgs.length < 1) {
-                alert('请上传封面图');
-                return false;
-            }
-            $(".zxzt[type='checkbox']:checkbox:checked").each(function () {
-                zxzt.push($(this).val());
-                //由于复选框一般选中的是多个,所以可以循环输出
-                // alert($(this).val());
-            });
-            // console.log(wylx);debugger;
-            $.post('/api/plot/addPlot',
-                {
-                    'pname': $('input[name="pname"]').val(),
-                    'pphone': $('input[name="pphone"]').val(),
-                    'pcompany': $('input[name="pcompany"]').val(),
-                    'title': $('input[name="title"]').val(),
-                    'city': $('select[name="area"]').val(),
-                    'area': $('select[name="street"]').val(),
-                    'street': $('select[name="town"]').val(),
-                    'address': $('input[name="address"]').val(),
-                    'price': $('input[name="price"]').val(),
-                    'unit': $('select[name="unit"]').val(),
-                    'hxjs': $('textarea[name="hxjs"]').val(),
-                    'sfprice': $('select[name="sfprice"]').val(),
-                    'dllx': $('input[name="dllx"]').val(),
-                    'fm': $('input[name="fm"]').val(),
-                    // 'market_name':$('input[name="market_name"]').val(),
-                    // 'market_phone':$('input[name="market_phone"]').val(),
-                    'yjfa': $('textarea[name="yjfa"]').val(),
-                    'jy_rule': $('textarea[name="jy_rule"]').val(),
-                    'dk_rule': $('textarea[name="dk_rule"]').val(),
-                    'peripheral': $('textarea[name="peripheral"]').val(),
-                    'image[]': imgs,
-                    'qf_uid': uid,
-                    'wylx': wylx,
-                    'zxzt': zxzt,
-                }, function (data) {
-                    if (data.status == 'success') {
-                        alert('您好，您的房源信息已提交。');
-                        // location.href = 'duijieren.html?hid='+data.data;
-                        location.href = 'personallist.html';
-                    } else {
-                        alert(data.msg);
-                    }
-                });
-            // {$('#aaa').data('name'):$('#aaa').val('name')}
-        },
-        errorPlacement: function (error, element) {
-            error.appendTo(element.parent());
-        }
-    });
-}
-
-function sub() {
-}
 
 //删除图片
 function deleteimg(obj) {
@@ -271,7 +204,6 @@ $("#formSubmitBtn").on("click", function () {
     $form.validate(function (error) {
         if (error) {
             console.log(error)
-            console.log($('select[name="street"]').val())
         } else {
             // validate通过后处理这个 图片数组
             // imgarr是图片数组 fmindex是封面下标
@@ -286,10 +218,15 @@ $("#formSubmitBtn").on("click", function () {
                 }
             }
             if (imgarr.length < 1) {
-                alert('请上传封面图');
+                alert('请上传图片');
                 return false;
             }
-        
+            console.log($('#area2').val())
+               console.log($('#area3').val())
+            if ($('#area2').val() == 0 || $('#area3').val() == 0) {
+                alert('请选择项目区域');
+                return false;
+            }
             // 删除空值
             imgarr = clear_arr_trim(imgarr);
             var params = {
@@ -319,20 +256,20 @@ $("#formSubmitBtn").on("click", function () {
                 'fmindex':fmindex,
                 'qf_uid': uid,
             };
-            console.log(params)
+      
             $.showLoading('正在发布中');
-            // $.post('/api/plot/addPlotNew',params
-            //   ,function(data){
-            //     $.hideLoading();
-            //     if(data.status=='success'){
-            //         alert('您好，您的房源信息已提交。');
-            //         // location.href = 'duijieren.html?hid='+data.data;
-            //          location.href = 'personalSuccess.html';
-            //     } else {
-            //       alert(data.msg);
-            //     }
-            //   });
-            $.toptips('验证通过提交', 'ok');
+            // console.log(params)
+            $.post('/api/plot/addPlotNew',params
+              ,function(data){
+                $.hideLoading();
+                if(data.status=='success'){
+                    alert('您好，您的房源信息已提交。');
+                    location.href = 'personalSuccess.html';
+                } else {
+                  alert(data.msg);
+                }
+              });
+            // $.toptips('验证通过提交', 'ok');
         }
     });
 
@@ -340,11 +277,13 @@ $("#formSubmitBtn").on("click", function () {
 //二级下拉框
 function setStreets(){
   $('#area2').empty();
+  $('#area3').empty();
+  $('#area3').append('<option value="0">请选择</option>');
   var arealist = tags[3].list;
   for(var i = 0; i < arealist.length; i++){
     // console.log(tags[3][i]);
     if($('#area1').val()==arealist[i].id){
-      // $('#area2').append('<option value="0">请选择</option>');
+      $('#area2').append('<option value="0">请选择</option>');
       for (var j = 0; j < arealist[i].childAreas.length; j++) {
       $('#area2').append('<option value="'+arealist[i].childAreas[j].id+'">'+arealist[i].childAreas[j].name+'</option>');     
       }
@@ -362,7 +301,7 @@ function setTowns(){
       for (var j = 0; j < arealist[i].childAreas.length; j++) {
 
         if($('#area2').val()==arealist[i].childAreas[j].id) {
-          // $('#area3').append('<option value="0">请选择</option>');
+          $('#area3').append('<option value="0">请选择</option>');
           for (var k = 0; k < arealist[i].childAreas[j].childAreas.length; k++) {
             $('#area3').append('<option value="'+arealist[i].childAreas[j].childAreas[k].id+'">'+arealist[i].childAreas[j].childAreas[k].name+'</option>');
           }
@@ -373,4 +312,10 @@ function setTowns(){
       break;
     }
   }
+}
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(decodeURI(r[2]));
+    return null;
 }

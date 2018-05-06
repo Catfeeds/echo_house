@@ -114,6 +114,13 @@ myapp.controller('perlistCtrl',function($scope,$http) {
         location.href='houseRefresh.html?num=' + refreshNum;     
     }
 
+    // 编辑
+    $scope.edit=function(e,id){
+        e.stopPropagation();
+        e.preventDefault();
+        location.href='personalEdit.html?id=' + id;   
+    }
+
     // 下架弹框
     $scope.showClose=function(e,id){
         e.stopPropagation();
