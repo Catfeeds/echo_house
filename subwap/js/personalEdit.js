@@ -9,8 +9,6 @@ var zxztList = [];//装修情况列表
 var leastpayList = [];//首付金额列表
 var modeList = [];//代理性质列表
 var imgarr = [];//总的img
-var imgarrBase64 = [];//base64img
-var imgarrUrl = [];//编辑时的img
 var wylxVal;//物业类型
 var zxztVal;//装修情况
 var leastpayVal;//首付金额
@@ -123,11 +121,42 @@ $(document).ready(function () {
     });
 
     //获取项目详情
-    $.get('/api/plot/getPlotInfo?id=' + id, function(data){
-        imgarrUrl = data.data.image;
-        
-        console.log(data.data)
-    })
+    if(id){ //编辑
+        $.get('/api/plot/getPlotInfo?id=' + id, function(data){
+            $('#housename').val(data.data.title);
+            $('#area1').val(data.data.cityname);
+            $('#area2').val(data.data.areaname);
+            $('#area3').val(data.data.addressname);
+            $('#houseaddress').val(data.data.address);
+            $('#wylx').val(data.data.wylx);
+            $('#zxzt').val(data.data.zxzt);
+            $('#price').val(data.data.price);
+            $('#unit').val(data.data.unit);
+            $('#leastpay').val(data.data.sfprice);
+            $('#mode').val(data.data.dllx);
+            $('#yjfa').val(data.data.yjfa);
+            $('#jy_rule').val(data.data.jy_rule);
+            $('#dk_rule').val(data.data.dk_rule);
+            $('#peripheral').val(data.data.peripheral);
+            $('#housename').attr('readonly','readonly');
+            $('#area1').attr('readonly','readonly');
+            $('#area2').attr('readonly','readonly');
+            $('#area3').attr('readonly','readonly');
+            $('#houseaddress').attr('readonly','readonly');
+            $('#wylx').attr('disabled','true');
+            $('#zxzt').attr('disabled','true');
+            imageindex = data.data.image_url.length;
+            for (var i = 0; i < data.data.image_url.length; i++) {
+                if(data.data.fm_url == data.data.image_url[i]){ //判断封面
+                    $('#img').append('<li class="weui_uploader_file fm url" onclick="setFm(this)" data-img="' + data.data.image_url[i] + '" style="background-image:url(' + data.data.image_url[i] + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');  
+                }else{
+                   $('#img').append('<li class="weui_uploader_file url" onclick="setFm(this)" data-img="' + data.data.image_url[i] + '" style="background-image:url(' + data.data.image_url[i] + ')"><img class="imgarr imgindex' + data.data.image_url.length + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                }
+            }
+            console.log(data.data)
+        })
+    }
+   
     QFH5.getUserInfo(function (state, data) {
         if (state == 1) {
             uid = data.uid;
@@ -161,11 +190,10 @@ function previewImage(file) {
         if (file.files && file.files[i]) {
             var reader = new FileReader();
             reader.onload = function (evt) {
-                console.log(imageindex)
                 if(imageindex === 0){
-                    $('#img').append('<li class="weui_uploader_file fm" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');
+                    $('#img').append('<li class="weui_uploader_file fm base64" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"><div class="is_cover"></div></li>');
                 }else{
-                    $('#img').append('<li class="weui_uploader_file" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
+                    $('#img').append('<li class="weui_uploader_file base64" onclick="setFm(this)" data-img="' + evt.target.result + '" style="background-image:url(' + evt.target.result + ')"><img class="imgarr imgindex' + imageindex + '" style="/* position: absolute; */height: 30px;width: 30px;margin-left: 50px;" onclick="deleteimg(this)" src="./img/deleteimg.png"></li>');
                 }
                 imageindex++;
                 if (imageindex > 8) {
@@ -194,7 +222,7 @@ $form.form();
 function clear_arr_trim(array) {  
     for(var i = 0 ;i<array.length;i++)  
     {  
-        if(array[i] == "" || typeof(array[i]) == "undefined")  
+        if(array[i].url == "" || typeof(array[i].url) == "undefined")  
         {  
             array.splice(i,1);  
             i= i-1;  
@@ -209,17 +237,22 @@ $("#formSubmitBtn").on("click", function () {
             console.log(error)
         } else {
             // validate通过后处理这个 图片数组
-            // imgarrBase64是新选择的图片数组 fmindex是封面下标
+            // imgarr是图片数组 fmindex是封面下标
             // post的时候也用这两个参数 原先的fm和image都不要传
-            
+       
             if ($('.weui_uploader_file').length > 0) {
                
                 for (var i = 0; i < $('.weui_uploader_file').length; i++) {
                     var tmpa = $('.weui_uploader_file')[i];
                     var tmpaFun = {};
-                    tmpaFun.type = 'base64';
+              
+                    if($($('.weui_uploader_file')[i]).hasClass('url')){
+                        tmpaFun.type = 'url';
+                    }else{
+                        tmpaFun.type = 'base64';
+                    }
                     tmpaFun.url = $(tmpa).data('img');
-                    imgarrBase64.push(tmpaFun);
+                    imgarr.push(tmpaFun);
                     if ($(tmpa).hasClass('fm')) {
                         fmindex = i;
                     }
@@ -227,7 +260,7 @@ $("#formSubmitBtn").on("click", function () {
             
                 
             }
-            imgarr = imgarrUrl.concat(imgarrBase64);
+         
             if (imgarr.length < 1) {
                 alert('请上传图片');
                 return false;
@@ -285,23 +318,23 @@ $("#formSubmitBtn").on("click", function () {
             }
             
             console.log(params)
-            // $.showLoading('正在发布中');
-            // $.post('/api/plot/addPlotNew',params
-            //   ,function(data){
-            //     $.hideLoading();
-            //     if(data.status=='success'){
-            //         alert('您好，您的房源信息已提交。');
-            //         location.href = 'personalSuccess.html';
-            //     } else {
-            //       alert(data.msg);
-            //     }
-            //   });
+            $.showLoading('正在发布中');
+            $.post('/api/plot/addPlotNew',params
+              ,function(data){
+                $.hideLoading();
+                if(data.status=='success'){
+                    alert('您好，您的房源信息已提交。');
+                    location.href = 'personalSuccess.html';
+                } else {
+                  alert(data.msg);
+                }
+              });
             // $.toptips('验证通过提交', 'ok');
         }
     });
 
 });
-//二级下拉框
+//二级下拉框 
 function setStreets(){
   $('#area2').empty();
   $('#area3').empty();
