@@ -50,7 +50,8 @@ class PlotDownExt extends PlotDown{
         if($this->getIsNewRecord()) {
             // $this->status = 1;
             $this->created = $this->updated = time();
-            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行下架操作，请登陆后台审核','',1);
+            $words = $type==1?'上架':'下架';
+            $res = Yii::app()->controller->sendNotice('有新的用户对'.$this->plot->title.'进行'.$words.'操作，请登陆后台审核','',1);
         }
         else
             $this->updated = time();
