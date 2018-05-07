@@ -2291,6 +2291,10 @@ class PlotController extends ApiController{
     			$zxztarr[] = Yii::app()->db->createCommand("select name from tag where id=".$value)->queryScalar();
     		}
     	}
+    	// var_dump($plot->sfprice);exit;
+    	if($plot->sfprice && is_array($plot->sfprice)) {
+    		$plot->sfprice = $plot->sfprice[0];
+    	}
     	$data = [
     		'id'=>$plot->id,
     		'pname'=>$user->name,
@@ -2310,7 +2314,7 @@ class PlotController extends ApiController{
 			'unit'=>$plot->unit,
 			'hxjs'=>$plot->hxjs,
 			'sfprice'=>$plot->sfprice,
-			'sfpricename'=>Yii::app()->db->createCommand("select name from tag where id=".$plot->sfprice)->queryScalar(),
+			'sfpricename'=>$plot->sfprice?Yii::app()->db->createCommand("select name from tag where id=".$plot->sfprice)->queryScalar():'',
 			'dllx'=>$plot->dllx,
 			'dllxname'=>$plot->dllx?Yii::app()->params['dllx'][$plot->dllx]:'',
 			'fm'=>$plot->image,
