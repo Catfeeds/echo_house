@@ -1376,12 +1376,12 @@ class PlotController extends ApiController{
     		$fmindex = isset($post['fmindex'])?$post['fmindex']:0;
     		unset($post['imgarr']);
     		unset($post['fmindex']);
-    		if(PlotExt::model()->find("title='".$post['title']."'")) {
+    		if(!$up && PlotExt::model()->find("title='".$post['title']."'")) {
     			$this->returnError('您已提交发布，请勿重复操作');
     		}
     		if($imgs) {
     			foreach ($imgs as $m=>$n) {
-    				if($n['type']=='key') {
+    				if($n['type']=='url') {
     					$keyarr[] = $n['url'];
     					if($fmindex==$m)
     						$post['image'] = $n['url'];
@@ -1435,7 +1435,7 @@ class PlotController extends ApiController{
     		// 	$img = $imgs[0];
     		// }
     		// unset($post['fm']);
-    		if($comname = $post['pcompany']) {
+    		if(isset($post['pcompany']) && $comname = $post['pcompany']) {
     			$criteria = new CDbCriteria;
     			$criteria->addSearchCondition('name',$comname);
     			$company = CompanyExt::model()->find($criteria);
@@ -1452,23 +1452,28 @@ class PlotController extends ApiController{
     			}
     		}
     		unset($post['pcompany']);
-    		$pphone = $post['pphone'];
-    		if(!($user = UserExt::model()->find("phone='$pphone'"))) {
-    			$user = new UserExt;
-    			$user->name = $post['pname'];
-    			$user->type = 1;
-    			$user->cid = $company->id;
-    			$user->qf_uid = $post['qf_uid'];
-    			$user->phone = $pphone;
-    			$user->status = 1;
-    			if(!($user->save())){
-    				return $this->returnError(current(current($user->getErrors())));
-    			}
+    		if(isset($post['pphone'])) {
+    			$pphone = $post['pphone'];
+	    		if(!($user = UserExt::model()->find("phone='$pphone'"))) {
+	    			$user = new UserExt;
+	    			$user->name = $post['pname'];
+	    			$user->type = 1;
+	    			$user->cid = $company->id;
+	    			$user->qf_uid = $post['qf_uid'];
+	    			$user->phone = $pphone;
+	    			$user->status = 1;
+	    			if(!($user->save())){
+	    				return $this->returnError(current(current($user->getErrors())));
+	    			}
+	    		}
     		}
+	    		
     		if(!$up)
     			$obj = new PlotExt;
     		else {
     			$obj = PlotExt::model()->findByPk($post['id']);
+    			$user = $obj->owner;
+    			$company = $obj->company;
     			unset($post['id']);
     		}
     		// 省市区
@@ -1513,9 +1518,17 @@ class PlotController extends ApiController{
     		// 	$post['street'] = $areaobj->id;
     		// }
     		$obj->attributes = $post;
-    		$obj->wylx && $obj->wylx = explode(',', $obj->wylx);
-    		$obj->zxzt && $obj->zxzt = explode(',', $obj->zxzt);
-    		$obj->pinyin = Pinyin::get($obj->title);
+    		if($obj->wylx && !is_array($obj->wylx)) {
+    			$obj->wylx = explode(',', $obj->wylx);
+    		}
+
+    		if($obj->zxzt && !is_array($obj->zxzt)) {
+    			$obj->zxzt = explode(',', $obj->zxzt);
+    		}
+    		// var_dump($obj->wylx);exit;
+    		// $obj->wylx && $obj->wylx = explode(',', $obj->wylx);
+    		// $obj->zxzt && $obj->zxzt = explode(',', $obj->zxzt);
+    		// $obj->pinyin = Pinyin::get($obj->title);
     		$obj->fcode = substr($obj->pinyin, 0,1);
     		$obj->status = 0;
     		// $obj->image = $img;
@@ -1538,7 +1551,7 @@ class PlotController extends ApiController{
     			$mak->save();
     			// 删除图片
     			PlotImageExt::model()->deleteAllByAttributes(['hid'=>$obj->id]);
-    			if($keyarr && count($keyarr)>1) {
+    			if($keyarr) {
     				// unset($imgs[0]);
     				foreach ($keyarr as $k) {
     					$im = new PlotImageExt;
@@ -2262,8 +2275,20 @@ class PlotController extends ApiController{
     	$images = $plot->images;
     	if($images) {
     		foreach ($images as $key => $value) {
-    			$image[] = $value['url'];
-    			$image_url[] = ImageTools::fixImage($value['url']).'?imageslim';
+    			$image[] = ['key'=>$value['url'],'value'=>ImageTools::fixImage($value['url']).'?imageslim'];
+    			// $image[] = $value['url'];
+    			// $image_url[] = ImageTools::fixImage($value['url']).'?imageslim';
+    		}
+    	}
+    	$wylxarr = $zxztarr = [];
+    	if($plot->wylx) {
+    		foreach ($plot->wylx as $key => $value) {
+    			$wylxarr[] = Yii::app()->db->createCommand("select name from tag where id=".$value)->queryScalar();
+    		}
+    	}
+    	if($plot->zxzt) {
+    		foreach ($plot->zxzt as $key => $value) {
+    			$zxztarr[] = Yii::app()->db->createCommand("select name from tag where id=".$value)->queryScalar();
     		}
     	}
     	$data = [
@@ -2275,12 +2300,19 @@ class PlotController extends ApiController{
 			'city'=>$plot->city,
 			'area'=>$plot->area,
 			'street'=>$plot->street,
+			'cityname'=>Yii::app()->db->createCommand("select name from area where id=".$plot->city)->queryScalar(),
+			'areaname'=>Yii::app()->db->createCommand("select name from area where id=".$plot->area)->queryScalar(),
+			'streetname'=>Yii::app()->db->createCommand("select name from area where id=".$plot->street)->queryScalar(),
+			'wylxname'=>$wylxarr,
+			'zxztname'=>$zxztarr,
 			'address'=>$plot->address,
 			'price'=>$plot->price,
 			'unit'=>$plot->unit,
 			'hxjs'=>$plot->hxjs,
 			'sfprice'=>$plot->sfprice,
+			'sfpricename'=>Yii::app()->db->createCommand("select name from tag where id=".$plot->sfprice)->queryScalar(),
 			'dllx'=>$plot->dllx,
+			'dllxname'=>$plot->dllx?Yii::app()->params['dllx'][$plot->dllx]:'',
 			'fm'=>$plot->image,
 			'fm_url'=>ImageTools::fixImage($plot->image).'?imageslim',
 			'yjfa'=>$plot->yjfa,

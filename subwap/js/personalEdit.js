@@ -122,11 +122,12 @@ $(document).ready(function () {
 
     //获取项目详情
     if(id){ //编辑
+        $('#areaedit').remove();
         $.get('/api/plot/getPlotInfo?id=' + id, function(data){
             $('#housename').val(data.data.title);
-            $('#area1').val(data.data.cityname);
-            $('#area2').val(data.data.areaname);
-            $('#area3').val(data.data.addressname);
+            // $('#area1').val(data.data.cityname);
+            // $('#area2').val(data.data.areaname);
+            // $('#area3').val(data.data.addressname);
             $('#houseaddress').val(data.data.address);
             $('#wylx').val(data.data.wylxname);
             $('#zxzt').val(data.data.zxztname);
@@ -174,10 +175,10 @@ function deleteimg(obj) {
 
 function setFm(obj) {
     $('.is_cover').remove();
-    $('.fm').attr('class', 'weui_uploader_file');
+    $('.fm').removeClass('fm');
     // var dataid = obj.data('id');
     $(obj).append('<div class="is_cover"></div>');
-    $(obj).attr('class', 'weui_uploader_file fm');
+    $(obj).addClass('fm');
     // $('.fm').val($('#' + dataid).html());
 }
 
@@ -272,11 +273,12 @@ $("#formSubmitBtn").on("click", function () {
             // 删除空值
             imgarr = clear_arr_trim(imgarr);
             if(id){ //编辑
+
                 var params = {
                     'price': $('#price').val(),
                     'unit': $('select[name="unit"]').val(),
-                    'sfprice': leastpayVal,
-                    'dllx': modeVal,
+                    // 'sfprice': leastpayVal,
+                    // 'dllx': modeVal,
                     'yjfa': $('#yjfa').val(),
                     'jy_rule': $('#jy_rule').val(),
                     'dk_rule': $('#dk_rule').val(),
@@ -286,6 +288,13 @@ $("#formSubmitBtn").on("click", function () {
                     'qf_uid': uid,
                     'id':id
                 };
+                if(leastpayVal) {
+                    params.sfprice = leastpayVal;
+                }
+                if(modeVal) {
+                    params.dllx = modeVal;
+                }
+                params = clear_arr_trim(params);
             }else{ //新增
                 var params = {
                     'pname': $('#pname').val(),
