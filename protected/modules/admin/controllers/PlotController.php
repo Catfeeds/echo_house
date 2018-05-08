@@ -240,6 +240,63 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
+	public function actionEditlist($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='')
+	{
+		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';
+		$modelName = 'PlotEditLogExt';
+		$criteria = new CDbCriteria;
+		if($value = trim($value))
+            if ($type=='title') {
+            	$plocriteria = new CDbCriteria;
+                $plocriteria->addSearchCondition('title', $value);
+                $ids = [];
+                if($resss = PlotExt::model()->findAll($plocriteria)) {
+                	foreach ($resss as $res) {
+                		$ids[] = $res->id;
+                	}
+                }
+                $criteria->addInCondition('hid',$ids);
+            } 
+        //添加时间、刷新时间筛选
+        if($time_type!='' && $time!='')
+        {
+            list($beginTime, $endTime) = explode('-', $time);
+            $beginTime = (int)strtotime(trim($beginTime));
+            $endTime = (int)strtotime(trim($endTime));
+            $criteria->addCondition("{$time_type}>=:beginTime");
+            $criteria->addCondition("{$time_type}<:endTime");
+            $criteria->params[':beginTime'] = TimeTools::getDayBeginTime($beginTime);
+            $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
+
+        }
+        if($company) {
+        	$criteria->addCondition('company_id=:comid');
+        	$criteria->params[':comid'] = $company;
+        }
+        if(is_numeric($status)) {
+        	$criteria->addCondition('status=:status');
+        	$criteria->params[':status'] = $status;
+        }
+         if(is_numeric($is_uid)) {
+         	if($is_uid)
+        		$criteria->addCondition('uid>0');
+        	else
+        		$criteria->addCondition('uid=0');
+        }
+		$this->controllerName = '楼盘';
+		$criteria->order = 'updated desc';
+		if($sort) {
+			$criteria->order = $sort.' desc';
+		}
+		$infos = PlotEditLogExt::model()->getList($criteria,20);
+		$this->render('editlist',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
+	}
+
+	/**
+	 * [actionList 问答列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
 	public function actionAsklist($hid='')
 	{
 		// $_SERVER['HTTP_REFERER']='http://www.baidu.com';

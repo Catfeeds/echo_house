@@ -288,6 +288,12 @@ class PlotController extends ApiController{
 							}
 						}
 					}
+					// 自己发的才能编辑
+					if($this->staff&&$value->uid&&$value->uid==$this->staff->id) {
+						$can_edit = 1;
+					} else {
+						$can_edit = 0;
+					}
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
@@ -301,7 +307,8 @@ class PlotController extends ApiController{
 						'zd_company'=>$companydes,
 						'pay'=>$value->first_pay,
 						'sort'=>$value->sort,
-						'expire'=>$expire,
+						'can_edit'=>$can_edit,
+						'expire'=>$this->staff&&$expire,
 						'distance'=>round($this->getDistance($value),2),
 					];
 				}
@@ -1567,6 +1574,12 @@ class PlotController extends ApiController{
     			}else {
     				Yii::app()->controller->sendNotice('有房源产生修改，房源名为'.$obj->title.'，请登录后台查看','',1);
     			}
+    			if($up) {
+    				$ploteditlog = new PlotEditLogExt;
+    				$ploteditlog->hid = $obj->id;
+    				$ploteditlog->uid = $this->staff->id;
+    				$ploteditlog->save();
+    			}
     			$this->frame['data'] = $obj->id;
     		}
 
@@ -2280,14 +2293,21 @@ class PlotController extends ApiController{
     			// $image_url[] = ImageTools::fixImage($value['url']).'?imageslim';
     		}
     	}
-    	$wylxarr = $zxztarr = [];
+    	$wylxarr = $zxztarr = $wylxidarr = $zxztidarr =  [];
     	if($plot->wylx) {
-    		foreach ($plot->wylx as $key => $value) {
+    		$wylxidarr = explode(',', $plot->wylx);
+    	}
+    	if($plot->zxzt) {
+    		$zxztidarr = explode(',', $plot->zxzt);
+    	}
+    	// var_dump($zxztidarr);exit;
+    	if($wylxidarr) {
+    		foreach ($wylxidarr as $key => $value) {
     			$wylxarr[] = Yii::app()->db->createCommand("select name from tag where id=".$value)->queryScalar();
     		}
     	}
-    	if($plot->zxzt) {
-    		foreach ($plot->zxzt as $key => $value) {
+    	if($zxztidarr) {
+    		foreach ($zxztidarr as $key => $value) {
     			$zxztarr[] = Yii::app()->db->createCommand("select name from tag where id=".$value)->queryScalar();
     		}
     	}
