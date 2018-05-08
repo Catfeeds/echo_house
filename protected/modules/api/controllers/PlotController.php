@@ -2294,11 +2294,16 @@ class PlotController extends ApiController{
     		}
     	}
     	$wylxarr = $zxztarr = $wylxidarr = $zxztidarr =  [];
-    	if($plot->wylx) {
+    	// var_dump($plot->wylx);exit;
+    	if($plot->wylx && !is_array($plot->wylx)) {
     		$wylxidarr = explode(',', $plot->wylx);
+    	}elseif($plot->wylx) {
+    		$wylxidarr = $plot->wylx;
     	}
-    	if($plot->zxzt) {
+    	if($plot->zxzt && !is_array($plot->zxzt)) {
     		$zxztidarr = explode(',', $plot->zxzt);
+    	}elseif($plot->zxzt) {
+    		$zxztidarr = $plot->zxzt;
     	}
     	// var_dump($zxztidarr);exit;
     	if($wylxidarr) {
