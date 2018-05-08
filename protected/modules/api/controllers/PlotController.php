@@ -1580,6 +1580,21 @@ class PlotController extends ApiController{
     				$ploteditlog->uid = $this->staff->id;
     				$ploteditlog->save();
     			}
+    			
+    			if($obj->yjfa) {
+    				// 新增佣金方案
+    				$yjobj = PlotPayExt::model()->find(['condition'=>'hid='.$obj->id,'order'=>'updated desc']);
+    				if(!$yjobj) {
+    					$yjobj = new PlotPayExt;
+    					$yjobj->hid = $obj->id;
+    					$yjobj->name = $obj->yjfa;
+    					$yjobj->save();
+    				} else {
+    					// 修改佣金方案
+    					$yjobj->name = $obj->yjfa;
+    					$yjobj->save();
+    				}
+    			}
     			$this->frame['data'] = $obj->id;
     		}
 
