@@ -381,7 +381,7 @@ class PlotController extends ApiController{
 					}
 
 					
-					$images[$key]['content'] = ImageTools::CImg($value['url'],375);
+					$images[$key]['content'] = $images[$key]['url'];
 				}
 			}
 		}
