@@ -93,4 +93,12 @@ class ImageTools extends CComponent
 			}
 		return $value;
 	}
+
+	public static function CImg($value, $width=0, $height=0)
+	{
+		$value = self::fixImage($value);
+		// return $value."?imageMogr2/thumbnail/$width"."x"."$height!/blur/1x0/quality/75|imageslim";
+		// imageMogr2/thumbnail/400x/blur/1x0/quality/75|imageslim
+		return $value."?imageMogr2/thumbnail/$width"."x/blur/1x0/quality/75|imageslim";
+	}
 }

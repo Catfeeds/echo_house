@@ -112,19 +112,29 @@ class PlotController extends ApiController{
 			$criteria->addSearchCondition('title',$kw);
 			
 		}
-		if($area) {
-			$criteria->addCondition('area=:area');
-			$criteria->params[':area'] = $area;
-		}
-		if($city) {
-			$criteria->addCondition('city=:city');
-			$criteria->params[':city'] = $city;
-		}
-		
 		if($street) {
 			$criteria->addCondition('street=:street');
 			$criteria->params[':street'] = $street;
+		} elseif($area) {
+			$criteria->addCondition('area=:area');
+			$criteria->params[':area'] = $area;
+		} elseif ($city) {
+			$criteria->addCondition('city=:city');
+			$criteria->params[':city'] = $city;
 		}
+		// if($area) {
+		// 	$criteria->addCondition('area=:area');
+		// 	$criteria->params[':area'] = $area;
+		// }
+		// if($city) {
+		// 	$criteria->addCondition('city=:city');
+		// 	$criteria->params[':city'] = $city;
+		// }
+		
+		// if($street) {
+		// 	$criteria->addCondition('street=:street');
+		// 	$criteria->params[':street'] = $street;
+		// }
 
 		if($minprice) {
 			$criteria->addCondition('price>=:minprice');
@@ -358,24 +368,24 @@ class PlotController extends ApiController{
 		// $info->views += 1;
 		// $info->save();
 		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
-		$info_no_pic = ImageTools::fixImage(SiteExt::getAttr('qjpz','info_no_pic')).'?imageslim';
+		$info_no_pic = ImageTools::CImg(SiteExt::getAttr('qjpz','info_no_pic'),375);
 		$images = $info->images;
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
-				$value['url'] && $images[$key]['url'] = ImageTools::fixImage($value['url']).'?imageslim';
+				$value['url'] && $images[$key]['url'] = ImageTools::CImg($value['url'],375);
 				if($value['url']) {
-					$images[$key]['url'] = ImageTools::fixImage($value['url']).'?imageslim';
+					$images[$key]['url'] = ImageTools::CImg($value['url'],375);
 					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
 					}
 
 					
-					$images[$key]['content'] = ImageTools::fixImage($value['url']).'?imageslim';
+					$images[$key]['content'] = ImageTools::CImg($value['url'],375);
 				}
 			}
 		}
-		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::fixImage($info->image).'?imageslim','content'=>ImageTools::fixImage($info->image).'?imageslim'];
+		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::CImg($info->image,375),'content'=>ImageTools::CImg($info->image,375)];
 		array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
@@ -1536,7 +1546,7 @@ class PlotController extends ApiController{
     		// $obj->wylx && $obj->wylx = explode(',', $obj->wylx);
     		// $obj->zxzt && $obj->zxzt = explode(',', $obj->zxzt);
     		// $obj->pinyin = Pinyin::get($obj->title);
-    		$obj->fcode = substr($obj->pinyin, 0,1);
+    		// $obj->fcode = substr($obj->pinyin, 0,1);
     		$obj->status = 0;
     		// $obj->image = $img;
     		// $obj->market_user = $mak;
