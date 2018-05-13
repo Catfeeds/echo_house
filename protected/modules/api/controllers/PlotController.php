@@ -41,6 +41,7 @@ class PlotController extends ApiController{
 		$maxprice = (int)Yii::app()->request->getQuery('maxprice',0);
 		$page = (int)Yii::app()->request->getQuery('page',1);
 		$save = (int)Yii::app()->request->getQuery('save',0);
+		$isxcx = (int)Yii::app()->request->getQuery('isxcx',0);
 		$kw = $this->cleanXss(Yii::app()->request->getQuery('kw',''));
 		$this->frame['data'] = ['list'=>[],'page'=>$page,'num'=>0,'page_count'=>0,];
 		$init = $areainit = 0 ;
@@ -50,7 +51,7 @@ class PlotController extends ApiController{
 		if($city&&$area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
-		if($this->is_HTTPS()&&$limit!=6){
+		if(!$isxcx&&$this->is_HTTPS()&&$limit!=6){
 			$city = $area;
 			$area = $street;
 			$street = 0;
