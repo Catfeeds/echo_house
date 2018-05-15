@@ -90,7 +90,7 @@ $this->pageTitle = '经纪圈新房通后台欢迎您';
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo 5000+$thishits.'/'.($allhits+$thishits+2000000) ?>
+                    <?php echo $thishits.'/'.($allhits+$thishits) ?>
                 </div>
                 <div class="desc">
                     今日楼盘点击数/总数
