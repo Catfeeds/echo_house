@@ -38,7 +38,7 @@ $this->breadcrumbs = array($this->pageTitle);
     <?php foreach($infos as $k=>$v): $user = $v->user;$plot = $v->plot; ?>
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
-            <td class="text-center"><?=$plot?$plot->title:''?></td>
+            <td class="text-center"><a target="_blank" href="/api/index/detail?id=<?=$v->hid?>"><?=$plot?$plot->title:''?></a></td>
             <td class="text-center"><?=$v->type==1?'上架':'下架'?></td>
             <td class="text-center"><?=$user?($user->name.'/'.$user->phone):''?></td> 
             <td class="text-center"><?=$v->note?></td>
