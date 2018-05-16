@@ -118,7 +118,11 @@ myapp.controller('perlistCtrl',function($scope,$http) {
     $scope.edit=function(e,id){
         e.stopPropagation();
         e.preventDefault();
-        location.href='personalEdit.html?id=' + id;   
+        $.confirm("修改房源后需要重新审核，确定进入编辑页?", "确认编辑?", function() {
+            location.href='personalEdit.html?id=' + id;
+        }, function() {
+            //取消操作
+        });
     }
 
     // 下架弹框
