@@ -387,3 +387,7 @@ body{
 	color: #fff;
 	text-align: center;
 }
+
+.weui_btn_dialog.primary {
+	color: #00b7ee;
+}
