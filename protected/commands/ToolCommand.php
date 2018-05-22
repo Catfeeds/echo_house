@@ -2386,4 +2386,9 @@ echo 'finished';
             }
         }
     }
+
+    public function actionJbVirtual()
+    {
+        # code...
+    }
 }
