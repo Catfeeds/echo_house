@@ -491,4 +491,11 @@ class PlotExt extends Plot{
         return $data;
     }
 
+    public function afterDelete()
+    {
+        //删除项目对接人
+        Yii::app()->db->createCommand("delete from plot_market_user where hid=".$this->id)->execute();
+        parent::afterDelete();
+    }
+
 }
