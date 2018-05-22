@@ -430,14 +430,14 @@ class PlotController extends ApiController{
 		if($sfs = $info->sfMarkets) {
 			foreach ($sfs as $key => $value) {
 				$thisstaff = UserExt::model()->findByPk($value->uid);
-				if($thisstaff) {
-					if($thisstaff->virtual_no) {
-						$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
-					} else {
-						$phones[] = $thisstaff->name.$thisstaff->phone;
-					}
-				}
-				// $thisstaff && $phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
+				// if($thisstaff) {
+				// 	if($thisstaff->virtual_no) {
+				// 		$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
+				// 	} else {
+				// 		$phones[] = $thisstaff->name.$thisstaff->phone;
+				// 	}
+				// }
+				$thisstaff && $phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
 			}
 			// $phones = [];
 		} else {
@@ -485,13 +485,13 @@ class PlotController extends ApiController{
 		$ffphones=[];
 		if($ffs = $info->sfMarkets) {
 			foreach ($ffs as $key => $value) {
-				$ffu = $value->user;
-				if($ffu && $ffu->virtual_no) {
-					$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
-				} else {
-					$ffphones[] = $ffu->phone;
-				}
-				// $value->user&&$ffphones[] = $value->user->phone;
+				// $ffu = $value->user;
+				// if($ffu && $ffu->virtual_no) {
+				// 	$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
+				// } else {
+				// 	$ffphones[] = $ffu->phone;
+				// }
+				$value->user&&$ffphones[] = $value->user->phone;
 			}
 		}
 		$is_alert = 0;
