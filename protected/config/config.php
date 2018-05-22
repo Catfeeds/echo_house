@@ -95,6 +95,9 @@ $config2 = array(
         'msg'=>array(
             'class' => 'application.components.AliMsg',
         ),
+        'axn'=>array(
+            'class' => 'application.components.AliAxn',
+        ),
     ),
     'params' => CMap::mergeArray($params, $config['params'])
 );

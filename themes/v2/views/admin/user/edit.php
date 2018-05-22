@@ -29,6 +29,20 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label">虚拟号<span class="required" aria-required="true">*</span></label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'virtual_no', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'virtual_no') ?></div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">虚拟号分机<span class="required" aria-required="true">*</span></label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'virtual_no_ext', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'virtual_no_ext') ?></div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label">微信号<span class="required" aria-required="true">*</span></label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'wx', array('class' => 'form-control')); ?>

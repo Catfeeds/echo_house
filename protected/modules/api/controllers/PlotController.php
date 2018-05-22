@@ -430,7 +430,14 @@ class PlotController extends ApiController{
 		if($sfs = $info->sfMarkets) {
 			foreach ($sfs as $key => $value) {
 				$thisstaff = UserExt::model()->findByPk($value->uid);
-				$thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
+				if($thisstaff) {
+					if($thisstaff->virtual_no) {
+						$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
+					} else {
+						$phones[] = $thisstaff->name.$thisstaff->phone;
+					}
+				}
+				// $thisstaff && $phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
 			}
 			// $phones = [];
 		} else {
@@ -444,7 +451,7 @@ class PlotController extends ApiController{
 		
 		$major_phone = '';
 		if($info->market_user) {
-			preg_match('/[0-9]+/', $info->market_user,$major_phone);
+			preg_match('/[0-9|,]+/', $info->market_user,$major_phone);
 			$major_phone = $major_phone[0];
 		}
 
@@ -478,7 +485,13 @@ class PlotController extends ApiController{
 		$ffphones=[];
 		if($ffs = $info->sfMarkets) {
 			foreach ($ffs as $key => $value) {
-				$value->user&&$ffphones[] = $value->user->phone;
+				$ffu = $value->user;
+				if($ffu && $ffu->virtual_no) {
+					$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
+				} else {
+					$ffphones[] = $ffu->phone;
+				}
+				// $value->user&&$ffphones[] = $value->user->phone;
 			}
 		}
 		$is_alert = 0;
@@ -519,7 +532,7 @@ class PlotController extends ApiController{
 		shuffle($phones);
 		if($phones) {
 			foreach ($phones as $key => $value) {
-				preg_match('/[0-9]+/', $value,$tmp);
+				preg_match('/[0-9|,]+/', $value,$tmp);
 				$phonesnum = array_merge($phonesnum,$tmp);
 			}
 		}
@@ -2382,6 +2395,14 @@ class PlotController extends ApiController{
     	];
     	$this->frame['data'] = $data;
 
+    }
+
+    public function actionAxntest()
+    {
+    	$obj = Yii::app()->axn;
+    	$res = $obj->bindAxnExtension('默认号码池','13861242596','110',date('Y-m-d H:i:s',time()+86400*100));
+
+    	var_dump($res);exit;
     }
 
 }

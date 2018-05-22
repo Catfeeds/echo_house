@@ -19,7 +19,7 @@ class PlotMarketUserController extends AdminController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$expire='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$expire='',$hid='')
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
@@ -55,6 +55,10 @@ class PlotMarketUserController extends AdminController{
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		if($hid) {
+			$criteria->addCondition('hid=:hid');
+			$criteria->params[':hid'] = $hid;
+		}
 		if(is_numeric($expire)) {
 			if($expire)
 				$criteria->addCondition('expire<=:ex');
@@ -67,7 +71,7 @@ class PlotMarketUserController extends AdminController{
 		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'expire'=>$expire]);
 	}
 
-	public function actionEdit($id='')
+	public function actionEdit($id='',$hid='')
 	{
 		$modelName = $this->modelName;
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
@@ -88,7 +92,7 @@ class PlotMarketUserController extends AdminController{
 				$this->setMessage(array_values($info->errors)[0][0],'error');
 			}
 		} 
-		$this->render('edit',['cates'=>$this->cates,'article'=>$info,'cates1'=>$this->cates1,'userphone'=>isset($info->user->phone)?$info->user->phone:'']);
+		$this->render('edit',['cates'=>$this->cates,'article'=>$info,'cates1'=>$this->cates1,'userphone'=>isset($info->user->phone)?$info->user->phone:'','hid'=>$hid]);
 	}
 
 	public function actionAjaxStatus($kw='',$ids='')

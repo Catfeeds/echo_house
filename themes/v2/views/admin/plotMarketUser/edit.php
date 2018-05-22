@@ -23,8 +23,15 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 <div class="form-group">
     <label class="col-md-2 control-label">楼盘</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'hid', Yii::app()->redis->getClient()->hGetAll('plot_title'), array('class' => 'form-control select2','empty'=>'')); ?>
-    </div>
+<?php if($hid):?>
+  <input type="text" readonly="readonly" class="form-control"  value="<?=PlotExt::model()->findByPk($hid)->title?>">
+  <input type="hidden" name="<?=get_class($article).'[hid]'?>"  value="<?=$hid?>">
+ <?php else:?>
+  
+        <?php echo $form->dropDownList($article, 'hid', Yii::app()->redis->getClient()->hGetAll('plot_title'), array('value'=>$hid?$hid:'','class' => 'form-control select2','empty'=>'')); ?>
+    
+ <?php endif;?> 
+ </div>
     <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
 </div>
 <div class="form-group">

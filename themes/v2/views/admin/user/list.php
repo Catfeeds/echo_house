@@ -42,6 +42,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">用户名</th>
         <th class="text-center">用户类型</th>
         <th class="text-center">电话</th>
+        <th class="text-center">虚拟号</th>
         <th class="text-center">公司名</th>
         <th class="text-center">会员到期时间</th>
         <th class="text-center">刷新数</th>
@@ -61,6 +62,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=$v->type?UserExt::$ids[$v->type]:''?></td>
             <td class="text-center"><?=$v->phone?></td>
+            <td class="text-center"><?=$v->virtual_no.','.$v->virtual_no_ext?></td>
             <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>  
             <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>  
             <td class="text-center"><?=$v->refresh_num?></td>

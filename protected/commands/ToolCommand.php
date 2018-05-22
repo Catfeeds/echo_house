@@ -2347,4 +2347,42 @@ echo 'finished';
         }
 
     }
+
+    public function actionPlotVirtual()
+    {
+        $ress = PlotMarketUserExt::model()->findAll(['condition'=>'status=1 and expire>'.time()]);
+        if($ress) {
+            foreach ($ress as $key => $value) {
+                // 如果项目不存在 跳过
+                if(!Yii::app()->db->createCommand("select id from plot where id=".$value->hid)->queryScalar()) {
+                    continue;
+                }
+                $user = $value->user;
+                if(!$user) {
+                    continue;
+                }
+                if(!$user->virtual_no) {
+                    $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
+                    $vp = $vps->phone;
+                    $nowext = $vps->max?($vps->max+1):1;
+                    $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
+                    // var_dump($nowext);exit;
+                    // 生成绑定
+                    $obj = Yii::app()->axn;
+                    $res = $obj->bindAxnExtension('默认号码池',$user->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
+                    if($res->Code=='OK') {
+                        $user->virtual_no = $res->SecretBindDTO->SecretNo;
+                        $user->virtual_no_ext = $res->SecretBindDTO->Extension;
+                        $user->save();
+                        $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
+                        $newvps->max = $user->virtual_no_ext;
+                        $newvps->save();
+                    } else {
+                        Yii::log(json_encode($res));
+                    }
+                }
+                echo ($key+1).'/'.count($ress).'-------------------';
+            }
+        }
+    }
 }
