@@ -1572,14 +1572,17 @@ class PlotController extends ApiController{
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
-    			// 对接人
-    			$mak = new PlotMarketUserExt;
-    			$mak->uid = $user->id;
-    			$mak->hid = $obj->id;
-    			$mak->is_manager = 1;
-    			$mak->status = 1;
-    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
-    			$mak->save();
+    			if(!$up) {
+    				// 对接人
+	    			$mak = new PlotMarketUserExt;
+	    			$mak->uid = $user->id;
+	    			$mak->hid = $obj->id;
+	    			$mak->is_manager = 1;
+	    			$mak->status = 1;
+	    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
+	    			$mak->save();
+    			}
+	    			
     			// 删除图片
     			PlotImageExt::model()->deleteAllByAttributes(['hid'=>$obj->id]);
     			if($keyarr) {

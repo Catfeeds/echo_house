@@ -22,6 +22,7 @@ class SiteExt extends Site{
         'add_subscribe_words'=>'',
         'add_vip_words'=>'',
         'login_img'=>'',
+        'waterlogo'=>'',
         'appid'=>'',
         'appsecret'=>'',
         'mch_id'=>'',
@@ -74,7 +75,7 @@ class SiteExt extends Site{
             'mzsm'=>['type'=>'text','name'=>'免责声明'],
             'vipNotice'=>['type'=>'text','name'=>'后台须知'],
             'usernopic'=>['type'=>'image','max'=>1,'name'=>'用户默认头像'],
-
+            'waterlogo'=>['type'=>'image','max'=>1,'name'=>'水印图片'],
             // 'wxgzh'=>['type'=>'text','name'=>'微信公众号'],
             // 'xmgs'=>['type'=>'text','name'=>'项目个数'],
             // 'clnf'=>['type'=>'text','name'=>'成立年份'],

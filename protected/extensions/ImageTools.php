@@ -17,7 +17,8 @@ class ImageTools extends CComponent
 	public static function fixImage($value, $width=0, $height=0, $mode=1)
 	{
 		if(strpos($value, 'http')!==false && strpos($value, 'hualongxiang')===false || empty($value)) return $value;
-		return (strpos($value, 'http')===false && Yii::app()->file->enableCloudStorage) ? self::qiniuImage($value, $width, $height, $mode) : self::localImage($value, $width, $height);
+		$res = (strpos($value, 'http')===false && Yii::app()->file->enableCloudStorage) ? self::qiniuImage($value, $width, $height, $mode) : self::localImage($value, $width, $height);
+		return self::waterMark($res);
 	}
 
 	/**
@@ -27,14 +28,17 @@ class ImageTools extends CComponent
 	 */
 	public static function waterMark($url)
 	{
-		if(SM::waterMarkConfig()->enable()&&SM::waterMarkConfig()->waterMarkPic())
+		if(SiteExt::getAttr('qjpz','waterlogo'))
 		{
-			$baseUrl = str_replace(array('+', '/'), array('-', '_'), base64_encode(self::qiniuImage(SM::waterMarkConfig()->waterMarkPic())));
-			if(SM::waterMarkConfig()->position())
-				$gravity = SM::waterMarkConfig()->position();
-			else
-				$gravity = 'SouthEast';
+			$baseUrl = str_replace(array('+', '/'), array('-', '_'), base64_encode(self::qiniuImage(SiteExt::getAttr('qjpz','waterlogo'))));
+			// if(SM::waterMarkConfig()->position())
+			// 	$gravity = SM::waterMarkConfig()->position();
+			// else
+			// 	$gravity = 'SouthEast';
+			$gravity = 'Center/dx/0/dy/0';
+			
 			$waterMark = 'watermark/1/image/'.$baseUrl.'/gravity/'.$gravity;
+			// $url = $url.'?'.$waterMark;
 			if(strpos($url,'?')===false)
 				$url = $url.'?'.$waterMark.'/dissolve/100';
 			else
@@ -99,6 +103,7 @@ class ImageTools extends CComponent
 		$value = self::fixImage($value);
 		// return $value."?imageMogr2/thumbnail/$width"."x"."$height!/blur/1x0/quality/75|imageslim";
 		// imageMogr2/thumbnail/400x/blur/1x0/quality/75|imageslim
-		return $value."?imageMogr2/thumbnail/$width"."x/blur/1x0/quality/75|imageslim";
+		$rr = strstr($value, '?') ?'|':'?';
+		return $value.$rr."imageMogr2/thumbnail/$width"."x/blur/1x0/quality/75|imageslim";
 	}
 }
