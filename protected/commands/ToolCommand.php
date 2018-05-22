@@ -2373,6 +2373,7 @@ echo 'finished';
                     if($res->Code=='OK') {
                         $user->virtual_no = $res->SecretBindDTO->SecretNo;
                         $user->virtual_no_ext = $res->SecretBindDTO->Extension;
+                        $user->subs_id = $res->SecretBindDTO->SubsId;
                         $user->save();
                         $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
                         $newvps->max = $user->virtual_no_ext;

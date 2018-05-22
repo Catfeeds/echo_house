@@ -15,6 +15,7 @@
  * @property integer $is_manage
  * @property integer $is_true
  * @property string $id_pic
+ * @property string $subs_id
  * @property string $virtual_no_ext
  * @property string $virtual_no
  * @property integer $refresh_num
@@ -52,12 +53,12 @@ class User extends CActiveRecord
 			array('pwd, name, created', 'required'),
 			array('parent, is_jl, is_manage, is_true, refresh_num, qf_uid, cid, vip_expire, type, status, deleted, sort, created, updated', 'numerical', 'integerOnly'=>true),
 			array('pwd, openid, id_pic, company, ava, image', 'length', 'max'=>255),
-			array('wx, name, virtual_no', 'length', 'max'=>100),
+			array('wx, name, subs_id, virtual_no', 'length', 'max'=>100),
 			array('phone', 'length', 'max'=>15),
 			array('virtual_no_ext', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, pwd, wx, phone, name, parent, openid, is_jl, is_manage, is_true, id_pic, virtual_no_ext, virtual_no, refresh_num, qf_uid, cid, vip_expire, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
+			array('id, pwd, wx, phone, name, parent, openid, is_jl, is_manage, is_true, id_pic, subs_id, virtual_no_ext, virtual_no, refresh_num, qf_uid, cid, vip_expire, company, type, ava, image, status, deleted, sort, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,6 +90,7 @@ class User extends CActiveRecord
 			'is_manage' => 'Is Manage',
 			'is_true' => 'Is True',
 			'id_pic' => 'Id Pic',
+			'subs_id' => 'Subs',
 			'virtual_no_ext' => 'Virtual No Ext',
 			'virtual_no' => 'Virtual No',
 			'refresh_num' => 'Refresh Num',
@@ -136,6 +138,7 @@ class User extends CActiveRecord
 		$criteria->compare('is_manage',$this->is_manage);
 		$criteria->compare('is_true',$this->is_true);
 		$criteria->compare('id_pic',$this->id_pic,true);
+		$criteria->compare('subs_id',$this->subs_id,true);
 		$criteria->compare('virtual_no_ext',$this->virtual_no_ext,true);
 		$criteria->compare('virtual_no',$this->virtual_no,true);
 		$criteria->compare('refresh_num',$this->refresh_num);

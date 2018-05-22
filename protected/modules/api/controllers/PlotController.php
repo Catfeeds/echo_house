@@ -437,7 +437,7 @@ class PlotController extends ApiController{
 				// 		$phones[] = $thisstaff->name.$thisstaff->phone;
 				// 	}
 				// }
-				$thisstaff && $phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
+				$thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
 			}
 			// $phones = [];
 		} else {
