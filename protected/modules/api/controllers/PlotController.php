@@ -544,7 +544,7 @@ class PlotController extends ApiController{
 			'dps'=>$dps,
 			'dp_num'=>PlotDpExt::model()->normal()->count("hid=$id"),
 			'asks'=>$asks,
-			'thatuid'=>$info->owner->qf_uid,
+			'thatuid'=>$info->owner?$info->owner->qf_uid:'',
 			'ask_num'=>PlotAskExt::model()->normal()->count("hid=$id"),
 			'address'=>Tools::u8_title_substr($areaName.$streetName.$info->address,34),
 			'price'=>$info->price,
