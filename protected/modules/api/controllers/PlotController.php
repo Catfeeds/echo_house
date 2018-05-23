@@ -441,8 +441,13 @@ class PlotController extends ApiController{
 			}
 			// $phones = [];
 		} else {
-			$phones = array_filter(explode(' ', $info->market_users));
+			// var_dump(1);
+			preg_match('/[0-9|,]+/', $info->market_users,$thisp);
+			$user = UserExt::model()->find("phone='".$thisp[0]."'");
+			$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
+			// $phones = array_filter(explode(' ', $info->market_users));
 		}
+		// var_dump($phones);exit;
 		$info->market_user && array_unshift($phones, $info->market_user);
 
 		$phones && $phones = array_keys(array_flip($phones));

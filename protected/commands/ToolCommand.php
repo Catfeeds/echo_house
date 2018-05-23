@@ -2350,17 +2350,17 @@ echo 'finished';
 
     public function actionPlotVirtual()
     {
-        $ress = PlotMarketUserExt::model()->findAll(['condition'=>'status=1 and expire>'.time()]);
+        $ress = UserExt::model()->findAll(['condition'=>'status=1 and type=1 and virtual_no=""']);
         if($ress) {
-            foreach ($ress as $key => $value) {
+            foreach ($ress as $key => $user) {
                 // 如果项目不存在 跳过
-                if(!Yii::app()->db->createCommand("select id from plot where id=".$value->hid)->queryScalar()) {
-                    continue;
-                }
-                $user = $value->user;
-                if(!$user) {
-                    continue;
-                }
+                // if(!Yii::app()->db->createCommand("select id from plot where id=".$value->hid)->queryScalar()) {
+                //     continue;
+                // }
+                // $user = $value->owner;
+                // if(!$user) {
+                //     continue;
+                // }
                 if(!$user->virtual_no) {
                     $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
                     $vp = $vps->phone;
