@@ -544,6 +544,7 @@ class PlotController extends ApiController{
 			'dps'=>$dps,
 			'dp_num'=>PlotDpExt::model()->normal()->count("hid=$id"),
 			'asks'=>$asks,
+			'thatuid'=>$info->owner->qf_uid,
 			'ask_num'=>PlotAskExt::model()->normal()->count("hid=$id"),
 			'address'=>Tools::u8_title_substr($areaName.$streetName.$info->address,34),
 			'price'=>$info->price,
@@ -2330,7 +2331,7 @@ class PlotController extends ApiController{
     	$images = $plot->images;
     	if($images) {
     		foreach ($images as $key => $value) {
-    			$image[] = ['key'=>$value['url'],'value'=>ImageTools::fixImage($value['url']).'?imageslim'];
+    			$image[] = ['key'=>$value['url'],'value'=>ImageTools::fixImage($value['url'])];
     			// $image[] = $value['url'];
     			// $image_url[] = ImageTools::fixImage($value['url']).'?imageslim';
     		}
@@ -2385,7 +2386,7 @@ class PlotController extends ApiController{
 			'dllx'=>$plot->dllx,
 			'dllxname'=>$plot->dllx?Yii::app()->params['dllx'][$plot->dllx]:'',
 			'fm'=>$plot->image,
-			'fm_url'=>ImageTools::fixImage($plot->image).'?imageslim',
+			'fm_url'=>ImageTools::fixImage($plot->image),
 			'yjfa'=>$plot->yjfa,
 			'jy_rule'=>$plot->jy_rule,
 			'dk_rule'=>$plot->dk_rule,

@@ -18,6 +18,9 @@ class ImageTools extends CComponent
 	{
 		if(strpos($value, 'http')!==false && strpos($value, 'hualongxiang')===false || empty($value)) return $value;
 		$res = (strpos($value, 'http')===false && Yii::app()->file->enableCloudStorage) ? self::qiniuImage($value, $width, $height, $mode) : self::localImage($value, $width, $height);
+		if(!strstr($res, 'imageslim')) {
+			$res .= strstr($res, '?')?'|imageslim':'?imageslim';
+		}
 		return self::waterMark($res);
 	}
 
