@@ -318,7 +318,7 @@ $("#formSubmitBtn").on("click", function () {
                     'yjfa': $('#yjfa').val(),
                     'jy_rule': $('#jy_rule').val(),
                     'dk_rule': $('#dk_rule').val(),
-                    'peripheral': $('#peripheral').val(),
+                    'peripheral': replace_n($('#peripheral').val()),
                     'imgarr': imgarr,
                     'fmindex':fmindex,
                     'qf_uid': uid,
@@ -386,4 +386,12 @@ function GetQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(decodeURI(r[2]));
     return null;
+}
+function replace_n(str) {
+    var list = str.split("\n");
+    str = "<p>";
+    for (var i = 1; i < list.length; i++) {
+        str += list[i] + "</p ><p>"
+    }
+    return str;
 }
