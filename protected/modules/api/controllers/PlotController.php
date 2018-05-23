@@ -536,7 +536,7 @@ class PlotController extends ApiController{
 				preg_match('/[0-9|,]+/', $value,$tmp);
 				// var_dump($tmp);exit;
 				$tmpp = $tmp[0];
-				list($nothis,$extthis) = explode(',', $tmpp);
+				strstr($tmpp, ',') && list($nothis,$extthis) = explode(',', $tmpp);
 				$phonesnum = array_merge($phonesnum,$tmp);
 				if(strstr($tmpp, ',')) {
 					if($rmq = Yii::app()->db->createCommand("select qf_uid from user where virtual_no='$nothis' and virtual_no_ext='$extthis'")->queryScalar()) {
