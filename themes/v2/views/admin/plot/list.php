@@ -61,7 +61,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
             <td  class="text-center"><?=$company?('<a href="'.$this->createUrl('list',['company'=>$company->id]).'">'.$company->name.'</a>'):'暂无'?></td>
             <td  class="text-center"><a target="_blank" href="<?=$this->createUrl('/admin/plotMarketUser/list',['hid'=>$v->id])?>"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></a></td>
-            <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)+($v->status?300:0)+($v->sort?1000:0))?></td>
+            <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)+($v->status?0:0)+($v->sort?0:0))?></td>
             <td class="text-center"><?php echo $v->top_time?date('Y-m-d H:i:s',$v->top_time):'-'; ?></td>
             <td class="text-center"><?php echo date('Y-m-d H:i:s',$v->refresh_time); ?></td>
             <td class="text-center"><?php echo date('Y-m-d',$v->created); ?></td>
