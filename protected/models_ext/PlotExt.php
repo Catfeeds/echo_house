@@ -197,7 +197,7 @@ class PlotExt extends Plot{
             if(isset($tmps[0])) {
                 foreach ($tmps[0] as $key => $value) {
                     $user = UserExt::model()->find("phone='".$value."'");
-                    if(!$user->virtual_no) {
+                    if($user&&(!$user->virtual_no)) {
                         $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
                         $vp = $vps->phone;
                         $nowext = $vps->max?($vps->max+1):1;
