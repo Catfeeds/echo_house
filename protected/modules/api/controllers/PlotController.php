@@ -529,11 +529,30 @@ class PlotController extends ApiController{
 				$asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 			}
 		}
+		$qfuidsarr = [];
 		shuffle($phones);
 		if($phones) {
 			foreach ($phones as $key => $value) {
 				preg_match('/[0-9|,]+/', $value,$tmp);
+				// var_dump($tmp);exit;
+				$tmpp = $tmp[0];
+				list($nothis,$extthis) = explode(',', $tmpp);
 				$phonesnum = array_merge($phonesnum,$tmp);
+				if(strstr($tmpp, ',')) {
+					if($rmq = Yii::app()->db->createCommand("select qf_uid from user where virtual_no='$nothis' and virtual_no_ext='$extthis'")->queryScalar()) {
+						$qfuidsarr[] = $rmq;
+					} else {
+						$qfuidsarr[] = '';
+					}
+				} else {
+					if($rmq = Yii::app()->db->createCommand("select qf_uid from user where phone='$tmpp'")->queryScalar()) {
+						$qfuidsarr[] = $rmq;
+					} else {
+						$qfuidsarr[] = '';
+					}
+				}
+				
+				// $qfuidsarr[] = UserExt::model()->find()
 			}
 		}
 		$data = [
@@ -566,6 +585,7 @@ class PlotController extends ApiController{
 			'is_login'=>$this->staff?'1':'0',
 			'wx_share_title'=>$info->wx_share_title?$info->wx_share_title:$info->title,
 			'phonesnum'=>$phonesnum,
+			'qfuidsarr'=>$qfuidsarr,
 			'zd_company'=>['id'=>$info->company_id,'name'=>$info->company_name],
 			'tags'=>$tagName,
 			'is_contact_only'=>$is_contact_only,
