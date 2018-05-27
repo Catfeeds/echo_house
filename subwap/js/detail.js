@@ -109,7 +109,8 @@ $(document).ready(function(){
             $.get('/api/wx/zone?imgUrl='+detail.images[0]['url']+'&title='+detail.wx_share_title+'&link='+window.location.href+'&desc='+detail.sell_point.substring(0,30),function(data) {
                 $('body').append(data);
             });
-            $('.detail-top-img-title').append(detail.title+'-'+detail.area+'-'+detail.street);
+            $('.detail-top-img-title').append(detail.title);
+            $('.detail-top-img-address').append('[ '+detail.street+' ]');
             area=detail.area;
             title=detail.title;
             $('.detail-head-price').append(detail.price,detail.unit);
@@ -230,7 +231,7 @@ $(document).ready(function(){
             var swiper = new Swiper('.detail-head-img-container',{
                 loop: true,
                 onSlideChangeEnd:function() {
-                    $('.detail-head-img-examplepic').html($('.swiper-slide-active').find('img').data('type'));
+                    $('.detail-head-img-index').html($('.swiper-slide-active').data('swiper-slide-index')+1 +'/' + detail.images.length);
                 }
               });
            
