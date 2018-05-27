@@ -530,13 +530,13 @@ body{
 	text-align: center;
 	margin-right:6px;
 	font-size: 0.7rem;
-	border-radius: 0.3rem;
+	border-radius: 0.1rem;
 }
 .detail-question-info .icon-wen{
 	background-color: #e7631a;
 }
 .detail-question-info .icon-da{
-	background-color: #62ab00
+	background-color: #00b7ee
 }
 .detail-question-info-num{
 	position: absolute;
