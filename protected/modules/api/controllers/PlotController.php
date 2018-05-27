@@ -380,15 +380,18 @@ class PlotController extends ApiController{
 				if($value['url']) {
 					if($value['url']==$info->image) {
 						$isfmq = 1;
-					} else
-						$images[$key]['url'] = ImageTools::CImg($value['url'],750);
-					if(!$value['type']) {
-						$images[$key]['type'] = '效果图';
-					}
+					} else {
 
+						$images[$key]['url'] = ImageTools::CImg($value['url'],750);
+						if(!$value['type']) {
+								$images[$key]['type'] = '效果图';
+							}
+
+							
+							$images[$key]['content'] = $images[$key]['url'];
+						}
+					}
 					
-					$images[$key]['content'] = $images[$key]['url'];
-				}
 			}
 		}
 		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::CImg($info->image,750),'content'=>ImageTools::CImg($info->image,750)];
