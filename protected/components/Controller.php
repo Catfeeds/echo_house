@@ -347,7 +347,7 @@ class Controller extends CController
 		}
 		return $data;
 	}
-	public function post($url, $post_data = '', $timeout = 5){//curl
+	public function post($url, $post_data = '',$header, $timeout = 5){//curl
  
         $ch = curl_init();
  
@@ -364,6 +364,8 @@ class Controller extends CController
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
  
         curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+
+        curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
  
         curl_setopt($ch, CURLOPT_HEADER, false);
  
@@ -454,6 +456,34 @@ class Controller extends CController
 		str_shuffle($str);
 		$name=substr(str_shuffle($str),26,$limit);
 		return $name;
+    }
+
+    public function curl_post($url,$data,$header,$post=1)
+    {
+        //初始化curl
+        $ch = curl_init();
+        //参数设置
+        $res= curl_setopt ($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt ($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, $post);
+        if($post)
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
+        $result = curl_exec ($ch);
+        //连接失败
+        if($result == FALSE){
+            if($this->BodyType=='json'){
+                $result = "{\"statusCode\":\"172001\",\"statusMsg\":\"网络错误\"}";
+            } else {
+                $result = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Response><statusCode>172001</statusCode><statusMsg>网络错误</statusMsg></Response>";
+            }
+        }
+
+        curl_close($ch);
+        return $result;
     }
 
 }

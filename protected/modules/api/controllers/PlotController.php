@@ -2429,10 +2429,41 @@ class PlotController extends ApiController{
 
     public function actionAxntest()
     {
-    	$obj = Yii::app()->axn;
-    	$res = $obj->bindAxnExtension('默认号码池','13861242596','110',date('Y-m-d H:i:s',time()+86400*100));
-
+    	// /Accounts/{accountSid}/nme/xb/{operatorId}/providenumber
+    	// https://apppro.cloopen.com:8883/2013-12-26
+    	$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
+    	$timestr = date('YmdHis',time());
+    	// var_dump($timestr);exit;
+    	$othurl = "/Accounts/8a216da8635e621f016390d1df141b73/nme/xb/cu01/providenumber?sig=".strtoupper(md5('8a216da8635e621f016390d1df141b73'.'72bd3b95cb2a43bd981cea3160ddd72f'.$timestr));
+    	$authen = '';
+    	$arr = [
+    		'appId'=>'8a216da8635e621f016390d1df631b79',
+    		'phoneNumber'=>'18621657355',
+    		'xNumberRestrict'=>'0',
+    		'areaCode'=>'0755',
+    		'icDisplayFlag'=>"0",
+    	];
+    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
+    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
+    	// var_dump($authen);exit;
+    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
     	var_dump($res);exit;
+
+    }
+
+    public function actionCallPhone($key='')
+    {
+    	if($key && $this->staff) {
+    		$res = str_replace('tel:', '', $key);
+    		if(strstr($res, ',')) {
+    			list($a,$b) = explode(',', $res);
+    			$user = UserExt::model()->find("virtual_no='$a' and virtual_no_ext='$b'");
+    			
+    		} else {
+    			$user = UserExt::model()->find("phone='$res'");
+    		}
+    		$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$this->staff->name.$this->staff->phone]);
+    	}
     }
 
 }
