@@ -546,10 +546,11 @@ color:#c3c3c3;
 	position: absolute;
 	top: 3.9rem;
 	left:6.8rem;
-	width: 12.2rem;
+	width: 10rem;
 	height: 0.853rem;
 	overflow: hidden;
 	color:#868686;
+	z-index: 9999;
 }
 .house-text-size{
 	font-size: 0.64rem;

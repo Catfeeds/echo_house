@@ -21,7 +21,7 @@ body{
 .detail-head-img-container{
 	position: relative;
 	width: 20.0rem;
-	height: 13.067rem;
+	height: 15rem;
 	overflow: hidden;
 }
 
@@ -46,20 +46,13 @@ body{
     }
 
 .detail-head-img{
-	height: 13.067rem;
+	height: 15rem;
 	width: 20.0rem;
 	z-index: 0;
 }
 
 .detail-top-img-title{
-	position: absolute;
-	top: 0.0rem;
-	width: 20.0rem;
-	font-size: 0.8rem;
-	top: 0.8rem;
-	color: #fff;
-	text-align: center;
-	z-index: 1;
+	font-size: 1.3rem;
 }
 
 .detail-top-img-alert{
@@ -82,10 +75,32 @@ body{
 .detail-head-img-examplepic{
 	position: absolute;
 	left: 0.747rem;
-	top: 11.787rem;
+	top: 12.5rem;
 	font-size: 0.747rem;
 	color: #fff;
 	z-index: 1;
+}
+
+.detail-top-img-address{
+	width:100px;
+	position: absolute;
+	left: 8.5rem;
+	top: 0.5rem;
+	font-size: 0.747rem;
+	color: #fff;
+	z-index: 1;
+}
+
+.detail-head-img-num{
+	position: absolute;
+	right: 0.747rem;
+	top: 13rem;
+	font-size: 0.747rem;
+	color: #676B71;
+	z-index: 1;
+	background: #0A0E13;
+	padding:3px 8px;
+	border-radius: 8px;
 }
 
 .detail-small-tag{
@@ -515,13 +530,13 @@ body{
 	text-align: center;
 	margin-right:6px;
 	font-size: 0.7rem;
-	border-radius: 0.3rem;
+	border-radius: 0.1rem;
 }
 .detail-question-info .icon-wen{
 	background-color: #e7631a;
 }
 .detail-question-info .icon-da{
-	background-color: #62ab00
+	background-color: #00b7ee
 }
 .detail-question-info-num{
 	position: absolute;
