@@ -42,6 +42,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <th class="text-center">楼盘发布人</th>
             <th class="text-center">总代公司</th>
             <th class="text-center">对接人数</th>
+            <th class="text-center">拨打量</th>
             <th class="text-center">今日/总 <a href="list?sort=views"><i class="fa fa-arrow-down"></i></a></th>
             <th class="text-center">置顶时间</th>
             <th class="text-center">刷新时间</th>
@@ -61,6 +62,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
             <td  class="text-center"><?=$company?('<a href="'.$this->createUrl('list',['company'=>$company->id]).'">'.$company->name.'</a>'):'暂无'?></td>
             <td  class="text-center"><a target="_blank" href="<?=$this->createUrl('/admin/plotMarketUser/list',['hid'=>$v->id])?>"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></a></td>
+            <td  class="text-center"><?php echo $v->call_num ?></td>
             <td  class="text-center"><?php echo Yii::app()->redis->getClient()->hGet('plot_views',$v->id).'/'.($v->views + Yii::app()->redis->getClient()->hGet('plot_views',$v->id)+($v->status?0:0)+($v->sort?0:0))?></td>
             <td class="text-center"><?php echo $v->top_time?date('Y-m-d H:i:s',$v->top_time):'-'; ?></td>
             <td class="text-center"><?php echo date('Y-m-d H:i:s',$v->refresh_time); ?></td>

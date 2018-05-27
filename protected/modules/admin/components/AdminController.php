@@ -68,6 +68,7 @@ class AdminController extends Controller
                 ['label' => '项目列表', 'url' => ['/admin/plot/list']],
                 ['label' => '项目修改流水', 'url' => ['/admin/plot/editlist']],
                 ['label' => '项目动态列表', 'url' => ['/admin/plot/newslistnew']],
+                ['label' => '项目呼叫列表', 'url' => ['/admin/plot/calllist']],
                 ['label' => '新建项目', 'url' => ['/admin/plot/edit'],'active'=>$this->route=='admin/plot/edit'],
             ]],
             ['label' => '公司管理', 'icon' => 'icon-speedometer', 'items' => [

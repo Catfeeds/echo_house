@@ -90,9 +90,11 @@ $(window).on("popstate",function(e){
         
 });
 function initlisttitle() {
+    // console.log(11);
     if(GetQueryString('zd_company') != null) {
         $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销');
     } else {
+         QFH5.setTitle('项目列表');
         $('title').html('项目列表');
     }
      
@@ -928,6 +930,7 @@ function showdetail(id) {
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
+             QFH5.setTitle(detail.title);
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');
