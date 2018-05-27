@@ -892,6 +892,7 @@ function cleardetail() {
     $('.detail-sailpoint-message').empty();
     $('.detail-daikanrules-message').empty();
     $('#mainstyle ul').empty();
+    $('.detail-top-img-address').empty();
     $('.swiper-wrapper').empty();
     $('.telephone-consult li').not('#showadd').remove();
     $('#samearea ul').empty();

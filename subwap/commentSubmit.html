@@ -47,7 +47,7 @@
                     function(data, status) {
                         if (data.status == "success") {
                             alert("提交成功,待管理员审核！");
-                            window.history.go(-1);
+                            location.href = document.domain+'/api/index/detail?id='+hid;
                         } else {
                             alert(data.msg);
                         }
