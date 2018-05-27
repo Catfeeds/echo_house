@@ -56,7 +56,6 @@ color:#c3c3c3;
 	position: relative;
 	width: 20.0rem;
 	height: 1.707rem;
-	margin-bottom: 
 }
 #search-history-ul li{
 	position: relative;
@@ -112,7 +111,7 @@ color:#c3c3c3;
 	position: fixed;
 	top: 0rem;
 	background-color: #fff;
-	z-index: 99;
+	z-index: 99999;
 }
 .list-head-bg{
 	position: relative;
