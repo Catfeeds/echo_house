@@ -375,7 +375,7 @@ class PlotController extends ApiController{
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
 				// $value['url'] && $images[$key]['url'] = ImageTools::CImg($value['url'],375);
-				if($value['url']) {
+				if($value['url'] && $value['url']!=$info->image) {
 					$images[$key]['url'] = ImageTools::CImg($value['url'],750);
 					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
@@ -387,7 +387,7 @@ class PlotController extends ApiController{
 			}
 		}
 		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::CImg($info->image,750),'content'=>ImageTools::CImg($info->image,750)];
-		array_unshift($images, $fm);
+		!$info->images && array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
 			$areaName = $area->name;
