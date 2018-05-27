@@ -11,7 +11,8 @@ class PlotCallExt extends PlotCall{
     public function relations()
     {
         return array(
-            // 'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
+            'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
+            
             'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
