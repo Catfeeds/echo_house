@@ -932,7 +932,8 @@ function showdetail(id) {
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
-             QFH5.setTitle(detail.title);
+            if(typeof QFH5 != "undefined")
+                QFH5.setTitle(detail.title);
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');
