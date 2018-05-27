@@ -90,9 +90,11 @@ $(window).on("popstate",function(e){
         
 });
 function initlisttitle() {
+    // console.log(11);
     if(GetQueryString('zd_company') != null) {
         $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销');
     } else {
+         QFH5.setTitle('项目列表');
         $('title').html('项目列表');
     }
      
@@ -930,6 +932,7 @@ function showdetail(id) {
             streetid = detail.streetid;
             sameArea();
             $('title').html(detail.title);
+             QFH5.setTitle(detail.title);
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');
@@ -1098,7 +1101,7 @@ function showdetail(id) {
                         // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                     }
                     // debugger;
-                    $('.telephone-consult ul').append('<li><a href="tel:'+detail.phonesnum[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div></a>'+(detail.qfuidsarr[i]!=""?'<div onclick="setChat(this)" data-text="'+detail.qfuidsarr[i]+'" class="copy-weixin">在线聊天</div>':'')+'<a href="tel:'+detail.phonesnum[i]+'"><img class="consult-tel-img" src="./img/tel-green.png"></div></a><div class="line"></div></li>');
+                    $('.telephone-consult ul').append('<li><a onclick="makeCall(this)"  href="tel:'+detail.phonesnum[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div></a>'+(detail.qfuidsarr[i]!=""?'<div onclick="setChat(this)" data-text="'+detail.qfuidsarr[i]+'" class="copy-weixin">在线聊天</div>':'')+'<a onclick="makeCall(this)"  href="tel:'+detail.phonesnum[i]+'"><img class="consult-tel-img" src="./img/tel-green.png"></div></a><div class="line"></div></li>');
                 }
             }
 
@@ -1604,4 +1607,9 @@ function setChat(obj) {
     if($(obj).data('text')) {
         QFH5.jumpTalk($(obj).data('text'),'','');
     } 
+}
+function makeCall(obj) {
+    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href'),function(data) {
+        
+    });
 }

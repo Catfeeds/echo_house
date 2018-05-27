@@ -2451,7 +2451,7 @@ class PlotController extends ApiController{
 
     }
 
-    public function actionCallPhone($key='')
+    public function actionCallPhone($key='',$hid='')
     {
     	if($key && $this->staff) {
     		$res = str_replace('tel:', '', $key);
@@ -2462,7 +2462,26 @@ class PlotController extends ApiController{
     		} else {
     			$user = UserExt::model()->find("phone='$res'");
     		}
-    		$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$this->staff->name.$this->staff->phone]);
+    		if($user) {
+    			$plot = PlotExt::model()->findByPk($hid);
+    			// 保存该情况
+	    		$obj = new PlotCallExt;
+	    		$obj->calla = $this->staff->phone;
+	    		$obj->callb = $user->phone;
+	    		$obj->time = time();
+	    		$obj->hid = $hid;
+	    		$obj->title = $plot->title;
+	    		// 每小时只能一次
+	    		if(PlotCallExt::model()->find("hid=$hid and calla='".$this->staff->phone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
+	    			$obj->msg_time = '';
+	    		} else {
+	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$this->staff->name.$this->staff->phone]);
+	    			$obj->msg_time = time();
+	    		}
+	    		$obj->save();
+	    			
+    		}
+	    		
     	}
     }
 

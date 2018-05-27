@@ -194,6 +194,70 @@ class PlotController extends AdminController{
 		$infos = PlotNewsExt::model()->undeleted()->getList($criteria,20);
 		$this->render('newslistnew',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
 	}
+	/**
+	 * [actionList 动态列表]
+	 * @param  string $title [description]
+	 * @return [type]        [description]
+	 */
+	public function actionCalllist($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='')
+	{
+		$modelName = 'PlotExt';
+		$criteria = new CDbCriteria;
+		if($value = trim($value))
+            if ($type=='title') {
+            	$cre = new CDbCriteria;
+                $cre->addSearchCondition('title', $value);
+                $ids = [];
+                if($ress = PlotExt::model()->findAll($cre)) {
+                	// var_dump($ress);
+                	foreach ($ress as $res) {
+                		$ids[] = $res['id'];
+                	}
+                }
+                // var_dump($ids);
+                $criteria->addInCondition('hid',$ids);
+            } elseif($type=='calla') {
+            	$criteria->addSearchCondition('calla',$value);
+            } elseif($type=='callb') {
+            	$criteria->addSearchCondition('callb',$value);
+            }
+        //添加时间、刷新时间筛选
+        if($time_type!='' && $time!='')
+        {
+            list($beginTime, $endTime) = explode('-', $time);
+            $beginTime = (int)strtotime(trim($beginTime));
+            $endTime = (int)strtotime(trim($endTime));
+            $criteria->addCondition("{$time_type}>=:beginTime");
+            $criteria->addCondition("{$time_type}<:endTime");
+            $criteria->params[':beginTime'] = TimeTools::getDayBeginTime($beginTime);
+            $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
+
+        }
+        if(Yii::app()->user->id>1) {
+        	$company=Yii::app()->user->cid;
+        }
+        if($company) {
+        	$criteria->addCondition('company_id=:comid');
+        	$criteria->params[':comid'] = $company;
+        }
+        if(is_numeric($status)) {
+        	$criteria->addCondition('status=:status');
+        	$criteria->params[':status'] = $status;
+        }
+         if(is_numeric($is_uid)) {
+         	if($is_uid)
+        		$criteria->addCondition('uid>0');
+        	else
+        		$criteria->addCondition('uid=0');
+        }
+		$this->controllerName = '项目呼叫';
+		$criteria->order = 'created desc';
+		// if($sort) {
+		// 	$criteria->order = $sort.' desc';
+		// }
+		$infos = PlotCallExt::model()->getList($criteria,20);
+		$this->render('calllist',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
+	}
 
 	/**
 	 * [actionList 问答列表]
