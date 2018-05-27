@@ -506,7 +506,7 @@ function setCompany(obj,e) {
     html = ' &nbsp;' + GetQueryString('company') + ' x&nbsp; ';
     $('#companytag').html(html);
     $("title").html(GetQueryString('company')+'-多盘联动-诚邀分销');
-
+    o.page_count = '';
     ajaxGetList(o);
     // changeState();
     // location.href = 'list.html?zd_company='+$(obj).data('id')+'&company='+$(obj).html();

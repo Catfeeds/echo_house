@@ -371,12 +371,17 @@ class PlotController extends ApiController{
 		Yii::app()->redis->getClient()->hIncrBy('plot_views',$info->id,1);
 		$info_no_pic = ImageTools::CImg(SiteExt::getAttr('qjpz','info_no_pic'),750);
 		$images = $info->images;
+		$isfmq = 0;
 		if($images) {
 			foreach ($images as $key => $value) {
 				is_numeric($value['type']) && $images[$key]['type'] = Yii::app()->params['imageTag'][$value['type']];
 				// $value['url'] && $images[$key]['url'] = ImageTools::CImg($value['url'],375);
-				if($value['url'] && $value['url']!=$info->image) {
-					$images[$key]['url'] = ImageTools::CImg($value['url'],750);
+
+				if($value['url']) {
+					if($value['url']==$info->image) {
+						$isfmq = 1;
+					} else
+						$images[$key]['url'] = ImageTools::CImg($value['url'],750);
 					if(!$value['type']) {
 						$images[$key]['type'] = '效果图';
 					}
@@ -387,7 +392,7 @@ class PlotController extends ApiController{
 			}
 		}
 		$fm = ['id'=>0,'type'=>'封面图','url'=>ImageTools::CImg($info->image,750),'content'=>ImageTools::CImg($info->image,750)];
-		!$info->images && array_unshift($images, $fm);
+		!$isfmq && array_unshift($images, $fm);
 
 		if($area = $info->areaInfo)
 			$areaName = $area->name;
