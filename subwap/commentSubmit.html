@@ -39,6 +39,8 @@
             var note = $('.writebox').val();
             var is_nm = $("input[name='radio']:checked").val();
             if(note){
+                $('.remark-btn').attr('disable',true);
+                $('.remark').css({'background':'#ccc'});
                 $.post("/api/plot/addDp", {
                         hid: hid,
                         note: note,
