@@ -894,6 +894,8 @@ function cleardetail() {
     $('#mainstyle ul').empty();
     $('.detail-top-img-address').empty();
     $('.swiper-wrapper').empty();
+    // $('.detail-head-img-container').empty();
+    swiper = null;
     $('.telephone-consult li').not('#showadd').remove();
     $('#samearea ul').empty();
     $('.detail-laststate-time').empty();
@@ -1074,9 +1076,10 @@ function showdetail(id) {
                 }
             }
             
-            var swiper = new Swiper('.detail-head-img-container',{
+            swiper = new Swiper('.detail-head-img-container',{
                 loop: true,
                 onSlideChangeEnd:function() {
+
                     $('.detail-head-img-index').html($('.swiper-slide-active').data('swiper-slide-index')+1 +'/' + detail.images.length);
                 }
               });
