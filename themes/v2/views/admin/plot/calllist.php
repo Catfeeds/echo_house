@@ -37,7 +37,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><a target="_blank" href="/api/index/detail?id=<?=$v->hid?>"><?=$v->title?></a></td>
-            <td class="text-center"><?=$callresa?($callresa->name.$v->calla):''?></td> 
+            <td class="text-center"><?=$callresa?($callresa->name.$v->calla):$v->calla?></td> 
             <td class="text-center"><?=$callresb?($callresb->name.$v->callb):''?></td> 
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
