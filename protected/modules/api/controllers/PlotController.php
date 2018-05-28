@@ -2462,6 +2462,8 @@ class PlotController extends ApiController{
     public function actionCallPhone($key='',$hid='',$fxphone='')
     {
     	if($key) {
+    		$aphone = '';
+    		$name = '';
     		if($this->staff) {
     			$name = $this->staff->name;
     			$aphone = $this->staff->phone;
