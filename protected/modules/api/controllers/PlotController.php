@@ -2459,9 +2459,17 @@ class PlotController extends ApiController{
 
     }
 
-    public function actionCallPhone($key='',$hid='')
+    public function actionCallPhone($key='',$hid='',$fxphone='')
     {
-    	if($key && $this->staff) {
+    	if($key) {
+    		if($this->staff) {
+    			$name = $this->staff->name;
+    			$aphone = $this->staff->phone;
+    		} elseif ($fxphone) {
+    			$name = '用户';
+    			$aphone = $fxphone;
+    		}
+
     		$res = str_replace('tel:', '', $key);
     		if(strstr($res, ',')) {
     			list($a,$b) = explode(',', $res);
@@ -2470,23 +2478,27 @@ class PlotController extends ApiController{
     		} else {
     			$user = UserExt::model()->find("phone='$res'");
     		}
-    		if($user) {
+    		if($user && $aphone && $hid) {
     			$plot = PlotExt::model()->findByPk($hid);
     			// 保存该情况
 	    		$obj = new PlotCallExt;
-	    		$obj->calla = $this->staff->phone;
+	    		$obj->calla = $aphone;
 	    		$obj->callb = $user->phone;
 	    		$obj->time = time();
 	    		$obj->hid = $hid;
 	    		$obj->title = $plot->title;
 	    		// 每小时只能一次
-	    		if(PlotCallExt::model()->find("hid=$hid and calla='".$this->staff->phone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
+	    		if(PlotCallExt::model()->find("hid=$hid and calla='".$aphone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
 	    			$obj->msg_time = '';
 	    		} else {
-	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$this->staff->name.$this->staff->phone]);
+	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$name.$aphone]);
+	    			// 千帆app通知
+	    			$user->qf_uid && Yii::app()->controller->sendNotice("尊敬的".$user->name."您好！".$name.$aphone."正在拨打您的电话，祝您多多开单！",$user->qf_uid);
+	    			// $rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$name.$aphone]);
 	    			$obj->msg_time = time();
+	    			$obj->save();
 	    		}
-	    		$obj->save();
+	    		
 	    			
     		}
 	    		

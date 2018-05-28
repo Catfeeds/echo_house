@@ -19,6 +19,7 @@ function init() {
 }
 var filter = new Object();
 var is_jy = 0;
+var nowphone = '';
 var is_user = false;
 //==============核心代码=============  
 var winH = $(window).height(); //页面可视区域高度   
@@ -167,6 +168,13 @@ $(document).ready(function() {
     init();
     thisurl = '';
     var toptag = '';
+    if(typeof QFH5 != "undefined") {
+         QFH5.getUserInfo(function(state,data){
+           if(state==1){
+                nowphone = data.phone;
+              } 
+        });
+    }
     if(GetQueryString('order')==1) {
         $('.list-head-container').css('display','none');
         $('.list-head-bg').css('margin-top','-5rem');

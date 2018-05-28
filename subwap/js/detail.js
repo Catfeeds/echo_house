@@ -2,6 +2,7 @@
 var hid = '';
 var title='';
 var phone='';
+var nowphone = '';
 var areaid='';
 var streetid='';
 var is_jy = 0;
@@ -68,11 +69,19 @@ $(document).ready(function(){
     // var clipboard1 = new Clipboard('.fuzhiwenan');  
     // 复制文案
     // data-clipboard-text="'+detail.phonesnum[i]+'" clas
-    
+    if(typeof QFH5 != "undefined") {
+         QFH5.getUserInfo(function(state,data){
+           if(state==1){
+                nowphone = data.phone;
+              } 
+        });
+    }
+       
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
     $('#laststate-img').css('display','none');
     $('#comment-img').css('display','none');
+
     $.get('/api/config/index',function(data) {
         is_jy = data.data.is_jy;
         if(data.data.is_user == true) {
@@ -615,7 +624,7 @@ function setChat(obj) {
 }
 
 function makeCall(obj) {
-    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href'),function(data) {
+    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href')+'&fxphone='+nowphone,function(data) {
         
     });
 }
