@@ -1622,7 +1622,7 @@ function setChat(obj) {
     } 
 }
 function makeCall(obj) {
-    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href'),function(data) {
+    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href')+'&fxphone='+nowphone,function(data) {
         
     });
 }
