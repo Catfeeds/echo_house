@@ -1989,18 +1989,22 @@ class PlotController extends ApiController{
 			if($title = $this->cleanXss($_POST['title'])) {
 				$num = $this->cleanXss($_POST['num']);
 				$uid = Yii::app()->request->getPost('uid','');
+				$rnum = 0;
 				switch ($title) {
 					case '399':
 						$time = 90*86400*$num;
 						break;
 					case '699':
 						$time = 180*86400*$num;
+						$rnum = 10;
 						break;
 					case '1299':
 						$time = 365*86400*$num;
+						$rnum = 25;
 						break;
 					case '2199':
 						$time = 365*86400*2*$num;
+						$rnum = 60;
 						break;
 					
 					default:
@@ -2021,6 +2025,7 @@ class PlotController extends ApiController{
 					} else {
 						$obj->vip_expire = $obj->vip_expire+$time;
 					}
+					$obj->refresh_num += $rnum;
 					if(!$obj->save()) {
 						$this->returnError(current(current($obj->getErrors())));
 					}
