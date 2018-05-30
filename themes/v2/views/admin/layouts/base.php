@@ -138,7 +138,7 @@
                 	<ul>
                 	<?php $siteqq = SiteExt::getAttr('qjpz','siteqq')?>
                     	<li>有事您找我</li>
-                        <li>客服：<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=$siteqq&amp;site=qq&amp;menu=yes" target="_blank" class="qq">QQ交谈</a></li>                                            </ul>
+                        <li>客服：<a href="//wpa.qq.com/msgrd?v=3&amp;uin=$siteqq&amp;site=qq&amp;menu=yes" target="_blank" class="qq">QQ交谈</a></li>                                            </ul>
                   </div>
 			</ul>
 			<!-- END SIDEBAR MENU -->
