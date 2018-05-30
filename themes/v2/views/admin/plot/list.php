@@ -96,7 +96,9 @@ $this->breadcrumbs = array($this->pageTitle);
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <div class=""></div>
                 <h4 class="modal-title">查询用户</h4>
+                
             </div>
             <div class="modal-body">
                  <img src="" class="modal_img" style="width: 100%;height:100%" alt="">
