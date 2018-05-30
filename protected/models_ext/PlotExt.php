@@ -212,8 +212,11 @@ class PlotExt extends Plot{
                             $user->subs_id = $res->SecretBindDTO->SubsId;
                             $user->save();
                             $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
-                            $user->virtual_no_ext && $newvps->max = $user->virtual_no_ext;
-                            $newvps->save();
+                            if($newvps && $user->virtual_no_ext) {
+                                $user->virtual_no_ext && $newvps->max = $user->virtual_no_ext;
+                                $newvps->save();
+                            }
+                                
                         } else {
                             Yii::log(json_encode($res));
                         }
