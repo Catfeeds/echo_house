@@ -27,9 +27,13 @@ $this->breadcrumbs = array($this->pageTitle);
         </form>
     </div>
     <div class="pull-right">
+    <a href="#AdminIframe" data-url="findInfo" class="btn grey" data-toggle="modal">
+            查询信息
+        </a>
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
+        
     </div>
 </div>
 <table class="table table-bordered table-striped table-condensed flip-content">
@@ -87,7 +91,23 @@ $this->breadcrumbs = array($this->pageTitle);
     </tbody>
 </table>
 <?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>
-
+<div class="modal fade" id="AdminIframe" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">查询用户</h4>
+            </div>
+            <div class="modal-body">
+                 <img src="" class="modal_img" style="width: 100%;height:100%" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <script>
 <?php Tools::startJs(); ?>
     setInterval(function(){

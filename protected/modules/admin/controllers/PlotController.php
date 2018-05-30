@@ -810,4 +810,9 @@ class PlotController extends AdminController{
 		}
 	}
 
+	public function actionFindInfo()
+	{
+		$this->render('findInfo');
+	}
+
 }

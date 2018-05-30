@@ -21,13 +21,13 @@ class AdminIdentity extends CUserIdentity
 			$this->setState('avatar','');
 			return $this->errorCode;
 		} else{
-			if($user = UserExt::model()->normal()->find("is_manage=1 and phone='".$this->username."'") ){
-				if($user->pwd == md5($this->password)) {
+			if($user = StaffExt::model()->normal()->find("name='".$this->username."'") ){
+				if($user->password == $this->password) {
 					$this->errorCode = self::ERROR_NONE;
 					$this->setState('id',$user->id);
+					$this->setState('cid','');
 					$this->setState('username',$user->name);
 					$this->setState('avatar','');
-					$this->setState('cid',$user->cid);
 					return $this->errorCode;
 				}
 			}

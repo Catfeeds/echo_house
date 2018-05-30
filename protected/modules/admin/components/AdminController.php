@@ -17,7 +17,7 @@ class AdminController extends Controller
      * @var array 当前访问页面的面包屑. 这个值将被赋值给links属性{@link CBreadcrumbs::links}.
      */
     public $breadcrumbs = array();
-
+    public $staff;
     /**
      * 过滤器
      */
@@ -51,17 +51,8 @@ class AdminController extends Controller
         return array_merge($this->RBACRules(), $rules);
     }
 
-    /**
-     * 自定义左侧菜单，设置方法与zii.widget.CMenu相似，详见CMenu.php
-     * 使用技巧：
-     * 1、系统会自动将'url'与当前访问路由匹配的菜单进行高亮，使用'active'可指定需要高亮的菜单项，只需设置'active'元素的值为一个布尔值的表达式即可。
-     * 假设要访问非admin/index/index页面时使得该菜单项高亮，则进行如下设置：
-     * array('label'=>'首页','url'=>array('/admin/index/index', 'active'=>$this->route=='admin/index/test'))
-     * 这会使得在访问admin/index/test时，admin/index/index菜单项进行高亮
-     */
-    public function getVipMenu()
+    public function getAllMenu()
     {
-        if(Yii::app()->user->id == 1)
         return [
             ['label'=>'管理中心','icon'=>'icon-settings','url'=>'/admin/common/index','active'=>$this->route=='admin/common/index'],
             ['label' => '项目管理', 'icon' => 'icon-speedometer', 'items' => [
@@ -86,6 +77,7 @@ class AdminController extends Controller
             ['label'=>'上下架管理','icon'=>'icon-speedometer','url'=>['/admin/down/list'],'active'=>$this->route=='admin/down/edit'],
             ['label'=>'标签管理','icon'=>'icon-speedometer','url'=>['/admin/tag/list'],'active'=>$this->route=='admin/tag/edit'],
             ['label'=>'用户管理','icon'=>'icon-speedometer','url'=>['/admin/user/list']],
+            ['label'=>'员工管理','icon'=>'icon-speedometer','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
             ['label'=>'虚拟号码管理','icon'=>'icon-speedometer','url'=>['/admin/virtualPhone/list'],'active'=>$this->route=='admin/virtualPhone/edit'],
             ['label' => '推广管理', 'icon' => 'icon-speedometer', 'items' => [
                 ['label' => '域名管理', 'url' => ['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
@@ -93,19 +85,51 @@ class AdminController extends Controller
             ]],
             // ['label'=>'推广管理','icon'=>'icon-speedometer','url'=>['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
             ['label'=>'站点配置','icon'=>'icon-speedometer','url'=>['/admin/site/list'],'active'=>$this->route=='admin/site/edit'||$this->route=='admin/site/list'],
-            // ['label'=>'ahalist','icon'=>'icon-speedometer','url'=>['/admin/aha/list']],
-
-            
         ];
-        else
-           return [
-                ['label'=>'管理中心','icon'=>'icon-settings','url'=>'/admin/common/index','active'=>$this->route=='admin/common/index'],
-                ['label' => '项目管理', 'icon' => 'icon-speedometer', 'items' => [
-                    ['label' => '项目列表', 'url' => ['/admin/plot/list']],
-                    ['label' => '新建项目', 'url' => ['/admin/plot/edit'],'active'=>$this->route=='admin/plot/edit'],
-                ]],
-            ]; 
+    }
+
+    /**
+     * 自定义左侧菜单，设置方法与zii.widget.CMenu相似，详见CMenu.php
+     * 使用技巧：
+     * 1、系统会自动将'url'与当前访问路由匹配的菜单进行高亮，使用'active'可指定需要高亮的菜单项，只需设置'active'元素的值为一个布尔值的表达式即可。
+     * 假设要访问非admin/index/index页面时使得该菜单项高亮，则进行如下设置：
+     * array('label'=>'首页','url'=>array('/admin/index/index', 'active'=>$this->route=='admin/index/test'))
+     * 这会使得在访问admin/index/test时，admin/index/index菜单项进行高亮
+     */
+    public function getVipMenu()
+    {
+        $allmenu = $this->getAllMenu();
+        if(Yii::app()->user->id == 1){
+            return $allmenu;
+        }
+        else {
+
+            $data = [];
+            $user = StaffExt::model()->findByPk(Yii::app()->user->id);
+            $this->staff = $user;
+            $hisarr = json_decode($user->arr,true);
+            if($hisarr) {
+                // foreach ($hisarr as $key => $value) {
+                    foreach ($allmenu as $m=>$n) {
+                        if(in_array($m+1, $hisarr)) {
+                            $data[] = $allmenu[$m];
+                        }
+                    }
+                // }
+            }
+            return $data;
+        }
     } 
+
+    public function getFormatMenu()
+    {
+        $arr = $this->getAllMenu();
+        $data = [];
+        foreach ($arr as $key => $value) {
+            $data[$key+1] = $value['label'];
+        }
+        return $data;
+    }
 
     /**
      * [getPersonalSalingNum 个人可以上架数目]

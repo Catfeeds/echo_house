@@ -28,8 +28,25 @@ class CommonController extends AdminController
             $model->username = Yii::app()->request->getPost('username', '');
             $model->password = Yii::app()->request->getPost('password', '');
             $model->rememberMe = Yii::app()->request->getPost('rememberMe', 0);
-            if( $model->validate() && $model->login() )
-                $this->redirect(array('/admin/common/index'));
+            if( $model->validate() && $model->login() ) {
+                // if($this->staff->arr && in_array(1, json_decode($this->staff->arr,true)))
+                //     $this->redirect(array('/admin/common/index'));
+                // else {
+
+                // }
+                if(Yii::app()->user->id==1) {
+                    $this->redirect(array('/admin/common/index'));
+                } else {
+                    $mn = $this->getVipMenu()[0];
+                    if(isset($mn['url'])) {
+                        $this->redirect(array($this->getVipMenu()[0]['url']));
+                    } else {
+                        $this->redirect($this->getVipMenu()[0]['items'][0]['url']);
+                    }
+                    // var_dump($this->getVipMenu()[0]);exit;
+                    
+                }
+            }
         }
         $this->render('login', array(
             'model' => $model,
