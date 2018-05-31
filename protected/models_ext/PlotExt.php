@@ -237,7 +237,9 @@ class PlotExt extends Plot{
                             $obj->cid = $this->company_id;
                             $obj->name = str_replace($num, '', $value);
                             // var_dump($obj->name);exit;
-                            $obj->save();
+                            if($obj->save()) {
+                                SmsExt::sendMsg('新用户注册',$obj->phone,['name'=>$obj->name,'num'=>PlotExt::model()->normal()->count()+800]);
+                            }
                         }
                     }
                 }

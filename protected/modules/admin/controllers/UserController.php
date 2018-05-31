@@ -78,6 +78,9 @@ class UserController extends AdminController{
             !$info->pwd && $info->pwd = md5('jjqxftv587');
             // $info->pwd = md5($info->pwd);
             if($info->save()) {
+                if($info->getIsNewRecord()) {
+                    SmsExt::sendMsg('新用户注册',$info->phone,['name'=>$info->name,'num'=>PlotExt::model()->normal()->count()+800]);
+                }
                 $this->setMessage('操作成功','success',['list']);
             } else {
                 $this->setMessage(array_values($info->errors)[0][0],'error');
