@@ -802,7 +802,7 @@ class ToolCommand extends CConsoleCommand
                                 $user->status = 1;
                                 $user->save();
                                 $num++;
-                                echo ($num.'==============');
+                                echo $num;
                             }
                         }
                     }
