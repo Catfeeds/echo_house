@@ -2498,10 +2498,9 @@ class PlotController extends ApiController{
 	    		if(PlotCallExt::model()->find("hid=$hid and calla='".$aphone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
 	    			$obj->msg_time = '';
 	    		} else {
-	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['lpmc'=>$plot->title,'name'=>$user->name,'obj'=>$name.$aphone,'xftwx'=>'微信号'.SiteExt::getAttr('qjpz','site_wx')]);
+	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['lpmc'=>$plot->title,'name'=>$user->name,'obj'=>$name.$aphone]);
 	    			// 千帆app通知
-	    			$user->qf_uid && Yii::app()->controller->sendNotice("尊敬的".$plot->title."对接人".$user->name."您好！".$name.$aphone."正在拨打您的电话，祝您多多开单哦！如有新项目要发布或其他问题请添加微信：".SiteExt::getAttr('qjpz','site_wx'),$user->qf_uid);
-	    			// $rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['name'=>$user->name,'obj'=>$name.$aphone]);
+	    			$user->qf_uid && Yii::app()->controller->sendNotice("尊敬的".$plot->title."对接人".$user->name."您好！".$name.$aphone."正在拨打您的电话，祝您多多开单哦！",$user->qf_uid);
 	    			$obj->msg_time = time();
 	    			$obj->save();
 	    		}

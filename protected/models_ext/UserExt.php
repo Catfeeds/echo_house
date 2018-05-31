@@ -82,6 +82,30 @@ class UserExt extends User{
     }
 
     public function beforeValidate() {
+        // 总代必有虚拟号
+        if($this->type==1) {
+            if(!$this->virtual_no) {
+                $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
+                $vp = $vps->phone;
+                $nowext = $vps->max?($vps->max+1):1;
+                $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
+                // var_dump($nowext);exit;
+                // 生成绑定
+                $obj = Yii::app()->axn;
+                $res = $obj->bindAxnExtension('默认号码池',$this->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
+                if($res->Code=='OK') {
+                    $this->virtual_no = $res->SecretBindDTO->SecretNo;
+                    $this->virtual_no_ext = $res->SecretBindDTO->Extension;
+                    $this->subs_id = $res->SecretBindDTO->SubsId;
+                    // $user->save();
+                    $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$this->virtual_no'"]);
+                    $this->virtual_no_ext && $newvps->max = $this->virtual_no_ext;
+                    $newvps->save();
+                } else {
+                    Yii::log(json_encode($res));
+                }
+            }
+        }
         if(!$this->type) {
             $cinfo = $this->companyinfo;
             if(!$cinfo) {
@@ -163,6 +187,33 @@ class UserExt extends User{
             ),
             'BaseBehavior'=>'application.behaviors.BaseBehavior',
         );
+    }
+
+    public static function makeVirtual($user)
+    {
+        if(!$user->virtual_no) {
+            $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
+            $vp = $vps->phone;
+            $nowext = $vps->max?($vps->max+1):1;
+            $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
+            // var_dump($nowext);exit;
+            // 生成绑定
+            $obj = Yii::app()->axn;
+            $res = $obj->bindAxnExtension('默认号码池',$user->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
+            if($res->Code=='OK') {
+                $user->virtual_no = $res->SecretBindDTO->SecretNo;
+                $user->virtual_no_ext = $res->SecretBindDTO->Extension;
+                $user->subs_id = $res->SecretBindDTO->SubsId;
+                $user->save();
+                $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
+                if($newvps && $user->virtual_no_ext) {
+                    $newvps->max = $user->virtual_no_ext;
+                }
+                $newvps->save();
+            } else {
+                Yii::log(json_encode($res));
+            }
+        }
     }
 
 }
