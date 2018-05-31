@@ -816,7 +816,7 @@ class ToolCommand extends CConsoleCommand
      */
     public function actionSendZd()
     {
-        $timeb = time()-3600;
+        $timeb = time()-60;
         $users = UserExt::model()->findAll('status=1 and type=1 and created>'.$timeb);
         if($users) {
             foreach ($users as $key => $value) {
