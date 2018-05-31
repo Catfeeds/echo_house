@@ -102,7 +102,9 @@ class UserExt extends User{
 
                         // $user->save();
                         $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$this->virtual_no'"]);
-                        $this->virtual_no_ext && $newvps->max = $this->virtual_no_ext;
+                        if($newvps && $this->virtual_no_ext) {
+                            $newvps->max = $this->virtual_no_ext;
+                        }
 
                         $newvps->save();
                     } else {
