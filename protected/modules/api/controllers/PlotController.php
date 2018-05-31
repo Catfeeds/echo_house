@@ -2442,32 +2442,25 @@ class PlotController extends ApiController{
 
     public function actionAxntest()
     {
-    	$num = 0;
-        foreach (PlotExt::model()->findAll() as $key => $value) {
-            // if($pm = $value->market_users) {
-                if($value->market_users && strlen($value->market_users)<20) {
-                    preg_match_all('/[0-9]+/', $value->market_users, $tmps);
-                    // var_dump($tmps);exit;
-                    if(isset($tmps[0])) {
-                        foreach ($tmps[0] as $thisphone) {
-                            $user = UserExt::model()->find("phone='".$thisphone."'");
-                            // 没有的话加入总代且发送短信且生成虚拟号
-                            if(!$user) {
-                                $user = new UserExt;
-                                $user->phone = $thisphone;
-                                $user->name = str_replace($thisphone, '', $value->market_users);
-                                $user->type = 1;
-                                $user->cid = $value->company_id;
-                                $user->status = 1;
-                                $user->save();
-                                $num++;
-                                echo $num;
-                            }
-                        }
-                    }
-                }
-            // }
-        }
+    	// /Accounts/{accountSid}/nme/xb/{operatorId}/providenumber
+    	// https://apppro.cloopen.com:8883/2013-12-26
+    	$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
+    	$timestr = date('YmdHis',time());
+    	// var_dump($timestr);exit;
+    	$othurl = "/Accounts/8a216da8635e621f016390d1df141b73/nme/xb/cu01/providenumber?sig=".strtoupper(md5('8a216da8635e621f016390d1df141b73'.'72bd3b95cb2a43bd981cea3160ddd72f'.$timestr));
+    	$authen = '';
+    	$arr = [
+    		'appId'=>'8a216da8635e621f016390d1df631b79',
+    		'phoneNumber'=>'18621657355',
+    		'xNumberRestrict'=>'0',
+    		'areaCode'=>'0755',
+    		'icDisplayFlag'=>"0",
+    	];
+    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
+    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
+    	// var_dump($authen);exit;
+    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
+    	var_dump($res);exit;
 
     }
 
@@ -2516,6 +2509,38 @@ class PlotController extends ApiController{
     		}
 	    		
     	}
+    }
+
+    public function actionTest()
+    {
+    	$num = 0;
+        foreach (PlotExt::model()->findAll() as $key => $value) {
+            // if($pm = $value->market_users) {
+                if($value->market_users && strlen($value->market_users)<20) {
+                    preg_match_all('/[0-9]+/', $value->market_users, $tmps);
+
+                               
+                    // var_dump($tmps);exit;
+                    if(isset($tmps[0])) {
+                        foreach ($tmps[0] as $thisphone) {
+                            $user = UserExt::model()->find("phone='".$thisphone."'");
+                            // 没有的话加入总代且发送短信且生成虚拟号
+                            if(!$user) {
+                                $user = new UserExt;
+                                $user->phone = $thisphone;
+                                $user->name = str_replace($thisphone, '', $value->market_users);
+                                $user->type = 1;
+                                $user->cid = $value->company_id;
+                                $user->status = 1;
+                                $ress = $user->save();
+                                $num++;
+                                echo $num;
+                            }
+                        }
+                    }
+                }
+            // }
+        }
     }
 
 }
