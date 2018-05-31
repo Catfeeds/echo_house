@@ -2511,4 +2511,34 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionTest()
+    {
+    	$num = 0;
+        foreach (PlotExt::model()->findAll() as $key => $value) {
+            // if($pm = $value->market_users) {
+                if($value->market_users && strlen($value->market_users)<20) {
+                    preg_match_all('/[0-9]+/', $value->market_users, $tmps);
+                    // var_dump($tmps);exit;
+                    if(isset($tmps[0])) {
+                        foreach ($tmps[0] as $thisphone) {
+                            $user = UserExt::model()->find("phone='".$thisphone."'");
+                            // 没有的话加入总代且发送短信且生成虚拟号
+                            if(!$user) {
+                                $user = new UserExt;
+                                $user->phone = $thisphone;
+                                $user->name = str_replace($thisphone, '', $value->market_users);
+                                $user->type = 1;
+                                $user->cid = $value->company_id;
+                                $user->status = 1;
+                                $user->save();
+                                $num++;
+                                echo $num;
+                            }
+                        }
+                    }
+                }
+            // }
+        }
+    }
+
 }
