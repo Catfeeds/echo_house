@@ -810,4 +810,18 @@ class ToolCommand extends CConsoleCommand
             // }
         }
     }
+
+    /**
+     * 一小时内新加入的总代发短信
+     */
+    public function actionSendZd()
+    {
+        $timeb = time()-86400;
+        $users = UserExt::model()->findAll('status=1 and type=1 and created>'.$timeb);
+        if($users) {
+            foreach ($users as $key => $value) {
+                SmsExt::sendMsg('新用户注册',$value->phone,['name'=>$value->name,'num'=>PlotExt::model()->normal()->count()+800]);
+            }
+        }
+    }
 }

@@ -494,7 +494,7 @@ class PlotController extends AdminController{
 				$company_id = $house->company_id;
 				
 			} else {
-				if($house->getIsNewRecord())
+				if($house->getIsNewRecord()) 
 					$company_id = Yii::app()->user->cid;
 			}
 			// if(!is_array($zd_company) && $zd_company) {
@@ -516,6 +516,33 @@ class PlotController extends AdminController{
 					$tagArray = array_merge($tagArray,$tmp);
 				}
 			}
+			// 坑爹的composer暂时解决不了
+			// if($house->getIsNewRecord()) {
+			// 	if($house->company_id && $house->market_users) {
+	  //               $mks = explode(' ', $house->market_users);
+	  //               foreach ($mks as $key => $value) {
+	  //                   preg_match_all('/[0-9]+/', $value,$num);
+	  //                   if(isset($num[0][0])) {
+	  //                       $num = $num[0][0];
+
+	  //                       if(!Yii::app()->db->createCommand("select id from user where phone='".$num."'")->queryScalar()){
+	  //                       	$time = time();
+	  //                           // $obj = new UserExt;
+	  //                           // $obj->phone = $num;
+	  //                           // $obj->status = $obj->type = 1;
+	  //                           // $obj->cid = $house->company_id;
+	  //                           // $obj->name = str_replace($num, '', $value);
+	  //                           // $obj->save();
+	  //                           $sql = "insert into user(phone,status,cid,name,type,created,updated) values('$num',1,".$house->company_id.",'".str_replace($num, '', $value)."',1,$time,$time)";
+	  //                           Yii::app()->db->createCommand($sql)->execute();
+	  //                           // SmsExt::sendMsg('新用户注册',$obj->phone,['name'=>$obj->name,'num'=>PlotExt::model()->normal()->count()+800]);
+	  //                           SmsExt::sendMsg('新用户注册','13861242596',['name'=>'zt','num'=>PlotExt::model()->normal()->count()+800]);
+	  //                       }
+	  //                   }
+	  //               }
+	  //           }		
+			// }
+			// exit;
 			// var_dump($tagArray);exit;
 			if($house->save()) {
 				if($change) {

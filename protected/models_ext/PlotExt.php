@@ -191,39 +191,6 @@ class PlotExt extends Plot{
             $this->company_id = $cms[0]['id'];
             $this->company_name = $cms[0]['name'];
         }
-        // if($this->market_users) {
-        //     preg_match_all('/[0-9]+/', $this->market_users, $tmps);
-        //     // var_dump($tmps);exit;
-        //     if(isset($tmps[0])) {
-        //         foreach ($tmps[0] as $key => $value) {
-        //             $user = UserExt::model()->find("phone='".$value."'");
-        //             if($user&&(!$user->virtual_no)) {
-        //                 $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
-        //                 $vp = $vps->phone;
-        //                 $nowext = $vps->max?($vps->max+1):1;
-        //                 $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
-        //                 // var_dump($nowext);exit;
-        //                 // 生成绑定
-        //                 $obj = Yii::app()->axn;
-        //                 $res = $obj->bindAxnExtension('默认号码池',$user->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
-        //                 if($res->Code=='OK') {
-        //                     $user->virtual_no = $res->SecretBindDTO->SecretNo;
-        //                     $user->virtual_no_ext = $res->SecretBindDTO->Extension;
-        //                     $user->subs_id = $res->SecretBindDTO->SubsId;
-        //                     $user->save();
-        //                     $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
-        //                     if($newvps && $user->virtual_no_ext) {
-        //                         $user->virtual_no_ext && $newvps->max = $user->virtual_no_ext;
-        //                         $newvps->save();
-        //                     }
-                                
-        //                 } else {
-        //                     Yii::log(json_encode($res));
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         if($this->getIsNewRecord()) {
             if($this->company_id && $this->market_users) {
                 $mks = explode(' ', $this->market_users);
@@ -237,9 +204,7 @@ class PlotExt extends Plot{
                             $obj->status = $obj->type = 1;
                             $obj->cid = $this->company_id;
                             $obj->name = str_replace($num, '', $value);
-                            if($obj->save()) {
-                                SmsExt::sendMsg('新用户注册',$obj->phone,['name'=>$obj->name,'num'=>PlotExt::model()->normal()->count()+800]);
-                            }
+                            $obj->save();
                         }
                     }
                 }
@@ -281,26 +246,6 @@ class PlotExt extends Plot{
                 }
             }
         }
-        // if($this->company_id && $this->market_users) {
-        //     $mks = explode(' ', $this->market_users);
-        //     foreach ($mks as $key => $value) {
-        //         preg_match_all('/[0-9]+/', $value,$num);
-        //         if(isset($num[0][0])) {
-        //             $num = $num[0][0];
-        //             if($user = UserExt::model()->find("phone='$num'")){
-        //                 if($user->cid!=$this->company_id) {
-        //                     $user->cid = $this->company_id;
-        //                     $user->save();
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // if($this->company_id && $this->owner && $this->owner->cid!=$this->company_id) {
-
-        //     $this->owner->cid = $this->company_id;
-        //     $this->owner->save();
-        // }
         CacheExt::delete('wap_init_plotlist');  
         CacheExt::delete('wap_area_plotlist');  
         // PlotExt::setPlotCache(); 
