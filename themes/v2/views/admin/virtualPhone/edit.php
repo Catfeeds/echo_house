@@ -21,13 +21,13 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
 </div>
-<!-- <div class="form-group">
+<div class="form-group">
     <label class="col-md-2 control-label">最大分机号</label>
     <div class="col-md-4">
         <?php echo $form->textField($article, 'max', array('class' => 'form-control')); ?>
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'max') ?></div>
-</div> -->
+</div>
 
 <div class="form-actions">
     <div class="row">
