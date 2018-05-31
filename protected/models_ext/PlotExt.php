@@ -234,7 +234,7 @@ class PlotExt extends Plot{
                         if(!UserExt::model()->find("phone='$num'")){
                             $obj = new UserExt;
                             $obj->phone = $num;
-                            $obj->status = 1;
+                            $obj->status = $obj->type = 1;
                             $obj->cid = $this->company_id;
                             $obj->name = str_replace($num, '', $value);
                             if($obj->save()) {
