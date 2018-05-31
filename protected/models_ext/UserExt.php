@@ -128,7 +128,7 @@ class UserExt extends User{
             $this->vip_expire = strtotime($this->vip_expire);
         }
         if($this->getIsNewRecord()) {
-            SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
+            // SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
             // Yii::log($res);
             // exit;
             if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {
