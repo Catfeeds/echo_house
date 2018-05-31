@@ -101,7 +101,7 @@ class UserExt extends User{
                         $this->subs_id = $res->SecretBindDTO->SubsId;
 
                         // $user->save();
-                        Yii::log($this->virtual_no);
+                        // Yii::log($this->virtual_no);
                         $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$this->virtual_no'"]);
                         if($newvps && $this->virtual_no_ext) {
                             $newvps->max = $this->virtual_no_ext;
@@ -130,8 +130,8 @@ class UserExt extends User{
             $this->vip_expire = strtotime($this->vip_expire);
         }
         if($this->getIsNewRecord()) {
-            // SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
-            Yii::log($this->phone);
+            SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
+            // Yii::log($this->phone);
             // exit;
             if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {
                 $this->qf_uid = $_COOKIE['qf_uid'];
