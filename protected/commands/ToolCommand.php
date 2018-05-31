@@ -801,7 +801,8 @@ class ToolCommand extends CConsoleCommand
                                 $user->cid = $value->company_id;
                                 $user->status = 1;
                                 $user->save();
-                                echo ($num++).'==============';
+                                $num++;
+                                echo ($num.'==============');
                             }
                         }
                     }
