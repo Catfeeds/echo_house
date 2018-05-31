@@ -786,9 +786,8 @@ class ToolCommand extends CConsoleCommand
         $num = 0;
         foreach (PlotExt::model()->findAll() as $key => $value) {
             // if($pm = $value->market_users) {
-                if($value->market_users && strlen($value->market_users)<20) {
+                if($value->market_users) {
                     preg_match_all('/[0-9]+/', $value->market_users, $tmps);
-                    // var_dump($tmps);exit;
                     if(isset($tmps[0])) {
                         foreach ($tmps[0] as $thisphone) {
                             $user = UserExt::model()->find("phone='".$thisphone."'");
@@ -832,13 +831,14 @@ class ToolCommand extends CConsoleCommand
 
         if($plots) {
             foreach ($plots as $key => $value) {
-                if($value->market_users && strlen($value->market_users)<20) {
+                if($value->market_users) {
                     preg_match_all('/[0-9]+/',$value->market_users,$num);
-                    if(isset($num[0][0])) {
-                        $num = $num[0][0];
-                        $res = Yii::app()->db->createCommand("select vip_expire from user where phone='$num'")->queryScalar();
-                        if(!$res) {
-                            SmsExt::sendMsg('免费对接人通知',$num,['lpmc'=>$value->title,'phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+                    if(isset($num[0]) && count($num[0])>0) {
+                        foreach ($num[0] as $num) {
+                            $res = Yii::app()->db->createCommand("select vip_expire from user where phone='$num'")->queryScalar();
+                            if(!$res) {
+                                SmsExt::sendMsg('免费对接人通知',$num,['lpmc'=>$value->title,'phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+                            }
                         }
                     }
                 }
