@@ -824,4 +824,26 @@ class ToolCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionSendFreeUser()
+    {
+        $timeb = time()-86400;
+        $plots = PlotExt::model()->findAll('status=1 and market_users!="" and created>'.$timeb);
+
+        if($plots) {
+            foreach ($plots as $key => $value) {
+                if($value->market_users && strlen($value->market_users)<20) {
+                    preg_match_all('/[0-9]+/',$value->market_users,$num);
+                    if(isset($num[0][0])) {
+                        $num = $num[0][0];
+                        $res = Yii::app()->db->createCommand("select vip_expire from user where phone='$num'")->queryScalar();
+                        if(!$res) {
+                            SmsExt::sendMsg('免费对接人通知',$num,['lpmc'=>$value->title,'phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
 }
