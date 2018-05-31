@@ -101,12 +101,14 @@ class UserExt extends User{
                         $this->subs_id = $res->SecretBindDTO->SubsId;
 
                         // $user->save();
+                        Yii::log($this->virtual_no);
                         $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$this->virtual_no'"]);
                         if($newvps && $this->virtual_no_ext) {
                             $newvps->max = $this->virtual_no_ext;
+                            $newvps->save();
                         }
 
-                        $newvps->save();
+                        
                     } else {
                         Yii::log(json_encode($res));
                     }
