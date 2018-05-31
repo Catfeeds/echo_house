@@ -83,7 +83,7 @@ class ToolCommand extends CConsoleCommand
 
     public function actionSendNo()
     {
-        $infos = UserExt::model()->findAll('vip_expire>'.time().' and vip_expire<'.time()+86400*3);
+        $infos = UserExt::model()->findAll('vip_expire>'.time().' and vip_expire<'.(time()+86400*3));
         // $infos = PlotMarketUserExt::model()->findAll('expire>'.time().' and expire<'.time()+86400*3);
         foreach ($infos as $key => $user) {
             if($user && $user->phone) {
