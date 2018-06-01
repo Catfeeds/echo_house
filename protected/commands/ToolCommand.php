@@ -876,4 +876,24 @@ class ToolCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionSendAllNo()
+    {
+        $page = 1;
+        begin:
+        $sql = "select phone,name from user where status=1 limit $page,200";
+        $ress = Yii::app()->db->createCommand($sql)->queryAll();
+        if($ress) {
+            foreach ($ress as $key => $value) {
+                if($value['phone'] && $value['name'])
+                    SmsExt::sendMsg('群发虚拟号通知短信',$value['phone'],['name'=>$value['name']]);
+            }
+            echo $page."=====================";
+            $page = $page+200;
+            goto begin;
+        }  else{
+            echo "finished";
+        }
+            
+    }
 }
