@@ -2526,7 +2526,7 @@ class PlotController extends ApiController{
 	    		'aNumber'=>$ph1,
 	    		'bNumber'=>$ph2,
 	    		'servingNumber'=>$x,
-	    		'areaCode'=>'0755',
+	    		'areaCode'=>$y,
 	    		'icDisplayFlag'=>"0",
 	    		'mappingDuration'=>"3000",
 	    	];
