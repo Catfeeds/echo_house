@@ -69,7 +69,7 @@ class UserController extends AdminController{
         $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status,'viptime'=>$viptime]);
     }
 
-    public function actionEdit($id='')
+    public function actionEdit($id='',$type='')
     {
         $modelName = $this->modelName;
         $info = $id ? $modelName::model()->findByPk($id) : new $modelName;
@@ -81,12 +81,12 @@ class UserController extends AdminController{
                 if($info->getIsNewRecord()) {
                     SmsExt::sendMsg('新用户注册',$info->phone,['name'=>$info->name,'num'=>PlotExt::model()->normal()->count()+800]);
                 }
-                $this->setMessage('操作成功','success',['list']);
+                $this->setMessage('操作成功','success',[$type=='admin'?'/admin/plot/list':'list']);
             } else {
                 $this->setMessage(array_values($info->errors)[0][0],'error');
             }
         } 
-        $this->render('edit',['cates'=>$this->cates,'article'=>$info]);
+        $this->render('edit',['cates'=>$this->cates,'article'=>$info,'type'=>$type]);
     }
 
     public function actionRecall($msg='',$id='')

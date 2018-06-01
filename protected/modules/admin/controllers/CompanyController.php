@@ -50,7 +50,7 @@ class CompanyController extends AdminController{
 		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status]);
 	}
 
-	public function actionEdit($id='')
+	public function actionEdit($id='',$type='')
 	{
 		$modelName = $this->modelName;
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
@@ -62,7 +62,7 @@ class CompanyController extends AdminController{
 					$this->setMessage('公司名已存在','error');
 				} else {
 					if($info->save()) {
-						$this->setMessage('操作成功','success',['list']);
+						$this->setMessage('操作成功','success',[$type=='admin'?'/admin/plot/list':'list']);
 					} else {
 						$this->setMessage(array_values($info->errors)[0][0],'error');
 					}
@@ -72,7 +72,7 @@ class CompanyController extends AdminController{
 					$this->setMessage('公司名已存在','error');
 				} else {
 					if($info->save()) {
-						$this->setMessage('操作成功','success',['list']);
+						$this->setMessage('操作成功','success',[$type=='admin'?'/admin/plot/list':'list']);
 					} else {
 						$this->setMessage(array_values($info->errors)[0][0],'error');
 					}
@@ -80,7 +80,7 @@ class CompanyController extends AdminController{
 			}
 					
 		} 
-		$this->render('edit',['article'=>$info,]);
+		$this->render('edit',['article'=>$info,'type'=>$type]);
 	}
 
 	public function actionSetCode($id='')

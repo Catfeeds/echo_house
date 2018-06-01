@@ -2522,6 +2522,24 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionFindCode($kw='')
+    {
+    	if($kw) {
+			$criteria = new CDbCriteria;
+			if(is_numeric($kw)) {
+				$criteria->addSearchCondition('code',$kw);
+			} else {
+				$criteria->addSearchCondition('name',$kw);
+			}
+			if($company = CompanyExt::model()->find($criteria)) {
+				// $cinfo = $user->companyinfo;
+				var_dump($company->code);exit;
+			} else {
+				var_dump('暂无信息');exit;
+			}
+		}
+    }
+
     public function actionTest()
     {
     	// 坑爹的composer暂时解决不了

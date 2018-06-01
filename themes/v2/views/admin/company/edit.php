@@ -96,7 +96,7 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
     <div class="row">
         <div class="col-md-offset-3 col-md-9">
             <button type="submit" class="btn green">保存</button>
-            <?php echo CHtml::link('返回',$this->createUrl('list'), array('class' => 'btn default')) ?>
+            <?php echo CHtml::link('返回',$this->createUrl($type=='admin'?'/admin/plot/list':'list'), array('class' => 'btn default')) ?>
         </div>
     </div>
 </div>

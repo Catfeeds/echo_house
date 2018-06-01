@@ -842,4 +842,42 @@ class PlotController extends AdminController{
 		$this->render('findInfo');
 	}
 
+	public function actionFindU($kw)
+	{
+		if($kw) {
+			$criteria = new CDbCriteria;
+			if(is_numeric($kw)) {
+				$criteria->addSearchCondition('phone',$kw);
+			} else {
+				$criteria->addSearchCondition('name',$kw);
+			}
+			if($user = UserExt::model()->find($criteria)) {
+				$cinfo = $user->companyinfo;
+				echo json_encode(['s'=>'success','id'=>$user->id,'name'=>$user->name,'phone'=>$user->phone,'company'=>$cinfo?$cinfo->name:'','type'=>UserExt::$ids[$user->type]]);
+			} else {
+				echo json_encode(['s'=>'error']);
+			}
+
+		}
+			
+	}
+
+	public function actionFindC($kw)
+	{
+		if($kw) {
+			$criteria = new CDbCriteria;
+			if(is_numeric($kw)) {
+				$criteria->addSearchCondition('code',$kw);
+			} else {
+				$criteria->addSearchCondition('name',$kw);
+			}
+			if($company = CompanyExt::model()->find($criteria)) {
+				// $cinfo = $user->companyinfo;
+				echo json_encode(['s'=>'success','id'=>$company->id,'code'=>$company->code,'name'=>$company->name,'type'=>UserExt::$ids[$company->type]]);
+			} else {
+				echo json_encode(['s'=>'error']);
+			}
+		}
+	}
+
 }

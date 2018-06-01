@@ -98,7 +98,26 @@ $this->breadcrumbs = array($this->pageTitle);
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <div class=""></div>
                 <h4 class="modal-title">查询用户</h4>
-                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6"><input type="text" class="form-control userfind" placeholder="请输入手机号/姓名"></div>
+                        <div class="col-md-6"><a onclick="findU()" class="btn btn-sm default">查询</a></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="ures"></div>
+                    </div>
+                </div>
+                <h4 class="modal-title">查询公司</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6"><input type="text" class="form-control companyfind" placeholder="请输公司名称/门店码"></div>
+                        <div class="col-md-6"><a onclick="findC()" class="btn btn-sm default">查询</a></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="cres"></div>
+                    </div>
+                </div>
+                    
             </div>
             <div class="modal-body">
                  <img src="" class="modal_img" style="width: 100%;height:100%" alt="">
@@ -173,11 +192,38 @@ $this->breadcrumbs = array($this->pageTitle);
         $.uniform.update(set);
     });
     //清空选项
-    function removeOptions()
+function removeOptions()
     {
         // alert($('.chose_select').val());
         $('.chose_text').val('');
         $('.chose_select').val('');
+    }
+
+    function   findU() {
+        $('.ures').empty();
+        var uname = $('.userfind').val();
+        if(uname) {
+            $.getJSON("<?php echo $this->createUrl('findU') ?>",{kw:uname},function(dt){
+                if(dt.s=='success') {
+                    $('.ures').append("<span>"+dt.name+" "+dt.phone+" "+dt.company+" "+dt.type+"</span> <a target='_blank' href='/admin/user/edit?type=admin&id="+dt.id+"'>编辑</a>");
+                } else {
+                    alert('暂无数据');
+                }
+            });
+        }
+    }
+    function   findC() {
+        $('.cres').empty();
+        var uname = $('.companyfind').val();
+        if(uname) {
+            $.getJSON("<?php echo $this->createUrl('findC') ?>",{kw:uname},function(dt){
+                if(dt.s=='success') {
+                    $('.cres').append("<span>"+dt.name+" "+dt.code+" "+dt.type+"</span> <a target='_blank' href='/admin/company/edit?type=admin&id="+dt.id+"'>编辑</a>");
+                } else {
+                    alert('暂无数据');
+                }
+            });
+        }
     }
 
     $("#hname").on("dblclick",function(){
