@@ -451,9 +451,11 @@ class PlotController extends ApiController{
 		} else {
 			// // var_dump(1);
 			preg_match('/[0-9|,]+/', $info->market_users,$thisp);
-			$user = UserExt::model()->find("phone='".$thisp[0]."'");
-			if($user)
-				$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
+			if(isset($thisp[0])&&$thisp[0]) {
+				$user = UserExt::model()->find("phone='".$thisp[0]."'");
+				if($user)
+					$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
+			}
 			// $phones = array_filter(explode(' ', $info->market_users));
 		}
 		// var_dump($phones);exit;
