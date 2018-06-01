@@ -205,7 +205,11 @@ function removeOptions()
         if(uname) {
             $.getJSON("<?php echo $this->createUrl('findU') ?>",{kw:uname},function(dt){
                 if(dt.s=='success') {
-                    $('.ures').append("<span>"+dt.name+" "+dt.phone+" "+dt.company+" "+dt.type+"</span> <a target='_blank' href='/admin/user/edit?type=admin&id="+dt.id+"'>编辑</a>");
+                    for (var i = 0; i < dt.list.length; i++) {
+                        $('.ures').append("<span>"+dt.list[i].name+" "+dt.list[i].phone+" "+dt.list[i].company+" "+dt.list[i].type+"</span> <a target='_blank' href='/admin/user/edit?type=admin&id="+dt.list[i].id+"'>编辑</a><br>");
+                        // $('.cres').append("<span>"+dt.list[i]['name']+" "+dt.list[i]['code']+" "+dt.list[i]['type']+"</span> <a target='_blank' href='/admin/company/edit?type=admin&id="+dt.list[i]['id']+"'>编辑</a><br>");
+                    }
+                    // $('.ures').append("<span>"+dt.name+" "+dt.phone+" "+dt.company+" "+dt.type+"</span> <a target='_blank' href='/admin/user/edit?type=admin&id="+dt.id+"'>编辑</a>");
                 } else {
                     alert('暂无数据');
                 }
@@ -218,7 +222,11 @@ function removeOptions()
         if(uname) {
             $.getJSON("<?php echo $this->createUrl('findC') ?>",{kw:uname},function(dt){
                 if(dt.s=='success') {
-                    $('.cres').append("<span>"+dt.name+" "+dt.code+" "+dt.type+"</span> <a target='_blank' href='/admin/company/edit?type=admin&id="+dt.id+"'>编辑</a>");
+                    for (var i = 0; i < dt.list.length; i++) {
+                        
+                        $('.cres').append("<span>"+dt.list[i]['name']+" "+dt.list[i]['code']+" "+dt.list[i]['type']+"</span> <a target='_blank' href='/admin/company/edit?type=admin&id="+dt.list[i]['id']+"'>编辑</a><br>");
+                    }
+                    
                 } else {
                     alert('暂无数据');
                 }

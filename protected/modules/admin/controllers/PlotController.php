@@ -851,9 +851,17 @@ class PlotController extends AdminController{
 			} else {
 				$criteria->addSearchCondition('name',$kw);
 			}
-			if($user = UserExt::model()->find($criteria)) {
-				$cinfo = $user->companyinfo;
-				echo json_encode(['s'=>'success','id'=>$user->id,'name'=>$user->name,'phone'=>$user->phone,'company'=>$cinfo?$cinfo->name:'','type'=>UserExt::$ids[$user->type]]);
+			if($userres = UserExt::model()->findAll($criteria)) {
+				if($userres) {
+					$tmp['s'] = 'success';
+					foreach ($userres as $key => $user) {
+						$cinfo = $user->companyinfo;
+						$tmp['list'][] = ['id'=>$user->id,'name'=>$user->name,'phone'=>$user->phone,'company'=>$cinfo?$cinfo->name:'','type'=>UserExt::$ids[$user->type]];
+					}
+				}
+				// $cinfo = $user->companyinfo;
+				// echo json_encode(['s'=>'success','id'=>$user->id,'name'=>$user->name,'phone'=>$user->phone,'company'=>$cinfo?$cinfo->name:'','type'=>UserExt::$ids[$user->type]]);
+				echo json_encode($tmp);
 			} else {
 				echo json_encode(['s'=>'error']);
 			}
@@ -871,9 +879,13 @@ class PlotController extends AdminController{
 			} else {
 				$criteria->addSearchCondition('name',$kw);
 			}
-			if($company = CompanyExt::model()->find($criteria)) {
+			if($companyrees = CompanyExt::model()->findAll($criteria)) {
+				$tmp['s'] = 'success';
+				foreach ($companyrees as $key => $company) {
+					$tmp['list'][] = ['id'=>$company->id,'code'=>$company->code,'name'=>$company->name,'type'=>UserExt::$ids[$company->type]];
+				}
 				// $cinfo = $user->companyinfo;
-				echo json_encode(['s'=>'success','id'=>$company->id,'code'=>$company->code,'name'=>$company->name,'type'=>UserExt::$ids[$company->type]]);
+				echo json_encode($tmp);
 			} else {
 				echo json_encode(['s'=>'error']);
 			}
