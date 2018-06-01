@@ -2111,26 +2111,30 @@ class PlotController extends ApiController{
     public function actionGetDpList($hid='',$page=1)
     {
     	$data = [];
-    	$criteria = new CDbCriteria;
-    	$criteria->addCondition("hid=$hid");
-    	if($ress = PlotDpExt::model()->normal()->getList($criteria,20)) {
-    		$datares = $ress->data;
-    		$page_count = $ress->pagination->pageCount;
-    		if($datares) {
-    			foreach ($datares as $key => $value) {
-    				$dpuser = $value->user;
-	    			$data[] = [
-	    				'id'=>$value->id,
-	    				'name'=>$value->is_nm?'匿名':$dpuser->name,
-	    				'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100),
-	    				'note'=>$value->note,
-	    				'time'=>date('Y-m-d',$value->updated),
-	    			];
+    	if($hid) {
+				$criteria = new CDbCriteria;
+	    	$criteria->addCondition("hid=$hid");
+	    	if($ress = PlotDpExt::model()->normal()->getList($criteria,20)) {
+	    		$datares = $ress->data;
+	    		$page_count = $ress->pagination->pageCount;
+	    		if($datares) {
+	    			foreach ($datares as $key => $value) {
+	    				$dpuser = $value->user;
+		    			$data[] = [
+		    				'id'=>$value->id,
+		    				'name'=>$value->is_nm?'匿名':$dpuser->name,
+		    				'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100),
+		    				'note'=>$value->note,
+		    				'time'=>date('Y-m-d',$value->updated),
+		    			];
+		    		}
 	    		}
-    		}
-	    		
+		    		
+	    	}
+	    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count];    
     	}
-    	$this->frame['data'] = ['list'=>$data,'page_count'=>$page_count];    }
+	    	
+    }
 
     public function actionGetAskList($hid='')
     {
