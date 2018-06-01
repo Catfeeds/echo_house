@@ -191,24 +191,25 @@ class PlotExt extends Plot{
             $this->company_id = $cms[0]['id'];
             $this->company_name = $cms[0]['name'];
         }
-        if($this->getIsNewRecord()) {
-            if($this->company_id && $this->market_users) {
-                $mks = explode(' ', $this->market_users);
-                foreach ($mks as $key => $value) {
-                    preg_match_all('/[0-9]+/', $value,$num);
-                    if(isset($num[0][0])) {
-                        $num = $num[0][0];
-                        if(!UserExt::model()->find("phone='$num'")){
-                            $obj = new UserExt;
-                            $obj->phone = $num;
-                            $obj->status = $obj->type = 1;
-                            $obj->cid = $this->company_id;
-                            $obj->name = str_replace($num, '', $value);
-                            $obj->save();
-                        }
+        if($this->company_id && $this->market_users) {
+            $mks = explode(' ', $this->market_users);
+            foreach ($mks as $key => $value) {
+                preg_match_all('/[0-9]+/', $value,$num);
+                if(isset($num[0][0])) {
+                    $num = $num[0][0];
+                    if(!UserExt::model()->find("phone='$num'")){
+                        $obj = new UserExt;
+                        $obj->phone = $num;
+                        $obj->status = $obj->type = 1;
+                        $obj->cid = $this->company_id;
+                        $obj->name = str_replace($num, '', $value);
+                        $obj->save();
                     }
                 }
             }
+        }
+        if($this->getIsNewRecord()) {
+            
             $this->created = $this->updated = time();
         }
         else {
