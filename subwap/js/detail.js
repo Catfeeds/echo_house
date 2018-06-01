@@ -269,7 +269,7 @@ $(document).ready(function(){
                         // $('.telephone-consult ul').append('<li><a href="tel:'+detail.phones[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/user.png"><div class="consult-text">'+detail.phones[i]+'</div><div onclick="copyUrl2()" data-clipboard-text="'+detail.phonesnum[i]+'" class="copy-weixin">复制微信号</div><img class="consult-tel-img" src="./img/tel-green.png"></div><div class="line"></div></a></li>');
                     }
                     // debugger;
-                    $('.telephone-consult ul').append('<li ><a onclick="makeCall(this)" href="tel:'+detail.phonesnum[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div></a>'+(detail.qfuidsarr[i]!=""?'<div onclick="setChat(this)" data-text="'+detail.qfuidsarr[i]+'" class="copy-weixin">在线聊天</div>':'')+'<a onclick="makeCall(this)" href="tel:'+detail.phonesnum[i]+'"><img class="consult-tel-img" src="./img/tel-green.png"></div></a><div class="line"></div></li>');
+                    $('.telephone-consult ul').append('<li ><a onclick="makeCall(this)" data-href="tel:'+detail.phonesnum[i]+'"><div class="telephone-place"><img class="consult-user-img" src="./img/'+icon+'"><div class="consult-text">'+detail.phones[i]+word+'</div></a>'+(detail.qfuidsarr[i]!=""?'<div onclick="setChat(this)" data-text="'+detail.qfuidsarr[i]+'" class="copy-weixin">在线聊天</div>':'')+'<a onclick="makeCall(this)" href="tel:'+detail.phonesnum[i]+'"><img class="consult-tel-img" src="./img/tel-green.png"></div></a><div class="line"></div></li>');
                 }
             }
 
@@ -326,15 +326,15 @@ $(document).ready(function(){
 
         
     });
-	//获取ID
-	if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
-		hid = GetQueryString('id');
-	}
+    //获取ID
+    if(GetQueryString('id')!=''&&GetQueryString('id')!=undefined) {
+        hid = GetQueryString('id');
+    }
     // if(GetQueryString('phone')!=''&&GetQueryString('phone')!=undefined) {
     //     phone = GetQueryString('phone');
     // }
-	//获取数据
-    	
+    //获取数据
+        
     // setInterval("console.log($('.detail-sailpoint-message').height())",5);
     // if ($('.detail-sailpoint-message').height()<3rem) {
     //     $('.maidian-on-off').css('display','none');
@@ -465,13 +465,13 @@ $('.detail-laststate-edit').click(function(e){
     location.href='publish.html?model='+$(this).data('model')+'&title='+$('.detail-top-img-title').html()+'&hid='+GetQueryString('id');
 });
 $('.detail-button-phone').click(function(){
-	if ($('.telephone-consult').is('.hide')) {
-		$('.telephone-consult').removeClass('hide');
-		$('.tel-bg').removeClass('hide');
-	} else {
-		$('.telephone-consult').addClass('hide');
-		$('.tel-bg').addClass('hide');
-	}
+    if ($('.telephone-consult').is('.hide')) {
+        $('.telephone-consult').removeClass('hide');
+        $('.tel-bg').removeClass('hide');
+    } else {
+        $('.telephone-consult').addClass('hide');
+        $('.tel-bg').addClass('hide');
+    }
 });
 $('.detail-buttom1').click(function(){
     if ($('.telephone-consult').is('.hide')) {
@@ -624,7 +624,9 @@ function setChat(obj) {
 }
 
 function makeCall(obj) {
-    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).attr('href')+'&fxphone='+nowphone,function(data) {
-        
+    $.get('/api/plot/callPhone?hid='+hid+'&key='+$(obj).data('href')+'&fxphone='+nowphone,function(data) {
+        if(data.status=='success') {
+            window.location.href = 'tel://' + data.msg;  
+        }
     });
 }

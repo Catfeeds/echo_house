@@ -2461,6 +2461,7 @@ class PlotController extends ApiController{
 
     public function actionCallPhone($key='',$hid='',$fxphone='')
     {
+
     	if($key) {
     		$aphone = '';
     		$name = '';
@@ -2481,29 +2482,69 @@ class PlotController extends ApiController{
     			$user = UserExt::model()->find("phone='$res'");
     		}
     		if($user && $aphone && $hid) {
-    			$plot = PlotExt::model()->findByPk($hid);
-    			// 保存该情况
-	    		$obj = new PlotCallExt;
-	    		$obj->calla = $aphone;
-	    		$obj->callb = $user->phone;
-	    		$obj->time = time();
-	    		$obj->hid = $hid;
-	    		$obj->title = $plot->title;
-	    		// 每小时只能一次
-	    		if(PlotCallExt::model()->find("hid=$hid and calla='".$aphone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
-	    			$obj->msg_time = '';
-	    		} else {
-	    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['lpmc'=>$plot->title,'name'=>$user->name,'obj'=>$name.$aphone]);
-	    			// 千帆app通知
-	    			$user->qf_uid && Yii::app()->controller->sendNotice("尊敬的".$plot->title."对接人".$user->name."您好！".$name.$aphone."正在拨打您的电话，祝您多多开单哦！",$user->qf_uid);
-	    			$obj->msg_time = time();
-	    			$obj->save();
-	    		}
-	    		
-	    			
+    			if($tt = $this->setAxb($aphone,$user->phone)) {
+    				$plot = PlotExt::model()->findByPk($hid);
+	    			// 保存该情况
+		    		$obj = new PlotCallExt;
+		    		$obj->calla = $aphone;
+		    		$obj->callb = $user->phone;
+		    		$obj->time = time();
+		    		$obj->hid = $hid;
+		    		$obj->title = $plot->title;
+		    		// 每小时只能一次
+		    		if(PlotCallExt::model()->find("hid=$hid and calla='".$aphone."' and callb='".$user->phone."' and msg_time>".(time()-3600))) {
+		    			$obj->msg_time = '';
+		    		} else {
+		    			$rr = SmsExt::sendMsg('呼叫用户短信',$user->phone,['lpmc'=>$plot->title,'name'=>$user->name,'obj'=>$name.$aphone]);
+		    			// 千帆app通知
+		    			$user->qf_uid && Yii::app()->controller->sendNotice("尊敬的".$plot->title."对接人".$user->name."您好！".$name.$aphone."正在拨打您的电话，祝您多多开单哦！",$user->qf_uid);
+		    			$obj->msg_time = time();
+		    			$obj->save();
+		    			$this->returnError('绑定错误');
+		    		}
+		    		$this->returnSuccess($tt);
+    			} else {
+    				$this->returnError('绑定错误');
+    			}
     		}
-	    		
     	}
+    }
+
+    public function setAxb($ph1='13861242596',$ph2)
+    {
+    	$x = '17080219064';
+    	$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
+    	$timestr = date('YmdHis',time());
+    	// var_dump($timestr);exit;
+    	// /Accounts/8a000da854e74cfc0154ead9b9930000/nme/axb/cu01/setnumber?sig=FB8E61DA357DA7BF6E14DD2D62226000
+    	$othurl = "/Accounts/8a216da8635e621f016390d1df141b73/nme/axb/cu01/setnumber?sig=".strtoupper(md5('8a216da8635e621f016390d1df141b73'.'72bd3b95cb2a43bd981cea3160ddd72f'.$timestr));
+    	$authen = '';
+    	$arr = [
+    		'appId'=>'8a216da8635e621f016390d1df631b79',
+    		'aNumber'=>$ph1,
+    		'bNumber'=>$ph2,
+    		'servingNumber'=>$x,
+    		'areaCode'=>'0755',
+    		'icDisplayFlag'=>"0",
+    		'mappingDuration'=>"3000",
+    	];
+    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
+    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
+    	// var_dump($authen);exit;
+    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
+    	$res = json_decode($res,true);
+    	if($res['statusCode']!='000000') {
+    		Yii::log(json_encode($res));
+    		return false;;
+    	} else {
+    		// 绑定成功
+    		return $x;
+    	}
+    }
+
+    public function actionAxbRecall()
+    {
+    	# code...
     }
 
     public function actionTest()
