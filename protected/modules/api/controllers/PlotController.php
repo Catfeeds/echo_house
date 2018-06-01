@@ -2525,7 +2525,7 @@ class PlotController extends ApiController{
 	    		'appId'=>'8a216da8635e621f016390d1df631b79',
 	    		'aNumber'=>$ph1,
 	    		'bNumber'=>$ph2,
-	    		'servingNumber'=>$x,
+	    		'servingNumber'=>(string)$x,
 	    		'areaCode'=>$y,
 	    		'icDisplayFlag'=>"0",
 	    		'mappingDuration'=>"3000",
@@ -2533,9 +2533,6 @@ class PlotController extends ApiController{
 	    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
 	    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
 	    	// var_dump($authen);exit;
-	    	Yii::log($baseUrl.$othurl);
-	    	Yii::log(json_encode($arr));
-	    	Yii::log(json_encode($header));
 	    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
 	    	$res = json_decode($res,true);
 	    	if($res['statusCode']!='000000') {
