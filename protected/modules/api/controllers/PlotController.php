@@ -438,25 +438,25 @@ class PlotController extends ApiController{
 		if($sfs = $info->sfMarkets) {
 			foreach ($sfs as $key => $value) {
 				$thisstaff = UserExt::model()->findByPk($value->uid);
-				if($thisstaff) {
-					if($thisstaff->virtual_no) {
-						$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
-					} else {
-						$phones[] = $thisstaff->name.$thisstaff->phone;
-					}
-				}
-				// $thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
+				// if($thisstaff) {
+				// 	if($thisstaff->virtual_no) {
+				// 		$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
+				// 	} else {
+				// 		$phones[] = $thisstaff->name.$thisstaff->phone;
+				// 	}
+				// }
+				$thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
 			}
 			// $phones = [];
 		} else {
 			// // var_dump(1);
-			preg_match('/[0-9|,]+/', $info->market_users,$thisp);
-			if(isset($thisp[0])&&$thisp[0]) {
-				$user = UserExt::model()->find("phone='".$thisp[0]."'");
-				if($user)
-					$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
-			}
-			// $phones = array_filter(explode(' ', $info->market_users));
+			// preg_match('/[0-9|,]+/', $info->market_users,$thisp);
+			// if(isset($thisp[0])&&$thisp[0]) {
+			// 	$user = UserExt::model()->find("phone='".$thisp[0]."'");
+			// 	if($user)
+			// 		$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
+			// }
+			$phones = array_filter(explode(' ', $info->market_users));
 		}
 		// var_dump($phones);exit;
 		$info->market_user && array_unshift($phones, $info->market_user);
@@ -501,13 +501,13 @@ class PlotController extends ApiController{
 		$ffphones=[];
 		if($ffs = $info->sfMarkets) {
 			foreach ($ffs as $key => $value) {
-				$ffu = $value->user;
-				if($ffu && $ffu->virtual_no) {
-					$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
-				} else {
-					$ffphones[] = $ffu->phone;
-				}
-				// $value->user&&$ffphones[] = $value->user->phone;
+				// $ffu = $value->user;
+				// if($ffu && $ffu->virtual_no) {
+				// 	$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
+				// } else {
+				// 	$ffphones[] = $ffu->phone;
+				// }
+				$value->user&&$ffphones[] = $value->user->phone;
 			}
 		}
 		$is_alert = 0;
@@ -567,7 +567,7 @@ class PlotController extends ApiController{
 						$qfuidsarr[] = '';
 					}
 				}
-				
+				$phones[$key] = str_replace($tmpp, '', $phones[$key]);
 				// $qfuidsarr[] = UserExt::model()->find()
 			}
 		}
@@ -2510,36 +2510,39 @@ class PlotController extends ApiController{
     	}
     }
 
-    public function setAxb($ph1='13861242596',$ph2)
+    public function setAxb($ph1,$ph2)
     {
-    	$x = '17080219064';
-    	$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
-    	$timestr = date('YmdHis',time());
-    	// var_dump($timestr);exit;
-    	// /Accounts/8a000da854e74cfc0154ead9b9930000/nme/axb/cu01/setnumber?sig=FB8E61DA357DA7BF6E14DD2D62226000
-    	$othurl = "/Accounts/8a216da8635e621f016390d1df141b73/nme/axb/cu01/setnumber?sig=".strtoupper(md5('8a216da8635e621f016390d1df141b73'.'72bd3b95cb2a43bd981cea3160ddd72f'.$timestr));
-    	$authen = '';
-    	$arr = [
-    		'appId'=>'8a216da8635e621f016390d1df631b79',
-    		'aNumber'=>$ph1,
-    		'bNumber'=>$ph2,
-    		'servingNumber'=>$x,
-    		'areaCode'=>'0755',
-    		'icDisplayFlag'=>"0",
-    		'mappingDuration'=>"3000",
-    	];
-    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
-    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
-    	// var_dump($authen);exit;
-    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
-    	$res = json_decode($res,true);
-    	if($res['statusCode']!='000000') {
-    		Yii::log(json_encode($res));
-    		return false;;
-    	} else {
-    		// 绑定成功
-    		return $x;
+    	// $x = '17080219064';
+    	$xarr = ['17080219064'=>'0755'];
+    	foreach ($xarr as $x => $y) {
+    		$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
+	    	$timestr = date('YmdHis',time());
+	    	// var_dump($timestr);exit;
+	    	// /Accounts/8a000da854e74cfc0154ead9b9930000/nme/axb/cu01/setnumber?sig=FB8E61DA357DA7BF6E14DD2D62226000
+	    	$othurl = "/Accounts/8a216da8635e621f016390d1df141b73/nme/axb/cu01/setnumber?sig=".strtoupper(md5('8a216da8635e621f016390d1df141b73'.'72bd3b95cb2a43bd981cea3160ddd72f'.$timestr));
+	    	$authen = '';
+	    	$arr = [
+	    		'appId'=>'8a216da8635e621f016390d1df631b79',
+	    		'aNumber'=>$ph1,
+	    		'bNumber'=>$ph2,
+	    		'servingNumber'=>$x,
+	    		'areaCode'=>'0755',
+	    		'icDisplayFlag'=>"0",
+	    		'mappingDuration'=>"3000",
+	    	];
+	    	$authen = base64_encode("8a216da8635e621f016390d1df141b73:$timestr");
+	    	$header = array("Accept:application/json","Content-Type:application/json;charset=utf-8","Authorization:$authen");
+	    	// var_dump($authen);exit;
+	    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
+	    	$res = json_decode($res,true);
+	    	if($res['statusCode']!='000000') {
+	    		Yii::log(json_encode($res));
+	    	} else {
+	    		// 绑定成功
+	    		return $x;
+	    	}
     	}
+	    return false;	
     }
 
     public function actionAxbRecall()
