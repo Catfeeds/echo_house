@@ -2536,7 +2536,7 @@ class PlotController extends ApiController{
 	    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
 	    	$res = json_decode($res,true);
 	    	if($res['statusCode']!='000000') {
-	    		Yii::log(json_encode($res));
+	    		Yii::log($ph1.$ph2.json_encode($res));
 	    	} else {
 	    		// 绑定成功
 	    		return $x;
