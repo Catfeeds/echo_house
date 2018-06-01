@@ -64,7 +64,7 @@ class UserController extends AdminController{
         if(is_numeric($status)) {
             $criteria->addCondition('status=:status');
             $criteria->params[':status'] = $status;
-        }        $criteria->order = 'sort desc,updated desc';
+        }        $criteria->order = 'sort desc,created desc,updated desc';
         $infos = $modelName::model()->undeleted()->getList($criteria,20);
         $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status,'viptime'=>$viptime]);
     }
