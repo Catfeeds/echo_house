@@ -1023,7 +1023,7 @@ class PlotController extends ApiController{
 						preg_match('/[0-9]+/', $value,$k);
 						$name = str_replace($k[0], '', $value);
 						$value1 = substr($k[0], 0,3);
-						$value2 = substr($k[0], 6,4);
+						$value2 = substr($k[0], 7,4);
 						$tmp[] = ['key'=>$k[0],'value'=>$name.$value1.'****'.$value2];
 					}
 				}
