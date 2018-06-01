@@ -2531,9 +2531,14 @@ class PlotController extends ApiController{
 			} else {
 				$criteria->addSearchCondition('name',$kw);
 			}
-			if($company = CompanyExt::model()->find($criteria)) {
+			if($company = CompanyExt::model()->findAll($criteria)) {
+				if($company) {
+					foreach ($company as $key => $value) {
+						var_dump($value->name.' '.$value->code);
+					}
+				}
 				// $cinfo = $user->companyinfo;
-				var_dump($company->code);exit;
+				exit;
 			} else {
 				var_dump('暂无信息');exit;
 			}
