@@ -1003,9 +1003,10 @@ class PlotController extends ApiController{
 				if($phones) {
 					foreach ($phones as $k => $value) {
 						preg_match('/[0-9]+/', $value,$k);
-						$value1 = substr($value, 0,3);
-						$value2 = substr($value, 6,4);
-						$tmp[] = ['key'=>$k[0],'value'=>$value1.'****'.$value2];
+						$name = str_replace($k[0], '', $value);
+						$value1 = substr($k[0], 0,3);
+						$value2 = substr($k[0], 6,4);
+						$tmp[] = ['key'=>$k[0],'value'=>$name.$value1.'****'.$value2];
 					}
 				}
     			$this->frame['data'] = $tmp;
