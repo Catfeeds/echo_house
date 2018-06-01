@@ -1003,23 +1003,11 @@ class PlotController extends ApiController{
 				if($phones) {
 					foreach ($phones as $k => $value) {
 						preg_match('/[0-9]+/', $value,$k);
-						$tmp[] = ['key'=>$k[0],'value'=>$value];
+						$value1 = substr($value, 0,3);
+						$value2 = substr($value, 6,4);
+						$tmp[] = ['key'=>$k[0],'value'=>$value1.'****'.$value2];
 					}
 				}
-    			// if($info->market_users) {
-    			// 	$phones = explode(' ', $info->market_users);
-    			// }
-    			// if($info->market_user) {
-    			// 	array_unshift($phones, $info->market_user);
-    			// }
-    			// $phones = array_flip(array_flip($phones));
-    			// if($phones) {
-    			// 	foreach ($phones as $key => $value) {
-    			// 		preg_match('/[0-9]+/', $value,$k);
-    			// 		// var_dump($value,$k);exit;
-    			// 		$tmp[] = ['key'=>$k[0],'value'=>$value];
-    			// 	}
-    			// }
     			$this->frame['data'] = $tmp;
     		}
     	}
