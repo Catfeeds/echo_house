@@ -88,7 +88,7 @@
 						<img alt="" class="img-circle" src="<?php echo ImageTools::fixImage(Yii::app()->user->avatar,0,30); ?>" height="30px" width='30px'/>
 						<?php endif; ?>
 						<span class="username username-hide-on-mobile">
-							<i class="fa fa-cog"></i><?php echo Yii::app()->user->username; ?>
+							<i class="fa fa-cog"></i><?php echo isset(Yii::app()->user->username)?Yii::app()->user->username:''; ?>
 						</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
