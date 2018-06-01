@@ -438,6 +438,10 @@ class PlotController extends ApiController{
 		if($sfs = $info->sfMarkets) {
 			foreach ($sfs as $key => $value) {
 				$thisstaff = UserExt::model()->findByPk($value->uid);
+				// 小程序不一样
+				if($this->is_HTTPS()) {
+					$thisstaff && $phones[] = $thisstaff->name.$thisstaff->phone;
+				} else 
 				if($thisstaff) {
 					if($thisstaff->virtual_no) {
 						$phones[] = $thisstaff->name.$thisstaff->virtual_no.','.$thisstaff->virtual_no_ext;
@@ -450,12 +454,18 @@ class PlotController extends ApiController{
 			// $phones = [];
 		} else {
 			// // var_dump(1);
-			preg_match('/[0-9|,]+/', $info->market_users,$thisp);
-			if(isset($thisp[0])&&$thisp[0]) {
-				$user = UserExt::model()->find("phone='".$thisp[0]."'");
-				if($user)
-					$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
-			}
+			// 小程序不一样
+				if($this->is_HTTPS()) {
+					$phones = array_filter(explode(' ', $info->market_users));
+				} else {
+					preg_match('/[0-9|,]+/', $info->market_users,$thisp);
+					if(isset($thisp[0])&&$thisp[0]) {
+						$user = UserExt::model()->find("phone='".$thisp[0]."'");
+						if($user)
+							$phones = [$user->name.$user->virtual_no.','.$user->virtual_no_ext];
+					}
+				}
+					
 			// $phones = array_filter(explode(' ', $info->market_users));
 		}
 		// var_dump($phones);exit;
@@ -501,12 +511,18 @@ class PlotController extends ApiController{
 		$ffphones=[];
 		if($ffs = $info->sfMarkets) {
 			foreach ($ffs as $key => $value) {
-				$ffu = $value->user;
-				if($ffu && $ffu->virtual_no) {
-					$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
+				// 小程序不一样
+				if($this->is_HTTPS()) {
+					$value->user&&$ffphones[] = $value->user->phone;
 				} else {
-					$ffphones[] = $ffu->phone;
+					$ffu = $value->user;
+					if($ffu && $ffu->virtual_no) {
+						$ffphones[] = $ffu->virtual_no.','.$ffu->virtual_no_ext;
+					} else {
+						$ffphones[] = $ffu->phone;
+					}
 				}
+					
 				// $value->user&&$ffphones[] = $value->user->phone;
 			}
 		}
