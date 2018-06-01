@@ -2509,9 +2509,9 @@ class PlotController extends ApiController{
     public function actionTest()
     {
     	// 坑爹的composer暂时解决不了
-    	$user = UserExt::model()->findByPk(2860);
-    	$user->save();
-    	SmsExt::sendMsg('新用户注册','13861242596',['name'=>'zt','num'=>PlotExt::model()->normal()->count()+800]);
+    	// $user = UserExt::model()->findByPk(2860);
+    	// $user->save();
+    	// SmsExt::sendMsg('新用户注册','13861242596',['name'=>'zt','num'=>PlotExt::model()->normal()->count()+800]);
     }
 
 }
