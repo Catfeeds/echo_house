@@ -2534,7 +2534,7 @@ class PlotController extends ApiController{
 			if($company = CompanyExt::model()->findAll($criteria)) {
 				if($company) {
 					foreach ($company as $key => $value) {
-						var_dump($value->name.' '.$value->code);
+						echo('<h1>'.$value->name.' '.$value->code.'<br></h1>');
 					}
 				}
 				// $cinfo = $user->companyinfo;
