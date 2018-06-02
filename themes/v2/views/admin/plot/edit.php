@@ -112,7 +112,6 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'image'); ?></div>
             </div>
-            <?php if(Yii::app()->user->id==1):?>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">总代公司</label>
                 <div class="col-md-10">
@@ -120,7 +119,6 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'company_id'); ?></div>
             </div>
-            <?php endif;?>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">代理类型</label>
                 <div class="col-md-10">
