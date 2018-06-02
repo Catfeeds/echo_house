@@ -490,21 +490,20 @@ class PlotController extends AdminController{
 			if(strpos($house->delivery_time,'-')) {
 				$house->delivery_time = strtotime($house->delivery_time);
 			}
-			$company_id = '';
-			if(Yii::app()->user->id==1) {
-				$company_id = $house->company_id;
+			// $company_id = '';
+			// if(Yii::app()->user->id==1) {
+			// 	$company_id = $house->company_id;
 				
-			} else {
-				if($house->getIsNewRecord() && !$company_id) 
-					$company_id = Yii::app()->user->cid;
-			}
+			// } else {
+			// 	if($house->getIsNewRecord() && !$company_id) 
+			// 		$company_id = Yii::app()->user->cid;
+			// }
 			// if(!is_array($zd_company) && $zd_company) {
 			// 	$zd_company = [$zd_company];
 			// }
 			// var_dump($zd_company);exit;
-			if($company_id) {
-				$house->company_name = CompanyExt::model()->findByPk($company_id)->name;
-				$house->company_id = $company_id;
+			if($house->company_id) {
+				$house->company_name = CompanyExt::model()->findByPk($house->company_id)->name;
 			}
 				
 			$tagArray = [];
