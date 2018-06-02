@@ -819,6 +819,8 @@ class ToolCommand extends CConsoleCommand
         $users = UserExt::model()->findAll('status=1 and type=1 and virtual_no=""');
         if($users) {
             foreach ($users as $key => $value) {
+                if(!$value->phone || !is_numeric($value->phone) || strlen($value->phone)!=11)
+                    continue;
                 if(!$value->virtual_no) {
                     $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
                     if($vps) {

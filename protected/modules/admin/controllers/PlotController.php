@@ -495,7 +495,7 @@ class PlotController extends AdminController{
 				$company_id = $house->company_id;
 				
 			} else {
-				if($house->getIsNewRecord()) 
+				if($house->getIsNewRecord() && !$company_id) 
 					$company_id = Yii::app()->user->cid;
 			}
 			// if(!is_array($zd_company) && $zd_company) {
