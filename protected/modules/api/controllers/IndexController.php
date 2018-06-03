@@ -762,4 +762,16 @@ class IndexController extends ApiController
     {
        Yii::log($_GET);
     }
+
+    public function actionGetSmsCode($phone='')
+    {
+        if($phone) {
+            SmsExt::sendOne($phone,'验证码');
+        }
+    }
+
+    public function actionCheckCode($phone='',$code='')
+    {
+        return SmsExt::checkPhone($phone,$code);
+    }
 }

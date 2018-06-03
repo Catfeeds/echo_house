@@ -117,7 +117,7 @@ class SmsExt extends Sms{
                     return false;
                 }
             }
-            $code = rand(1000,9999);
+            $code = rand(100000,999999);
             $model = new SmsExt;
             $model->phone = $phone;
             $model->code = $code;
@@ -166,7 +166,7 @@ class SmsExt extends Sms{
             if(!$info) {
                 return false;
                 // 15分钟有效
-            } elseif($info->code == $code && time()-$info->created<=15*60) {
+            } elseif($info->code == $code && time()-$info->created<=10*60) {
                 return true;
             } else {
                 return false;
