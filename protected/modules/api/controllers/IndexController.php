@@ -791,7 +791,11 @@ class IndexController extends ApiController
 
     public function actionCheckCode($phone='',$code='')
     {
-        return SmsExt::checkPhone($phone,$code);
+        if($res = SmsExt::checkPhone($phone,$code)) {
+            $this->returnSuccess('1');
+        } else {
+            $this->returnError('1');
+        }
     }
 
 }
