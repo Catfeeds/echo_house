@@ -312,6 +312,8 @@ class IndexController extends ApiController
     public function actionCompleteInfo()
     {
         $name = Yii::app()->request->getPost('name','');
+        $type = Yii::app()->request->getPost('type','');
+        $id_pic = Yii::app()->request->getPost('id_pic','');
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
         $openid = Yii::app()->request->getPost('openid','');
@@ -325,7 +327,7 @@ class IndexController extends ApiController
         if($usercompany && !$com) {
             $com = new CompanyExt;
             $com->name = $usercompany;
-            $com->type = 2;
+            $com->type = $type?$type:2;
             $com->status = 1;
             $com->phone = $userphone;
             if(!$com->save()){
@@ -794,7 +796,7 @@ class IndexController extends ApiController
         if($res = SmsExt::checkPhone($phone,$code)) {
             $this->returnSuccess('1');
         } else {
-            $this->returnError('1');
+            $this->returnError('验证码错误');
         }
     }
 
