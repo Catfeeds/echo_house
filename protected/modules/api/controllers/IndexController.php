@@ -341,7 +341,7 @@ class IndexController extends ApiController
         $user->name = $name;
         $user->type = $usercompany?$com->type:3;
         !$user->pwd &&  $user->pwd = md5('jjqxftv587');
-        // $user->status = 1;
+        $user->status = 1;
         $user->id_pic = $id_pic;
         $user->phone = $userphone;
         $user->openid = $openid;
@@ -513,6 +513,7 @@ class IndexController extends ApiController
                             'phone'=>$user->phone,
                             'name'=>$user->name,
                             'type'=>$user->type,
+                            'status'=>$user->status,
                             'is_true'=>$user->is_true,
                             'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
                             'openid'=>$openid,
