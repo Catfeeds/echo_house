@@ -210,6 +210,7 @@ class IndexController extends ApiController
                         'phone'=>$this->staff->phone,
                         'name'=>$this->staff->name,
                         'type'=>$this->staff->type,
+                        'status'=>$this->staff->status,
                         'is_true'=>$this->staff->is_true,
                         'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
                     ];
@@ -312,7 +313,7 @@ class IndexController extends ApiController
     public function actionCompleteInfo()
     {
         $name = Yii::app()->request->getPost('name','');
-        $type = Yii::app()->request->getPost('type','');
+        $type = Yii::app()->request->getPost('usertype','');
         $id_pic = Yii::app()->request->getPost('id_pic','');
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
@@ -340,7 +341,8 @@ class IndexController extends ApiController
         $user->name = $name;
         $user->type = $usercompany?$com->type:3;
         !$user->pwd &&  $user->pwd = md5('jjqxftv587');
-        $user->status = 1;
+        // $user->status = 1;
+        $user->id_pic = $id_pic;
         $user->phone = $userphone;
         $user->openid = $openid;
         $user->is_true = 1;
