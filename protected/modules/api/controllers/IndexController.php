@@ -199,21 +199,40 @@ class IndexController extends ApiController
         }
     }
 
-    public function actionGetUserInfo()
+    public function actionGetUserInfo($phone='')
     {
-        if(!Yii::app()->user->getIsGuest()) {
-            $data = [
-                'id'=>$this->staff->id,
-                'phone'=>$this->staff->phone,
-                'name'=>$this->staff->name,
-                'type'=>$this->staff->type,
-                'is_true'=>$this->staff->is_true,
-                'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
-            ];
-            $this->frame['data'] = $data;
-        } else {
-            $this->returnError('用户尚未登录');
+        if($phone) {
+            $user = UserExt::model()->find('phone="'.$phone.'"');
+            if($user) {
+                if($user && $user->type<3) {
+                    $data = [
+                        'id'=>$this->staff->id,
+                        'phone'=>$this->staff->phone,
+                        'name'=>$this->staff->name,
+                        'type'=>$this->staff->type,
+                        'is_true'=>$this->staff->is_true,
+                        'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+                    ];
+                    $this->frame['data'] = $data;
+                   $this->returnSuccess('bingo');
+                }
+            } else {
+                $this->returnError('用户不存在');
+            }
         }
+        // if(!Yii::app()->user->getIsGuest()) {
+        //     $data = [
+        //         'id'=>$this->staff->id,
+        //         'phone'=>$this->staff->phone,
+        //         'name'=>$this->staff->name,
+        //         'type'=>$this->staff->type,
+        //         'is_true'=>$this->staff->is_true,
+        //         'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+        //     ];
+        //     $this->frame['data'] = $data;
+        // } else {
+        //     $this->returnError('用户尚未登录');
+        // }
     }
 
     public function actionAddCo()
@@ -774,4 +793,5 @@ class IndexController extends ApiController
     {
         return SmsExt::checkPhone($phone,$code);
     }
+
 }
