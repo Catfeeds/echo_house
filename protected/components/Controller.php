@@ -486,4 +486,24 @@ class Controller extends CController
         return $result;
     }
 
+    public function sendWxNo($openid='',$type='',$url='',$data)
+    {
+    	if(isset(Yii::app()->params['wxArr'][$type])) {
+    		$tk = Yii::app()->wx->getAccessToken();
+    		$tid = Yii::app()->params['wxArr'][$type];
+    		$dataarr = [
+    			"touser"=>$openid,
+			    "template_id"=>$tid,
+			    "url"=>"http://weixin.qq.com/download",
+			    "topcolor"=>"#FF0000",
+			    'data'=>$data
+    		];
+    		$url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tk;
+    		$res = $this->curl_post($url,$dataarr);
+    		Yii::log($res);
+    	}
+    	
+
+    }
+
 }

@@ -98,6 +98,9 @@ $config2 = array(
         'axn'=>array(
             'class' => 'application.components.AliAxn',
         ),
+        'wx'=>array(
+            'class' => 'application.components.WeChartSdk',
+        ),
     ),
     'params' => CMap::mergeArray($params, $config['params'])
 );
