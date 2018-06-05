@@ -347,8 +347,8 @@ class IndexController extends ApiController
         $user->openid = $openid;
         $user->is_true = 1;
         $user->cid = $usercompany?$com->id:0;
-        if(!$user->save()){
-            return $this->returnError(current(current($user->getErrors())));
+        if(!$user->save())
+{            return $this->returnError(current(current($user->getErrors())));
         } else {
             $data = [
                 'id'=>$user->id,
@@ -507,7 +507,7 @@ class IndexController extends ApiController
                 $openid = $cont['openid'];
                 if($openid) {
                     $user = UserExt::model()->find("openid='$openid'");
-                    if($user&&$user->is_true==1) {
+                    if($user) {
                         $data = [
                             'id'=>$user->id,
                             'phone'=>$user->phone,
