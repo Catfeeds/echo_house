@@ -199,21 +199,41 @@ class IndexController extends ApiController
         }
     }
 
-    public function actionGetUserInfo()
+    public function actionGetUserInfo($phone='')
     {
-        if(!Yii::app()->user->getIsGuest()) {
-            $data = [
-                'id'=>$this->staff->id,
-                'phone'=>$this->staff->phone,
-                'name'=>$this->staff->name,
-                'type'=>$this->staff->type,
-                'is_true'=>$this->staff->is_true,
-                'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
-            ];
-            $this->frame['data'] = $data;
-        } else {
-            $this->returnError('用户尚未登录');
+        if($phone) {
+            $user = UserExt::model()->find('phone="'.$phone.'"');
+            if($user) {
+                if($user && $user->type<3) {
+                    $data = [
+                        'id'=>$this->staff->id,
+                        'phone'=>$this->staff->phone,
+                        'name'=>$this->staff->name,
+                        'type'=>$this->staff->type,
+                        'status'=>$this->staff->status,
+                        'is_true'=>$this->staff->is_true,
+                        'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+                    ];
+                    $this->frame['data'] = $data;
+                   $this->returnSuccess('bingo');
+                }
+            } else {
+                $this->returnError('用户不存在');
+            }
         }
+        // if(!Yii::app()->user->getIsGuest()) {
+        //     $data = [
+        //         'id'=>$this->staff->id,
+        //         'phone'=>$this->staff->phone,
+        //         'name'=>$this->staff->name,
+        //         'type'=>$this->staff->type,
+        //         'is_true'=>$this->staff->is_true,
+        //         'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+        //     ];
+        //     $this->frame['data'] = $data;
+        // } else {
+        //     $this->returnError('用户尚未登录');
+        // }
     }
 
     public function actionAddCo()
@@ -293,6 +313,8 @@ class IndexController extends ApiController
     public function actionCompleteInfo()
     {
         $name = Yii::app()->request->getPost('name','');
+        $type = Yii::app()->request->getPost('usertype','');
+        $id_pic = Yii::app()->request->getPost('id_pic','');
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
         $openid = Yii::app()->request->getPost('openid','');
@@ -306,7 +328,7 @@ class IndexController extends ApiController
         if($usercompany && !$com) {
             $com = new CompanyExt;
             $com->name = $usercompany;
-            $com->type = 2;
+            $com->type = $type?$type:2;
             $com->status = 1;
             $com->phone = $userphone;
             if(!$com->save()){
@@ -320,12 +342,13 @@ class IndexController extends ApiController
         $user->type = $usercompany?$com->type:3;
         !$user->pwd &&  $user->pwd = md5('jjqxftv587');
         $user->status = 1;
+        $user->id_pic = $id_pic;
         $user->phone = $userphone;
         $user->openid = $openid;
         $user->is_true = 1;
         $user->cid = $usercompany?$com->id:0;
-        if(!$user->save()){
-            return $this->returnError(current(current($user->getErrors())));
+        if(!$user->save())
+{            return $this->returnError(current(current($user->getErrors())));
         } else {
             $data = [
                 'id'=>$user->id,
@@ -484,12 +507,13 @@ class IndexController extends ApiController
                 $openid = $cont['openid'];
                 if($openid) {
                     $user = UserExt::model()->find("openid='$openid'");
-                    if($user&&$user->is_true==1) {
+                    if($user) {
                         $data = [
                             'id'=>$user->id,
                             'phone'=>$user->phone,
                             'name'=>$user->name,
                             'type'=>$user->type,
+                            'status'=>$user->status,
                             'is_true'=>$user->is_true,
                             'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
                             'openid'=>$openid,
@@ -762,4 +786,21 @@ class IndexController extends ApiController
     {
        Yii::log($_GET);
     }
+
+    public function actionGetSmsCode($phone='')
+    {
+        if($phone) {
+            SmsExt::sendOne($phone,'验证码');
+        }
+    }
+
+    public function actionCheckCode($phone='',$code='')
+    {
+        if($res = SmsExt::checkPhone($phone,$code)) {
+            $this->returnSuccess('1');
+        } else {
+            $this->returnError('验证码错误');
+        }
+    }
+
 }

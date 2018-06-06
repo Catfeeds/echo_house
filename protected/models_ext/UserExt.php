@@ -137,8 +137,8 @@ class UserExt extends User{
             if(!$this->qf_uid && !empty($_COOKIE['qf_uid'])) {
                 $this->qf_uid = $_COOKIE['qf_uid'];
             }
-            if($this->type==3&&$this->status==0) {
-                $res = Yii::app()->controller->sendNotice('有新的独立经纪人注册，请登陆后台审核','',1);
+            if($this->status==0) {
+                $res = Yii::app()->controller->sendNotice('有新的用户注册，请登陆后台审核','',1);
             }
             !$this->pwd && $this->pwd = md5('jjqxftv587');
             if(!$this->created && !$this->updated)
@@ -152,7 +152,8 @@ class UserExt extends User{
                 Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.$this->phone.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire),'',1);
 
             }
-            if($this->type==3 && $this->status==1 && $this->qf_uid && ((Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0)) {
+            if($this->status==1 && (Yii::app()->db->createCommand('select status from user where qf_uid='.$this->qf_uid)->queryScalar())==0) {
+                
                 $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
                 // var_dump(SmsExt::sendMsg('经纪人注册通过',$this->phone););exit;
                 SmsExt::sendMsg('经纪人注册通过',$this->phone);
