@@ -51,7 +51,7 @@ $statusArr = SubExt::$status;
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
-            <td class="text-center"><?=$v->plot->title?></td>
+            <td class="text-center"><a target="_blank" href="<?=$this->createUrl('/api/index/detail',['id'=>$v->hid])?>"><?=$v->plot->title?></a></td>
             <td class="text-center"><?=$v->user?($v->user->name.'/'.$v->user->phone):''?></td> 
             <td class="text-center"><?=$v->name.'/'.$v->phone?></td> 
             <td class="text-center"><?=$v->notice?(Yii::app()->db->createCommand("select name from user where phone='".$v->notice."'")->queryScalar().$v->notice):''?></td>     
