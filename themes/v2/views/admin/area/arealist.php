@@ -29,6 +29,8 @@ Yii::app()->clientScript->registerCssFile("/static/global/plugins/jquery-nestabl
                                 }
                             });
                         });
+                        $('button[data-action=\"collapse\"]').css('display','none');
+                        $('button[data-action=\"expand\"]').css('display','block');
                         $('#treeAreaExt .dd-item').prepend('<span style=\"float:right;cursor: pointer; line-height:30px;\"><span style=\"margin:0 10px;\" onclick=\"editArea($(this))\">编辑</span>|<span style=\"margin:0 10px;\"  onclick=\"delArea($(this))\">删除</span></span>');
                         $('#treeAreaExt .dd-item[data-status=1]').find('span:first').prepend('<span style=\"margin:0 10px;\" onclick=\"setStatus(this)\" class=\"dd-status\">禁用</span>|');
                         $('#treeAreaExt .dd-item[data-status=0] .dd-handle').addClass('bg-red-pink');

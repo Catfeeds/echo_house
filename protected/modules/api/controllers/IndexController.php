@@ -191,8 +191,10 @@ class IndexController extends ApiController
                 'id'=>$this->staff->id,
                 'phone'=>$this->staff->phone,
                 'name'=>$this->staff->name,
+                'avatarUrl'=>ImageTools::fixImage($this->staff->ava,200,200),
                 'type'=>$this->staff->type,
                 'is_true'=>$this->staff->is_true,
+                'openid'=>$this->staff->openid,
                 'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
             ];
             $this->frame['data'] = $data;
@@ -206,13 +208,15 @@ class IndexController extends ApiController
             if($user) {
                 if($user && $user->type<3) {
                     $data = [
-                        'id'=>$this->staff->id,
-                        'phone'=>$this->staff->phone,
-                        'name'=>$this->staff->name,
-                        'type'=>$this->staff->type,
-                        'status'=>$this->staff->status,
-                        'is_true'=>$this->staff->is_true,
-                        'company_name'=>$this->staff->is_true==1?($this->staff->companyinfo?$this->staff->companyinfo->name:'独立经纪人'):'您尚未实名认证',
+                        'id'=>$user->id,
+                        'phone'=>$user->phone,
+                        'name'=>$user->name,
+                        'type'=>$user->type,
+                        'status'=>$user->status,
+                        'openid'=>$user->openid,
+                        'avatarUrl'=>ImageTools::fixImage($user->ava,200,200),
+                        'is_true'=>$user->is_true,
+                        'company_name'=>$user->is_true==1?($user->companyinfo?$user->companyinfo->name:'独立经纪人'):'您尚未实名认证',
                     ];
                     $this->frame['data'] = $data;
                    $this->returnSuccess('bingo');
@@ -315,6 +319,7 @@ class IndexController extends ApiController
         $name = Yii::app()->request->getPost('name','');
         $type = Yii::app()->request->getPost('usertype','');
         $id_pic = Yii::app()->request->getPost('id_pic','');
+        $ava = Yii::app()->request->getPost('ava','');
         $userphone = Yii::app()->request->getPost('userphone','');
         $usercompany = Yii::app()->request->getPost('usercompany','');
         $openid = Yii::app()->request->getPost('openid','');
@@ -344,6 +349,7 @@ class IndexController extends ApiController
         $user->status = 1;
         $user->id_pic = $id_pic;
         $user->phone = $userphone;
+        $user->ava = Yii::app()->file->fetch($ava);
         $user->openid = $openid;
         $user->is_true = 1;
         $user->cid = $usercompany?$com->id:0;
@@ -515,6 +521,7 @@ class IndexController extends ApiController
                             'type'=>$user->type,
                             'status'=>$user->status,
                             'is_true'=>$user->is_true,
+                            'avatarUrl'=>ImageTools::fixImage($user->ava,200,200),
                             'company_name'=>$user->companyinfo?$user->companyinfo->name:'独立经纪人',
                             'openid'=>$openid,
                         ];

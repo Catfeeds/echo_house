@@ -1060,7 +1060,7 @@ class Tools {
      * @param string $sort 排序字段
      * @return array|string 返回自身或者HTML代码
      */
-    public static function makeTree($arr, $sort = 'sort')
+    public static function makeTree($arr,$close=0, $sort = 'sort')
     {
         if(empty($arr)) return $arr;
         $id_name = get_class($arr[0]);
@@ -1082,16 +1082,16 @@ class Tools {
         }
 
         //构建
-        return '<div class="dd" id="tree'.$id_name.'">'.self::_makeTree($_menu,0).'</div>';
+        return '<div class="dd" id="tree'.$id_name.'">'.self::_makeTree($_menu,0,$close).'</div>';
     }
 
-    protected static function _makeTree($arr,$id)
+    protected static function _makeTree($arr,$id,$close=0)
     {
         $out = '<ol class="dd-list">';
         foreach($arr[$id] as $v){
-            $out .= '<li class="dd-item" data-id="'.$v['id'].'" data-status="'.$v['status'].'">';
+            $out .= '<li class="dd-item '.($close?'dd-collapsed':'').'" data-id="'.$v['id'].'" data-status="'.$v['status'].'">';
             $out .= '<div class="dd-handle">'.$v['name'].'</div>';
-            if(isset($arr[$v['id']])){$out .= self::_makeTree($arr,$v['id']);}
+            if(isset($arr[$v['id']])){$out .= self::_makeTree($arr,$v['id'],$close);}
             $out .= '</li>';
         }
         $out .= '</ol>';

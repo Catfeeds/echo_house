@@ -12,7 +12,7 @@ class AreaController extends AdminController {
      */
     public function actionAreaList() {
         $list = AreaExt::model()->undeleted()->findAll();
-        $tree = Tools::makeTree($list);
+        $tree = Tools::makeTree($list,1);
         $this->render('arealist', array('tree' => $tree));
     }
 

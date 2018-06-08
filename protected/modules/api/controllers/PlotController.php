@@ -34,6 +34,7 @@ class PlotController extends ApiController{
 		$limit = (int)Yii::app()->request->getQuery('limit',20);
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
+		$showPay = Yii::app()->request->getQuery('showPay',0);
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$myuid = (int)Yii::app()->request->getQuery('myuid',0);
 		$status = Yii::app()->request->getQuery('status','');
@@ -239,6 +240,7 @@ class PlotController extends ApiController{
 			if(isset($dats['list']) && $dats['list']) {
 				foreach ($dats['list'] as $key => $value) {
 					// var_dump($value);exit;
+					$dats['list'][$key]['pay'] = $showPay?$dats['list'][$key]['pay']:'暂无权限查看';
 					$dats['list'][$key]['distance'] = round($this->getDistance($value['distance']),2);
 				}
 			}
@@ -305,6 +307,7 @@ class PlotController extends ApiController{
 					} else {
 						$can_edit = 0;
 					}
+
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
@@ -316,7 +319,7 @@ class PlotController extends ApiController{
 						'wylx'=>$wyw,
 						'status'=>$value->status,
 						'zd_company'=>$companydes,
-						'pay'=>$value->first_pay,
+						'pay'=>$showPay?$value->first_pay:'暂无权限查看',
 						'sort'=>$value->sort,
 						'can_edit'=>$can_edit,
 						'expire'=>$this->staff&&$expire,
