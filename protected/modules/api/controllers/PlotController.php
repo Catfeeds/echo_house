@@ -34,7 +34,7 @@ class PlotController extends ApiController{
 		$limit = (int)Yii::app()->request->getQuery('limit',20);
 		$toptag = (int)Yii::app()->request->getQuery('toptag',0);
 		$company = (int)Yii::app()->request->getQuery('company',0);
-		$showPay = Yii::app()->request->getQuery('showPay',0);
+		$showPay = Yii::app()->request->getQuery('showPay',1);
 		$uid = (int)Yii::app()->request->getQuery('uid',0);
 		$myuid = (int)Yii::app()->request->getQuery('myuid',0);
 		$status = Yii::app()->request->getQuery('status','');
