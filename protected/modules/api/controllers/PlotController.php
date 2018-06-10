@@ -526,7 +526,7 @@ class PlotController extends ApiController{
 		if($dpsres = PlotDpExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
 			foreach ($dpsres as $re) {
 				$dpuser = $re->user;
-				$dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100)];
+				$dpuser &&  $dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100)];
 			}
 		}
 
@@ -2513,7 +2513,16 @@ class PlotController extends ApiController{
     public function setAxb($ph1,$ph2)
     {
     	// $x = '17080219064';
-    	$xarr = ['17080219064'=>'0755'];
+    	$xarr = ['17072195340'=>'1707219',	
+'17072195341'=>'1707219',	
+'17072195342'=>'1707219',	
+'17072195343'=>'1707219',	
+'17072195344'=>'1707219',	
+'17072195345'=>'1707219',	
+'17072195346'=>'1707219',	
+'17072195347'=>'1707219',	
+'17072195348'=>'1707219',	
+'17072195349'=>'1707219',];
     	foreach ($xarr as $x => $y) {
     		$baseUrl = "https://apppro.cloopen.com:8883/2013-12-26";
 	    	$timestr = date('YmdHis',time());
@@ -2536,6 +2545,7 @@ class PlotController extends ApiController{
 	    	$res = $this->curl_post($baseUrl.$othurl,json_encode($arr),$header);
 	    	$res = json_decode($res,true);
 	    	if($res['statusCode']!='000000') {
+	    		continue;
 	    		Yii::log($ph1.$ph2.json_encode($res));
 	    	} else {
 	    		// 绑定成功
