@@ -434,7 +434,7 @@ class PlotController extends ApiController{
 		if($hxs = $info->hxs) {
 			foreach ($hxs as $key => $value) {
 				$tmp = $value->attributes;
-				$tmp['image'] = $tmp['image']?ImageTools::fixImage($tmp['image'],274,208):$info_no_pic;
+				$tmp['image'] = $tmp['image']?ImageTools::fixImage($tmp['image'],548,416):$info_no_pic;
 				$hxarr[] = $tmp;
 			}
 		}
