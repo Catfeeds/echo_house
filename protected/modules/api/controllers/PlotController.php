@@ -311,8 +311,8 @@ class PlotController extends ApiController{
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
-						'price'=>$value->price,
-						'unit'=>PlotExt::$unit[$value->unit],
+						'price'=>$value->is_unshow?'已售罄/撤场':$value->price,
+						'unit'=>$value->is_unshow?'':PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
 						'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,200,150),
