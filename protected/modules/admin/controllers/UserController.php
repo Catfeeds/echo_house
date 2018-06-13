@@ -105,4 +105,78 @@ class UserController extends AdminController{
         }
     }
 
+    public function actionExport($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$viptime='')
+    {
+        $modelName = $this->modelName;
+        $criteria = new CDbCriteria;
+        if($value = trim($value))
+            if ($type=='title') {
+                $criteria->addSearchCondition('t.name', $value);
+            } elseif($type=='phone') {
+                $criteria->addSearchCondition('t.phone', $value);
+            } elseif($type=='com') {
+                $cre = new CDbCriteria;
+                $cre->addSearchCondition('t.name', $value);
+                $coms = CompanyExt::model()->undeleted()->findAll($cre);
+                $ids = [];
+                if($coms) {
+                    foreach ($coms as $c) {
+                        $ids[] = $c->id;
+                    }
+                    $criteria->addInCondition('cid', $ids);
+                }
+                
+            }
+        //添加时间、刷新时间筛选
+        if($time_type!='' && $time!='')
+        {
+            list($beginTime, $endTime) = explode('-', $time);
+            $beginTime = (int)strtotime(trim($beginTime));
+            $endTime = (int)strtotime(trim($endTime));
+            $criteria->addCondition("t.{$time_type}>=:beginTime");
+            $criteria->addCondition("t.{$time_type}<:endTime");
+            $criteria->params[':beginTime'] = TimeTools::getDayBeginTime($beginTime);
+            $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
+
+        }
+        if(is_numeric($cate)) {
+            $criteria->addCondition('t.type=:cid');
+            $criteria->params[':cid'] = $cate;
+        }
+        if(is_numeric($viptime)) {
+            if($viptime==0) {
+                $criteria->addCondition('t.vip_expire>='.time());
+            } else {
+                $criteria->addCondition('t.vip_expire>0 and t.vip_expire<='.time());
+            }
+        }
+        if(is_numeric($status)) {
+            $criteria->addCondition('t.status=:status');
+            $criteria->params[':status'] = $status;
+        }        $criteria->order = 't.sort desc,t.created desc,t.updated desc';
+
+        $typeArr = UserExt::$ids;
+        $criteria->with = 'companyinfo';
+        
+        if($modelName::model()->undeleted()->count($criteria)>5000) {
+            // $this->setMessage('最大不超过5000条数据','error');
+            // Yii::app()->end();
+            var_dump('最大不超过5000条数据');exit;
+        } else {
+            $infos = $modelName::model()->undeleted()->findAll($criteria);
+            $data = []; 
+            if($infos) {
+                foreach ($infos as $ss) {
+                    if(!$ss||!$ss->companyinfo||!is_numeric($ss->type)||!isset($typeArr[$ss->type])){
+                        continue;
+                    }
+                    $data[] = [$ss->id,$ss->name,$typeArr[$ss->type],$ss->phone,$ss->companyinfo?$ss->companyinfo->name:'-',$ss->vip_expire?date('Y-m-d',$ss->vip_expire):'-',date('Y-m-d',$ss->created)];
+                }
+                
+            }
+            ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','姓名','用户类型','电话','公司','到期时间','创建时间'],$data); 
+        }
+
+    }
+
 }
