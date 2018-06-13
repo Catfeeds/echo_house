@@ -1048,7 +1048,12 @@ function showdetail(id) {
             //插入主力户型
             if(detail.hx!=''&&detail.hx!=undefined){    
                 for (var i = 0; i < detail.hx.length; i++) {
-                    hximglist.push(detail.hx[i].image);
+                    var tmpi = detail.hx[i].image;
+                    if(tmpi.indexOf('?')>-1) {
+                        var tmparr = tmpi.split('?');
+                        hximglist.push(tmparr[0]+'?imageslim');
+                    } else
+                        hximglist.push(detail.hx[i].image);
                 }
             }
             if(detail.hx!=''&&detail.hx!=undefined){
