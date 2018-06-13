@@ -48,7 +48,7 @@ class PlotController extends AdminController{
 	 * @param  string $title [description]
 	 * @return [type]        [description]
 	 */
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$status='',$company='',$is_uid='',$sort='',$city='',$area='',$street='')
 	{
 		$modelName = 'PlotExt';
 		$criteria = new CDbCriteria;
@@ -75,6 +75,14 @@ class PlotController extends AdminController{
         	$criteria->addCondition('company_id=:comid');
         	$criteria->params[':comid'] = $company;
         }
+        if($area) {
+        	$criteria->addCondition('area=:area');
+        	$criteria->params[':area'] = $area;
+        }
+        if($city) {
+        	$criteria->addCondition('city=:city');
+        	$criteria->params[':city'] = $city;
+        }
         if(is_numeric($status)) {
         	$criteria->addCondition('status=:status');
         	$criteria->params[':status'] = $status;
@@ -86,12 +94,12 @@ class PlotController extends AdminController{
         		$criteria->addCondition('uid=0');
         }
 		$this->controllerName = '楼盘';
-		$criteria->order = 'sort desc,refresh_time desc';
+		$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
 		if($sort) {
 			$criteria->order = $sort.' desc';
 		}
 		$infos = PlotExt::model()->undeleted()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid]);
+		$this->render('list',['cate'=>$cate,'status'=>$status,'infos'=>$infos->data,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'is_uid'=>$is_uid,'city'=>$city,'area'=>$area,'street'=>$street]);
 	}
 
 	/**

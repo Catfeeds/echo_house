@@ -200,16 +200,16 @@ class PlotController extends ApiController{
 		if($sort) {
 			switch ($sort) {
 				case '1':
-					$criteria->order = 'price desc';
+					$criteria->order = 'is_unshow asc,price desc';
 					break;
 				case '2':
-					$criteria->order = 'price asc';
+					$criteria->order = 'is_unshow asc,price asc';
 					break;
 				case '4':
-					$criteria->order = 'created desc';
+					$criteria->order = 'is_unshow asc,created desc';
 					break;
 				case '5':
-				$criteria->order = 'views desc';
+				$criteria->order = 'is_unshow asc,views desc';
 					break;
 				default:
 					# code...
@@ -222,7 +222,7 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'sort desc,refresh_time desc';
+			$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
 		}
 		// if($areainit) {
 		// 	$dats = PlotExt::getFirstListFromArea();
@@ -630,6 +630,7 @@ class PlotController extends ApiController{
 			'owner_phone'=>'',
 			'ff_phones'=>$ffphones,
 			'is_alert'=>$is_alert,
+			'is_unshow'=>$info->is_unshow,
 			'is_save'=>$thisuid&&Yii::app()->db->createCommand('select id from save where uid='.$thisuid.' and hid='.$info->id)->queryScalar()?1:0,
 			// 'share_phone'=>$share_phone,
 		];

@@ -91,6 +91,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'id_no') ?></div>
 </div>
+<?php if(Yii::app()->user->id == 1):?>
 <div class="form-group">
     <label class="col-md-2 control-label">会员到期时间</label>
     <div class="col-md-4">
@@ -102,6 +103,16 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         </div>
     </div>
 </div>
+<?php else:?>
+    <div class="form-group">
+    <label class="col-md-2 control-label">会员到期时间</label>
+    <div class="col-md-4">
+        <div class="input-group date " >
+            <?php echo $form->textField($article,'vip_expire',array('class'=>'form-control','readonly'=>'readonly','value'=>($article->vip_expire?date('Y-m-d',$article->vip_expire):''))); ?>
+        </div>
+    </div>
+</div>
+    <?php endif;?>
 <div class="form-group">
     <label class="col-md-2 control-label">身份</label>
     <div class="col-md-4">

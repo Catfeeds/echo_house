@@ -99,6 +99,10 @@ $(document).ready(function(){
             if(detail.is_alert==1) {
                 $('.detail-top-img-alert').css('display','block');
             }
+            if(detail.is_unshow==1||detail.is_unshow=="1") {
+                $('.detail-buttom0').css('display','none');
+                $('.detail-top-img-alert1').css('display','block');
+            }
             if(detail.is_save==1) {
                 $('#save').attr('css','save');
                 $('#save').attr('src','./img/save.png');

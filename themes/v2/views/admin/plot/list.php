@@ -1,6 +1,21 @@
 <?php
 $this->pageTitle = $this->controllerName.'列表';
 $this->breadcrumbs = array($this->pageTitle);
+$parentArea = AreaExt::model()->parent()->normal()->findAll();
+$paarr = [0=>'不限'];
+foreach ($parentArea as $pa) {
+    $paarr[$pa->id] = $pa->name;
+}
+// var_dump($paarr);exit;
+$parent = $city?$city:(isset($parentArea[0])?$parentArea[0]->id:0);
+$ppaarr = [0=>'不限'];
+if($parent) {
+    $paraa = AreaExt::model()->getByParent($parent)->normal()->findAll();
+    $ppaarr = [0=>'不限'];
+    foreach ($paraa as $pa) {
+        $ppaarr[$pa->id] = $pa->name;
+    }
+}
 ?>
 <div class="table-toolbar">
     <div class="btn-group pull-left">
@@ -16,6 +31,32 @@ $this->breadcrumbs = array($this->pageTitle);
             </div>
              
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">区域</label>
+                <div class="col-md-10">
+                    <?php
+                    echo CHtml::dropDownList('city' ,$city ,$paarr , array(
+                            'class'=>'form-control input-inline',
+                            'ajax' =>array(
+                                'url' => Yii::app()->createUrl('admin/area/ajaxGetArea'),
+                                'update' => '#area',
+                                'data'=>array('area'=>'js:this.value'),
+                            )
+                        )
+                    );
+                    ?>
+                    <?php
+                    echo CHtml::dropDownList('area' ,$area ,$ppaarr ? $ppaarr:array(0=>'--无子分类--') , array(
+                            'class'=>'form-control input-inline',
+                            'ajax' =>array(
+                                'url' => Yii::app()->createUrl('admin/area/ajaxGetArea'),
+                                'update' => '#street',
+                                'data'=>array('area'=>'js:this.value'),
+                            )
+                        ));
+                    ?>
+                </div>
+            </div>
             <div class="form-group">
                 <?php echo CHtml::dropDownList('is_uid',$is_uid,['后台','用户'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--信息来源--')); ?>
             </div>
@@ -84,7 +125,7 @@ $this->breadcrumbs = array($this->pageTitle);
                 <a href="<?=$this->createUrl('newslist',['hid'=>$v->id])?>" class="btn btn-xs blue">动态</a>
                 <a href="<?=$this->createUrl('pricelist',['hid'=>$v->id])?>" class="btn btn-xs green">佣金方案</a>
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id,'referrer'=>Yii::app()->request->url)) ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 编辑 </a>
-                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('ajaxDel'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id))));?>
+                <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -197,6 +238,8 @@ function removeOptions()
         // alert($('.chose_select').val());
         $('.chose_text').val('');
         $('.chose_select').val('');
+        $('#area').val('');
+        $('#city').val('');
     }
 
     function   findU() {

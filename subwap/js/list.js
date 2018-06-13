@@ -954,6 +954,10 @@ function showdetail(id) {
                 $('#save').attr('src','./img/notsave.png');
                 $('.detail-button-save-text').html('关注');
             }
+            if(detail.is_unshow==1||detail.is_unshow=="1") {
+                $('.detail-buttom0').css('display','none');
+                $('.detail-top-img-alert1').css('display','block');
+            }
             //底部按钮变化
             if (detail.is_contact_only==1) {
                 $('.detail-buttom0').css('display','none');

@@ -157,7 +157,20 @@ class UserController extends AdminController{
 
         $typeArr = UserExt::$ids;
         $criteria->with = 'companyinfo';
-        
+        // $criteria->limit = 5000;
+        // $criteria->offset = 10001;
+        // $infos = $modelName::model()->undeleted()->findAll($criteria);
+        //     $data = []; 
+        //     if($infos) {
+        //         foreach ($infos as $ss) {
+        //             if(!$ss||!$ss->companyinfo||!is_numeric($ss->type)||!isset($typeArr[$ss->type])){
+        //                 continue;
+        //             }
+        //             $data[] = [$ss->id,$ss->name,$typeArr[$ss->type],$ss->phone,$ss->companyinfo?$ss->companyinfo->name:'-',$ss->vip_expire?date('Y',$ss->vip_expire):'-',$ss->vip_expire?date('m-d',$ss->vip_expire):'-',date('Y-m-d',$ss->created)];
+        //         }
+                
+        //     }
+        //     ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','姓名','用户类型','电话','公司','到期时间/年','到期时间/月日','创建时间'],$data); 
         if($modelName::model()->undeleted()->count($criteria)>5000) {
             // $this->setMessage('最大不超过5000条数据','error');
             // Yii::app()->end();
@@ -170,12 +183,12 @@ class UserController extends AdminController{
                     if(!$ss||!$ss->companyinfo||!is_numeric($ss->type)||!isset($typeArr[$ss->type])){
                         continue;
                     }
-                    $data[] = [$ss->id,$ss->name,$typeArr[$ss->type],$ss->phone,$ss->companyinfo?$ss->companyinfo->name:'-',$ss->vip_expire?date('Y-m-d',$ss->vip_expire):'-',date('Y-m-d',$ss->created)];
+                    $data[] = [$ss->id,$ss->name,$typeArr[$ss->type],$ss->phone,$ss->companyinfo?$ss->companyinfo->name:'-',$ss->vip_expire?date('Y',$ss->vip_expire):'-',$ss->vip_expire?date('m-d',$ss->vip_expire):'-',date('Y-m-d',$ss->created)];
                 }
                 
             }
-            ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','姓名','用户类型','电话','公司','到期时间','创建时间'],$data); 
-        }
+            ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','姓名','用户类型','电话','公司','到期时间/年','到期时间/月日','创建时间'],$data); 
+        // }
 
     }
 
