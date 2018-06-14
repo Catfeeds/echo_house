@@ -909,7 +909,8 @@ class ToolCommand extends CConsoleCommand
         $ress = Yii::app()->db->createCommand($sql)->queryAll();
         if($ress) {
             foreach ($ress as $value) {
-                $res = $this->get_response($key,$url,[],['uid'=>$value['qf_uid']]);
+                $res = HttpHelper::get($url,['uid'=>$value['qf_uid']]);
+                // $res = $this->get_response($key,$url,[],['uid'=>$value['qf_uid']]);
                 var_dump($res);exit;
                 if($res && isset($res['data']['openid'])) {
                     Yii::app()->db->createCommand("update user set jjq_openid='".$res['data']['openid']."' where id=".$value['id'])->execute();
