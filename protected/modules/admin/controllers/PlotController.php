@@ -68,9 +68,9 @@ class PlotController extends AdminController{
             $criteria->params[':endTime'] = TimeTools::getDayEndTime($endTime);
 
         }
-        if(Yii::app()->user->id>1) {
-        	$company=Yii::app()->user->cid;
-        }
+        // if(Yii::app()->user->id>1) {
+        // 	$company=Yii::app()->user->cid;
+        // }
         if($company) {
         	$criteria->addCondition('company_id=:comid');
         	$criteria->params[':comid'] = $company;
