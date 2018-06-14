@@ -123,7 +123,7 @@ class UserController extends AdminController{
                     foreach ($coms as $c) {
                         $ids[] = $c->id;
                     }
-                    $criteria->addInCondition('cid', $ids);
+                    $criteria->addInCondition('t.cid', $ids);
                 }
                 
             }
@@ -171,6 +171,7 @@ class UserController extends AdminController{
                 
         //     }
         //     ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','姓名','用户类型','电话','公司','到期时间/年','到期时间/月日','创建时间'],$data); 
+        // var_dump($modelName::model()->undeleted()->count($criteria));exit;
         if($modelName::model()->undeleted()->count($criteria)>5000) {
             // $this->setMessage('最大不超过5000条数据','error');
             // Yii::app()->end();

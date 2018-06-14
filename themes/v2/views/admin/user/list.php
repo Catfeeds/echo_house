@@ -4,7 +4,7 @@ $this->breadcrumbs = array($this->pageTitle);
 ?>
 <div class="table-toolbar">
     <div class="btn-group pull-left">
-        <form class="form-inline">
+        <form class="form-inline" id="f1">
             <div class="form-group">
                 <?php echo CHtml::dropDownList('type',$type,array('title'=>'标题','phone'=>'手机','com'=>'公司名'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
@@ -24,7 +24,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <div class="form-group">
                 <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择会员--')); ?>
             </div>
-            <button type="submit" class="btn blue">搜索</button>
+            <button type="button" onclick="exptt()" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
@@ -32,10 +32,12 @@ $this->breadcrumbs = array($this->pageTitle);
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
+        <button onclick="expit()" type="button" class="btn yellow">导出用户</button>
         <a target="_blank" href="<?php echo $this->createAbsoluteUrl('export') ?>" class="btn yellow">
             导出用户 
         </a>
     </div>
+    
 </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
@@ -163,7 +165,14 @@ $this->breadcrumbs = array($this->pageTitle);
         $('.chose_text').val('');
         $('.chose_select').val('');
     }
-
+    function expit() {
+        $('#f1').attr('action','export');
+        $('#f1').submit();
+    }
+    function exptt() {
+        $('#f1').attr('action','');
+        $('#f1').submit();
+    }
     $("#hname").on("dblclick",function(){
         var hnames = $(".hname");
         console.log(hnames);
