@@ -2558,4 +2558,18 @@ class PlotController extends ApiController{
     	// SmsExt::sendMsg('新用户注册','13861242596',['name'=>'zt','num'=>PlotExt::model()->normal()->count()+800]);
     }
 
+    public function actionExport()
+    {
+    	$data = [];
+    	$plots = PlotExt::model()->with('owner')->findAll('t.uid>0');
+    	if($plots) {
+    		foreach ($plots as $key => $value) {
+    			if(!$value->owner)
+    				continue;
+    			$data[] = [$value->id,$value->title,$value->owner->name,$value->owner->phone];
+    		}
+    		ExcelHelper::cvs_write_browser(date("YmdHis",time()),['id','项目名','发布者','电话'],$data); 
+    	}
+    }
+
 }
