@@ -898,4 +898,74 @@ class ToolCommand extends CConsoleCommand
         }
             
     }
+
+    public function actionSetOpenId()
+    {
+        $page = 1;
+        $key = "495e6105d4146af1d36053c1034bc819";
+        $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
+        begin:
+        $sql = "select id,qf_uid from user where qf_uid>0 limit $page,200";
+        $ress = Yii::app()->db->createCommand($sql)->queryAll();
+        if($ress) {
+            foreach ($ress as $value) {
+                $res = $this->get_response($key,$url,[],['uid'=>$value['qf_uid']]);
+                var_dump($res);exit;
+                if($res && isset($res['data']['openid'])) {
+                    Yii::app()->db->createCommand("update user set jjq_openid='".$res['data']['openid']."' where id=".$value['id'])->execute();
+                    // $value->jjq_openid = $res['data']['openid'];
+                    // $value->save();
+                }
+                // if($value['phone'] && $value['name'])
+                //     SmsExt::sendMsg('群发虚拟号通知短信',$value['phone'],['name'=>$value['name']]);
+            }
+            echo $page."=====================";
+            $page = $page+200;
+            goto begin;
+        }  else{
+            echo "finished";
+        }
+
+        // $users = UserExt::model()->findAll('qf_uid>0');
+        // foreach ($users as $key => $value) {
+        //     $key = "495e6105d4146af1d36053c1034bc819";
+        //     $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
+        //     $res = $this->get_response($key,$url,[],['uid'=>$value->qf_uid]);
+        //     if($res && isset($res['data']['openid'])) {
+        //         $value->jjq_openid = $res['data']['openid'];
+        //         $value->save();
+        //     }
+        // }
+    }
+
+    public function get_response($secret_key, $url, $get_params, $post_data = array())
+    {
+        $nonce         = rand(10000, 99999);
+        $timestamp  = time();
+        $array = array($nonce, $timestamp, $secret_key);
+        sort($array, SORT_STRING);
+        $token = md5(implode($array));
+        $params['nonce'] = $nonce;
+        $params['timestamp'] = $timestamp;
+        $params['token']     = $token;
+        $params = array_merge($params,$get_params);  
+        $url .= '?';
+        foreach ($params as $k => $v) 
+        {
+            $url .= $k .'='. $v . '&';
+        }
+        $url = rtrim($url,'&');   
+        $curlHandle = curl_init();
+        curl_setopt($curlHandle, CURLOPT_URL, $url);   
+        curl_setopt($curlHandle, CURLOPT_HEADER, 0);   
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);  
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);  
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYHOST, FALSE);   
+        curl_setopt($curlHandle, CURLOPT_POST, count($post_data));  
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $post_data);  
+        $data = curl_exec($curlHandle);    
+        $status = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+        curl_close($curlHandle);    
+        return $data;
+    }
 }

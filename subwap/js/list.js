@@ -959,6 +959,9 @@ function showdetail(id) {
                 $('.detail-top-img-alert1').html('该项目已'+detail.sale_status);
                 $('.detail-head-status').html('['+detail.sale_status+']');
                 $('.detail-top-img-alert1').css('display','block');
+            } else {
+                $('.detail-top-img-alert1').css('display','none');
+                $('.detail-buttom0').css('display','block');
             }
             //底部按钮变化
             if (detail.is_contact_only==1) {
