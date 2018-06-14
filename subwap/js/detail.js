@@ -101,6 +101,8 @@ $(document).ready(function(){
             }
             if(detail.is_unshow==1||detail.is_unshow=="1") {
                 $('.detail-buttom0').css('display','none');
+                $('.detail-top-img-alert1').html('该项目已'+detail.sale_status);
+                $('.detail-head-status').html('['+detail.sale_status+']');
                 $('.detail-top-img-alert1').css('display','block');
             }
             if(detail.is_save==1) {

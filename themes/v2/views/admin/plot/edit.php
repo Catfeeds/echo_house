@@ -99,7 +99,7 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
                 <div class="col-md-12"><?php echo $form->error($plot, 'status'); ?></div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">是否售罄</label>
+                <label class="col-md-2 control-label text-nowrap">是否售罄或撤场</label>
                 <div class="col-md-10">
                     <div class="radio-list">
                         <?php echo $form->radioButtonList($plot,'is_unshow', [0=>'否',1=>'是'],array('class'=>'radio-inline', 'separator'=>'&nbsp;&nbsp;','template'=>'<label>{input} {label}</label>')) ?>

@@ -311,7 +311,7 @@ class PlotController extends ApiController{
 					$lists[] = [
 						'id'=>$value->id,
 						'title'=>Tools::u8_title_substr($value->title,18),
-						'price'=>$value->is_unshow?'已售罄/撤场':$value->price,
+						'price'=>$value->is_unshow?('已'.TagExt::model()->findByPk($value->sale_status)->name):$value->price,
 						'unit'=>$value->is_unshow?'':PlotExt::$unit[$value->unit],
 						'area'=>$areaName,
 						'street'=>$streetName,
@@ -631,6 +631,7 @@ class PlotController extends ApiController{
 			'ff_phones'=>$ffphones,
 			'is_alert'=>$is_alert,
 			'is_unshow'=>$info->is_unshow,
+			'sale_status'=>$info->sale_status?TagExt::model()->findByPk($info->sale_status)->name:'',
 			'is_save'=>$thisuid&&Yii::app()->db->createCommand('select id from save where uid='.$thisuid.' and hid='.$info->id)->queryScalar()?1:0,
 			// 'share_phone'=>$share_phone,
 		];
