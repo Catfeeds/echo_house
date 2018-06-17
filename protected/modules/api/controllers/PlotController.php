@@ -545,7 +545,7 @@ class PlotController extends ApiController{
 		if($dpsres = PlotDpExt::model()->normal()->findAll(['condition'=>"hid=$id",'limit'=>$ask_limit])) {
 			foreach ($dpsres as $re) {
 				$dpuser = $re->user;
-				$dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100)];
+				$dpuser && $dps[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名用户':$dpuser->name,'note'=>$re->note,'time'=>date('Y-m-d',$re->updated),'image'=>ImageTools::fixImage($dpuser->ava?$dpuser->ava:SiteExt::getAttr('qjpz','usernopic'),100,100)];
 			}
 		}
 
