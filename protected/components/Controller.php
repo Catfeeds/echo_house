@@ -501,6 +501,7 @@ class Controller extends CController
     		$url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='.$tk;
     		$res = $this->curl_post($url,json_encode($dataarr),[]);
     		Yii::log($res);
+    		Yii::log($openid);
     	}
     	
 
