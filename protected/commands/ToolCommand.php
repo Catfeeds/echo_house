@@ -903,7 +903,7 @@ class ToolCommand extends CConsoleCommand
     {
         $key = "495e6105d4146af1d36053c1034bc819";
         $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
-        $res = $this->get_response($key,$url,['uid'=>14]);
+        $res = $this->get_response($key,$url,['uid'=>11]);
         var_dump($res);exit;
 
         $page = 1;
