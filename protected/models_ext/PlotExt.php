@@ -308,7 +308,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'sort desc,refresh_time desc';
+                    $criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
@@ -344,8 +344,8 @@ class PlotExt extends Plot{
                             $lists[] = [
                                 'id'=>$value->id,
                                 'title'=>Tools::u8_title_substr($value->title,18),
-                                'price'=>$value->price,
-                                'unit'=>PlotExt::$unit[$value->unit],
+                                'price'=>$value->is_unshow?('已'.TagExt::model()->findByPk($value->sale_status)->name):(!$value->price?'待定':$value->price),
+                                'unit'=>$value->is_unshow||(!$value->price)?'':PlotExt::$unit[$value->unit],
                                 'area'=>$areaName,
                                 'street'=>$streetName,
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
