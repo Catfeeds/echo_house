@@ -901,26 +901,27 @@ class ToolCommand extends CConsoleCommand
 
     public function actionSetOpenId()
     {
-        $key = "495e6105d4146af1d36053c1034bc819";
-        $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
-        $res = $this->get_response($key,$url,['uid'=>11]);
-        var_dump($res);exit;
+        // $key = "495e6105d4146af1d36053c1034bc819";
+        // $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
+        // $res = $this->get_response($key,$url,['uid'=>11]);
+        // var_dump($res);exit;
 
         $page = 1;
         $key = "495e6105d4146af1d36053c1034bc819";
         $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
         begin:
-        $sql = "select id,qf_uid from user where qf_uid=14";
+        $sql = "select id,qf_uid from user where qf_uid>0 order by qf_uid asc";
         $ress = Yii::app()->db->createCommand($sql)->queryAll();
         if($ress) {
             foreach ($ress as $value) {
                 $res = $this->get_response($key,$url,['uid'=>$value['qf_uid']]);
                 // var_dump($res);exit;
                 $res = json_decode($res,true);
-                if($res['ret']==0) {
-                    var_dump(1);
-                }
+                // if($res['ret']==0) {
+                //     var_dump(1);
+                // }
                 if($res && isset($res['data']['openid'])) {
+                    var_dump($value['qf_uid']);
                     Yii::app()->db->createCommand("update user set jjq_openid='".$res['data']['openid']."' where id=".$value['id'])->execute();
                     // $value->jjq_openid = $res['data']['openid'];
                     // $value->save();
