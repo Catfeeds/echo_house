@@ -492,7 +492,7 @@ class Controller extends CController
     		$tk = Yii::app()->wx->getAccessToken();
     		$tid = Yii::app()->params['wxArr'][$type];
     		$dataarr = [
-    			"touser"=>$openid,
+    			"touser"=>"$openid",
 			    "template_id"=>$tid,
 			    "url"=>"http://weixin.qq.com/download",
 			    "topcolor"=>"#FF0000",
