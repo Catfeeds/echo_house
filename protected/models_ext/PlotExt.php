@@ -457,11 +457,11 @@ class PlotExt extends Plot{
         if($owner = $this->owner) {
             $owner->qf_uid && Yii::app()->controller->sendNotice('恭喜您，'.$this->title.'已通过审核并已上线。点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->id,$owner->qf_uid);
             SmsExt::sendMsg('项目通过审核',$owner->phone,['lpmc'=>$this->title]);
-//             if($owner->openid)
-//                 Yii::app()->controller->sendWxNo($owner->openid,'审核提醒',Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->id,['first'=>'恭喜您，您的项目'.$this->title.'已经审核通过！',
-// 'keyword1'=>'通过',
-// 'keyword2'=>date('Y-m-d H:i'),
-// 'remark'=>'请点击详情进行预览，更多精彩请关注经纪圈APP']);
+            if($owner->qf_openid)
+                Yii::app()->controller->sendWxNo($owner->qf_openid,'审核提醒',Yii::app()->request->getHostInfo().'/api/index/detail?id='.$this->id,['first'=>'恭喜您，您的项目'.$this->title.'已经审核通过！',
+'keyword1'=>'通过',
+'keyword2'=>date('Y-m-d H:i'),
+'remark'=>'请点击详情进行预览，更多精彩请关注经纪圈APP']);
             // 恭喜您，${lpmc}已通过后台编辑的完善和审核，请登录经纪圈APP消息列表查看付费链接。
         }
     }
