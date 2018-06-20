@@ -362,7 +362,7 @@ function ajaxGetList(obj) {
                 if(item.sort>0){
                     // if (is_user==true) {
                         var payword = '';
-                        if (is_user==true) {
+                        if (is_user==true && !is_jy) {
                             payword = item.pay==''?'暂无佣金方案':item.pay;
                         } else {
                             payword = '暂无权限查看';
@@ -382,7 +382,7 @@ function ajaxGetList(obj) {
                 }else{
                     // if (is_user==true) {
                         var payword = '';
-                        if (is_user==true) {
+                        if (is_user==true && !is_jy) {
                             payword = item.pay==''?'暂无佣金方案':item.pay;
                         } else {
                             payword = '暂无权限查看';
