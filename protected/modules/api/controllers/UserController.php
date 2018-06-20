@@ -43,7 +43,7 @@ class UserController extends ApiController{
 			if($obj) {
 				$user = new UserExt;
 				$company = '';
-				if(Yii::app()->db->createCommand("select id from user where phone='".$obj['phone']."'")->queryScalar()) {
+				if(Yii::app()->db->createCommand("select id from user where deleted=0 and phone='".$obj['phone']."'")->queryScalar()) {
 					return $this->returnError('您已提交申请，请勿重复提交');
 				}
 				if($obj['type']<3) {
