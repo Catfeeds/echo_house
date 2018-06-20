@@ -23,7 +23,7 @@ class ConfigController extends ApiController{
 			'user'=>$this->staff,
 			'companyname'=>isset($this->staff->companyinfo)?$this->staff->companyinfo->name:'',
 			'user_image'=>isset($this->staff->ava)?$this->staff->ava:'',
-			'is_jy'=>isset($userinfo)&&$userinfo['id']&&$userinfo['status']==0?1:0,
+			'is_jy'=>isset($userinfo)&&$userinfo['status']==0?1:0,
 		];
 		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
