@@ -222,7 +222,7 @@ $(document).ready(function() {
         $.get('/api/config/index',function(data) {
             is_user = data.data.is_user;      
             is_jy = data.data.is_jy;
-            alert(data.data.user.status);
+            alert(data.data.uid);
             var user_image = data.data.user_image;
             if(GetQueryString('street') != null) {
                 o.street = GetQueryString('street');

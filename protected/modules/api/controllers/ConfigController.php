@@ -19,7 +19,7 @@ class ConfigController extends ApiController{
 		        });
 		if(!empty($_COOKIE['phone']))
 			$userinfo = Yii::app()->db->createCommand("select id,status from user where  phone='".$_COOKIE['phone']."'")->queryRow();
-		if($this->staff && $this->staff->status==0) {
+		if($userinfo && $userinfo['status']==0) {
 			$is_jy = 1;
 		} else {
 			$is_jy = 0;
@@ -30,6 +30,7 @@ class ConfigController extends ApiController{
 			'companyname'=>isset($this->staff->companyinfo)?$this->staff->companyinfo->name:'',
 			'user_image'=>isset($this->staff->ava)?$this->staff->ava:'',
 			'is_jy'=>$is_jy,
+			'uid'=>$userinfo?$userinfo['id']:0,
 		];
 		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
