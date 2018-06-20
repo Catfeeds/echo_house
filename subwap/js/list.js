@@ -137,16 +137,21 @@ function checkUser() {
             });
 }
 function checkId(obj) {
-    listheight=$(window).scrollTop();
-    $('.listshow').addClass('hide');
-    $('.detailshow').removeClass('hide');
-    history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
-    if($(obj).data('id')!=hid) {
-
-        showdetail($(obj).data('id'));
+    if(!is_user) {
+        checkUser();
     } else {
-        window.scrollTo(0,0);
+        listheight=$(window).scrollTop();
+        $('.listshow').addClass('hide');
+        $('.detailshow').removeClass('hide');
+        history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
+        if($(obj).data('id')!=hid) {
+
+            showdetail($(obj).data('id'));
+        } else {
+            window.scrollTo(0,0);
+        }
     }
+        
 }
 
 function setCookie(name,value) {
@@ -356,7 +361,12 @@ function ajaxGetList(obj) {
                 }
                 if(item.sort>0){
                     // if (is_user==true) {
-                        var payword = item.pay==''?'暂无佣金方案':item.pay;
+                        var payword = '';
+                        if (is_user==true) {
+                            payword = item.pay==''?'暂无佣金方案':item.pay;
+                        } else {
+                            payword = '暂无权限查看';
+                        }
                         if (item.wylx != '') {
                             html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="list-distance">' + item.wylx + '</div></a><div class="house-text-company" onclick="setCompany(this,event)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
@@ -371,7 +381,12 @@ function ajaxGetList(obj) {
                     // }
                 }else{
                     // if (is_user==true) {
-                        var payword = item.pay==''?'暂无佣金方案':item.pay;
+                        var payword = '';
+                        if (is_user==true) {
+                            payword = item.pay==''?'暂无佣金方案':item.pay;
+                        } else {
+                            payword = '暂无权限查看';
+                        }
                         if (item.wylx != '') {
                             html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="list-distance">' + item.wylx + '</div></a><div class="house-text-company" onclick="setCompany(this,event)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
@@ -460,7 +475,12 @@ function ajaxAddList(obj) {
                 }
                 if (item.sort>0) {
                     // if (is_user==true) {
-                        var payword = item.pay==''?'暂无佣金方案':item.pay;                
+                        var payword = '';
+                        if (is_user==true) {
+                            payword = item.pay==''?'暂无佣金方案':item.pay;
+                        } else {
+                            payword = '暂无权限查看';
+                        }              
                         if (item.wylx != '') {
                             html += '<li class="list-housej" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this,event)"><img class="house-img" src="' + item.image + '"/><div class="house-jing">顶</div><div class="house-text-headj">' + item.title + '</div><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="list-distance">' + item.wylx + '</div></a><div class="house-text-company" onclick="setCompany(this,event)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
@@ -475,7 +495,12 @@ function ajaxAddList(obj) {
                     // }
                 } else {
                     // if (is_user==true) {
-                        var payword = item.pay==''?'暂无佣金方案':item.pay;                
+                        var payword = '';
+                        if (is_user==true) {
+                            payword = item.pay==''?'暂无佣金方案':item.pay;
+                        } else {
+                            payword = '暂无权限查看';
+                        }              
                         if (item.wylx != '') {
                             html += '<li class="list-house" style="list-style-type: none;"><div class="line"></div><a data-href="detail.html?id='+item.id+'" data-id="'+item.id+'" onclick="checkId(this,event)"><img class="house-img" src="' + item.image + '"/><div class="house-text-head">' + item.title + '</div><div class="house-text-plot_name-2"> ' + item.area + ' ' + item.street + '</div><div class="house-text-pay-yong">佣</div><div class="house-text-pay">' + payword + '</div><div class="house-text-price">' + item.price + '' + item.unit + '</div><div class="list-distance">' + item.wylx + '</div></a><div class="house-text-company" onclick="setCompany(this,event)" data-id="' + companyid + '">' + company + '</div></li>';
                         } else {
