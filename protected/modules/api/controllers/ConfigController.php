@@ -2,6 +2,7 @@
 class ConfigController extends ApiController{
 	public function actionIndex()
 	{
+		$userinfo = '';
 		$oths = CacheExt::gas('wap_all_config','AreaExt',0,'wap配置缓存',function (){
 	            $tmp = [
 					'login_img'=>ImageTools::fixImage(SiteExt::getAttr('qjpz','login_img')),
@@ -18,12 +19,17 @@ class ConfigController extends ApiController{
 		        });
 		if(!empty($_COOKIE['phone']))
 			$userinfo = Yii::app()->db->createCommand("select id,status from user where  phone='".$_COOKIE['phone']."'")->queryRow();
+		if($userinfo && $userinfo['status']==0) {
+			$is_jy = 1;
+		} else {
+			$is_jy = 0;
+		}
 		$data = [
 			'is_user'=>!Yii::app()->user->getIsGuest(),
 			'user'=>$this->staff,
 			'companyname'=>isset($this->staff->companyinfo)?$this->staff->companyinfo->name:'',
 			'user_image'=>isset($this->staff->ava)?$this->staff->ava:'',
-			'is_jy'=>isset($userinfo)&&$userinfo['status']==0?1:0,
+			'is_jy'=>$is_jy,
 		];
 		$data = array_merge($oths,$data);
 		$this->frame['data'] = $data;
