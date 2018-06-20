@@ -137,7 +137,7 @@ function checkUser() {
             });
 }
 function checkId(obj) {
-    if(!is_user) {
+    if(!is_user || is_jy) {
         checkUser();
     } else {
         listheight=$(window).scrollTop();
