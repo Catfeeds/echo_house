@@ -177,7 +177,6 @@ $(document).ready(function() {
          QFH5.getUserInfo(function(state,data){
            if(state==1){
                 nowphone = data.phone;
-                setCookie('phone',nowphone);
               } 
         });
     }
@@ -220,10 +219,10 @@ $(document).ready(function() {
             // }
             
         // }
-        $.get('/api/config/index',function(data) {
+        $.get('/api/config/index?phone='+nowphone,function(data) {
             is_user = data.data.is_user;      
             is_jy = data.data.is_jy;
-            // alert(data.data.uid);
+            alert(data.data.uid);
             var user_image = data.data.user_image;
             if(GetQueryString('street') != null) {
                 o.street = GetQueryString('street');

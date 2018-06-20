@@ -1,6 +1,6 @@
 <?php
 class ConfigController extends ApiController{
-	public function actionIndex()
+	public function actionIndex($phone='')
 	{
 		$userinfo = '';
 		$oths = CacheExt::gas('wap_all_config','AreaExt',0,'wap配置缓存',function (){
@@ -17,8 +17,13 @@ class ConfigController extends ApiController{
 				];
 		            return $tmp;
 		        });
-		if(!empty($_COOKIE['phone']))
-			$userinfo = Yii::app()->db->createCommand("select id,status from user where  phone='".$_COOKIE['phone']."'")->queryRow();
+		if(!$phone) {
+			if(!empty($_COOKIE['phone'])) {
+				$phone = $_COOKIE['phone'];
+			}
+		}
+		if($phone)
+			$userinfo = Yii::app()->db->createCommand("select id,status from user where  phone='$phone'")->queryRow();
 		if($userinfo && $userinfo['status']==0) {
 			$is_jy = 1;
 		} else {
