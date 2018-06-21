@@ -153,7 +153,7 @@ class UserExt extends User{
 
             }
             // var_dump(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar());exit;
-            if($this->status==1 && (Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar()=='0')) {
+            if($this->status==1 && !(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar())) {
                 $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
                 // var_dump(SmsExt::sendMsg('经纪人注册通过',$this->phone););exit;
                 SmsExt::sendMsg('经纪人注册通过',$this->phone);
