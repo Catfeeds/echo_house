@@ -227,7 +227,7 @@ class UserExt extends User{
                 }
                 $newvps->save();
             } else {
-                Yii::log(json_encode($res));
+                // Yii::log(json_encode($res));
             }
         }
     }
