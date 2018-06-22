@@ -333,6 +333,28 @@ $(document).ready(function(){
             }else{
                 $('.detail-question-container').append('<div class="detail-ask-message">暂无</div>');
             }
+            if(typeof QFH5 != 'undefined') {
+                    var WxMiniProgram = {
+                      'wxUserName':'gh_e96ba07a8511',//小程序原始id
+                      'wxPath':"pages/house_detail/house_detail?id="+detail.id, //要打开的小程序页面路径
+                      'title':detail.title,//分享小程序的标题
+                      'imageUrl':detail.images[0].url,//分享小程序的封面图
+                      'share_model': 0 //0:正式版；1：开发版；2：体验版
+                  };
+                // 设置分享信息
+                 QFH5.setShareInfo(detail.title,detail.images[0].url,'test','',function(state,data){
+                      //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
+                      if(state==1){
+                            QFH5.openShare(2);
+                          //分享成功
+                          alert(data.type);//分享平台
+                      }else{
+                          //分享失败
+                          alert(data.error);//失败原因
+                      }
+                  },3,'',JSON.stringify(WxMiniProgram))
+            }
+            
         });
 
         
