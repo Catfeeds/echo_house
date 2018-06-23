@@ -1,35 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "plot_news".
+ * This is the model class for table "staff_log".
  *
- * The followings are the available columns in table 'plot_news':
+ * The followings are the available columns in table 'staff_log':
  * @property integer $id
- * @property integer $hid
+ * @property integer $sid
+ * @property string $uphone
  * @property integer $uid
- * @property integer $staff_id
- * @property string $author
- * @property string $title
- * @property string $description
- * @property string $content
- * @property string $image
- * @property string $source
- * @property string $url
- * @property integer $time
- * @property integer $sort
- * @property integer $status
- * @property integer $deleted
+ * @property string $num
  * @property integer $created
  * @property integer $updated
  */
-class PlotNews extends CActiveRecord
+class StaffLog extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'plot_news';
+		return 'staff_log';
 	}
 
 	/**
@@ -41,13 +31,12 @@ class PlotNews extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('hid, uid, staff_id, time, sort, status, deleted, created, updated', 'numerical', 'integerOnly'=>true),
-			array('author, source', 'length', 'max'=>100),
-			array('title, description, image, url', 'length', 'max'=>255),
-			array('content', 'safe'),
+			array('sid, uid, created, updated', 'numerical', 'integerOnly'=>true),
+			array('uphone', 'length', 'max'=>20),
+			array('num', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hid, uid, staff_id, author, title, description, content, image, source, url, time, sort, status, deleted, created, updated', 'safe', 'on'=>'search'),
+			array('id, sid, uphone, uid, num, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,20 +58,10 @@ class PlotNews extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hid' => 'Hid',
+			'sid' => 'Sid',
+			'uphone' => 'Uphone',
 			'uid' => 'Uid',
-			'staff_id' => 'Staff',
-			'author' => 'Author',
-			'title' => 'Title',
-			'description' => 'Description',
-			'content' => 'Content',
-			'image' => 'Image',
-			'source' => 'Source',
-			'url' => 'Url',
-			'time' => 'Time',
-			'sort' => 'Sort',
-			'status' => 'Status',
-			'deleted' => 'Deleted',
+			'num' => 'Num',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -107,20 +86,10 @@ class PlotNews extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('hid',$this->hid);
+		$criteria->compare('sid',$this->sid);
+		$criteria->compare('uphone',$this->uphone,true);
 		$criteria->compare('uid',$this->uid);
-		$criteria->compare('staff_id',$this->staff_id);
-		$criteria->compare('author',$this->author,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('content',$this->content,true);
-		$criteria->compare('image',$this->image,true);
-		$criteria->compare('source',$this->source,true);
-		$criteria->compare('url',$this->url,true);
-		$criteria->compare('time',$this->time);
-		$criteria->compare('sort',$this->sort);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('deleted',$this->deleted);
+		$criteria->compare('num',$this->num,true);
 		$criteria->compare('created',$this->created);
 		$criteria->compare('updated',$this->updated);
 
@@ -133,7 +102,7 @@ class PlotNews extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PlotNews the static model class
+	 * @return StaffLog the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

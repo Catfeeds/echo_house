@@ -77,7 +77,13 @@ class AdminController extends Controller
             ['label'=>'上下架管理','icon'=>'icon-speedometer','url'=>['/admin/down/list'],'active'=>$this->route=='admin/down/edit'],
             ['label'=>'标签管理','icon'=>'icon-speedometer','url'=>['/admin/tag/list'],'active'=>$this->route=='admin/tag/edit'],
             ['label'=>'用户管理','icon'=>'icon-speedometer','url'=>['/admin/user/list']],
-            ['label'=>'员工管理','icon'=>'icon-speedometer','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
+            ['label' => '员工管理', 'icon' => 'icon-speedometer', 'items' => [
+                ['label'=>'员工列表','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
+                ['label'=>'员工会员流水','url'=>['/admin/staffLog/list'],'active'=>$this->route=='admin/staffLog/edit'],
+                ['label'=>'员工项目流水','url'=>['/admin/staffLog/plotlist'],'active'=>$this->route=='admin/staffLog/plotedit'],
+                ['label'=>'员工动态流水','url'=>['/admin/staffLog/plotdtlist'],'active'=>$this->route=='admin/staffLog/plotdtedit'],
+            ]],
+            // ['label'=>'员工管理','icon'=>'icon-speedometer','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
             ['label'=>'虚拟号码管理','icon'=>'icon-speedometer','url'=>['/admin/virtualPhone/list'],'active'=>$this->route=='admin/virtualPhone/edit'],
             ['label' => '推广管理', 'icon' => 'icon-speedometer', 'items' => [
                 ['label' => '域名管理', 'url' => ['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
