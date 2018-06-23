@@ -169,6 +169,7 @@ class PlotExt extends Plot{
             'owner'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             'companys'=>array(self::MANY_MANY, 'CompanyExt', 'plot_company(hid,cid)'),
             'company'=>array(self::BELONGS_TO, 'CompanyExt', 'company_id'),
+            'staff'=>array(self::BELONGS_TO, 'StaffExt', 'staff_id'),
         );
     }
 

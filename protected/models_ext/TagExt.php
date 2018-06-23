@@ -19,6 +19,7 @@ class TagExt extends Tag
             'xszt' => '销售状态',
             
             'sfprice' => '首付金额',
+            'pricetype' => '付款选项',
             // 'hjxl' => '红酒系列',
             // 'jzdq' => '酒庄地区',
             // 'jzdj' => '酒庄等级',

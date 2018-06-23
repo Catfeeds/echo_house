@@ -12,6 +12,7 @@ class PlotNewsExt extends PlotNews{
     {
         return array(
             'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
+            'staff'=>array(self::BELONGS_TO, 'StaffExt', 'staff_id'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }

@@ -91,7 +91,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'id_no') ?></div>
 </div>
-<?php if(Yii::app()->user->id == 1):?>
+<?php if(Yii::app()->user->id == 1 || Yii::app()->user->username=='陈建新'):?>
 <div class="form-group">
     <label class="col-md-2 control-label">会员到期时间</label>
     <div class="col-md-4">

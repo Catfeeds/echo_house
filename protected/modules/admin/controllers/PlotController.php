@@ -552,6 +552,9 @@ class PlotController extends AdminController{
 			// }
 			// exit;
 			// var_dump($tagArray);exit;
+			if($house->getIsNewRecord()) {
+				$house->staff_id = Yii::app()->user->id;
+			}
 			if($house->save()) {
 				if($change) {
 					$house->changeS();
@@ -688,6 +691,9 @@ class PlotController extends AdminController{
 		$this->controllerName = '楼盘动态';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		$info->getIsNewRecord() && $info->status = 1;
+		if($info->getIsNewRecord()) {
+			$info->staff_id = Yii::app()->user->id;
+		}
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 
@@ -708,6 +714,9 @@ class PlotController extends AdminController{
 		$this->controllerName = '楼盘动态';
 		$info = $id ? $modelName::model()->findByPk($id) : new $modelName;
 		$info->getIsNewRecord() && $info->status = 1;
+		if($info->getIsNewRecord()) {
+			$info->staff_id = Yii::app()->user->id;
+		}
 		if(Yii::app()->request->getIsPostRequest()) {
 			$info->attributes = Yii::app()->request->getPost($modelName,[]);
 			$info->status = 1;
