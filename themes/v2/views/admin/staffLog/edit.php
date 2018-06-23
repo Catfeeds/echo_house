@@ -35,6 +35,13 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
     </div>
     <div class="col-md-2"><?php echo $form->error($article, 'num') ?></div>
 </div>
+<div class="form-group">
+    <label class="col-md-2 control-label">付款选项</label>
+    <div class="col-md-4">
+        <?php echo $form->dropDownList($article, 'type', CHtml::listData(TagExt::model()->findAll('status=1 and cate="pricetype"'),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'type') ?></div>
+</div>
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">

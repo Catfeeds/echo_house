@@ -13,6 +13,7 @@ class StaffLogExt extends StaffLog{
         return array(
             'user'=>array(self::BELONGS_TO, 'UserExt', 'uid'),
             'staff'=>array(self::BELONGS_TO, 'StaffExt', 'sid'),
+            'tag'=>array(self::BELONGS_TO, 'TagExt', 'type'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
     }

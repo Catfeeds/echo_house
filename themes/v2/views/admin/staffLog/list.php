@@ -35,6 +35,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">员工姓名</th>
         <th class="text-center">客户信息</th>
         <th class="text-center">费用</th>
+        <th class="text-center">费用类型</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
         <th class="text-center">操作</th>
@@ -47,6 +48,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->staff->name?></td>
             <td class="text-center"><?=$user->name.' '.$user->phone.' '.$user->companyinfo->name?></td>
             <td class="text-center"><?=$v->num?></td>
+            <td class="text-center"><?=$v->type?$v->tag->name:''?></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
 
