@@ -77,7 +77,7 @@ class PlotMarketUserExt extends PlotMakertUser{
                         $newvps->max = $user->virtual_no_ext;
                         $newvps->save();
                     } else {
-                        Yii::log(json_encode($res));
+                        // Yii::log(json_encode($res));
                     }
                 }
 
