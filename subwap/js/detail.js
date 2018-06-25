@@ -311,7 +311,7 @@ $(document).ready(function(){
                 for(var i = 0; i < detail.asks.length; i++){
                     var aksEle = '<div class="detail-question-info">' +
                         '            <span class="icon icon-wen">问</span>' +
-                        '            <span>'+ detail.asks[i].title +'</span>'+
+                        '            <span class="detail-question-info-title" >'+ detail.asks[i].title +'</span>'+
                         '            <span class="detail-question-info-num">' +
                         '                <span>'+ detail.asks[i].answers_count +'</span>个回答' +
                         '            </span>' +

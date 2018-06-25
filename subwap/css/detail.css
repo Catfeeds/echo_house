@@ -536,7 +536,7 @@ body{
 	overflow: hidden;
 }
 .detail-question-container .detail-question-info{
-	display: -webkit-box;
+	display: flex;
 	margin:0.747rem;
 	font-size: 0.8rem;
 	position: relative;
@@ -558,10 +558,16 @@ body{
 .detail-question-info .icon-da{
 	background-color: #00b7ee
 }
+.detail-question-info-title{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .detail-question-info-num{
-	position: absolute;
-	top:0;
-	right:0.747rem;
+	width:140px;
+	/*position: absolute;*/
+	/*top:0;*/
+	/*right:0.747rem;*/
 }
 
 .detail-mainstyle{
