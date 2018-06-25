@@ -11,7 +11,7 @@ class VipSubExt extends VipSub{
     public function relations()
     {
         return array(
-            'user'=>array(self::BELONGS_TO, 'UserExt', 'user_phone'),
+            'user'=>array(self::BELONGS_TO, 'UserExt', ['user_phone'=>'phone']),
             'plot'=>array(self::BELONGS_TO, 'PlotExt', 'hid'),
             // 'images'=>array(self::HAS_MANY, 'AlbumExt', 'pid'),
         );
