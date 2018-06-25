@@ -2572,4 +2572,25 @@ class PlotController extends ApiController{
     	}
     }
 
+    public function actionAddVipUser()
+    {
+    	if(Yii::app()->request->getIsPostRequest()) {
+    		$obj = new VipSubExt;
+    		$obj->attributes = $_POST;
+    		if(!Yii::app()->db->createCommand("select id from user where phone='".$obj->user_phone."'")->queryScalar()) {
+    			$this->returnError('参数错误');
+    		} else {
+    			// 不能重复提交
+    			if(Yii::app()->db->createCommand("select id from vip_sub where user_phone='".$obj->user_phone."' and hid=".$obj->hid." and vip_phone='".$obj->vip_phone."'")->queryScalar()) {
+    				$this->returnError('请勿重复提交');
+    			}else {
+    				if(!$obj->save()) {
+	    				$this->returnError(current(current($obj->getErrors())));
+	    			}
+    			}
+	    			
+    		}
+    	}
+    }
+
 }
