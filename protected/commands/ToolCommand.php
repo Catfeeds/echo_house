@@ -768,7 +768,7 @@ class ToolCommand extends CConsoleCommand
                          }
                         $newvps->save();
                     } else {
-                        Yii::log(json_encode($res));
+                        // Yii::log(json_encode($res));
                     }
                 }
                 echo ($key+1).'/'.count($ress).'-------------------';
@@ -838,7 +838,7 @@ class ToolCommand extends CConsoleCommand
                             $value->subs_id = $res->SecretBindDTO->SubsId;
 
                             $value->save();
-                            // Yii::log($this->virtual_no);
+                            Yii::log($this->virtual_no);
                             $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$value->virtual_no'"]);
                             if($newvps && $value->virtual_no_ext) {
                                 $newvps->max = $value->virtual_no_ext;
@@ -848,7 +848,7 @@ class ToolCommand extends CConsoleCommand
                             
                             
                         } else {
-                            Yii::log(json_encode($res));
+                            // Yii::log(json_encode($res));
                         }
                     }
                 }

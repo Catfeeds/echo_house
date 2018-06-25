@@ -342,10 +342,10 @@ $(document).ready(function(){
                       'share_model': 0 //0:正式版；1：开发版；2：体验版
                     };
                 // 设置分享信息
-                 QFH5.setShareInfo(detail.title,detail.images[0].url,'test','http://www.baidu.com',function(state,data){
+                 QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
                       if(state==1){
-                            QFH5.openShare(2);
+                            // QFH5.openShare(2);
                           //分享成功
                           alert(data.type);//分享平台
                       }else{
@@ -356,14 +356,14 @@ $(document).ready(function(){
                  QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
                       if(state==1){
-                            QFH5.openShare(1);
+                            // QFH5.openShare(1);
                           //分享成功
                           alert(data.type);//分享平台
                       }else{
                           //分享失败
                           alert(data.error);//失败原因
                       }
-                  });
+                  },1);
             }
             
         });
