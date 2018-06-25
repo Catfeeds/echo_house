@@ -85,6 +85,7 @@ class AdminController extends Controller
             ]],
             // ['label'=>'员工管理','icon'=>'icon-speedometer','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
             ['label'=>'虚拟号码管理','icon'=>'icon-speedometer','url'=>['/admin/virtualPhone/list'],'active'=>$this->route=='admin/virtualPhone/edit'],
+            ['label'=>'集客管理','icon'=>'icon-speedometer','url'=>['/admin/vipSub/list'],'active'=>$this->route=='admin/vipSub/edit'],
             ['label' => '推广管理', 'icon' => 'icon-speedometer', 'items' => [
                 ['label' => '域名管理', 'url' => ['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
                 ['label' => '客户管理', 'url' => ['/admin/plotUser/list'],'active'=>$this->route=='admin/plotUser/edit'],

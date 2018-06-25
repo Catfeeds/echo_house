@@ -3,6 +3,7 @@ var hid = '';
 var title='';
 var phone='';
 var nowphone = '';
+var sharephone = '';
 var areaid='';
 var streetid='';
 var is_jy = 0;
@@ -76,7 +77,12 @@ $(document).ready(function(){
               } 
         });
     }
-       
+    // 获取手机号，如不存在 底下两个禁用
+    // $.get()
+    if(GetQueryString('p')!=''&&GetQueryString('p')!=undefined) {
+        sharephone = GetQueryString('p');
+        $('#thisph').attr('href','tel:'+sharephone);
+    }
     $('.detail-laststate-time').empty();
     $('.detail-laststate-num').empty();
     $('#laststate-img').css('display','none');
@@ -659,8 +665,8 @@ $('.cancel').click(function(){
 })
 
 $('.sure').click(function(){
-    var name=$('#name').val();
-    var phone=$('#phone').val();
+    var name=$('#vipname').val();
+    var phone=$('#vipphone').val();
     var pattern = /^1[34578]\d{9}$/; 
     if(!name){
         alert('请输入姓名！')
@@ -674,7 +680,15 @@ $('.sure').click(function(){
             alert('请输入正确的手机号码！')
             return;
         }else{
-            alert('调接口')
+            // alert('调接口')
+            $.post('/api/plot/addVipUser',{'hid':hid,'user_phone':sharephone,'vip_phone':phone,'name':name},function(data) {
+                if(data.status=='success') {
+                    alert('提交成功');
+                    $('.dialog').hide();
+                } else {
+                    alert(data.msg);
+                }
+            })
         }
     }  
 })
