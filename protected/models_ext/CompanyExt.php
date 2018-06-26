@@ -68,7 +68,7 @@ class CompanyExt extends Company{
 
             if($this->adduid) {
                 $user = UserExt::model()->find("qf_uid=".$this->adduid);
-                var_dump($this->adduid);exit;
+                // var_dump($this->adduid);exit;
                 if($user) {
                     Yii::app()->controller->sendNotice('您好，贵公司门店码为'.$this->code.'，公司其他员工也可以通过此门店码加入经纪圈新房通，点这里立即前往绑定门店码：'.Yii::app()->request->getHostInfo().'/subwap/register.html?phone='.$user->phone,$this->adduid);
                     SmsExt::sendMsg('公司注册通过',$user->phone,['code'=>$this->code]);
