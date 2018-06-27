@@ -2346,7 +2346,8 @@ class PlotController extends ApiController{
     public function actionCheckCanTop($hid='')
     {
     	// var_dump(PlotExt::model()->count('sort>0'),SiteExt::getAttr('qjpz','toplimit'));exit;
-    	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
+    	
+    	if(PlotExt::model()->count('sort>0 and area='.$plot->area)>=SiteExt::getAttr('qjpz','toplimit')&&PlotExt::model()->count('qjsort>0')>=SiteExt::getAttr('qjpz','qjtoplimit')) {
     		return $this->returnError('置顶限额已满，请联系管理员');
     	}
     	if(PlotExt::model()->findByPk($hid)->status!=1) {
