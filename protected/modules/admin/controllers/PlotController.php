@@ -94,7 +94,7 @@ class PlotController extends AdminController{
         		$criteria->addCondition('uid=0');
         }
 		$this->controllerName = '楼盘';
-		$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
+		$criteria->order = 'is_unshow asc,qjsort desc,refresh_time desc';
 		if($sort) {
 			$criteria->order = $sort.' desc';
 		}
