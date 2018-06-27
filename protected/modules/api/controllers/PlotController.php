@@ -223,7 +223,7 @@ class PlotController extends ApiController{
 			}
 		} else {	
 			if($area) {
-				$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
+				$criteria->order = 'is_unshow asc,qjsort desc,sort desc,refresh_time desc';
 			} else
 				$criteria->order = 'is_unshow asc,qjsort desc,refresh_time desc';
 		}
@@ -323,7 +323,7 @@ class PlotController extends ApiController{
 						'status'=>$value->status,
 						'zd_company'=>$companydes,
 						'pay'=>$showPay?$value->first_pay:'暂无权限查看',
-						'sort'=>$area?$value->sort:$value->qjsort,
+						'sort'=>$area?($value->qjsort||$value->sort):$value->qjsort,
 						'can_edit'=>$can_edit,
 						'expire'=>$this->staff&&$expire,
 						'distance'=>round($this->getDistance($value),2),
