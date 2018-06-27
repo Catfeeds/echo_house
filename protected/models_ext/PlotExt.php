@@ -309,7 +309,7 @@ class PlotExt extends Plot{
         return CacheExt::gas('wap_init_plotlist','AreaExt',0,'wap列表页缓存',function (){
                     $info_no_pic = SiteExt::getAttr('qjpz','info_no_pic');
                     $criteria = new CDbCriteria;
-                    $criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
+                    $criteria->order = 'is_unshow asc,qjsort desc,refresh_time desc';
                     $plots = PlotExt::model()->normal()->getList($criteria);
                     if($datares = $plots->data) {
                         foreach ($datares as $key => $value) {
@@ -352,7 +352,7 @@ class PlotExt extends Plot{
                                 'image'=>ImageTools::fixImage($value->image?$value->image:$info_no_pic,220,164),
                                 'zd_company'=>$companydes,
                                 'pay'=>$value->first_pay,
-                                'sort'=>$value->sort,    
+                                'sort'=>$value->qjsort,    
                                 'wylx'=>$wyw,   
                                 'distance'=>(object) array('map_lng' => $value->map_lng,'map_lat' => $value->map_lat),
                                 'obj'=>$value,

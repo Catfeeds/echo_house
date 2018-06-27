@@ -67,7 +67,7 @@ function findprices (obj) {
             $('#finp').html('1099');
         } else {
             $('#finp').html($(obj).find('.nowp').html());
-            day =  $(obj).find('.day').html();
+            day =  $(obj).find('.tittle').html();
         }
     // }
 }

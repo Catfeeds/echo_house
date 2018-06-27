@@ -80,7 +80,8 @@ if($parent) {
 <table class="table table-bordered table-striped table-condensed flip-content">
     <thead class="flip-content">
         <tr>
-            <th class="text-center">排序</th>
+            <th class="text-center">全局排序</th>
+            <th class="text-center">城市排序</th>
             <th class="text-center">id</th>
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
@@ -100,7 +101,9 @@ if($parent) {
     <?php foreach($infos as $v): $owner = $v->owner;$company = $v->company;$areaInfo = $v->areaInfo; $streetInfo = $v->streetInfo;?>
         <tr>
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
-                data-id="<?php echo $v['id'] ?>"><?php echo $v['sort'] ?></td>
+                data-id="<?php echo $v['id'] ?>" data-type='qj'><?php echo $v['qjsort'] ?></td>
+            <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
+                data-id="<?php echo $v['id'] ?>" data-type='ct'><?php echo $v['sort'] ?></td>
             <td  class="text-center"><?php echo $v->id ?></td>
             <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a></td>
             <td class="text-center"><?php echo ($areaInfo?$areaInfo->name:'').'<br>'.($streetInfo?$streetInfo->name:''); ?></td>
@@ -187,8 +190,8 @@ if($parent) {
             $('#Admin .modal-dialog').css({width:'1000px'});
         });
     }
-    function set_sort(_this, id, sort){
-            $.getJSON('<?php echo $this->createUrl('/admin/plot/setSort')?>',{id:id,sort:sort,class:'<?=isset($infos[0])?get_class($infos[0]):''?>'},function(dt){
+    function set_sort(_this, id, type, sort){
+            $.getJSON('<?php echo $this->createUrl('/admin/plot/setSort')?>',{id:id,type:type,sort:sort,class:'<?=isset($infos[0])?get_class($infos[0]):''?>'},function(dt){
                 location.reload();
             });
         }
@@ -209,7 +212,7 @@ if($parent) {
     });
     $('.sort_edit').click(function(){
         if($(this).find('input').length <1){
-            $(this).html('<input type=\"text\" value=\"' + $(this).html() + '\" class=\"form-control input-sm sort_edit\" onkeypress=\"return do_sort(event)\" onblur=\"set_sort($(this),$(this).parent().data(\'id\'),$(this).val())\">');
+            $(this).html('<input type=\"text\" value=\"' + $(this).html() + '\" class=\"form-control input-sm sort_edit\" onkeypress=\"return do_sort(event)\" onblur=\"set_sort($(this),$(this).parent().data(\'id\'),$(this).parent().data(\'type\'),$(this).val())\">');
             $(this).find('input').select();
         }
     });

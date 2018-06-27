@@ -222,7 +222,10 @@ class PlotController extends ApiController{
 				$criteria->order = 'ACOS(SIN(('.$city_lat.' * 3.1415) / 180 ) *SIN((map_lat * 3.1415) / 180 ) +COS(('.$city_lat.' * 3.1415) / 180 ) * COS((map_lat * 3.1415) / 180 ) *COS(('.$city_lng.' * 3.1415) / 180 - (map_lng * 3.1415) / 180 ) ) * 6380  asc';
 			}
 		} else {	
-			$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
+			if($area) {
+				$criteria->order = 'is_unshow asc,sort desc,refresh_time desc';
+			} else
+				$criteria->order = 'is_unshow asc,qjsort desc,refresh_time desc';
 		}
 		// if($areainit) {
 		// 	$dats = PlotExt::getFirstListFromArea();
@@ -320,7 +323,7 @@ class PlotController extends ApiController{
 						'status'=>$value->status,
 						'zd_company'=>$companydes,
 						'pay'=>$showPay?$value->first_pay:'暂无权限查看',
-						'sort'=>$value->sort,
+						'sort'=>$area?$value->sort:$value->qjsort,
 						'can_edit'=>$can_edit,
 						'expire'=>$this->staff&&$expire,
 						'distance'=>round($this->getDistance($value),2),
@@ -2361,13 +2364,24 @@ class PlotController extends ApiController{
     	if(!$days||!$plot) {
     		return $this->returnError('参数错误');
     	}
-    	if(PlotExt::model()->count('sort>0')>=SiteExt::getAttr('qjpz','toplimit')) {
-    		return $this->returnError('置顶限额已满，请联系管理员');
-    	}
-    	$plot->sort = 1;
-    	$plot->top_time = time() + $days*86400;
+    	if(strstr($days, '全局')) {
+    		// 全局置顶判断
+    		if(PlotExt::model()->count('qjsort>0')>=SiteExt::getAttr('qjpz','qjtoplimit')) {
+	    		return $this->returnError('置顶限额已满，请联系管理员');
+	    	}
+	    	$plot->qjsort = 1;
+	    	$plot->qjtop_time = time() + 30*86400;
+    	} else {
+    		// 城市置顶判断
+    		if(PlotExt::model()->count('sort>0 and area='.$plot->area)>=SiteExt::getAttr('qjpz','toplimit')) {
+	    		return $this->returnError('置顶限额已满，请联系管理员');
+	    	}
+	    	$plot->sort = 1;
+	    	$plot->top_time = time() + 30*86400;
+	    }	
     	$plot->save();
-    	SmsExt::sendMsg('置顶支付',$this->staff->phone,['name'=>$this->staff->name,'lpmc'=>$plot->title,'zdsj'=>$days.'天','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+    	SmsExt::sendMsg('置顶支付',$this->staff->phone,['name'=>$this->staff->name,'lpmc'=>$plot->title,'zdsj'=>'30天','phone'=>SiteExt::getAttr('qjpz','site_phone')]);
+    	
     }
 
     public function actionGetPlotInfo($id='')

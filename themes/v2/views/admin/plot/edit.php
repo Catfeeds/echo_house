@@ -267,10 +267,22 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
                 <div class="col-md-12"><?php echo $form->error($plot, 'dk_rule'); ?></div>
             </div>
             <div class="form-group">
-                <label class="col-md-2 control-label text-nowrap">置顶期限</label>
+                <label class="col-md-2 control-label text-nowrap">城市置顶期限</label>
                 <div class="col-md-6">
                     <div class="input-group date form_datetime" >
                         <?php echo $form->textField($plot,'top_time',array('class'=>'form-control','value'=>($plot->top_time?date('Y-m-d',$plot->top_time):''))); ?>
+                        <span class="input-group-btn">
+                          <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                       </span>
+                    </div>
+                </div>
+                <div class="col-md-12"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label text-nowrap">全局置顶期限</label>
+                <div class="col-md-6">
+                    <div class="input-group date form_datetime" >
+                        <?php echo $form->textField($plot,'qjtop_time',array('class'=>'form-control','value'=>($plot->qjtop_time?date('Y-m-d',$plot->qjtop_time):''))); ?>
                         <span class="input-group-btn">
                           <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
                        </span>

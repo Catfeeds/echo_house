@@ -10,10 +10,12 @@ class SetSortAction extends CAction{
 			$id = Yii::app()->request->getPost('id','');
 			$class = Yii::app()->request->getPost('class','');
 			$sort = Yii::app()->request->getPost('sort',0);
+			$type = Yii::app()->request->getPost('type','');
 		} else {
 			$id = Yii::app()->request->getQuery('id','');
 			$class = Yii::app()->request->getQuery('class','');
 			$sort = Yii::app()->request->getQuery('sort',0);
+			$type = Yii::app()->request->getQuery('type','');
 		}
 		if(!$id||!$class) {
 			return $this->controller->setMessage('参数错误','error');
@@ -26,7 +28,11 @@ class SetSortAction extends CAction{
 			}
 		foreach ($ids as $key => $id) {
 			$model = $class::model()->findByPk($id);
-			$model->sort = $sort;
+			// 项目全局置顶
+			if($type=='qj') {
+				$model->qjsort = $sort;
+			} else 
+				$model->sort = $sort;
 			if(!$model->save())
 				$this->controller->setMessage(current(current($model->getErrors())),'error');
 		}

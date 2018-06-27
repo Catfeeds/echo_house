@@ -495,6 +495,9 @@ class PlotController extends AdminController{
 			if(strpos($house->top_time,'-')) {
 				$house->top_time = strtotime($house->top_time);
 			}
+			if(strpos($house->qjtop_time,'-')) {
+				$house->qjtop_time = strtotime($house->qjtop_time);
+			}
 			if(strpos($house->delivery_time,'-')) {
 				$house->delivery_time = strtotime($house->delivery_time);
 			}

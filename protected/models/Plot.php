@@ -19,6 +19,7 @@
  * @property integer $staff_id
  * @property integer $uid
  * @property integer $refresh_time
+ * @property integer $qjtop_time
  * @property integer $top_time
  * @property integer $open_time
  * @property integer $delivery_time
@@ -41,6 +42,7 @@
  * @property integer $company_id
  * @property string $company_name
  * @property integer $ff_num
+ * @property integer $qjsort
  * @property integer $sort
  * @property integer $views
  * @property integer $deleted
@@ -67,7 +69,7 @@ class Plot extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, pinyin, area, street, data_conf, created', 'required'),
-			array('sale_status, place_user, tag_id, is_unshow, is_new, city, area, street, staff_id, uid, refresh_time, top_time, open_time, delivery_time, map_zoom, call_num, price, unit, price_mark, status, company_id, ff_num, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
+			array('sale_status, place_user, tag_id, is_unshow, is_new, city, area, street, staff_id, uid, refresh_time, qjtop_time, top_time, open_time, delivery_time, map_zoom, call_num, price, unit, price_mark, status, company_id, ff_num, qjsort, sort, views, deleted, created, updated, old_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>50),
 			array('pinyin, sale_tel', 'length', 'max'=>100),
 			array('fcode', 'length', 'max'=>1),
@@ -77,7 +79,7 @@ class Plot extends CActiveRecord
 			array('market_users, first_pay, company_name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, pinyin, fcode, sale_status, place_user, tag_id, is_unshow, is_new, city, area, street, staff_id, uid, refresh_time, top_time, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, call_num, image, price, unit, market_user, market_users, price_mark, first_pay, data_conf, status, company_id, company_name, ff_num, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
+			array('id, title, pinyin, fcode, sale_status, place_user, tag_id, is_unshow, is_new, city, area, street, staff_id, uid, refresh_time, qjtop_time, top_time, open_time, delivery_time, address, sale_addr, sale_tel, map_lng, map_lat, map_zoom, call_num, image, price, unit, market_user, market_users, price_mark, first_pay, data_conf, status, company_id, company_name, ff_num, qjsort, sort, views, deleted, created, updated, old_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,6 +115,7 @@ class Plot extends CActiveRecord
 			'staff_id' => 'Staff',
 			'uid' => 'Uid',
 			'refresh_time' => 'Refresh Time',
+			'qjtop_time' => 'Qjtop Time',
 			'top_time' => 'Top Time',
 			'open_time' => 'Open Time',
 			'delivery_time' => 'Delivery Time',
@@ -135,6 +138,7 @@ class Plot extends CActiveRecord
 			'company_id' => 'Company',
 			'company_name' => 'Company Name',
 			'ff_num' => 'Ff Num',
+			'qjsort' => 'Qjsort',
 			'sort' => 'Sort',
 			'views' => 'Views',
 			'deleted' => 'Deleted',
@@ -177,6 +181,7 @@ class Plot extends CActiveRecord
 		$criteria->compare('staff_id',$this->staff_id);
 		$criteria->compare('uid',$this->uid);
 		$criteria->compare('refresh_time',$this->refresh_time);
+		$criteria->compare('qjtop_time',$this->qjtop_time);
 		$criteria->compare('top_time',$this->top_time);
 		$criteria->compare('open_time',$this->open_time);
 		$criteria->compare('delivery_time',$this->delivery_time);
@@ -199,6 +204,7 @@ class Plot extends CActiveRecord
 		$criteria->compare('company_id',$this->company_id);
 		$criteria->compare('company_name',$this->company_name,true);
 		$criteria->compare('ff_num',$this->ff_num);
+		$criteria->compare('qjsort',$this->qjsort);
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('views',$this->views);
 		$criteria->compare('deleted',$this->deleted);
