@@ -342,6 +342,7 @@ $(document).ready(function(){
             };
             console.log(WxMiniProgram);
             if(typeof QFH5 != 'undefined') {
+                alert(11);
                 // 设置分享信息
                  QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
