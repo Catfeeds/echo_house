@@ -338,6 +338,7 @@ $(document).ready(function(){
               'wxPath':'pages/house_detail/house_detail?id='+detail.id, //要打开的小程序页面路径
               'title':detail.title,//分享小程序的标题
               'imageUrl':detail.images[0].url,//分享小程序的封面图
+              'url': '',
               'share_model': 0 //0:正式版；1：开发版；2：体验版
             };
             console.log(WxMiniProgram);
