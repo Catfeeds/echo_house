@@ -200,6 +200,7 @@ class PlotExt extends Plot{
                     $num = $num[0][0];
                     $numss = $num;
                     $name = str_replace($num, '', $value);
+                    // var_dump(UserExt::model()->find("phone='$numss'"),$name);exit;
                     if($name && !UserExt::model()->find("phone='$numss'")){
                         $obj = new UserExt;
                         $obj->phone = $numss;
