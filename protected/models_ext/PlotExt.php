@@ -198,12 +198,14 @@ class PlotExt extends Plot{
                 preg_match_all('/[0-9]+/', $value,$num);
                 if(isset($num[0][0])) {
                     $num = $num[0][0];
-                    if(!UserExt::model()->find("phone='$num'")){
+                    $numss = $num;
+                    $name = str_replace($num, '', $value);
+                    if($name && !UserExt::model()->find("phone='$numss'")){
                         $obj = new UserExt;
-                        $obj->phone = $num;
+                        $obj->phone = $numss;
                         $obj->status = $obj->type = 1;
                         $obj->cid = $this->company_id;
-                        $obj->name = str_replace($num, '', $value);
+                        $obj->name = $name;
                         $obj->save();
                     }
                 }
