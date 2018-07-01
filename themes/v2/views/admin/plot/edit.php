@@ -143,13 +143,13 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
             </div>
-             <!-- <div class="form-group">
+             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">指定对接</label>
                 <div class="col-md-10">
                     <?php echo $form->textField($plot,'market_user',array('class'=>'form-control','placeholder'=>'格式为：张三13861111111')); ?>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'market_users'); ?></div>
-            </div> -->
+            </div>
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">楼盘卖点</label>
                 <div class="col-md-10">
