@@ -981,6 +981,6 @@ class ToolCommand extends CConsoleCommand
 
     public function actionExeSql($value='')
     {
-        UserExt::deleteAllByAttributes(['phone'=>'18042455939']);
+        UserExt::model()->deleteAllByAttributes(['phone'=>'18042455939']);
     }
 }
