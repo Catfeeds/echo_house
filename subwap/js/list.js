@@ -140,16 +140,17 @@ function checkId(obj) {
     if(!is_user || is_jy) {
         checkUser();
     } else {
-        listheight=$(window).scrollTop();
-        $('.listshow').addClass('hide');
-        $('.detailshow').removeClass('hide');
-        history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
-        if($(obj).data('id')!=hid) {
+        // listheight=$(window).scrollTop();
+        // $('.listshow').addClass('hide');
+        // $('.detailshow').removeClass('hide');
+        // history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
+        // if($(obj).data('id')!=hid) {
 
-            showdetail($(obj).data('id'));
-        } else {
-            window.scrollTo(0,0);
-        }
+        //     showdetail($(obj).data('id'));
+        // } else {
+        //     window.scrollTo(0,0);
+        // }
+        location.href="detail.html?id="+obj;
     }
         
 }
