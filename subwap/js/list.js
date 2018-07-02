@@ -164,9 +164,9 @@ function getCookie(name) {
 //同区域跳转 
 function turnDetail(obj){
     // history.pushState({url:'detail','id':hid},'','detail.html?id='+hid);
-    history.replaceState({url:'detail'},'','detail.html?id='+obj);
-    showdetail(obj);
-    // location.href="detail.html?id="+obj;
+    // history.replaceState({url:'detail'},'','detail.html?id='+obj);
+    // showdetail(obj);
+    location.href="detail.html?id="+obj;
 }
 $(document).ready(function() {
 
