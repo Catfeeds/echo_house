@@ -140,6 +140,13 @@ function checkId(obj) {
     if(!is_user || is_jy) {
         checkUser();
     } else {
+        if(typeof QFH5 != "undefined") {
+             QFH5.getUserInfo(function(state,data){
+               if(state==1){
+                    nowphone = data.phone;
+                  } 
+            });
+        }
         listheight=$(window).scrollTop();
         $('.listshow').addClass('hide');
         $('.detailshow').removeClass('hide');
@@ -1218,7 +1225,7 @@ function showdetail(id) {
             console.log(WxMiniProgram);
             if(typeof QFH5 != 'undefined') {
                 // 设置分享信息
-                 QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
+                 QFH5.setShareInfo(detail.area+detail.street+'('+detail.title+')'+detail.price+detail.unit,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
                       if(state==1){
                           //分享成功
