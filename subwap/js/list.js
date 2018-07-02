@@ -1222,10 +1222,10 @@ function showdetail(id) {
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
                       if(state==1){
                           //分享成功
-                          alert(data.type);//分享平台
+                          alert("分享成功");//分享平台
                       }else{
                           //分享失败
-                          alert(data.error);//失败原因
+                          // alert(data.error);//失败原因
                       }
                   },3,'',JSON.stringify(WxMiniProgram));
                  // QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
