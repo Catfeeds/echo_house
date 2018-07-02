@@ -981,6 +981,25 @@ class ToolCommand extends CConsoleCommand
 
     public function actionExeSql($value='')
     {
-        UserExt::model()->deleteAllByAttributes(['phone'=>'18042455939']);
+        $page = 1;
+        // $key = "495e6105d4146af1d36053c1034bc819";
+        // $url = "http://jj58.qianfanapi.com/api1_2/user/get-wechat-info";
+        begin:
+        $sql = "select id,adduid from company where adduid>0 limit $page,200";
+        $ress = Yii::app()->db->createCommand($sql)->queryAll();
+        if($ress) {
+            foreach ($ress as $value) {
+                $addphone = Yii::app()->db->createCommand("select phone from user where qf_uid=".$value['adduid'])->queryScalar();
+                if(!$addphone) {
+                    continue;
+                }
+                Yii::app()->db->createCommand("update company set addphone='$addphone' where id=".$value['id'])->execute();
+            }
+            echo $page."=====================";
+            $page = $page+200;
+            goto begin;
+        }  else{
+            echo "finished";
+        }
     }
 }
