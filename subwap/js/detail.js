@@ -333,18 +333,25 @@ $(document).ready(function(){
             }else{
                 $('.detail-question-container').append('<div class="detail-ask-message">暂无</div>');
             }
+            var imgfor = '';
+            if(detail.images[0].url) {
+                var imgarr = detail.images[0].url.split("?");
+                if(imgarr.length>1) {
+                    imgfor = imgarr[0]+'?imageslim';
+                }
+            }
             var WxMiniProgram = {
               'wxUserName':'gh_e96ba07a8511',//小程序原始id
               'wxPath':'pages/house_detail/house_detail?id='+detail.id, //要打开的小程序页面路径
               'title':detail.title,//分享小程序的标题
-              'imageUrl':detail.images[0].url,//分享小程序的封面图
+              'imageUrl':imgfor,//分享小程序的封面图
               'url': '',
               'share_model': 0 //0:正式版；1：开发版；2：体验版
             };
             console.log(WxMiniProgram);
             if(typeof QFH5 != 'undefined') {
                 // 设置分享信息
-                 QFH5.setShareInfo(detail.area+detail.street+'('+detail.title+')'+detail.price+detail.unit,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
+                 QFH5.setShareInfo(detail.area+detail.street+'('+detail.title+')'+detail.price+detail.unit,imgfor,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
                       //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
                       if(state==1){
                           //分享成功
