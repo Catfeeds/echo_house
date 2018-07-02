@@ -285,7 +285,7 @@ $(document).ready(function() {
         }
         var winHeight = ($(window).height() - 93) / 18.75;
         $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-        history.replaceState({url:'list'},'',thisurl);
+        // history.replaceState({url:'list'},'',thisurl);
     });
         
 });
