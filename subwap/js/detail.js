@@ -340,6 +340,7 @@ $(document).ready(function(){
                     imgfor = imgarr[0]+'?imageslim';
                 }
             }
+            console.log(imgfor);
             var WxMiniProgram = {
               'wxUserName':'gh_e96ba07a8511',//小程序原始id
               'wxPath':'pages/house_detail/house_detail?id='+detail.id, //要打开的小程序页面路径
@@ -348,7 +349,7 @@ $(document).ready(function(){
               'url': '',
               'share_model': 0 //0:正式版；1：开发版；2：体验版
             };
-            console.log(WxMiniProgram);
+            // console.log(WxMiniProgram);
             if(typeof QFH5 != 'undefined') {
                 // 设置分享信息
                  QFH5.setShareInfo(detail.area+detail.street+'('+detail.title+')'+detail.price+detail.unit,imgfor,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
