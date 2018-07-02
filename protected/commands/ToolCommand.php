@@ -816,44 +816,44 @@ class ToolCommand extends CConsoleCommand
     public function actionBandV()
     {
         // $timeb = time()-60;
-        $users = UserExt::model()->findAll('status=1 and type=1 and virtual_no=""');
-        if($users) {
-            foreach ($users as $key => $value) {
-                if(!$value->phone || !is_numeric($value->phone) || strlen($value->phone)!=11)
-                    continue;
-                if(!$value->virtual_no) {
-                    $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
-                    if($vps) {
-                        $vp = $vps->phone;
-                        $nowext = $vps->max?($vps->max+1):1;
-                        $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
-                        // var_dump($nowext);exit;
-                        // 生成绑定
-                        $obj = Yii::app()->axn;
-                        $res = $obj->bindAxnExtension('默认号码池',$value->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
+        // $users = UserExt::model()->findAll('status=1 and type=1 and virtual_no=""');
+        // if($users) {
+        //     foreach ($users as $key => $value) {
+        //         if(!$value->phone || !is_numeric($value->phone) || strlen($value->phone)!=11)
+        //             continue;
+        //         if(!$value->virtual_no) {
+        //             $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
+        //             if($vps) {
+        //                 $vp = $vps->phone;
+        //                 $nowext = $vps->max?($vps->max+1):1;
+        //                 $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
+        //                 // var_dump($nowext);exit;
+        //                 // 生成绑定
+        //                 $obj = Yii::app()->axn;
+        //                 $res = $obj->bindAxnExtension('默认号码池',$value->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
 
-                        if($res->Code=='OK') {
-                            $value->virtual_no = $res->SecretBindDTO->SecretNo;
-                            $value->virtual_no_ext = $res->SecretBindDTO->Extension;
-                            $value->subs_id = $res->SecretBindDTO->SubsId;
+        //                 if($res->Code=='OK') {
+        //                     $value->virtual_no = $res->SecretBindDTO->SecretNo;
+        //                     $value->virtual_no_ext = $res->SecretBindDTO->Extension;
+        //                     $value->subs_id = $res->SecretBindDTO->SubsId;
 
-                            $value->save();
-                            Yii::log($this->virtual_no);
-                            $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$value->virtual_no'"]);
-                            if($newvps && $value->virtual_no_ext) {
-                                $newvps->max = $value->virtual_no_ext;
-                                $newvps->save();
-                            }
-                            // $value->save();
+        //                     $value->save();
+        //                     Yii::log($this->virtual_no);
+        //                     $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$value->virtual_no'"]);
+        //                     if($newvps && $value->virtual_no_ext) {
+        //                         $newvps->max = $value->virtual_no_ext;
+        //                         $newvps->save();
+        //                     }
+        //                     // $value->save();
                             
                             
-                        } else {
-                            // Yii::log(json_encode($res));
-                        }
-                    }
-                }
-            }
-        }
+        //                 } else {
+        //                     // Yii::log(json_encode($res));
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     public function actionSendFreeUser()

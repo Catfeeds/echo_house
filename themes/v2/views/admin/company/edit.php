@@ -73,6 +73,13 @@ $childArea = $parent ? AreaExt::model()->getByParent($parent)->normal()->findAll
     <div class="col-md-2"><?php echo $form->error($article, 'adduid') ?></div>
 </div>
 <div class="form-group">
+    <label class="col-md-2 control-label">发布人电话</label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'addphone', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'addphone') ?></div>
+</div>
+<div class="form-group">
     <label class="col-md-2 control-label text-nowrap">公司认证材料</label>
     <div class="col-md-8">
         <?php $this->widget('FileUpload',array('model'=>$article,'attribute'=>'image','inputName'=>'img','width'=>400,'height'=>300)); ?>

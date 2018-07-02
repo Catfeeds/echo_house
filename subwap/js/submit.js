@@ -85,6 +85,7 @@ function submit() {
 	            'CompanyExt[area]': $('.area-select').val(),
 	            'CompanyExt[image]': $('#img-url').val(),
 	            'CompanyExt[adduid]': uid,
+	            'CompanyExt[addphone]': data.phone,
 	        },
 	        function(data, status) {
 	            if (data.status == "success") {
