@@ -978,4 +978,9 @@ class ToolCommand extends CConsoleCommand
         curl_close($curlHandle);    
         return $data;
     }
+
+    public function actionExeSql($value='')
+    {
+        UserExt::model()->deleteAllByAttributes(['phone'=>'18042455939']);
+    }
 }
