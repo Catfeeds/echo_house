@@ -140,17 +140,16 @@ function checkId(obj) {
     if(!is_user || is_jy) {
         checkUser();
     } else {
-        // listheight=$(window).scrollTop();
-        // $('.listshow').addClass('hide');
-        // $('.detailshow').removeClass('hide');
-        // history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
-        // if($(obj).data('id')!=hid) {
+        listheight=$(window).scrollTop();
+        $('.listshow').addClass('hide');
+        $('.detailshow').removeClass('hide');
+        history.pushState({url:'detail'},'',$(obj).data('href').replace('#',''));
+        if($(obj).data('id')!=hid) {
 
-        //     showdetail($(obj).data('id'));
-        // } else {
-        //     window.scrollTo(0,0);
-        // }
-        location.href="detail.html?id="+$(obj).data('id');
+            showdetail($(obj).data('id'));
+        } else {
+            window.scrollTo(0,0);
+        }
     }
         
 }
@@ -165,9 +164,9 @@ function getCookie(name) {
 //同区域跳转 
 function turnDetail(obj){
     // history.pushState({url:'detail','id':hid},'','detail.html?id='+hid);
-    // history.replaceState({url:'detail'},'','detail.html?id='+obj);
-    // showdetail(obj);
-    location.href="detail.html?id="+obj;
+    history.replaceState({url:'detail'},'','detail.html?id='+obj);
+    showdetail(obj);
+    // location.href="detail.html?id="+obj;
 }
 $(document).ready(function() {
 
@@ -285,7 +284,7 @@ $(document).ready(function() {
         }
         var winHeight = ($(window).height() - 93) / 18.75;
         $('.filter-filter-bg').css({ "height": winHeight + "rem" });
-        // history.replaceState({url:'list'},'',thisurl);
+        history.replaceState({url:'list'},'',thisurl);
     });
         
 });
@@ -1207,6 +1206,38 @@ function showdetail(id) {
                 $('.detail-question-num').html('(' + detail.ask_num + ')')
             }else{
                 $('.detail-question-container').append('<div class="detail-ask-message">暂无</div>');
+            }
+            var WxMiniProgram = {
+              'wxUserName':'gh_e96ba07a8511',//小程序原始id
+              'wxPath':'pages/house_detail/house_detail?id='+detail.id, //要打开的小程序页面路径
+              'title':detail.title,//分享小程序的标题
+              'imageUrl':detail.images[0].url,//分享小程序的封面图
+              'url': '',
+              'share_model': 0 //0:正式版；1：开发版；2：体验版
+            };
+            console.log(WxMiniProgram);
+            if(typeof QFH5 != 'undefined') {
+                // 设置分享信息
+                 QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
+                      //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
+                      if(state==1){
+                          //分享成功
+                          alert(data.type);//分享平台
+                      }else{
+                          //分享失败
+                          alert(data.error);//失败原因
+                      }
+                  },3,'',JSON.stringify(WxMiniProgram));
+                 // QFH5.setShareInfo(detail.title,detail.images[0].url,'test',window.location.host+'/subwap/detail-client.html?id='+detail.id+'&p='+nowphone,function(state,data){
+                 //      //回调是所有分享操作的回调，无论从右上角菜单发起或openShareDialog或openShare发起，分享完后一定执行此回调
+                 //      if(state==1){
+                 //          //分享成功
+                 //          alert(data.type);//分享平台
+                 //      }else{
+                 //          //分享失败
+                 //          alert(data.error);//失败原因
+                 //      }
+                 //  });
             }
             
         });
