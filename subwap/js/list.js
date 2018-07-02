@@ -150,7 +150,7 @@ function checkId(obj) {
         // } else {
         //     window.scrollTo(0,0);
         // }
-        location.href="detail.html?id="+obj;
+        location.href="detail.html?id="+$(obj).data('id');
     }
         
 }
