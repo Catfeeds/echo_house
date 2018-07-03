@@ -75,6 +75,13 @@ class PlotController extends ApiController{
 							$ids[] = $ress['hid'];
 						}
 					}
+					// 楼盘表
+					$plothidsres = Yii::app()->db->createCommand("select id from plot where market_users like '%".$this->staff->phone."%'")->queryAll();
+					if($plothidsres) {
+						foreach ($plothidsres as $ress) {
+							(!in_array($ress['id'], $ids)) && $ids[] = $ress['id'];
+						}
+					}
 					$criteria->addInCondition('id',$ids);
 					// $criteria->addCondition('uid=:uid');
 					// $criteria->params[':uid'] = $this->staff->id;
