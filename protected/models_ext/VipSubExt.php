@@ -46,7 +46,9 @@ class VipSubExt extends VipSub{
     public function beforeValidate() {
         if($this->getIsNewRecord()){
             if($user = $this->user) {
+                // ${name}，您好。您分享的${pro}项目页面，收集到新的客户了。客户姓名：${username} 手机号码：${userphone}
                 $user->qf_uid && Yii::app()->controller->sendNotice('尊敬的经纪人'.$user->name.'，您好。您分享的【'.$this->plot->title.'】项目页面，收集到新的看房客户了。客户姓名：'.$this->name.' 手机号码：'.$this->vip_phone,$user->qf_uid);
+                SmsExt::sendMsg('客户报名',$user->phone,['name'=>$user->name,'pro'=>"【".$this->plot->title."】",'username'=>$this->name,'userphone'=>$this->vip_phone]);
             }
             $this->created = $this->updated = time();
         }
