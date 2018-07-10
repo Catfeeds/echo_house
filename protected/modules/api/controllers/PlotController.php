@@ -660,7 +660,7 @@ class PlotController extends ApiController{
 					];
 				}
 					
-				$re->user && $asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+				$re->user && $asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>Tools::u8_title_substr($re->title,30),'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 			}
 		}
 		$qfuidsarr = [];
