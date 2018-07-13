@@ -2158,10 +2158,10 @@ class PlotController extends ApiController{
     		if($staff->type>1) {
     			return $this->returnError('系统只支持总代用户类型成为会员');
     		}
-    		if($staff->vip_expire>time()) {
+    		if($staff->getCanSubNum()) {
     			$this->returnSuccess('bingo');
     		} else {
-    			$this->returnError('您尚未成为会员，成为会员后即可发布房源');
+    			$this->returnError('您的配额已满，请购买或更换套餐');
     		}
     	} else {
     		$this->returnError('请先登录');
