@@ -241,8 +241,11 @@ class UserExt extends User{
         if($this->vip_expire>time()) {
             return 1000;
         } elseif ($this->vip_expire_new>time()) {
+            // 上架的项目
             $num1 = PlotExt::model()->count('status=1 and uid='.$this->id);
-            $num2 = PlotMarketUserExt::model()->count('status=1 and expire>'.time().' and uid='.$this->id);
+            // 上架的项目的对接人
+                    
+            $num2 = Yii::app()->db->createCommand('select count(m.id) from plot_makert_user m left join plot p on m.hid=p.id where m.status=1 and m.expire>'.time().' and m.uid='.$this->id.' and p.status=1')->queryScalar();
             return ($this->can_sub-$num1-$num2)<=0?0:($this->can_sub-$num1-$num2);
         } else {
 

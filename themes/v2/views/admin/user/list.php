@@ -22,7 +22,10 @@ $this->breadcrumbs = array($this->pageTitle);
                 <?php echo CHtml::dropDownList('status',$status,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
             </div>
             <div class="form-group">
-                <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择会员--')); ?>
+                <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择旧版会员--')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('viptimenew',$viptimenew,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择新版会员--')); ?>
             </div>
             <button type="button" onclick="exptt()" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
