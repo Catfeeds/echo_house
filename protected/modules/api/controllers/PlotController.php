@@ -2196,7 +2196,7 @@ class PlotController extends ApiController{
 						$obj->uid = $uid;
 						$obj->hid = $hid;
 						if($obj->expire<time()) {
-							$obj->expire = $staff->vip_expire;
+							$obj->expire = $staff->vip_expire>time()?$staff->vip_expire:$staff->vip_expire_new;
 						} 
 						
 						if(!$obj->save())
