@@ -232,4 +232,18 @@ class UserExt extends User{
         }
     }
 
+    // 获取能发布的数量
+    public function getCanSubNum()
+    {
+        if($this->vip_expire>time()) {
+            return 1000;
+        } elseif ($this->vip_expire_new>time()) {
+            $num1 = PlotExt::model()->count('status=1 and uid='.$this->id);
+            $num2 = PlotMarketUserExt::model()->count('status=1 and expire>'.time().' and uid='.$this->id);
+            return ($this->can_sub-$num1-$num2)<=0?0:($this->can_sub-$num1-$num2);
+        } else {
+
+            return 0;
+        }
+    }
 }

@@ -20,6 +20,8 @@ $(document).ready(function() {
             // console.log(Date.parse(new Date()));
             if(user.vip_expire*1000>Date.parse(new Date())) {
                 $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire));
+            } else if(user.vip_expire_new*1000>Date.parse(new Date())){
+                $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire_new));
             }
             
         }
@@ -71,7 +73,7 @@ $('.gotopay').click(function () {
     qftype.num=1;
     qftype.gold_cost=0;
 
-    qftype.cash_cost=$('#finp').html();
+    qftype.cash_cost=0.01;
     var qfarray=new Array();
     qfarray[0]=qftype;
     var address=new Object();

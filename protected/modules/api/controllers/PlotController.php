@@ -1786,13 +1786,16 @@ class PlotController extends ApiController{
     public function actionCheckCanSub($phone='')
     {
     	$staff = UserExt::model()->find("phone='$phone'");
+    	if(!$staff){
+    		return $this->returnError('用户不存在');
+    	}
+    	$cansubnum = $staff->getCanSubNum();
     	// 不是会员只能发一条
     	if($this->staff && $this->staff->type!=1) {
     		return $this->returnError('仅支持总代公司发布房源，您可以至用户中心更换公司');
     	}
-    	if($staff && $staff->vip_expire<time()) {
-    		// if($staff->plots)
-    			return $this->returnError('普通用户暂不支持房源发布，请成为VIP会员后操作');
+    	if(!$cansubnum) {
+			return $this->returnError('您的发布限额已满，请购买或更换套餐');
     	}
     	// if(!$this->staff || $this->staff->type!=1) {
     	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
@@ -2102,20 +2105,21 @@ class PlotController extends ApiController{
 				$uid = Yii::app()->request->getPost('uid','');
 				$rnum = 0;
 				switch ($title) {
-					case '399':
+					case '799':
 						$time = 90*86400*$num;
-						break;
-					case '699':
-						$time = 180*86400*$num;
-						$rnum = 10;
+						$can_sub = 3;
 						break;
 					case '1299':
-						$time = 365*86400*$num;
-						$rnum = 25;
+						$time = 180*86400*$num;
+						$can_sub = 6;
 						break;
-					case '2199':
+					case '2599':
+						$time = 365*86400*$num;
+						$can_sub = 12;
+						break;
+					case '4399':
 						$time = 365*86400*2*$num;
-						$rnum = 60;
+						$can_sub = 20;
 						break;
 					
 					default:
@@ -2131,12 +2135,12 @@ class PlotController extends ApiController{
 					$this->staff = UserExt::model()->findByPk($uid);
 				}
 				if($obj = $this->staff) {
-					if($obj->vip_expire<time()) {
-						$obj->vip_expire = time()+$time;
+					if($obj->vip_expire_new<time()) {
+						$obj->vip_expire_new = time()+$time;
 					} else {
-						$obj->vip_expire = $obj->vip_expire+$time;
+						$obj->vip_expire_new = $obj->vip_expire_new+$time;
 					}
-					$obj->refresh_num += $rnum;
+					$obj->can_sub = $can_sub;
 					if(!$obj->save()) {
 						$this->returnError(current(current($obj->getErrors())));
 					}
