@@ -2171,7 +2171,7 @@ class PlotController extends ApiController{
     public function actionAddMakertNew()
     {
     	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()&& $staff = $this->staff) {
-    		if($staff->vip_expire>time()) {
+    		if($staff->getCanSubNum()) {
     			if($hid = $this->cleanXss($_POST['hid'])) {
 					$plot = PlotExt::model()->findByPk($hid);
 					if($plot->company_id!=$staff->cid) {
@@ -2206,7 +2206,7 @@ class PlotController extends ApiController{
 					// }
 				}
     		} else {
-    			return $this->returnError('您尚未成为会员或已到期，成为会员后即可发布房源');
+    			return $this->returnError('您的配额已满，请购买或更换套餐');
     		}
     	} else {
     		$this->returnError('未知错误');
