@@ -2161,7 +2161,7 @@ class PlotController extends ApiController{
     		if($staff->vip_expire>time()) {
     			$this->returnSuccess('bingo');
     		} else {
-    			$this->returnError('您尚未成为会员，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    			$this->returnError('您尚未成为会员，成为会员后即可发布房源');
     		}
     	} else {
     		$this->returnError('请先登录');
@@ -2206,7 +2206,7 @@ class PlotController extends ApiController{
 					// }
 				}
     		} else {
-    			return $this->returnError('您尚未成为会员或已到期，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    			return $this->returnError('您尚未成为会员或已到期，成为会员后即可发布房源');
     		}
     	} else {
     		$this->returnError('未知错误');
