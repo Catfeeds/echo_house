@@ -1797,6 +1797,7 @@ class PlotController extends ApiController{
     	if(!$cansubnum) {
 			return $this->returnError('您的发布限额已满，请购买或更换套餐');
     	}
+    	$this->frame['data'] = $cansubnum;
     	// if(!$this->staff || $this->staff->type!=1) {
     	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
     	// } elseif($this->staff->vip_expire<time()) {

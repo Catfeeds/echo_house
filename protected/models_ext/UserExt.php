@@ -130,6 +130,9 @@ class UserExt extends User{
         if(strstr($this->vip_expire,'-')) {
             $this->vip_expire = strtotime($this->vip_expire);
         }
+        if(strstr($this->vip_expire_new,'-')) {
+            $this->vip_expire_new = strtotime($this->vip_expire_new);
+        }
         if($this->getIsNewRecord()) {
             SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
             // Yii::log($this->phone);

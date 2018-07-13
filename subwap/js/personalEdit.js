@@ -23,13 +23,16 @@ $(document).ready(function () {
           }
           if(data.status=='success') {
             if(data.data.user.phone!=undefined) {
-              $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data) {
-                if(data.status=='error') {
-                  alert(data.msg);
-                  if(data.msg=='用户类型错误，只支持总代公司发布房源')
+              $.get('/api/plot/checkCanSub?phone='+data.data.user.phone,function(data1) {
+                if(data1.status=='error') {
+                  alert(data1.msg);
+                  if(data1.msg=='用户类型错误，只支持总代公司发布房源')
                     location.href = 'list.html';
                   else
                     location.href = 'duijierennew.html';
+                } else {
+
+                    $('#cannum').html('<strong>'+data1.data+'</strong>');
                 }
               });
               $('#pname').val(data.data.user.name);
