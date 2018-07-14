@@ -130,6 +130,9 @@ class UserExt extends User{
         if(strstr($this->vip_expire,'-')) {
             $this->vip_expire = strtotime($this->vip_expire);
         }
+        if(strstr($this->vip_expire_new,'-')) {
+            $this->vip_expire_new = strtotime($this->vip_expire_new);
+        }
         if($this->getIsNewRecord()) {
             SmsExt::sendMsg('新用户注册',$this->phone,['name'=>$this->name,'num'=>PlotExt::model()->normal()->count()+800]);
             // Yii::log($this->phone);
@@ -232,4 +235,21 @@ class UserExt extends User{
         }
     }
 
+    // 获取能发布的数量
+    public function getCanSubNum()
+    {
+        if($this->vip_expire>time()) {
+            return 1000;
+        } elseif ($this->vip_expire_new>time()) {
+            // 上架的项目
+            $num1 = PlotExt::model()->count('status=1 and uid='.$this->id);
+            // 上架的项目的对接人
+                    
+            $num2 = Yii::app()->db->createCommand('select count(m.id) from plot_makert_user m left join plot p on m.hid=p.id where m.status=1 and m.expire>'.time().' and m.uid='.$this->id.' and p.status=1')->queryScalar();
+            return ($this->can_sub-$num1-$num2)<=0?0:($this->can_sub-$num1-$num2);
+        } else {
+
+            return 0;
+        }
+    }
 }

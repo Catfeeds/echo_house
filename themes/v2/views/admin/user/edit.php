@@ -103,6 +103,17 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         </div>
     </div>
 </div>
+<div class="form-group">
+    <label class="col-md-2 control-label">新版到期时间</label>
+    <div class="col-md-4">
+        <div class="input-group date form_datetime" >
+            <?php echo $form->textField($article,'vip_expire_new',array('class'=>'form-control','value'=>($article->vip_expire_new?date('Y-m-d',$article->vip_expire_new):''))); ?>
+            <span class="input-group-btn">
+              <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+           </span>
+        </div>
+    </div>
+</div>
 <?php else:?>
     <div class="form-group">
     <label class="col-md-2 control-label">会员到期时间</label>
@@ -112,7 +123,22 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         </div>
     </div>
 </div>
+<div class="form-group">
+    <label class="col-md-2 control-label">新版到期时间</label>
+    <div class="col-md-4">
+        <div class="input-group date " >
+            <?php echo $form->textField($article,'vip_expire_new',array('class'=>'form-control','readonly'=>'readonly','value'=>($article->vip_expire_new?date('Y-m-d',$article->vip_expire_new):''))); ?>
+        </div>
+    </div>
+</div>
     <?php endif;?>
+<div class="form-group">
+    <label class="col-md-2 control-label">可发房源数<span class="required" aria-required="true">*</span></label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'can_sub', array('class' => 'form-control','readonly'=>Yii::app()->user->id == 1 || Yii::app()->user->username=='陈建新'?'':'readonly')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'can_sub') ?></div>
+</div>
 <div class="form-group">
     <label class="col-md-2 control-label">身份</label>
     <div class="col-md-4">

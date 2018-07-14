@@ -43,10 +43,10 @@ body{
 	font-size: 0.8rem;
 	display: -webkit-box;
 	overflow: hidden;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
-	white-space: inherit;
+	/*text-overflow: ellipsis;*/
+	/*-webkit-box-orient: vertical;*/
+	/*-webkit-line-clamp: 3;*/
+	/*white-space: inherit;*/
 	color: #333;
 }
 .comment-info .time{

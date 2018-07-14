@@ -59,27 +59,27 @@ class PlotMarketUserExt extends PlotMakertUser{
                     Yii::app()->controller->sendNotice('恭喜您，您已经成为'.$plot->title.'的付费对接人！
 点这里预览项目详情：'.Yii::app()->request->getHostInfo().'/subwap/detail.html?id='.$plot->id,$user->qf_uid);
                 // 绑定分机号，如果用户有分机号则不管，如果没有分机号，自动分配号码
-                if(!$user->virtual_no) {
-                    $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
-                    $vp = $vps->phone;
-                    $nowext = $vps->max?($vps->max+1):1;
-                    $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
-                    // var_dump($nowext);exit;
-                    // 生成绑定
-                    $obj = Yii::app()->axn;
-                    $res = $obj->bindAxnExtension('默认号码池',$user->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
-                    if($res->Code=='OK') {
-                        $user->virtual_no = $res->SecretBindDTO->SecretNo;
-                        $user->virtual_no_ext = $res->SecretBindDTO->Extension;
-                        $user->subs_id = $res->SecretBindDTO->SubsId;
-                        $user->save();
-                        $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
-                        $newvps->max = $user->virtual_no_ext;
-                        $newvps->save();
-                    } else {
-                        // Yii::log(json_encode($res));
-                    }
-                }
+                // if(!$user->virtual_no) {
+                //     $vps = VirtualPhoneExt::model()->find(['condition'=>"max<999",'order'=>'created desc']);
+                //     $vp = $vps->phone;
+                //     $nowext = $vps->max?($vps->max+1):1;
+                //     $nowext = $nowext<10?('00'.$nowext):($nowext<100?('0'.$nowext):$nowext);
+                //     // var_dump($nowext);exit;
+                //     // 生成绑定
+                //     $obj = Yii::app()->axn;
+                //     $res = $obj->bindAxnExtension('默认号码池',$user->phone,$nowext,date('Y-m-d H:i:s',time()+86400*1000));
+                //     if($res->Code=='OK') {
+                //         $user->virtual_no = $res->SecretBindDTO->SecretNo;
+                //         $user->virtual_no_ext = $res->SecretBindDTO->Extension;
+                //         $user->subs_id = $res->SecretBindDTO->SubsId;
+                //         $user->save();
+                //         $newvps = VirtualPhoneExt::model()->find(['condition'=>"phone='$user->virtual_no'"]);
+                //         $newvps->max = $user->virtual_no_ext;
+                //         $newvps->save();
+                //     } else {
+                //         // Yii::log(json_encode($res));
+                //     }
+                // }
 
             }
             $res = Yii::app()->controller->sendNotice(($this->plot?$this->plot->title:'').'有新的对接人'.($this->user?($this->user->name.$this->user->phone):'').'支付成功，请知晓','',1);

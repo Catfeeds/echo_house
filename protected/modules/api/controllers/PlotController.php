@@ -75,6 +75,13 @@ class PlotController extends ApiController{
 							$ids[] = $ress['hid'];
 						}
 					}
+					// 楼盘表
+					$plothidsres = Yii::app()->db->createCommand("select id from plot where market_users like '%".$this->staff->phone."%'")->queryAll();
+					if($plothidsres) {
+						foreach ($plothidsres as $ress) {
+							(!in_array($ress['id'], $ids)) && $ids[] = $ress['id'];
+						}
+					}
 					$criteria->addInCondition('id',$ids);
 					// $criteria->addCondition('uid=:uid');
 					// $criteria->params[':uid'] = $this->staff->id;
@@ -269,7 +276,7 @@ class PlotController extends ApiController{
 					else
 						$streetName = '';
 					// if(!$company) {
-					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+					$companydes = ['id'=>$value->company_id,'name'=>$uid?Tools::u8_title_substr($value->company_name,14):$value->company_name];
 					// }
 					$wyw = '';
 					$wylx1 = $value->wylx;
@@ -336,8 +343,11 @@ class PlotController extends ApiController{
 					];
 				}
 				$pager = $plots->pagination;
-				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,'refresh_num'=>$uid?$this->staff->refresh_num:''];
+				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount];
 			}
+		}
+		if($uid) {
+			$this->frame['data']['fresh_num'] = $this->staff->refresh_num;
 		}
 		if($city+$area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
 			$this->frame['data']['num'] += 800;
@@ -653,7 +663,7 @@ class PlotController extends ApiController{
 					];
 				}
 					
-				$re->user && $asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>$re->title,'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
+				$re->user && $asks[] = ['id'=>$re->id,'name'=>$re->is_nm?'匿名':$re->user->name,'title'=>Tools::u8_title_substr($re->title,30),'time'=>date('Y-m-d',$re->updated),'answers_count'=>count($re->answers),'first_answer'=>$fis];
 			}
 		}
 		$qfuidsarr = [];
@@ -1779,14 +1789,18 @@ class PlotController extends ApiController{
     public function actionCheckCanSub($phone='')
     {
     	$staff = UserExt::model()->find("phone='$phone'");
+    	if(!$staff){
+    		return $this->returnError('用户不存在');
+    	}
+    	$cansubnum = $staff->getCanSubNum();
     	// 不是会员只能发一条
     	if($this->staff && $this->staff->type!=1) {
     		return $this->returnError('仅支持总代公司发布房源，您可以至用户中心更换公司');
     	}
-    	if($staff && $staff->vip_expire<time()) {
-    		// if($staff->plots)
-    			return $this->returnError('普通用户暂不支持房源发布，请成为VIP会员后操作');
+    	if(!$cansubnum) {
+			return $this->returnError('您的发布限额已满，请购买或更换套餐');
     	}
+    	$this->frame['data'] = $cansubnum;
     	// if(!$this->staff || $this->staff->type!=1) {
     	// 	return $this->returnError('用户类型错误，只支持总代公司发布房源');
     	// } elseif($this->staff->vip_expire<time()) {
@@ -2095,20 +2109,21 @@ class PlotController extends ApiController{
 				$uid = Yii::app()->request->getPost('uid','');
 				$rnum = 0;
 				switch ($title) {
-					case '399':
+					case '799':
 						$time = 90*86400*$num;
-						break;
-					case '699':
-						$time = 180*86400*$num;
-						$rnum = 10;
+						$can_sub = 3;
 						break;
 					case '1299':
-						$time = 365*86400*$num;
-						$rnum = 25;
+						$time = 180*86400*$num;
+						$can_sub = 6;
 						break;
-					case '2199':
+					case '2599':
+						$time = 365*86400*$num;
+						$can_sub = 12;
+						break;
+					case '4399':
 						$time = 365*86400*2*$num;
-						$rnum = 60;
+						$can_sub = 20;
 						break;
 					
 					default:
@@ -2124,12 +2139,12 @@ class PlotController extends ApiController{
 					$this->staff = UserExt::model()->findByPk($uid);
 				}
 				if($obj = $this->staff) {
-					if($obj->vip_expire<time()) {
-						$obj->vip_expire = time()+$time;
+					if($obj->vip_expire_new<time()) {
+						$obj->vip_expire_new = time()+$time;
 					} else {
-						$obj->vip_expire = $obj->vip_expire+$time;
+						$obj->vip_expire_new = $obj->vip_expire_new+$time;
 					}
-					$obj->refresh_num += $rnum;
+					$obj->can_sub = $can_sub;
 					if(!$obj->save()) {
 						$this->returnError(current(current($obj->getErrors())));
 					}
@@ -2146,10 +2161,10 @@ class PlotController extends ApiController{
     		if($staff->type>1) {
     			return $this->returnError('系统只支持总代用户类型成为会员');
     		}
-    		if($staff->vip_expire>time()) {
+    		if($staff->getCanSubNum()) {
     			$this->returnSuccess('bingo');
     		} else {
-    			$this->returnError('您尚未成为会员，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    			$this->returnError('您的配额已满，请购买或更换套餐');
     		}
     	} else {
     		$this->returnError('请先登录');
@@ -2159,7 +2174,7 @@ class PlotController extends ApiController{
     public function actionAddMakertNew()
     {
     	if(!Yii::app()->user->getIsGuest()&&Yii::app()->request->getIsPostRequest()&& $staff = $this->staff) {
-    		if($staff->vip_expire>time()) {
+    		if($staff->getCanSubNum()) {
     			if($hid = $this->cleanXss($_POST['hid'])) {
 					$plot = PlotExt::model()->findByPk($hid);
 					if($plot->company_id!=$staff->cid) {
@@ -2184,7 +2199,7 @@ class PlotController extends ApiController{
 						$obj->uid = $uid;
 						$obj->hid = $hid;
 						if($obj->expire<time()) {
-							$obj->expire = $staff->vip_expire;
+							$obj->expire = $staff->vip_expire>time()?$staff->vip_expire:$staff->vip_expire_new;
 						} 
 						
 						if(!$obj->save())
@@ -2194,7 +2209,7 @@ class PlotController extends ApiController{
 					// }
 				}
     		} else {
-    			return $this->returnError('您尚未成为会员或已到期，成为会员后即可享受无限次发布项目、无限次成为对接人等特权');
+    			return $this->returnError('您的配额已满，请购买或更换套餐');
     		}
     	} else {
     		$this->returnError('未知错误');

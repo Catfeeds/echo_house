@@ -240,6 +240,9 @@ class PlotExt extends Plot{
     {
         parent::afterSave();
         if($this->getIsNewRecord()) {
+            if($this->status == 1) {
+                $this->changeS();
+            }
             Yii::app()->redis->getClient()->hSet('plot_title',$this->id,$this->title);
         }
         if($this->deleted==1) {

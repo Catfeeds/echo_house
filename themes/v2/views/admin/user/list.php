@@ -22,7 +22,10 @@ $this->breadcrumbs = array($this->pageTitle);
                 <?php echo CHtml::dropDownList('status',$status,['未通过','已通过'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择状态--')); ?>
             </div>
             <div class="form-group">
-                <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择会员--')); ?>
+                <?php echo CHtml::dropDownList('viptime',$viptime,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择旧版会员--')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::dropDownList('viptimenew',$viptimenew,['未到期会员','已到期会员'],array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择新版会员--')); ?>
             </div>
             <button type="button" onclick="exptt()" class="btn blue">搜索</button>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
@@ -47,9 +50,10 @@ $this->breadcrumbs = array($this->pageTitle);
         <th class="text-center">用户名</th>
         <th class="text-center">用户类型</th>
         <th class="text-center">电话</th>
-        <th class="text-center">虚拟号</th>
+        <!-- <th class="text-center">虚拟号</th> -->
         <th class="text-center">公司名</th>
-        <th class="text-center">会员到期时间</th>
+        <th class="text-center">旧版到期时间</th>
+        <th class="text-center">新版套餐</th>
         <th class="text-center">刷新数</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
@@ -67,9 +71,9 @@ $this->breadcrumbs = array($this->pageTitle);
             <td class="text-center"><?=$v->name?></td>
             <td class="text-center"><?=$v->type?UserExt::$ids[$v->type]:''?></td>
             <td class="text-center"><?=$v->phone?></td>
-            <td class="text-center"><?=$v->virtual_no.','.$v->virtual_no_ext?></td>
             <td class="text-center"><?=$v->companyinfo?($v->companyinfo->name):''?></td>  
             <td class="text-center"><?=$v->vip_expire?($v->vip_expire>time()?date('Y-m-d',$v->vip_expire):'已到期'):'-'?></td>  
+            <td class="text-center"><?=$v->vip_expire_new>time()?(date('Y-m-d',$v->vip_expire_new).'<br>'.$v->can_sub):'-'?></td>
             <td class="text-center"><?=$v->refresh_num?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d H:i:s',$v->updated)?></td>
