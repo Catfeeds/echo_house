@@ -276,7 +276,7 @@ class PlotController extends ApiController{
 					else
 						$streetName = '';
 					// if(!$company) {
-					$companydes = ['id'=>$value->company_id,'name'=>$uid?Tools::u8_title_substr($value->company_name,14):$value->company_name];
+					$companydes = ['id'=>$value->company_id,'name'=>$uid?Tools::u8_title_substr($value->company_name,30):$value->company_name];
 					// }
 					$wyw = '';
 					$wylx1 = $value->wylx;
