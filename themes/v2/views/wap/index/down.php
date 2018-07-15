@@ -33,7 +33,7 @@
                 </div>
                 <div class="swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="<?=Yii::app()->theme->baseUrl?>/static/wap/img/qrcode.png"></div>
+                        <div class="swiper-slide"><img src="<?=Yii::app()->theme->baseUrl?>/static/wap/img/qrcode1.png"></div>
                     </div>
                     <!-- <div class="swiper-button-next"></div> -->
                     <!-- <div class="swiper-button-prev"></div> -->
