@@ -20,7 +20,7 @@ myapp.controller('perlistCtrl',function($scope,$http) {
                 }else{
                     $scope.houselist = response.data.data.list;
                     console.log($scope.houselist)
-                     $('.number').html(response.data.data.refresh_num); 
+                     $('.number').html(response.data.data.fresh_num); 
                     // $('.count').find('b').html(response.data.data.num); 
                     if (response.data.data.num==0) {
                         // $('.customerlist').css('background-color','#f5f5f5');
