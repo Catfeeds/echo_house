@@ -23,13 +23,15 @@
                         <label>经纪圈</label>
                     </p>
                     <p class="h-font">中国房地产经纪人专属社区</p>
-                    <a class="hi-button b-r-4 js-button" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.zj58.forum"><span></span></a>
+                    <a class="hi-button b-r-4 js-button"><span></span></a>
                 </div>
             </div>
             <div class="h-content">
                 <div class="h-txt">
-                    <p>经纪圈APP是房地产经纪人的专属社区，</p>
-                    <p>已有30,0000+经纪人加入。</p>
+                    <p>经纪圈APP是房地产经纪人的专属社区</p>
+                    <p>已有30,0000+经纪人加入</p>
+                    <p>更多精彩请进入经纪圈APP</p>
+                    <p>点击右上方【关于经纪圈新房通】进入下载页面</p>
                 </div>
                 <div class="swiper">
                     <div class="swiper-wrapper">
@@ -81,10 +83,10 @@
                 //判断设备
                 if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
                     // $(".js-button").find("span").addClass("add-ios");
-                    $(".js-button").find("span").html("扫码下载APP");
+                    $(".js-button").find("span").html("更多精彩请下载APP");
                 } else if (/(Android)/i.test(navigator.userAgent)) {
                     // $(".js-button").find("span").addClass("add-android");
-                    $(".js-button").find("span").html("扫码下载APP");
+                    $(".js-button").find("span").html("更多精彩请下载APP");
                 } else {
                     window.location.href = "index.htm";
                 }
