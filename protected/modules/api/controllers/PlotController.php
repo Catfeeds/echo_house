@@ -276,7 +276,7 @@ class PlotController extends ApiController{
 					else
 						$streetName = '';
 					// if(!$company) {
-					$companydes = ['id'=>$value->company_id,'name'=>$value->company_name];
+					$companydes = ['id'=>$value->company_id,'name'=>$uid?Tools::u8_title_substr($value->company_name,30):$value->company_name];
 					// }
 					$wyw = '';
 					$wylx1 = $value->wylx;
@@ -343,8 +343,11 @@ class PlotController extends ApiController{
 					];
 				}
 				$pager = $plots->pagination;
-				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount,'refresh_num'=>$uid?$this->staff->refresh_num:''];
+				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount];
 			}
+		}
+		if($uid) {
+			$this->frame['data']['fresh_num'] = $this->staff->refresh_num;
 		}
 		if($city+$area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
 			$this->frame['data']['num'] += 800;
