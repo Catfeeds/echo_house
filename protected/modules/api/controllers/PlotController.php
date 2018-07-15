@@ -346,7 +346,7 @@ class PlotController extends ApiController{
 				$this->frame['data'] = ['list'=>$lists,'page'=>$page,'num'=>$pager->itemCount,'page_count'=>$pager->pageCount];
 			}
 		}
-		if($uid) {
+		if($this->staff) {
 			$this->frame['data']['fresh_num'] = $this->staff->refresh_num;
 		}
 		if($city+$area+$street+$aveprice+$sfprice+$wylx+$zxzt+$toptag+$company+$uid+$save==0&&!$kw) {
