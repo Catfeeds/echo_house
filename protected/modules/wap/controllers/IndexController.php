@@ -27,4 +27,10 @@ class IndexController extends WapController{
 		}
 		$this->render('findcode',['tmp'=>$tmp,'kw'=>$kw]);
 	}
+
+	public function actionDown()
+	{
+		$this->layout = 'layouts/nobase';
+		$this->render('down');
+	}
 }
