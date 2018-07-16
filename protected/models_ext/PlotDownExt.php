@@ -55,13 +55,13 @@ class PlotDownExt extends PlotDown{
         }
         else
             $this->updated = time();
-        if($this->type==2&&$this->status==1) {
-            $this->plot->status = 0;
-            $this->plot->save();
-        } elseif($this->type==1&&$this->status==1) {
-            $this->plot->status = 1;
-            $this->plot->save();
-        }
+        // if($this->type==2&&$this->status==1) {
+        //     $this->plot->status = 0;
+        //     $this->plot->save();
+        // } elseif($this->type==1&&$this->status==1) {
+        //     $this->plot->status = 1;
+        //     $this->plot->save();
+        // }
         return parent::beforeValidate();
     }
 
