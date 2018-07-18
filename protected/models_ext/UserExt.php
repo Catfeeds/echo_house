@@ -149,10 +149,10 @@ class UserExt extends User{
         }
         else {
             $this->updated = time();
-            if($this->type==1 && $this->vip_expire && $this->status==1 && Yii::app()->db->createCommand('select vip_expire from user where id='.$this->id)->queryScalar()!=$this->vip_expire) {
-                Yii::app()->db->createCommand("update plot_makert_user set expire=".$this->vip_expire." where status=1 and uid=".$this->id)->execute();
+            if($this->type==1 && $this->vip_expire_new && $this->status==1 && Yii::app()->db->createCommand('select vip_expire_new from user where id='.$this->id)->queryScalar()!=$this->vip_expire_new) {
+                Yii::app()->db->createCommand("update plot_makert_user set expire=".$this->vip_expire_new." where status=1 and uid=".$this->id)->execute();
                 SmsExt::sendMsg('充值会员成功',$this->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$this->name]);
-                Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.$this->phone.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire),'',1);
+                Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.$this->phone.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire_new),'',1);
 
             }
             // var_dump(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar());exit;
