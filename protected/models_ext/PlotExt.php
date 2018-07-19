@@ -215,7 +215,7 @@ class PlotExt extends Plot{
         if($this->getIsNewRecord()) {
             // 非会员过滤
             if($ow = $this->owner) {
-                if($ow->vip_expire<time()) {
+                if($ow->vip_expire_new<time()&&$ow->vip_expire<time()) {
                     $this->addError('uid','您目前不是会员身份，请成为会员后操作');
                 }
             }
