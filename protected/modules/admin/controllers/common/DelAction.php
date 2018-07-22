@@ -6,9 +6,7 @@
 class DelAction extends CAction{
 	public function run()
 	{
-		if(Yii::app()->user->id!=1) {
-			$this->controller->setMessage('暂无权限操作','error');
-		} else {
+		if(Yii::app()->user->id==1||Yii::app()->user->username=='陈建新') {
 			if(Yii::app()->request->getIsPostRequest()) {
 				$id = Yii::app()->request->getPost('id','');
 				$class = Yii::app()->request->getPost('class','');
@@ -39,6 +37,9 @@ class DelAction extends CAction{
 				// 	$this->controller->setMessage(current(current($model->getErrors())),'error');
 			}
 			$this->controller->setMessage('操作成功','success');	
+			
+		} else {
+			$this->controller->setMessage('暂无权限操作','error');
 		}
 			
 	}
