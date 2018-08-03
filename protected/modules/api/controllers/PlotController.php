@@ -52,11 +52,11 @@ class PlotController extends ApiController{
 		if($city&&$area+$street+$aveprice+$sfprice+$sort+$wylx+$zxzt+$toptag+$company+$save+$maxprice+$minprice==0&&$page==1&&!$kw) {
 			$areainit = 1;
 		}
-		if(!$isxcx&&$this->is_HTTPS()&&$limit!=6){
-			$city = $area;
-			$area = $street;
-			$street = 0;
-		}
+		// if(!$isxcx&&$this->is_HTTPS()&&$limit!=6){
+		// 	$city = $area;
+		// 	$area = $street;
+		// 	$street = 0;
+		// }
 		if($street && !$area) {
 			$area = AreaExt::model()->findByPk($street)->parent;
 		}
