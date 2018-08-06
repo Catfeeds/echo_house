@@ -8,6 +8,7 @@
  * @property integer $sid
  * @property string $uphone
  * @property integer $uid
+ * @property integer $pay_type
  * @property integer $type
  * @property string $num
  * @property integer $created
@@ -32,12 +33,12 @@ class StaffLog extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('created', 'required'),
-			array('sid, uid, type, created, updated', 'numerical', 'integerOnly'=>true),
+			array('sid, uid, pay_type, type, created, updated', 'numerical', 'integerOnly'=>true),
 			array('uphone', 'length', 'max'=>20),
 			array('num', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, sid, uphone, uid, type, num, created, updated', 'safe', 'on'=>'search'),
+			array('id, sid, uphone, uid, pay_type, type, num, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +63,7 @@ class StaffLog extends CActiveRecord
 			'sid' => 'Sid',
 			'uphone' => 'Uphone',
 			'uid' => 'Uid',
+			'pay_type' => 'Pay Type',
 			'type' => 'Type',
 			'num' => 'Num',
 			'created' => 'Created',
@@ -91,6 +93,7 @@ class StaffLog extends CActiveRecord
 		$criteria->compare('sid',$this->sid);
 		$criteria->compare('uphone',$this->uphone,true);
 		$criteria->compare('uid',$this->uid);
+		$criteria->compare('pay_type',$this->pay_type);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('num',$this->num,true);
 		$criteria->compare('created',$this->created);

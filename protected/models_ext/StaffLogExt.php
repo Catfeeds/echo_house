@@ -5,6 +5,7 @@
  * @date(2017.2.12)
  */
 class StaffLogExt extends StaffLog{
+    public static $paytype = [1=>'线上直接购买',2=>'支付宝转账',3=>'微信转账',4=>'银行转账'];
 	/**
      * 定义关系
      */
