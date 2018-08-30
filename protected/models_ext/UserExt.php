@@ -245,7 +245,7 @@ class UserExt extends User{
             $num1 = PlotExt::model()->count('status=1 and uid='.$this->id);
             // 上架的项目的对接人
                     
-            $num2 = Yii::app()->db->createCommand('select count(m.id) from plot_makert_user m left join plot p on m.hid=p.id where m.status=1 and m.expire>'.time().' and m.uid='.$this->id.' and p.status=1 and p.uid!='.$this->id)->queryScalar();
+            $num2 = Yii::app()->db->createCommand('select count(m.id) from plot_makert_user m left join plot p on m.hid=p.id where m.status=1 and m.deleted=0 and m.expire>'.time().' and m.uid='.$this->id.' and p.status=1 and p.uid!='.$this->id)->queryScalar();
             return ($this->can_sub-$num1-$num2)<=0?0:($this->can_sub-$num1-$num2);
         } else {
 
