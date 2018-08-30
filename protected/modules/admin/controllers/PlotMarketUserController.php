@@ -111,4 +111,13 @@ class PlotMarketUserController extends AdminController{
 		}
 		$this->setMessage('操作成功','success');	
 	}
+
+	public function actionAjaxDel($id='')
+	{
+		if($id) {
+			// $plot = PlotExt::model()->findByPk($id);
+			PlotMarketUserExt::model()->deleteAllByAttributes(['id'=>$id]);
+			$this->setMessage('操作成功','success');
+		}
+	}
 }
