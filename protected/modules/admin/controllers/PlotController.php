@@ -55,7 +55,11 @@ class PlotController extends AdminController{
 		if($value = trim($value))
             if ($type=='title') {
                 $criteria->addSearchCondition('title', $value);
-            } 
+            } elseif ($type=='phone') {
+            	$user = UserExt::model()->find("phone='$value'");
+            	$uid = $user?$user->id:'';
+            	$criteria->addCondition("uid=$uid");
+            }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
         {
