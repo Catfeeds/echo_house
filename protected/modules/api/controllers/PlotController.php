@@ -121,7 +121,8 @@ class PlotController extends ApiController{
 			// if($compas) {
 			// 	$company = $compas['id'];
 			// }else
-			$criteria->addSearchCondition('title',$kw);
+			$criteria->addCondition("title like '%$kw%' or company_name like '%$kw%'");
+			// $criteria->addSearchCondition('title',$kw);
 			
 		}
 		if($street) {
