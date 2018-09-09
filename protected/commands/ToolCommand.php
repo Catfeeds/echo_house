@@ -66,7 +66,14 @@ class ToolCommand extends CConsoleCommand
 
     public function actionClearTop()
     {
-        $plots = PlotExt::model()->findAll('sort>0 and top_time<'.time().' or qjtop_time<'.time());
+        $plots = PlotExt::model()->findAll('qjsort>0 and qjtop_time<'.time());
+        if($plots) {
+            foreach ($plots as $key => $value) {
+                $value->qjsort = 0;
+                $value->save();
+            }
+        }
+        $plots = PlotExt::model()->findAll('sort>0 and top_time<'.time());
         if($plots) {
             foreach ($plots as $key => $value) {
                 $value->sort = 0;
