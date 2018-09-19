@@ -35,6 +35,8 @@ class ToolCommand extends CConsoleCommand
     public function actionDo()
     {
         // $infos = PlotExt::model()->normal()->findAll();
+        $sql = "delete from company where name='南京好理想房地产经纪有限公司'";
+        Yii::app()->db->createCommand($sql)->execute();
         // // var_dump(count($infos));exit;
         // foreach ($infos as $key => $value) {
         //     // if(!$value->first_pay && $value->pays) {
