@@ -114,7 +114,7 @@ class AdminController extends Controller
             $data = [];
             $user = StaffExt::model()->findByPk(Yii::app()->user->id);
             $this->staff = $user;
-            if($user->arr) {
+            if($user&&$user->arr) {
                 $hisarr = json_decode($user->arr,true);
                 if($hisarr) {
                     // foreach ($hisarr as $key => $value) {

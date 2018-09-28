@@ -123,7 +123,7 @@ class CompanyController extends AdminController{
 	{
 		if($id) {
 			// $plot = PlotExt::model()->findByPk($id);
-			PlotExt::model()->deleteAllByAttributes(['id'=>$id]);
+			CompanyExt::model()->deleteAllByAttributes(['id'=>$id]);
 			$this->setMessage('操作成功','success');
 		}
 	}
