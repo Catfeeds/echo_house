@@ -33,7 +33,7 @@ class HouseMenu extends CMenu
 	 * @return void
 	 */
 	public function init(){
-		if(empty($this->items)) $this->items = $this->owner->getXinfangMenu();	//获得
+		if(empty($this->items)) $this->items = $this->owner->getVipMenu();	//获得
 		parent::init();
 	}
 
