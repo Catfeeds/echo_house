@@ -16,7 +16,7 @@ class VipLinkPager extends CLinkPager{
 		$this->selectedPageCssClass = 'active';
 		$this->prevPageLabel = '&lt;';
 		$this->nextPageLabel = '&gt;';
-		$this->header = '共'.($this->pageCount+($this->class=='user'&&(!$this->type||$this->type==2)?3056:0)).'页,'.($this->itemCount+($this->class=='user'&&(!$this->type||$this->type==2)?61105:0)).'条记录,每页'.$this->pageSize.'条';
+		$this->header = '共'.($this->pageCount+($this->class=='user'&&(!$this->type||$this->type==2)?4000:0)).'页,'.($this->itemCount+($this->class=='user'&&(!$this->type||$this->type==2)?80000:0)).'条记录,每页'.$this->pageSize.'条';
 		$this->internalPageCssClass = '';
 	}
 
