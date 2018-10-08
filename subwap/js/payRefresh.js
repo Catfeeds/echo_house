@@ -10,27 +10,32 @@ function GetQueryString(name) {
 $(document).ready(function() {
     $('.refreshNum').html(refreshNum);
     $.get('/api/config/index',function(data) {
-        $('.register-attention-text').html(data.data.add_vip_words);
-        if(data.data.is_user==false) {
-            $('.phonenum').html('请先登录');
-            alert('请先登录');
-        } else {
-            $.get('/api/plot/getOldExpire',function(data) {
-                if(data.status=='success') {
-                    num = data.data;
-                }
-            });
-            var user = data.data.user;
-            if(data.data.user_image!='')
-                $('.head-img').attr('src',data.data.user_image);
-            $('.phonenum').html(user.name);
-            // console.log(user.vip_expire*1000);
-            // console.log(Date.parse(new Date()));
-            if(user.vip_expire*1000>Date.parse(new Date())) {
-                $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire));
-            }
-            
+        // console.log(data.data.user.vip_expire_new);
+        if(data.data.user.vip_expire_new*1000<Date.parse(new Date())&&data.data.user.vip_expire*1000<Date.parse(new Date())){
+            alert('请先成为会员');
+            location.href = 'duijierennew.html';
         }
+        // $('.register-attention-text').html(data.data.add_vip_words);
+        // if(data.data.is_user==false) {
+        //     $('.phonenum').html('请先登录');
+        //     alert('请先登录');
+        // } else {
+        //     $.get('/api/plot/getOldExpire',function(data) {
+        //         if(data.status=='success') {
+        //             num = data.data;
+        //         }
+        //     });
+        //     var user = data.data.user;
+        //     if(data.data.user_image!='')
+        //         $('.head-img').attr('src',data.data.user_image);
+        //     $('.phonenum').html(user.name);
+        //     // console.log(user.vip_expire*1000);
+        //     // console.log(Date.parse(new Date()));
+        //     if(user.vip_expire*1000>Date.parse(new Date())) {
+        //         $('.status').html('您是会员账户，到期时间为：'+formatDateTime(user.vip_expire));
+        //     }
+            
+        // }
     });
     findprices($('#recom'));
 });
