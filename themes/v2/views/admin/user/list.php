@@ -35,10 +35,12 @@ $this->breadcrumbs = array($this->pageTitle);
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
-        <button onclick="expit()" type="button" class="btn yellow">导出用户</button>
+        <!-- <button onclick="expit()" type="button" class="btn yellow">导出用户</button> -->
+        <?php if(Yii::app()->user->is_m): ?>
         <a target="_blank" href="<?php echo $this->createAbsoluteUrl('export') ?>" class="btn yellow">
             导出用户 
         </a>
+        <?php endif;?>
     </div>
     
 </div>

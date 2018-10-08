@@ -19,6 +19,7 @@ class AdminIdentity extends CUserIdentity
 			$this->setState('id',1);
 			$this->setState('username','管理员');
 			$this->setState('avatar','');
+			$this->setState('is_m','1');
 			return $this->errorCode;
 		} else{
 			if($user = StaffExt::model()->normal()->find("name='".$this->username."'") ){
@@ -28,6 +29,7 @@ class AdminIdentity extends CUserIdentity
 					$this->setState('cid','');
 					$this->setState('username',$user->name);
 					$this->setState('avatar','');
+					$this->setState('is_m','0');
 					return $this->errorCode;
 				}
 			}
