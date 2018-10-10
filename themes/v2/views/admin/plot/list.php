@@ -105,7 +105,7 @@ if($parent) {
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>" data-type='ct'><?php echo $v['sort'] ?></td>
             <td  class="text-center"><?php echo $v->id ?></td>
-            <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a> <?=$v->sale_status?TagExt::model()->findByPk($v->sale_status)->name:''?></td>
+            <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a> <?=$v->sale_status&&($thistag = TagExt::model()->findByPk($v->sale_status))?$thistag->name:''?></td>
             <td class="text-center"><?php echo ($areaInfo?$areaInfo->name:'').'<br>'.($streetInfo?$streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
             <td  class="text-center"><?=$company?('<a target="_blank" href="'.$this->createUrl('list',['company'=>$company->id]).'">'.$company->name.'</a>'):'暂无'?></td>
