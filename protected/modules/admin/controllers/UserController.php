@@ -74,6 +74,8 @@ class UserController extends AdminController{
         }        $criteria->order = 'sort desc,created desc,updated desc';
         if($sort==1) {
             $criteria->order = 'vip_expire_new desc';
+        } elseif($sort==2) {
+            $criteria->order = 'vip_expire desc';
         }
         $infos = $modelName::model()->undeleted()->getList($criteria,20);
         $this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'status'=>$status,'viptime'=>$viptime,'viptimenew'=>$viptimenew]);
