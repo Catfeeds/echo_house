@@ -55,7 +55,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <!-- <th class="text-center">虚拟号</th> -->
         <th class="text-center">公司名</th>
         <th class="text-center">旧版到期时间</th>
-        <th class="text-center">新版套餐</th>
+        <th class="text-center">新版套餐 <a href="list?sort=1"><i class="fa fa-arrow-down"></i></a></th>
         <th class="text-center">刷新数</th>
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
