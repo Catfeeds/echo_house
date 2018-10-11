@@ -35,8 +35,18 @@ class ToolCommand extends CConsoleCommand
     public function actionDo()
     {
         // $infos = PlotExt::model()->normal()->findAll();
-        $sql = "delete from company where name='南京好理想房地产经纪有限公司'";
-        Yii::app()->db->createCommand($sql)->execute();
+        // 更新所有会员项目的到期时间
+        $time = time();
+        $vips = Yii::app()->db->createCommand("select id,vip_expire,vip_expire_new from user where vip_expire>$time or vip_expire_new>$time")->queryAll();
+        if($vips) {
+            foreach ($vips as $key => $value) {
+                $expire = $value['vip_expire_new']>$value['vip_expire']?$value['vip_expire_new']:$value['vip_expire'];
+                // $plot = PlotExt::model()->findAll("uid=".$value['id']);
+                Yii::app()->db->createCommand("update plot_makert_user set expire=$expire where uid=".$value['id'])->execute();
+            }
+        }
+        // $sql = "delete from company where name='南京好理想房地产经纪有限公司'";
+        // Yii::app()->db->createCommand($sql)->execute();
         // // var_dump(count($infos));exit;
         // foreach ($infos as $key => $value) {
         //     // if(!$value->first_pay && $value->pays) {

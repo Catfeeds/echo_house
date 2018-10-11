@@ -1493,13 +1493,15 @@ class PlotController extends ApiController{
     		if(!$obj->save()) {
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
+    			// 新版会员和旧版会员取较大值
+    			$expiree = $user->vip_expire_new>$user->vip_expire?$user->vip_expire_new:$user->vip_expire;
     			// 对接人
     			$mak = new PlotMarketUserExt;
     			$mak->uid = $user->id;
     			$mak->hid = $obj->id;
     			$mak->is_manager = 1;
     			$mak->status = 1;
-    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
+    			$mak->expire = $expiree>time()?$expiree:(time()+10*86400);
     			$mak->save();
     			if($imgs && count($imgs)>1) {
     				unset($imgs[0]);
@@ -1723,13 +1725,14 @@ class PlotController extends ApiController{
     			return $this->returnError(current(current($obj->getErrors())));
     		} else {
     			if(!$up) {
+    				$expiree = $user->vip_expire_new>$user->vip_expire?$user->vip_expire_new:$user->vip_expire;
     				// 对接人
 	    			$mak = new PlotMarketUserExt;
 	    			$mak->uid = $user->id;
 	    			$mak->hid = $obj->id;
 	    			$mak->is_manager = 1;
 	    			$mak->status = 1;
-	    			$mak->expire = $user->vip_expire>time()?$user->vip_expire:(time()+10*86400);
+	    			$mak->expire = $expiree>time()?$expiree:(time()+10*86400);
 	    			$mak->save();
     			}
 	    			
