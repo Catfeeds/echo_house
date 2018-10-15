@@ -1,7 +1,7 @@
 // JavaScript Document
 
 //加载百度地图API
-document.write("<scr"+"ipt type=\"text/javascript\" src=\"//api.map.baidu.com/api?v=1.2&s=1\" charset=\"utf-8\"></scr"+"ipt>");
+document.write("<scr"+"ipt type=\"text/javascript\" src=\"//api.map.baidu.com/api?v=2.0&s=1\" charset=\"utf-8\"></scr"+"ipt>");
 
 //百度地图类
 var bmap = {
