@@ -8,7 +8,7 @@
         #allmap{width:100%;height:100%;}
         p{margin-left:5px; font-size:14px;}
     </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=DvCxyFxjXZ0eqtg8Z3eSG4OAnXvi0das"></script>
     <title><?=$info->title?></title>
 </head>
 <body>

@@ -28744,7 +28744,7 @@ UE.ui = baidu.editor.ui = {};
                         if (img.className.indexOf("edui-faked-webapp") != -1) {
                             dialogName = "webappDialog"
                         }
-                        if (img.src.indexOf("http://api.map.baidu.com") != -1) {
+                        if (img.src.indexOf("//api.map.baidu.com") != -1) {
                             dialogName = "mapDialog"
                         }
                         if (img.className.indexOf("edui-faked-music") != -1) {

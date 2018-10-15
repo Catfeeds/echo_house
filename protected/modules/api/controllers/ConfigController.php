@@ -43,7 +43,7 @@ class ConfigController extends ApiController{
 	
 	public function actionGetP($lat='',$lng='')
 	{
-		$ht = "http://api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=$lat,$lng&output=json&pois=1";
+		$ht = "//api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=$lat,$lng&output=json&pois=1";
 		$res = HttpHelper::get($ht);
 		$res = str_replace('renderReverse&&renderReverse(', '', $res['content']);
 		$res = trim($res,')');

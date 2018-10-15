@@ -13,7 +13,7 @@
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/details2.js"></script>
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/750rem.js"></script>
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/swiper.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
 <div class="wrap">

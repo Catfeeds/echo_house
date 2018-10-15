@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?=Yii::app()->theme->baseUrl.'/static/home/'?>css/idangerous.swiper.css">
     <link rel="stylesheet" href="<?=Yii::app()->theme->baseUrl.'/static/home/'?>css/details.css">
     <script src="<?=Yii::app()->theme->baseUrl.'/static/home/'?>js/details.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 </head>
 <body>
 <?php $hxs = $info->hxs?>
