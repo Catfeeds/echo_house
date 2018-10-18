@@ -43,7 +43,13 @@ class ConfigController extends ApiController{
 	
 	public function actionGetP($lat='',$lng='')
 	{
-		$ht = "//api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=$lat,$lng&output=json&pois=1";
+		$http = '';
+		if($this->is_HTTPS()) {
+			$http = 'https';
+		} else {
+			$http = 'http';
+		}
+		$ht = $http."://api.map.baidu.com/geocoder/v2/?ak=sr6PAhqtv1uXzOKwORUeOPrtKYbiIr1B&callback=renderReverse&location=$lat,$lng&output=json&pois=1";
 		$res = HttpHelper::get($ht);
 		$res = str_replace('renderReverse&&renderReverse(', '', $res['content']);
 		$res = trim($res,')');
@@ -51,6 +57,17 @@ class ConfigController extends ApiController{
 		$uid = $res['result']['pois'][0]['uid'];
 		$this->frame['data'] = $uid;
 	}
+	public function is_HTTPS(){  //判断是不是https
+            if(!isset($_SERVER['HTTPS']))  return FALSE;  
+            if($_SERVER['HTTPS'] === 1){  //Apache  
+                return TRUE;  
+            }elseif($_SERVER['HTTPS'] === 'on'){ //IIS  
+                return TRUE;  
+            }elseif($_SERVER['SERVER_PORT'] == 443){ //其他  
+                return TRUE;  
+            }  
+                return FALSE;  
+   	}
 	public function actionQr($url='')
 	{
 		if($url) {
