@@ -472,8 +472,12 @@ class IndexController extends ApiController
     {
         include_once "wxBizDataCrypt.php";
         $appid = 'wxc4b995f8ee3ef609';
-        $sessionKey = $_POST['accessKey'];
-        $encryptedData = $_POST['encryptedData'];
+        $sessionKey =Yii::app()->request->getPost('accessKey','');
+        $encryptedData = Yii::app()->request->getPost('encryptedData','');
+        if(!$encryptedData) {
+            echo '';
+            Yii::app()->end();
+        }
         $iv = $_POST['iv'];
         $pc = new WXBizDataCrypt($appid, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
