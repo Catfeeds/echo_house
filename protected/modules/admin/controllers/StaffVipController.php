@@ -1,8 +1,8 @@
 <?php
 /**
- * 员工流水控制器
+ * 员工会员控制器
  */
-class StaffLogController extends AdminController{
+class StaffVipController extends AdminController{
 	
 	public $cates = [];
 
@@ -10,12 +10,12 @@ class StaffLogController extends AdminController{
 
 	public $controllerName = '';
 
-	public $modelName = 'StaffLogExt';
+	public $modelName = 'StaffVipExt';
 
 	public function init()
 	{
 		parent::init();
-		$this->controllerName = '员工流水';
+		$this->controllerName = '员工会员';
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}

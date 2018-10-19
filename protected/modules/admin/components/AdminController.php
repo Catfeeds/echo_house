@@ -79,6 +79,7 @@ class AdminController extends Controller
             ['label'=>'用户管理','icon'=>'icon-speedometer','url'=>['/admin/user/list']],
             ['label' => '员工管理', 'icon' => 'icon-speedometer', 'items' => [
                 ['label'=>'员工列表','url'=>['/admin/staff/list'],'active'=>$this->route=='admin/staff/edit'],
+                ['label'=>'员工会员记录','url'=>['/admin/staffVip/list'],'active'=>$this->route=='admin/staffVip/edit'],
                 ['label'=>'员工会员流水','url'=>['/admin/staffLog/list'],'active'=>$this->route=='admin/staffLog/edit'],
                 ['label'=>'员工项目流水','url'=>['/admin/staffLog/plotlist'],'active'=>$this->route=='admin/staffLog/plotedit'],
                 ['label'=>'员工动态流水','url'=>['/admin/staffLog/plotdtlist'],'active'=>$this->route=='admin/staffLog/plotdtedit'],

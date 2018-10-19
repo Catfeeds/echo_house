@@ -44,7 +44,7 @@ $this->breadcrumbs = array($this->pageTitle);
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->staff->name?></td>
-            <td class="text-center"><?=$v->title?></td>
+            <td class="text-center"><a target="_blank" href="/admin/plot/edit?id=<?=$v->id?>"><?=$v->title?></a></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
 

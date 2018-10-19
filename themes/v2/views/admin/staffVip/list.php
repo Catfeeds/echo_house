@@ -1,12 +1,12 @@
 <?php
-$this->pageTitle = '员工项目流水列表';
+$this->pageTitle = $this->controllerName.'列表';
 $this->breadcrumbs = array($this->pageTitle);
 ?>
 <div class="table-toolbar">
     <div class="btn-group pull-left">
         <form class="form-inline">
             <div class="form-group">
-                <?php echo CHtml::dropDownList('type',$type,array('title'=>'项目名'),array('class'=>'form-control','encode'=>false)); ?>
+                <?php echo CHtml::dropDownList('type',$type,array('title'=>'客户号码'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
             <div class="form-group">
                 <?php echo CHtml::textField('value',$value,array('class'=>'form-control chose_text')) ?>
@@ -22,40 +22,42 @@ $this->breadcrumbs = array($this->pageTitle);
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
- <!--    <div class="pull-right">
+    <div class="pull-right">
         <a href="<?php echo $this->createAbsoluteUrl('edit') ?>" class="btn blue">
             添加<?=$this->controllerName?> <i class="fa fa-plus"></i>
         </a>
-    </div> -->
+    </div>
 </div>
    <table class="table table-bordered table-striped table-condensed flip-content table-hover">
     <thead class="flip-content">
     <tr>
         <th class="text-center">ID</th>
         <th class="text-center">员工姓名</th>
-        <th class="text-center">项目信息</th>
-        <th class="text-center">动态信息</th>
-        <!-- <th class="text-center">费用</th> -->
+        <th class="text-center">会员信息</th>
+        <th class="text-center">到期时间</th>
+        <!-- <th class="text-center">费用类型</th> -->
+        <!-- <th class="text-center">付款方式</th> -->
         <th class="text-center">添加时间</th>
         <th class="text-center">修改时间</th>
+        <th class="text-center">操作</th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $k=>$v): $plot = $v->plot; ?>
+    <?php foreach($infos as $k=>$v): $user = $v->user; ?>
         <tr>
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->staff->name?></td>
-            <td class="text-center"><a target="_blank" href="/admin/plot/edit?id=<?=$plot->id?>"><?=$plot->title?></a></td>
-            <td class="text-center"><?=Tools::u8_title_substr($v->content,100)?></td>
+            <td class="text-center"><?=$user&&$user->companyinfo?($user->name.' '.$user->phone.' '.($user->companyinfo?$user->companyinfo->name:'')):''?></td>
+            <td class="text-center"><?=$user->vip_expire>$user->vip_expire_new?date('Y-m-d',$user->vip_expire):date('Y-m-d',$user->vip_expire_new)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
 
-<!--             <td style="text-align:center;vertical-align: middle">
+            <td style="text-align:center;vertical-align: middle">
                 <a href="<?php echo $this->createUrl('edit',array('id'=>$v->id)); ?>" class="btn default btn-xs green"><i class="fa fa-edit"></i> 修改 </a>
                 <?php echo CHtml::htmlButton('删除', array('data-toggle'=>'confirmation', 'class'=>'btn btn-xs red', 'data-title'=>'确认删除？', 'data-btn-ok-label'=>'确认', 'data-btn-cancel-label'=>'取消', 'data-popout'=>true,'ajax'=>array('url'=>$this->createUrl('del'),'type'=>'get','success'=>'function(data){location.reload()}','data'=>array('id'=>$v->id,'class'=>get_class($v)))));?>
 
 
-            </td> -->
+            </td>
         </tr>
     <?php endforeach;?>
     </tbody>

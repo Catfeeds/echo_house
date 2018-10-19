@@ -120,4 +120,18 @@ class PlotMarketUserController extends AdminController{
 			$this->setMessage('操作成功','success');
 		}
 	}
+
+	public function actionGetVip($phone='')
+	{
+		if($user = UserExt::model()->find("phone='$phone'")) {
+			$expire = $user->vip_expire>$user->vip_expire_new?$user->vip_expire:$user->vip_expire_new;
+			if($expire>time()) {
+				echo json_encode(date("Y-m-d",$expire));
+			} else {
+				echo json_encode('该用户不是会员或已到期');
+			}
+		}else {
+			echo json_encode('该用户不是会员或已到期');
+		}
+	}
 }

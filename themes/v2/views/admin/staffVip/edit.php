@@ -15,51 +15,18 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">经纪人电话</label>
+    <label class="col-md-2 control-label">会员号码</label>
     <div class="col-md-4">
-        <input type="text" class="form-control userphone"  name="userphone" value="<?=$userphone?>">  
-        <span class="help-inline" onclick="chekvip(this)">点击查询到期时间</span>     
+        <?php echo $form->textField($article, 'uphone', array('class' => 'form-control')); ?>
     </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'uphone') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">楼盘</label>
+    <label class="col-md-2 control-label">选择员工</label>
     <div class="col-md-4">
-<?php if($hid):?>
-  <input type="text" readonly="readonly" class="form-control"  value="<?=PlotExt::model()->findByPk($hid)->title?>">
-  <input type="hidden" name="<?=get_class($article).'[hid]'?>"  value="<?=$hid?>">
- <?php else:?>
-  
-        <?php echo $form->dropDownList($article, 'hid', Yii::app()->redis->getClient()->hGetAll('plot_title'), array('value'=>$hid?$hid:'','class' => 'form-control select2','empty'=>'')); ?>
-    
- <?php endif;?> 
- </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">到期时间</label>
-    <div class="col-md-4">
-        <div class="input-group date form_datetime" >
-            <?php echo $form->textField($article,'expire',array('class'=>'form-control','value'=>($article->expire?date('Y-m-d',$article->expire):''))); ?>
-            <span class="input-group-btn">
-              <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-           </span>
-        </div>
+        <?php echo $form->dropDownList($article, 'sid', CHtml::listData(StaffExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control', 'encode' => false)); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'hid') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">是否发布人</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'is_manager', ['否','是'], array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'is_manager') ?></div>
-</div>
-<div class="form-group">
-    <label class="col-md-2 control-label">状态</label>
-    <div class="col-md-4">
-        <?php echo $form->radioButtonList($article, 'status', PlotMarketUserExt::$status, array('separator' => '')); ?>
-    </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'status') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'sid') ?></div>
 </div>
 <div class="form-actions">
     <div class="row">
@@ -74,14 +41,7 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
 
 <?php
 $js = "
-    function chekvip(obj)
-        {
-          var phone = $('.userphone').val();
-          $.get('getVip?phone='+phone,function(data){
-              $(obj).after('<span>'+data+'</span>');
-          })
 
-        }
     var getHousesAjax =
      {
         url: '".$this->createUrl('/admin/plot/AjaxGetHouse')."',"."
@@ -142,7 +102,6 @@ $js = "
             callback(data);
           }
         });
-        
 
              $('.form_datetime').datetimepicker({
                  autoclose: true,
