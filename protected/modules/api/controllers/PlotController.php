@@ -2112,6 +2112,7 @@ class PlotController extends ApiController{
 				$num = $this->cleanXss($_POST['num']);
 				$uid = Yii::app()->request->getPost('uid','');
 				$rnum = 0;
+				$can_sub = 0;
 				switch ($title) {
 					case '799':
 						$time = 90*86400*$num;
