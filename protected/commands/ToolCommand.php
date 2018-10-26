@@ -4259,8 +4259,8 @@ class ToolCommand extends CConsoleCommand
                 $comobj->name = $com;
                 $comobj->type = 2;
                 $comobj->status = 1;
-                $comobj->area = 190;
-                $comobj->city = 324;
+                $comobj->area = 324;
+                $comobj->street = 190;
                 $comobj->save();
             }
             $phone = $value['phone'];
