@@ -559,7 +559,7 @@ class PlotController extends AdminController{
 			// }
 			// exit;
 			// var_dump($tagArray);exit;
-			if($house->getIsNewRecord()) {
+			if(!($house->staff_id)) {
 				$house->staff_id = Yii::app()->user->id;
 			}
 			if($house->save()) {
