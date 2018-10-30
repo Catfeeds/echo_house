@@ -85,7 +85,8 @@ if($parent) {
             <th class="text-center">id</th>
             <th class="text-center">标题</th>
             <th class="text-center">区域</th>
-            <th class="text-center">楼盘发布人</th>
+            <th class="text-center">发布人</th>
+            <th class="text-center">对应员工</th>
             <th class="text-center">总代公司</th>
             <th class="text-center">对接人数</th>
             <th class="text-center">拨打量</th>
@@ -98,7 +99,7 @@ if($parent) {
         </tr>
     </thead>
     <tbody>
-    <?php foreach($infos as $v): $owner = $v->owner;$company = $v->company;$areaInfo = $v->areaInfo; $streetInfo = $v->streetInfo;?>
+    <?php foreach($infos as $v): $owner = $v->owner;$company = $v->company;$areaInfo = $v->areaInfo; $streetInfo = $v->streetInfo;$staff = $v->staff;?>
         <tr>
             <td style="text-align:center;vertical-align: middle" class="warning sort_edit"
                 data-id="<?php echo $v['id'] ?>" data-type='qj'><?php echo $v['qjsort'] ?></td>
@@ -108,6 +109,7 @@ if($parent) {
             <td  class="text-center"><a href="<?=$this->createUrl('/subwap/detail.html?id='.$v->id)?>" target="_blank"><?php echo $v->title ?></a> <?=$v->sale_status&&($thistag = TagExt::model()->findByPk($v->sale_status))?$thistag->name:''?></td>
             <td class="text-center"><?php echo ($areaInfo?$areaInfo->name:'').'<br>'.($streetInfo?$streetInfo->name:''); ?></td>
             <td  class="text-center"><?php echo $owner?($owner->name.$owner->phone.' '.($owner->vip_expire>time()?'<br>会员':'')):'' ?></td>
+            <td  class="text-center"><?php echo $staff?($staff->name):'' ?></td>
             <td  class="text-center"><?=$company?('<a target="_blank" href="'.$this->createUrl('list',['company'=>$company->id]).'">'.$company->name.'</a>'):'暂无'?></td>
             <td  class="text-center"><a target="_blank" href="<?=$this->createUrl('/admin/plotMarketUser/list',['hid'=>$v->id])?>"><?php echo Yii::app()->db->createCommand("select count(id) from plot_makert_user where hid=".$v->id)->queryScalar() ?></a></td>
             <td  class="text-center"><?php echo $v->call_num ?></td>

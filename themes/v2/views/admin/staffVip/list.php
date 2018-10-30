@@ -48,7 +48,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <td style="text-align:center;vertical-align: middle"><?php echo $v->id; ?></td>
             <td class="text-center"><?=$v->staff->name?></td>
             <td class="text-center"><?=$user&&$user->companyinfo?($user->name.' '.$user->phone.' '.($user->companyinfo?$user->companyinfo->name:'')):''?></td>
-            <td class="text-center"><?=$user->vip_expire>$user->vip_expire_new?date('Y-m-d',$user->vip_expire):date('Y-m-d',$user->vip_expire_new)?></td>
+            <td class="text-center"><?=$user?($user->vip_expire>$user->vip_expire_new?date('Y-m-d',$user->vip_expire):date('Y-m-d',$user->vip_expire_new)):''?></td>
             <td class="text-center"><?=date('Y-m-d',$v->created)?></td>
             <td class="text-center"><?=date('Y-m-d',$v->updated)?></td>
 
