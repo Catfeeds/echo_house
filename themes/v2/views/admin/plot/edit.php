@@ -123,7 +123,7 @@ $childArea1 = $parent1 ? AreaExt::model()->getByParent($parent1)->normal()->find
             <div class="form-group">
                 <label class="col-md-2 control-label text-nowrap">总代公司</label>
                 <div class="col-md-10">
-                    <?php echo $form->dropDownList($plot, 'company_id',  CHtml::listData(CompanyExt::model()->normal()->findAll('type=1'),'id','name'), array('class'=>'form-control select2','empty'=>'无')); ?>
+                    <?php echo $form->dropDownList($plot, 'company_id',  CHtml::listData(CompanyExt::model()->normal()->findAll('type=1 and address!=""'),'id','name'), array('class'=>'form-control select2','empty'=>'无')); ?>
                 </div>
                 <div class="col-md-12"><?php echo $form->error($plot, 'company_id'); ?></div>
             </div>
