@@ -78,7 +78,9 @@ $js = "
         {
           var phone = $('.userphone').val();
           $.get('getVip?phone='+phone,function(data){
-              $(obj).after('<span>'+data+'</span>');
+              data = eval('(' + data + ')');
+              // console.log(data);
+              $(obj).after('<span>'+data.data+'</span>');
           })
 
         }
