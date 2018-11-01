@@ -2335,6 +2335,12 @@ class PlotController extends ApiController{
     		if(!$note || !$hid) {
     			return $this->returnError('参数错误');
     		}
+    		if($this->staff->type==1) {
+    			return $this->returnError('很抱歉，当前身份暂无权限点评');
+    		}
+    		if(Yii::app()->db->createCommand("select id from plot_dp where hid=$hid and note='$note' and uid=".$this->staff->id)) {
+    			return $this->returnError('请勿重复点评');
+    		}
     		$obj = new PlotDpExt;
     		$obj->uid = $this->staff->id;
     		$obj->is_nm = $is_nm;
@@ -2355,6 +2361,12 @@ class PlotController extends ApiController{
     		$hid = Yii::app()->request->getPost('hid',0);
     		if(!$title || !$hid) {
     			return $this->returnError('参数错误');
+    		}
+    		if($this->staff->type==1) {
+    			return $this->returnError('很抱歉，当前身份暂无权限点评');
+    		}
+    		if(Yii::app()->db->createCommand("select id from plot_ask where hid=$hid and title='$title' and uid=".$this->staff->id)) {
+    			return $this->returnError('请勿重复提问');
     		}
     		$obj = new PlotAskExt;
     		$obj->uid = $this->staff->id;
@@ -2377,6 +2389,9 @@ class PlotController extends ApiController{
     		$hid = Yii::app()->request->getPost('hid',0);
     		if(!$note || !$aid || !$hid) {
     			return $this->returnError('参数错误');
+    		}
+    		if(Yii::app()->db->createCommand("select id from plot_answer where hid=$hid and aid=$aid and note='$note' and uid=".$this->staff->id)) {
+    			return $this->returnError('请勿重复回答');
     		}
     		$obj = new PlotAnswerExt;
     		$obj->uid = $this->staff->id;
