@@ -91,7 +91,8 @@ class AdminController extends Controller
                 ['label' => '域名管理', 'url' => ['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
                 ['label' => '客户管理', 'url' => ['/admin/plotUser/list'],'active'=>$this->route=='admin/plotUser/edit'],
             ]],
-            // ['label'=>'推广管理','icon'=>'icon-speedometer','url'=>['/admin/url/list'],'active'=>$this->route=='admin/url/edit'],
+            ['label'=>'中介库管理','icon'=>'icon-speedometer','url'=>['/admin/alluser/list'],'active'=>$this->route=='admin/alluser/edit'],
+            ['label'=>'群发管理','icon'=>'icon-speedometer','url'=>['/admin/qf/list'],'active'=>$this->route=='admin/qf/edit'],
             ['label'=>'站点配置','icon'=>'icon-speedometer','url'=>['/admin/site/list'],'active'=>$this->route=='admin/site/edit'||$this->route=='admin/site/list'],
         ];
     }
