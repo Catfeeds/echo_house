@@ -15,26 +15,35 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
 <div class="form-group">
-    <label class="col-md-2 control-label">用户</label>
+    <label class="col-md-2 control-label">是否全部群发</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control select2', 'encode' => false,'empty'=>'请选择')); ?>
+        <?php echo $form->radioButtonList($article, 'is_all', ['否','是'], array('separator' => '')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'is_all') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">域名</label>
+    <label class="col-md-2 control-label">城市名</label>
     <div class="col-md-4">
-        <?php echo $form->textField($article, 'url', array('class' => 'form-control')); ?>
+        <?php echo $form->textField($article, 'area', array('class' => 'form-control')); ?>
+        <div class="help-block">如果全部群发此项不填</div>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'url') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'area') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">备案信息</label>
+    <label class="col-md-2 control-label">模板名</label>
     <div class="col-md-4">
-        <?php echo $form->textField($article, 'beian', array('class' => 'form-control')); ?>
+        <?php echo $form->textField($article, 'code', array('class' => 'form-control')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'beian') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'code') ?></div>
 </div>
+
+<!-- <div class="form-group">
+    <label class="col-md-2 control-label">变量</label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'data', array('class' => 'form-control')); ?><div class="help-block">变量名name num</div>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'data') ?></div>
+</div> -->
 <div class="form-actions">
     <div class="row">
         <div class="col-md-offset-3 col-md-9">

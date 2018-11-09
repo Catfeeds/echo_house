@@ -14,26 +14,34 @@ $this->breadcrumbs = array($this->controllerName.'管理', $this->pageTitle);
         'horizontal','inserttable','|',
         'print','preview','searchreplace']]")); ?>
 <?php $form = $this->beginWidget('HouseForm', array('htmlOptions' => array('class' => 'form-horizontal'))) ?>
+
 <div class="form-group">
-    <label class="col-md-2 control-label">用户</label>
+    <label class="col-md-2 control-label">城市</label>
     <div class="col-md-4">
-        <?php echo $form->dropDownList($article, 'uid', CHtml::listData(UserExt::model()->normal()->findAll(),'id','name'), array('class' => 'form-control select2', 'encode' => false,'empty'=>'请选择')); ?>
+        <?php echo $form->textField($article, 'area', array('class' => 'form-control')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'uid') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'area') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">域名</label>
+    <label class="col-md-2 control-label">姓名</label>
     <div class="col-md-4">
-        <?php echo $form->textField($article, 'url', array('class' => 'form-control')); ?>
+        <?php echo $form->textField($article, 'name', array('class' => 'form-control')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'url') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'name') ?></div>
 </div>
 <div class="form-group">
-    <label class="col-md-2 control-label">备案信息</label>
+    <label class="col-md-2 control-label">公司</label>
     <div class="col-md-4">
-        <?php echo $form->textField($article, 'beian', array('class' => 'form-control')); ?>
+        <?php echo $form->textField($article, 'company', array('class' => 'form-control')); ?>
     </div>
-    <div class="col-md-2"><?php echo $form->error($article, 'beian') ?></div>
+    <div class="col-md-2"><?php echo $form->error($article, 'company') ?></div>
+</div>
+<div class="form-group">
+    <label class="col-md-2 control-label">手机</label>
+    <div class="col-md-4">
+        <?php echo $form->textField($article, 'phone', array('class' => 'form-control')); ?>
+    </div>
+    <div class="col-md-2"><?php echo $form->error($article, 'phone') ?></div>
 </div>
 <div class="form-actions">
     <div class="row">
