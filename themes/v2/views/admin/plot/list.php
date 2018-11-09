@@ -120,7 +120,7 @@ if($parent) {
             <td class="text-center"><?php echo CHtml::ajaxLink(UserExt::$status[$v->status],$this->createUrl('changeStatus'), array('type'=>'get', 'data'=>array('id'=>$v->id,'class'=>get_class($v)),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-sm '.UserExt::$statusStyle[$v->status])); ?></td>
             <td  class="text-center">
             <?php echo CHtml::ajaxLink('清除发布人',$this->createUrl('cleanPublisher'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-xs yellow')); ?>
-            <?php if(Yii::app()->user->id == 1 || Yii::app()->user->username=='陈建新'):?>
+            <?php if(Yii::app()->user->id == 1 || Yii::app()->user->username=='陈建新'|| Yii::app()->user->username=='王静'):?>
                 <?php echo CHtml::ajaxLink('刷新',$this->createUrl('refresh'), array('type'=>'get', 'data'=>array('id'=>$v->id),'success'=>'function(data){location.reload()}'), array('class'=>'btn btn-xs blue')); ?>
             <?php endif;?>
                 <a target="_blank" href="<?=$this->createUrl('/admin/plotMarketUser/edit',['hid'=>$v->id])?>" class="btn btn-xs green">新增对接人</a>
