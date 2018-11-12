@@ -25,11 +25,11 @@ class AlluserController extends AdminController{
 		$criteria = new CDbCriteria;
 		if($value = trim($value))
             if ($type=='title') {
-                $criteria->addCondition('name', $value);
+                $criteria->addCondition("name='$value'");
             } elseif ($type=='phone') {
-            	$criteria->addCondition('phone', $value);
+            	$criteria->addCondition("phone='$value'");
             } elseif ($type=='com') {
-            	$criteria->addCondition('com', $value);
+            	$criteria->addCondition("com='$value'");
             }
         //添加时间、刷新时间筛选
         if($time_type!='' && $time!='')
