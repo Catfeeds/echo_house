@@ -15,10 +15,11 @@ $this->breadcrumbs = array($this->pageTitle);
                 <?php echo CHtml::dropDownList('time_type',$time_type,array('created'=>'添加时间','updated'=>'修改时间'),array('class'=>'form-control','encode'=>false)); ?>
             </div>
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
-            <button type="submit" class="btn blue">搜索</button>
             <div class="form-group">
                 <?php echo CHtml::dropDownList('area',$area,$areaarr,array('class'=>'form-control chose_select select2','encode'=>false,'prompt'=>'--选择城市--')); ?>
             </div>
+            <button type="submit" class="btn blue">搜索</button>
+            
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
     </div>
