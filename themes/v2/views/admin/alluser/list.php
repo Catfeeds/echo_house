@@ -61,7 +61,25 @@ $this->breadcrumbs = array($this->pageTitle);
 <?php $this->widget('VipLinkPager', array('pages'=>$pager)); ?>
 
 <script>
-<?php Tools::startJs(); ?>
+<?php Tools::startJs(); 
+Yii::app()->clientScript->registerScriptFile('/static/global/plugins/select2/select2.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile('/static/global/plugins/select2/select2.css');
+Yii::app()->clientScript->registerCssFile('/static/admin/pages/css/select2_custom.css');
+
+$js = "
+            $(function(){
+               $('.select2').select2({
+                  placeholder: '请选择',
+                  allowClear: true
+               });
+
+            });
+
+
+            ";
+
+Yii::app()->clientScript->registerScript('add',$js,CClientScript::POS_END);
+?>
     setInterval(function(){
         $('#AdminIframe').height($('#AdminIframe').contents().find('body').height());
         var $panel_title = $('#fade-title');
