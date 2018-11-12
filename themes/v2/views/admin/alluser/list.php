@@ -17,7 +17,7 @@ $this->breadcrumbs = array($this->pageTitle);
             <?php Yii::app()->controller->widget("DaterangepickerWidget",['time'=>$time,'params'=>['class'=>'form-control chose_text']]);?>
             <button type="submit" class="btn blue">搜索</button>
             <div class="form-group">
-                <?php echo CHtml::dropDownList('area',$area,$areaarr,array('class'=>'form-control chose_select','encode'=>false,'prompt'=>'--选择公司类型--')); ?>
+                <?php echo CHtml::dropDownList('area',$area,$areaarr,array('class'=>'form-control chose_select select2','encode'=>false,'prompt'=>'--选择城市--')); ?>
             </div>
             <a class="btn yellow" onclick="removeOptions()"><i class="fa fa-trash"></i>&nbsp;清空</a>
         </form>
