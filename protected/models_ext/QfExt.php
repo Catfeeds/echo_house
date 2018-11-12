@@ -57,6 +57,20 @@ class QfExt extends Qf{
                     }
                 }
             }
+        } else {
+
+            $allnums = AlluserExt::model()->count("area='".$this->area."'");
+            $plotNum = PlotExt::model()->count();
+            $ct = 0;
+            for ($i=0; $i < $allnums/1000; $i+=1000) { 
+                $j = $i*1000+1;
+                $sql = "select phone,name from alluser where area='".$this->area."' limit $j,1000";
+                if($datas = Yii::app()->db->createCommand($sql)->queryAll()) {
+                    foreach ($datas as $key => $value) {
+                        SmsExt::qf($this->code,$value['phone'],['name'=>$value['name'],'num'=>$plotNum]);
+                    }
+                }
+            }
         }
         if($this->getIsNewRecord())
             $this->created = $this->updated = time();
