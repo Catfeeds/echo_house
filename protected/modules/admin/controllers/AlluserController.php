@@ -19,7 +19,7 @@ class AlluserController extends AdminController{
 		// $this->cates = CHtml::listData(LeagueExt::model()->normal()->findAll(),'id','name');
 		// $this->cates1 = CHtml::listData(TeamExt::model()->normal()->findAll(),'id','name');
 	}
-	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='')
+	public function actionList($type='title',$value='',$time_type='created',$time='',$cate='',$area='')
 	{
 		$modelName = $this->modelName;
 		$criteria = new CDbCriteria;
@@ -47,9 +47,22 @@ class AlluserController extends AdminController{
 			$criteria->addCondition('status=:cid');
 			$criteria->params[':cid'] = $cate;
 		}
+		if($area) {
+			$criteria->addCondition('area=:area');
+			$criteria->params[':area'] = $area;
+		}
 		$criteria->order = 'updated desc';
 		$infos = $modelName::model()->getList($criteria,20);
-		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,]);
+		$sql = "select count(id),area from alluser group by area";
+		$ress = Yii::app()->db->createCommand($sql)->queryAll();
+		$areaarr = [];
+		if($ress) {
+			foreach ($ress as $res) {
+				$areaarr[$res['area']] = $res['area'];
+			}
+		}
+		// var_dump($areaarr);exit;
+		$this->render('list',['cate'=>$cate,'infos'=>$infos->data,'cates'=>$this->cates,'pager'=>$infos->pagination,'type' => $type,'value' => $value,'time' => $time,'time_type' => $time_type,'areaarr'=>$areaarr,'area'=>$area]);
 	}
 
 	public function actionEdit($id='')
