@@ -149,19 +149,25 @@ class UserExt extends User{
         }
         else {
             $this->updated = time();
-            if($this->type==1 && $this->vip_expire_new && $this->status==1 && Yii::app()->db->createCommand('select vip_expire_new from user where id='.$this->id)->queryScalar()!=$this->vip_expire_new) {
-                Yii::app()->db->createCommand("update plot_makert_user set expire=".$this->vip_expire_new." where status=1 and uid=".$this->id)->execute();
-                SmsExt::sendMsg('充值会员成功',$this->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$this->name]);
-                Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.$this->phone.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire_new),'',1);
+            // 10s内防止操作
+            if($this->updated-Yii::app()->db->createCommand('select updated from user where id='.$this->id)->queryScalar()<5) {
+                $this->addError('name','操作太频繁，请5s后操作');
+            } else {
+                if($this->type==1 && $this->vip_expire_new && $this->status==1 && Yii::app()->db->createCommand('select vip_expire_new from user where id='.$this->id)->queryScalar()!=$this->vip_expire_new) {
+                    Yii::app()->db->createCommand("update plot_makert_user set expire=".$this->vip_expire_new." where status=1 and uid=".$this->id)->execute();
+                    SmsExt::sendMsg('充值会员成功',$this->phone,['phone'=>SiteExt::getAttr('qjpz','site_wx'),'name'=>$this->name]);
+                    Yii::app()->controller->sendNotice($this->companyinfo->name.'-'.$this->name.$this->phone.'会员支付成功,到期时间为'.date('Y-m-d',$this->vip_expire_new),'',1);
 
+                }
+                // var_dump(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar());exit;
+                if($this->status==1 && !(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar())) {
+                    $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
+                    // var_dump(SmsExt::sendMsg('经纪人注册通过',$this->phone););exit;
+                    SmsExt::sendMsg('经纪人注册通过',$this->phone);
+                    // HttpHelper::get('http://fang.jj58.com.cn/api/index/sendNotice?uid='.$this->qf_uid.'&words=您的账号已通过审核，欢迎访问经纪圈新房通');
+                }
             }
-            // var_dump(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar());exit;
-            if($this->status==1 && !(Yii::app()->db->createCommand('select status from user where id='.$this->id)->queryScalar())) {
-                $res = Yii::app()->controller->sendNotice('您的新房通账号已通过审核，欢迎访问经纪圈新房通',$this->qf_uid);
-                // var_dump(SmsExt::sendMsg('经纪人注册通过',$this->phone););exit;
-                SmsExt::sendMsg('经纪人注册通过',$this->phone);
-                // HttpHelper::get('http://fang.jj58.com.cn/api/index/sendNotice?uid='.$this->qf_uid.'&words=您的账号已通过审核，欢迎访问经纪圈新房通');
-            }
+                
         }
         return parent::beforeValidate();
     }
